@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+    const a = [1,2,3];
+    const b = [...a]; // 스프레드 연산자 . a를 복사
+    console.log(b);
+    const c = [0,...a,4]
+    console.log(c);
+
+    const a2=[1,2,3];
+    const b2 = a2.concat(4);
+    console.log(`a2의 값은${a2}`)
+    console.log(`b2의 값은${b2}`)
+
+    const a3 = [1,2,3];
+    const b3 = a3.filter((n)=>{return n !=1});
+    //ture 인것만 출력 > 2,3 
+    //삭제할때 씀
+    console.log(b3)
+
+    const a4 = [1,2,3];
+    const b4 = a4.slice(0,2);
+    console.log(b4);
+    const c4 = [...a4.slice(0,2),4 , ...a4.slice(2,3)];
+    console.log(c4);
+
+
+
+    // 반복문
+    const a5 = [1,2,3];
+    a5.forEach((n)=>{console.log(n);}); // 리턴못함
+
+    const b5=a5.map((n)=>n + 10); // 값 가공가능
+    console.log(b5);
+
+
+    //수정
+    const users = [
+        {id:1, name:"이름", phone:"2222"},
+        {id:2, name:"이름2", phone:"4444"},
+        {id:3, name:"이름3", phone:"12345"},
+    ];
+
+    const updateUserDto = {
+        id:2, name:"홍길동"
+    }
+
+    // users 의 1번배열 name 변경
+    // const usersUpdate = {...users[1],name:"바뀐네임"};
+
+    const NewUsers = users.map(u=> u.id === updateUserDto.id ? {...u,...updateUserDto}:u)
+    console.log("NewUsers",NewUsers);
+    //일치하는 id 가 있으면 updateUserDto 로 변경
+
+</script>
+</html>
