@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Home from "../components/Home/Home";
 
 function HomePage() {
   //http 요청은 페이지에서 하는거 권장
   const [boards, setBoards] = useState([]);
+
+  const [number, setNumber] = useState(0);
+
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     let data = [
@@ -15,13 +17,18 @@ function HomePage() {
     ];
 
     setBoards([...data]);
+    setUser({ id: 1, username: `ssar` });
   }, []);
 
   return (
     <>
-      <Header />
-      <Home boards={boards} />
-      <Footer />
+      <Home
+        boards={boards}
+        setBoards={setBoards}
+        number={number}
+        setNumber={setNumber}
+        user={user}
+      />
     </>
   );
 }

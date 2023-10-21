@@ -1,15 +1,20 @@
 import React from "react";
-import styled from "styled-components";
 import Login from "../components/Login/Login";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    // navigate(-1); // 뒤로가기
+    navigate("/"); // 루트 경로로 이동
+  };
+
   return (
     <>
-      <Header />
+      <button onClick={goBack}>뒤로가기</button>
       <Login />
-      <Footer />
     </>
   );
 }
