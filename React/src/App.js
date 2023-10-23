@@ -1,15 +1,7 @@
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import ListPage from "./OnePageCRUD/OnePageCRUD";
+import React from "react";
 
 function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<ListPage />} />
-      </Routes>
-    </>
-  );
+  return <div>App</div>;
 }
 
 export default App;
