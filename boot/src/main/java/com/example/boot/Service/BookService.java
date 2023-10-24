@@ -1,8 +1,18 @@
 package com.example.boot.Service;
 
-import org.springframework.stereotype.Service;
+import com.example.boot.Entity.Book;
 
+import java.util.List;
 
-@Service
-public class BookService {
+public interface BookService {
+
+    Book saveBook(Book book);
+
+    Book getBookById(Long id);
+
+    List<Book> getAllBookData();
+
+    Book update(Long id,Book book);
+
+   void delete(Long id);
 }
