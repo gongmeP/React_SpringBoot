@@ -22,16 +22,19 @@ public class BookServiceImpl implements BookService {
     }
 
 
+    @Transactional
     @Override
     public Book getBookById(Long id) {
         return bookRepository.findById(id).orElseThrow(()->new IllegalArgumentException("ID 를 확인해주세요"));
     }
 
+    @Transactional
     @Override
     public List<Book> getAllBookData() {
         return bookRepository.findAll();
     }
 
+    @Transactional
     @Override
     public Book update(Long id, Book book) {
         Book bookEntity = bookRepository.findById(id).orElseThrow(()->new IllegalArgumentException("ID 를 확인해주세요"));
@@ -40,6 +43,7 @@ public class BookServiceImpl implements BookService {
         return bookEntity;
     }
 
+    @Transactional
     @Override
     public String delete(Long id) {
       bookRepository.deleteById(id);

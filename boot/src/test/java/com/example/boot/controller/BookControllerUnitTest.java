@@ -76,4 +76,47 @@ public class BookControllerUnitTest {
                 .andExpect(jsonPath("$.[0].title").value("스프링부트"))
                 .andDo(MockMvcResultHandlers.print());
     }
+
+    @Test
+    public void findById_Test() throws Exception{
+        //given
+        Long id = 1L;
+        when(bookService.getBookById(id)).thenReturn(new Book(1L,"자바","kyun"));
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get("/book/{id}",id)
+                .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        //then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("자바"))
+                .andDo(MockMvcResultHandlers.print());
+
+
+    }
+
+    @Test
+    public void update_Test() throws Exception{
+        //given
+        Long id = 1L;
+        Book book = new Book(null, "수정하기", "균");
+        String content = new ObjectMapper().writeValueAsString(book);
+        when(bookService.update(id,book)).thenReturn(new Book(1L, "수정하기", "균"));
+
+        // When
+        ResultActions resultActions =
+                mockMvc.perform(put("/book/{id}",id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+                        .accept(MediaType.APPLICATION_JSON));
+
+
+        //then
+        resultActions
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value("수정하기"))
+                .andDo(MockMvcResultHandlers.print());
+
+    }
 }
