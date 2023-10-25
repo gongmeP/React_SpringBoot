@@ -1,4 +1,4 @@
-package com.example.boot.controller;
+package com.example.boot.Controller;
 
 import com.example.boot.Entity.Book;
 import com.example.boot.Service.BookService;
@@ -16,7 +16,7 @@ public class BookController {
     @PostMapping("/book")
     public ResponseEntity<?> save(@RequestBody Book book){ //json
 
-        return new ResponseEntity<>(bookService.saveBook(book),HttpStatus.OK);
+        return new ResponseEntity<>(bookService.saveBook(book),HttpStatus.CREATED);
     }
 
     @GetMapping("/book")

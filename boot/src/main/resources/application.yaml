@@ -16,3 +16,4 @@ spring:
           ddl-auto: create
           naming:
             physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardlmpl
+          show-sql: true
