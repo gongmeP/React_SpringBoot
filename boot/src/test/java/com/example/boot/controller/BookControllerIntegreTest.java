@@ -21,6 +21,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -32,8 +33,9 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,6 +58,7 @@ public class BookControllerIntegreTest {
     @BeforeEach // AUTO_INCREMENT 초기화
     public void init(){
         entityManager.createNativeQuery("ALTER TABLE book ALTER COLUMN id RESTART WITH 1").executeUpdate();
+//        entityManager.createNativeQuery("ALTER TABLE book AUTO_INCREMENT = 1").executeUpdate();
     }
 
 
@@ -140,7 +143,15 @@ public class BookControllerIntegreTest {
     @Test
     public void update_Test() throws Exception{
         //given
+
         Long id = 1L;
+
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(null,"스프링부트","park"));
+        books.add(new Book(null,"리엑트","park2"));
+        books.add(new Book(null,"Junit","park3"));
+        bookRepository.saveAll(books);
+
         Book book = new Book(null, "수정하기", "균");
         String content = new ObjectMapper().writeValueAsString(book);
 
@@ -156,10 +167,39 @@ public class BookControllerIntegreTest {
         //then
         resultActions
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.title").value("수정하기"))
                 .andDo(MockMvcResultHandlers.print());
 
     }
 
+
+    @Test
+    public void delete_Test() throws Exception{
+        //given
+        Long id = 1L;
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(null,"스프링부트","park"));
+        books.add(new Book(null,"리엑트","park2"));
+        books.add(new Book(null,"Junit","park3"));
+        bookRepository.saveAll(books);
+
+
+        // When
+        ResultActions resultActions =
+                mockMvc.perform(delete("/book/{id}",id)
+                        .accept(MediaType.TEXT_PLAIN));
+
+        //then
+        resultActions
+                .andExpect(status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
+
+        MvcResult requestResult = resultActions.andReturn();
+        String result = requestResult.getRequest().getContentAsString();
+
+        assertEquals("ok",result);
+
+    }
 
 }

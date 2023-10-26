@@ -1,9 +1,12 @@
 package com.example.boot.Repository;
 
 
+import com.example.boot.Entity.Book;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.transaction.Transactional;
 
@@ -16,5 +19,14 @@ public class BookRepositoryUnitTest {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Test
+    public void save_test(){
+        Book book = new Book(null,"123","1234");
+
+        Book bookEntity = bookRepository.save(book);
+
+        assertEquals("123",bookEntity.getTitle());
+    }
 
 }

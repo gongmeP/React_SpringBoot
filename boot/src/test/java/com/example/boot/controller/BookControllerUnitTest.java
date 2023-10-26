@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*; // post get
@@ -21,6 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 
 @WebMvcTest
 public class BookControllerUnitTest {
@@ -117,6 +123,31 @@ public class BookControllerUnitTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").value("수정하기"))
                 .andDo(MockMvcResultHandlers.print());
+
+    }
+
+    @Test
+    public void delete_Test() throws Exception{
+        //given
+        Long id = 1L;
+
+
+        when(bookService.delete(id)).thenReturn("ok");
+
+        // When
+        ResultActions resultActions =
+                mockMvc.perform(delete("/book/{id}",id)
+                        .accept(MediaType.TEXT_PLAIN));
+
+        //then
+        resultActions
+                .andExpect(status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
+
+        MvcResult requestResult = resultActions.andReturn();
+        String result = requestResult.getResponse().getContentAsString();
+
+        assertEquals("ok", result);
 
     }
 }
