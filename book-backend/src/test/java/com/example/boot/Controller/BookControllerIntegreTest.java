@@ -57,8 +57,8 @@ public class BookControllerIntegreTest {
 
     @BeforeEach // AUTO_INCREMENT 초기화
     public void init(){
-//        entityManager.createNativeQuery("ALTER TABLE book ALTER COLUMN id RESTART WITH 1").executeUpdate();
-        entityManager.createNativeQuery("ALTER TABLE book AUTO_INCREMENT = 1").executeUpdate();
+        entityManager.createNativeQuery("ALTER TABLE book ALTER COLUMN id RESTART WITH 1").executeUpdate();
+//        entityManager.createNativeQuery("ALTER TABLE book AUTO_INCREMENT = 1").executeUpdate();
     }
 
 
@@ -196,7 +196,7 @@ public class BookControllerIntegreTest {
                 .andDo(MockMvcResultHandlers.print());
 
         MvcResult requestResult = resultActions.andReturn();
-        String result = requestResult.getResponse().getContentAsString();
+        String result = requestResult.getRequest().getContentAsString();
 
         assertEquals("ok",result);
 
