@@ -29,18 +29,21 @@ public class BookController {
     }
 
     @GetMapping("/book/{id}")
+    @CrossOrigin
     public ResponseEntity<?> findById(@PathVariable Long id){
 
         return new ResponseEntity<>(bookService.getBookById(id),HttpStatus.OK);
     }
 
     @PutMapping("/book/{id}")
+    @CrossOrigin
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Book book){
 
         return new ResponseEntity<>(bookService.update(id,book),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/book/{id}")
+    @CrossOrigin
     public ResponseEntity<?> deleteById(@PathVariable Long id){
 
         return new ResponseEntity<>(bookService.delete(id),HttpStatus.CREATED);
