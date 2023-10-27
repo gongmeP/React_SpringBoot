@@ -14,11 +14,14 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping("/book")
+    @CrossOrigin
     public ResponseEntity<?> save(@RequestBody Book book){ //json
+
 
         return new ResponseEntity<>(bookService.saveBook(book),HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @GetMapping("/book")
     public ResponseEntity<?> findAll(){
 
