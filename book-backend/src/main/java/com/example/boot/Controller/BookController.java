@@ -46,6 +46,8 @@ public class BookController {
     @CrossOrigin
     public ResponseEntity<?> deleteById(@PathVariable Long id){
 
+        System.out.println(id);
+
         return new ResponseEntity<>(bookService.delete(id),HttpStatus.CREATED);
     }
 
