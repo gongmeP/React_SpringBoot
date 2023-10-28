@@ -38,7 +38,8 @@ public class BookController {
     @PutMapping("/book/{id}")
     @CrossOrigin
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Book book){
-
+        System.out.println(id);
+        System.out.println(book);
         return new ResponseEntity<>(bookService.update(id,book),HttpStatus.CREATED);
     }
 
@@ -46,7 +47,7 @@ public class BookController {
     @CrossOrigin
     public ResponseEntity<?> deleteById(@PathVariable Long id){
 
-        System.out.println(id);
+
 
         return new ResponseEntity<>(bookService.delete(id),HttpStatus.CREATED);
     }

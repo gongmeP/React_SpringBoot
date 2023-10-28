@@ -39,7 +39,7 @@ function Detail(props) {
   return (
     <>
       <h1>상세보기</h1>
-      <Link to={`./updageForm/${id}`}>
+      <Link to={`/updateForm/${id}`}>
         <a className="btn btn-warning">수정</a>
       </Link>
       <Button variant="danger" onClick={deleteBook}>
