@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AgreeCheckSpan1,
   AgreeMainStyled,
@@ -6,12 +6,11 @@ import {
   Agree_check,
 } from '../../styledcomponents/JoinForm.styled';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function JoinForm2() {
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
-  const [email, setEmail] = useState('');
-  const [emailvalue, setEmailvalue] = useState('');
   const [member, setMember] = useState({
     mid: '',
     mpass: '',
@@ -66,34 +65,30 @@ function JoinForm2() {
   };
 
   const memberadd = (e) => {
-    // if (member.mid == '') {
-    //   alert('아이디를 입력해주세요.');
-    //   return;
-    // }
-    // if (member.mpass == '') {
-    //   alert('패스워드를 입력해주세요.');
-    //   return;
-    // }
-    // if (member.mid == '') {
-    //   alert('아이디를 입력해주세요.');
-    //   return;
-    // }
-    // if (member.mname == '') {
-    //   alert('이름을 입력해주세요.');
-    //   return;
-    // }
-    // if (member.memail == '') {
-    //   alert('이메일을 입력해주세요.');
-    //   return;
-    // }
-    // if (member.mnumber == '') {
-    //   alert('전화번호를 입력해주세요.');
-    //   return;
-    // }
-    // if (member.maddress == '') {
-    //   alert('주소를 입력해주세요.');
-    //   return;
-    // }
+    if (member.mid === '') {
+      alert('아이디를 입력해주세요.');
+      return;
+    }
+    if (member.mpass === '') {
+      alert('패스워드를 입력해주세요.');
+      return;
+    }
+    if (member.mname === '') {
+      alert('이름을 입력해주세요.');
+      return;
+    }
+    if (member.memail === '') {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+    if (member.mnumber === '') {
+      alert('전화번호를 입력해주세요.');
+      return;
+    }
+    if (member.maddress === '') {
+      alert('주소를 입력해주세요.');
+      return;
+    }
 
     e.preventDefault();
     fetch('http://localhost:8080/addMember', {
@@ -110,11 +105,12 @@ function JoinForm2() {
           return null;
         }
       })
-      .then((res) => {
-        console.log(2, res);
-      });
+      .then((res) => {});
   };
-
+  const navigate = useNavigate();
+  const cancel = () => {
+    navigate('/');
+  };
   return (
     <AgreeMainStyled>
       <AgreeStyled>회원가입</AgreeStyled>
@@ -254,7 +250,7 @@ function JoinForm2() {
                 회원가입
               </Button>
               <Button
-                onClick={''}
+                onClick={cancel}
                 style={{ width: '30%', marginTop: '20px' }}
                 variant="primary"
               >
