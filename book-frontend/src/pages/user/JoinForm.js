@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import {
   AgreeCheckEm,
   AgreeCheckInput,
@@ -10,14 +11,10 @@ import {
   Agtext,
 } from '../../styledcomponents/JoinForm.styled';
 import { Button } from 'react-bootstrap';
-
 function JoinForm() {
   const [agreementText1, setAgreementText1] = useState('');
   const [agreementText2, setAgreementText2] = useState('');
   const [isAgreed, setIsAgreed] = useState(false);
-
-  const [Chk1, setChk1] = useState(false);
-  const [Chk2, setChk2] = useState(false);
 
   useEffect(() => {
     async function fetchAgreementText(url) {
@@ -55,6 +52,8 @@ function JoinForm() {
       !document.getElementById('ag_ck2').checked
     ) {
       alert('이용약관 및 개인정보 수집에 동의해야만 회원가입이 가능합니다.');
+    } else {
+      window.location.href = '/Joinform2';
     }
   }
   return (
@@ -84,9 +83,9 @@ function JoinForm() {
         <Agtext id="agtext2">{agreementText2}</Agtext>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
+            onClick={agg_btn1}
             style={{ width: '50%', marginTop: '20px' }}
             variant="secondary"
-            onClick={() => agg_btn1()}
           >
             다음단계
           </Button>

@@ -9,6 +9,7 @@ import Detail from './pages/book/Detail';
 import LoginForm from './pages/user/LoginForm';
 import JoinForm from './pages/user/JoinForm';
 import UpdateForm from './pages/book/UpdateForm';
+import JoinForm2 from './pages/user/JoinForm2';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/book/:id" element={<Detail />} />
           <Route path="/loginForm" element={<LoginForm />} />
           <Route path="/joinForm" element={<JoinForm />} />
+          <Route path="/joinForm2" element={<JoinForm2 />} />
           <Route path="/updateForm/:id" element={<UpdateForm />} />
         </Routes>
       </Container>
