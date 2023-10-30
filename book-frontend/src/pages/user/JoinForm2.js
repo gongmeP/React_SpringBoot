@@ -32,6 +32,32 @@ function JoinForm2() {
     }).open();
   };
 
+  const memberadd = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:8080/addMember', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(member),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then((res) => {
+        if (res !== null) {
+          navigate('/');
+          console.log(2, res);
+        } else {
+          alert('책 등록에 실패하였습니다.');
+        }
+      });
+  };
+
   return (
     <AgreeMainStyled>
       <AgreeStyled>회원가입</AgreeStyled>
@@ -137,7 +163,7 @@ function JoinForm2() {
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
-                onClick={''}
+                onClick={memberadd}
                 style={{ width: '30%', marginTop: '20px', marginRight: '10px' }}
                 variant="warning"
               >
