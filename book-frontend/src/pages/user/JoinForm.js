@@ -16,6 +16,9 @@ function JoinForm() {
   const [agreementText2, setAgreementText2] = useState('');
   const [isAgreed, setIsAgreed] = useState(false);
 
+  const [Chk1, setChk1] = useState(false);
+  const [Chk2, setChk2] = useState(false);
+
   useEffect(() => {
     async function fetchAgreementText(url) {
       try {
@@ -47,11 +50,13 @@ function JoinForm() {
   };
 
   function agg_btn1() {
-    if (!isAgreed) {
+    if (
+      !document.getElementById('ag_ck1').checked ||
+      !document.getElementById('ag_ck2').checked
+    ) {
       alert('이용약관 및 개인정보 수집에 동의해야만 회원가입이 가능합니다.');
     }
   }
-
   return (
     <AgreeMainStyled>
       <AgreeStyled>회원가입</AgreeStyled>
