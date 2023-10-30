@@ -12,15 +12,44 @@ function JoinForm2() {
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
   const [emailvalue, setEmailvalue] = useState('');
+  const [member, setMember] = useState({
+    mid: '',
+    mpass: '',
+    mname: '',
+    memail: '',
+    mnumber: '',
+    maddress: '',
+  });
+  const [lastaddes, setLastaddes] = useState('');
+  const setLastaddes1 = (e) => {
+    const value = e.target.value;
+    const fullAddress = `${address} ${value}`;
+    setLastaddes(fullAddress);
+
+    setMember({
+      ...member,
+      maddress: fullAddress,
+    });
+  };
+  const datain = (e) => {
+    setMember({ ...member, [e.target.name]: e.target.value });
+    console.log(member);
+  };
 
   const EmailChange = (e) => {
     const value = e.target.value;
-    setEmail(value);
+    setMember({
+      ...member,
+      memail: value,
+    });
   };
 
   const thisEmail = (e) => {
     const emailvalue = e.target.value;
-    setEmail(email + '@' + emailvalue);
+    setMember({
+      ...member,
+      memail: `${member.memail}@${emailvalue}`,
+    });
   };
 
   const Postgo = () => {
@@ -28,11 +57,44 @@ function JoinForm2() {
       oncomplete: function (data) {
         setZipcode(data.zonecode);
         setAddress(data.address);
+        setMember({
+          ...member,
+          maddress: `${data.zonecode} ${data.address}`,
+        });
       },
     }).open();
   };
 
   const memberadd = (e) => {
+    // if (member.mid == '') {
+    //   alert('아이디를 입력해주세요.');
+    //   return;
+    // }
+    // if (member.mpass == '') {
+    //   alert('패스워드를 입력해주세요.');
+    //   return;
+    // }
+    // if (member.mid == '') {
+    //   alert('아이디를 입력해주세요.');
+    //   return;
+    // }
+    // if (member.mname == '') {
+    //   alert('이름을 입력해주세요.');
+    //   return;
+    // }
+    // if (member.memail == '') {
+    //   alert('이메일을 입력해주세요.');
+    //   return;
+    // }
+    // if (member.mnumber == '') {
+    //   alert('전화번호를 입력해주세요.');
+    //   return;
+    // }
+    // if (member.maddress == '') {
+    //   alert('주소를 입력해주세요.');
+    //   return;
+    // }
+
     e.preventDefault();
     fetch('http://localhost:8080/addMember', {
       method: 'POST',
@@ -49,12 +111,7 @@ function JoinForm2() {
         }
       })
       .then((res) => {
-        if (res !== null) {
-          navigate('/');
-          console.log(2, res);
-        } else {
-          alert('책 등록에 실패하였습니다.');
-        }
+        console.log(2, res);
       });
   };
 
@@ -69,7 +126,12 @@ function JoinForm2() {
           <Form>
             <Row className="justify-content-center">
               <Col md={8}>
-                <Form.Control placeholder="아이디" />
+                <Form.Control
+                  placeholder="아이디"
+                  value={member.mid}
+                  onChange={datain}
+                  name="mid"
+                />
               </Col>
               <Col>
                 <Button
@@ -83,7 +145,13 @@ function JoinForm2() {
             </Row>
             <Form.Group className="mb-3" controlId="formPlaintextPassword">
               <Col>
-                <Form.Control type="password" placeholder="비밀번호" />
+                <Form.Control
+                  type="password"
+                  placeholder="비밀번호"
+                  value={member.mpass}
+                  onChange={datain}
+                  name="mpass"
+                />
               </Col>
             </Form.Group>
             <Form.Group
@@ -97,7 +165,12 @@ function JoinForm2() {
 
             <Form.Group className="mb-3">
               <Col>
-                <Form.Control placeholder="이름" />
+                <Form.Control
+                  placeholder="이름"
+                  value={member.mname}
+                  onChange={datain}
+                  name="mname"
+                />
               </Col>
             </Form.Group>
 
@@ -109,8 +182,9 @@ function JoinForm2() {
                 <Form.Control
                   style={{ marginRight: '10px' }}
                   placeholder="이메일"
-                  value={email}
+                  value={member.memail}
                   onChange={EmailChange}
+                  name="memail"
                 />
 
                 <Form.Select onChange={thisEmail} style={{ width: '50%' }}>
@@ -126,7 +200,12 @@ function JoinForm2() {
 
             <Form.Group className="mb-3">
               <Col>
-                <Form.Control placeholder="휴대폰 번호" />
+                <Form.Control
+                  placeholder="휴대폰 번호"
+                  value={member.mnumber}
+                  onChange={datain}
+                  name="mnumber"
+                />
               </Col>
             </Form.Group>
 
@@ -156,7 +235,12 @@ function JoinForm2() {
               </Form.Group>
               <Form.Group>
                 <Col>
-                  <Form.Control className="mb-3" placeholder="상세주소" />
+                  <Form.Control
+                    className="mb-3"
+                    placeholder="상세주소"
+                    onChange={setLastaddes1}
+                    name="maddress"
+                  />
                 </Col>
               </Form.Group>
             </Row>

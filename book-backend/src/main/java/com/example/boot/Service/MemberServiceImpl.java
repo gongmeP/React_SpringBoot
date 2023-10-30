@@ -4,6 +4,7 @@ import com.example.boot.Entity.Member;
 import com.example.boot.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository MemberRepository;
 
     @Override
+    @Transactional
     public Member saveMember(Member member) {
         return  MemberRepository.save(member);
     }

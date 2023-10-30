@@ -26,6 +26,6 @@ public class Member {
     private String memail;
     private String mnumber;
     private String maddress;
-    private LocalDateTime mTime;
+    private LocalDateTime mTime = LocalDateTime.now();
 
 }
