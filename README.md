@@ -13,6 +13,7 @@
 - npm install react-router-dom
 - npm install redux react-redux
 - npm install react-bootstrap bootstrap
+- npm install styled-components
 
 "txt
 import 'bootstrap/dist/css/bootstrap.min.css';
