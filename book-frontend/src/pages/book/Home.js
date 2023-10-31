@@ -6,17 +6,18 @@ import Page from '../../components/Page';
 function Home() {
   const [books, setBooks] = useState([]);
   const [bookEA, setBookEA] = useState(1);
+  const [Pages, setPages] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:8080/book', { method: 'GET' })
+    fetch(`http://localhost:8080/book?page=${Pages}`, { method: 'GET' })
       .then((res) => res.json())
       .then((res) => {
-        console.log(1, res.content);
+        console.log(1, res);
 
         setBooks(res.content);
         setBookEA(res.content.length);
       });
-  }, []);
+  }, [Pages]);
 
   return (
     <>
@@ -25,7 +26,7 @@ function Home() {
           <BookItem key={book.id} book={book} />
         ))}
       </Row>
-      <Page bookEA={bookEA}></Page>
+      <Page bookEA={bookEA} setPages={setPages} Pages={Pages}></Page>
     </>
   );
 }

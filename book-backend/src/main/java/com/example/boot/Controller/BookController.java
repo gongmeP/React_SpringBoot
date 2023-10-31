@@ -26,7 +26,7 @@ public class BookController {
 
     @CrossOrigin
     @GetMapping("/book")
-    public ResponseEntity<?> findAll(@PageableDefault(page =0,size=12,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
+    public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 12,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
         return new ResponseEntity<>(bookService.getAllBookData(pageable),HttpStatus.OK);
     }
