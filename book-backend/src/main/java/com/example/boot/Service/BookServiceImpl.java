@@ -3,6 +3,8 @@ package com.example.boot.Service;
 import com.example.boot.Entity.Book;
 import com.example.boot.Repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +32,8 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public List<Book> getAllBookData() {
-        return bookRepository.findAll();
+    public Page<Book> getAllBookData(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 
     @Transactional

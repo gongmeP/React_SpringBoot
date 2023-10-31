@@ -1,6 +1,8 @@
 package com.example.boot.Service;
 
 import com.example.boot.Entity.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ public interface BookService {
 
     Book getBookById(Long id);
 
-    List<Book> getAllBookData();
+    Page<Book> getAllBookData(Pageable pageable);
 
     Book update(Long id,Book book);
 

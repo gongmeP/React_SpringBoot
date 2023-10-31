@@ -3,6 +3,9 @@ package com.example.boot.Controller;
 import com.example.boot.Entity.Book;
 import com.example.boot.Service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +26,9 @@ public class BookController {
 
     @CrossOrigin
     @GetMapping("/book")
-    public ResponseEntity<?> findAll(){
+    public ResponseEntity<?> findAll(@PageableDefault(page =0,size=12,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
-        return new ResponseEntity<>(bookService.getAllBookData(),HttpStatus.OK);
+        return new ResponseEntity<>(bookService.getAllBookData(pageable),HttpStatus.OK);
     }
 
     @GetMapping("/book/{id}")
