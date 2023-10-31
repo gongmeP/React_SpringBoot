@@ -5,7 +5,7 @@ import {
   AgreeStyled,
   Agree_check,
 } from '../../styledcomponents/JoinForm.styled';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function JoinForm2() {
@@ -64,7 +64,7 @@ function JoinForm2() {
     }).open();
   };
 
-  const memberadd = (e) => {
+  const memberadd = () => {
     if (member.mid === '') {
       alert('아이디를 입력해주세요.');
       return;
@@ -90,7 +90,6 @@ function JoinForm2() {
       return;
     }
 
-    e.preventDefault();
     fetch('http://localhost:8080/addMember', {
       method: 'POST',
       headers: {
@@ -106,9 +105,36 @@ function JoinForm2() {
         }
       })
       .then((res) => {});
+    setShowCompleteModal(true);
   };
+
   const navigate = useNavigate();
-  const cancel = () => {
+
+  const [showadd, setShowadd] = useState(false);
+  const [shownoadd, setShownoadd] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
+
+  const handleCloseCompleteModal = () => {
+    setShowCompleteModal(false);
+  };
+  const memberadd1 = () => {
+    setShowadd(false);
+    memberadd();
+  };
+
+  const memberadd2 = () => {
+    setShowadd(false);
+  };
+
+  const noadd1 = () => {
+    navigate('/');
+  };
+
+  const noadd2 = () => {
+    setShownoadd(false);
+  };
+
+  const gohome = () => {
     navigate('/');
   };
   return (
@@ -116,12 +142,12 @@ function JoinForm2() {
       <AgreeStyled>회원가입</AgreeStyled>
 
       <Agree_check>
-        <AgreeCheckSpan1>2. 기본정보</AgreeCheckSpan1>
+        <AgreeCheckSpan1>기본정보 입력</AgreeCheckSpan1>
 
         <Container className="panel" style={{ marginTop: '10px' }}>
           <Form>
             <Row className="justify-content-center">
-              <Col md={8}>
+              <Col sm={7}>
                 <Form.Control
                   placeholder="아이디"
                   value={member.mid}
@@ -172,7 +198,7 @@ function JoinForm2() {
 
             <Row>
               <Col
-                className="mb-2 d-flex align-items-center"
+                className="mb-3 d-flex align-items-center"
                 controlId="formPlaintextemail"
               >
                 <Form.Control
@@ -206,15 +232,15 @@ function JoinForm2() {
             </Form.Group>
 
             <Row className="justify-content-center">
-              <Col md={8}>
+              <Col sm={7}>
                 <Form.Control placeholder="우편번호" value={zipcode} readOnly />
               </Col>
-              <Col>
+              <Col sm={5}>
                 <Button
                   onClick={Postgo}
                   variant="secondary"
                   className="mb-0"
-                  style={{ verticalAlign: '15px' }}
+                  style={{ verticalAlign: '15px', fontSize: '14px' }}
                 >
                   우편번호 찾기
                 </Button>
@@ -243,19 +269,53 @@ function JoinForm2() {
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
-                onClick={memberadd}
+                onClick={() => setShowadd(true)}
                 style={{ width: '30%', marginTop: '20px', marginRight: '10px' }}
-                variant="warning"
+                variant="primary"
               >
                 회원가입
               </Button>
+
               <Button
-                onClick={cancel}
+                onClick={() => setShownoadd(true)}
                 style={{ width: '30%', marginTop: '20px' }}
-                variant="primary"
+                variant="warning"
               >
                 취소
               </Button>
+
+              <Modal show={showadd} onHide={setShowadd}>
+                <Modal.Body>입력하신 정보로 회원가입 하시겠습니까?</Modal.Body>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={memberadd1}>
+                    네
+                  </Button>
+                  <Button variant="secondary" onClick={memberadd2}>
+                    아니오
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+              <Modal show={showCompleteModal} onHide={handleCloseCompleteModal}>
+                <Modal.Body>가입이 완료되셨습니다</Modal.Body>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={gohome}>
+                    확인
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+              <Modal show={shownoadd} onHide={setShownoadd}>
+                <Modal.Body>회원가입 을 취소하시겠습니까?</Modal.Body>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={noadd1}>
+                    네
+                  </Button>
+                  <Button variant="secondary" onClick={noadd2}>
+                    아니오
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </div>
           </Form>
         </Container>

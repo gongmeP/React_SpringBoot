@@ -61,7 +61,7 @@ function JoinForm() {
       <AgreeStyled>회원가입</AgreeStyled>
 
       <Agree_check>
-        <AgreeCheckSpan1>1. 약관동의</AgreeCheckSpan1>
+        <AgreeCheckSpan1>약관동의</AgreeCheckSpan1>
         <AgreeChecklabel1>
           <AgreeCheckInput
             type="checkbox"
@@ -85,7 +85,7 @@ function JoinForm() {
           <Button
             onClick={agg_btn1}
             style={{ width: '50%', marginTop: '20px' }}
-            variant="secondary"
+            variant="primary"
           >
             다음단계
           </Button>
