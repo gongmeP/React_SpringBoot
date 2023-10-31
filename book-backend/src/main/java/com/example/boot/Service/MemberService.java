@@ -1,5 +1,6 @@
 package com.example.boot.Service;
 
+import com.example.boot.Entity.Book;
 import com.example.boot.Entity.Member;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface MemberService {
     Member update(Long id,Member member);
 
     String delete(Long id);
+
+    boolean idcheck(String mid);
 }

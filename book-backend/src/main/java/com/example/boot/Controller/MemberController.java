@@ -25,5 +25,22 @@ public class MemberController {
         return new ResponseEntity<>(memberService.saveMember(member), HttpStatus.CREATED);
     }
 
+    @PostMapping("/Member/idcheck")
+    @CrossOrigin
+    public ResponseEntity<String> idcheck(@RequestBody String mid) {
+        System.out.println(mid);
+        boolean isMid = memberService.idcheck(mid);
+
+        System.out.println(isMid);
+
+        String message;
+        if (isMid) {
+            message = "이미 사용중인 아이디 입니다.";
+        } else {
+            message = "아이디를 사용할 수 있습니다.";
+        }
+
+        return ResponseEntity.ok(message);
+    }
 
 }

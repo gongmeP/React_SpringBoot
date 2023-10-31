@@ -1,5 +1,6 @@
 package com.example.boot.Service;
 
+import com.example.boot.Entity.Book;
 import com.example.boot.Entity.Member;
 import com.example.boot.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -48,4 +50,11 @@ public class MemberServiceImpl implements MemberService {
         return "Member삭제완료";
     }
 
+    @Override
+    public boolean idcheck(String mid) {
+
+        Optional<Member> exmid = MemberRepository.findByMid(mid);
+
+        return exmid.isPresent();
+    }
 }

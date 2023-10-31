@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AgreeCheckSpan1,
   AgreeMainStyled,
@@ -69,6 +69,10 @@ function JoinForm2() {
       alert('아이디를 입력해주세요.');
       return;
     }
+    if (idcheckok === false) {
+      alert('아이디 중복을 체크 하셔야합니다.');
+      return;
+    }
     if (member.mpass === '') {
       alert('패스워드를 입력해주세요.');
       return;
@@ -137,6 +141,26 @@ function JoinForm2() {
   const gohome = () => {
     navigate('/');
   };
+  const [idcheckok, setIdcheckok] = useState(false);
+  const idcheck = (mid) => {
+    console.log(mid);
+    fetch('http://localhost:8080/Member/idcheck', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: mid,
+    })
+      .then((res) => res.text())
+      .then((res) => {
+        console.log(1, res);
+        alert(res);
+        if (res === '아이디를 사용할 수 있습니다.') {
+          setIdcheckok(true);
+        }
+      });
+  };
+
   return (
     <AgreeMainStyled>
       <AgreeStyled>회원가입</AgreeStyled>
@@ -153,6 +177,7 @@ function JoinForm2() {
                   value={member.mid}
                   onChange={datain}
                   name="mid"
+                  readOnly={idcheckok}
                 />
               </Col>
               <Col>
@@ -160,6 +185,7 @@ function JoinForm2() {
                   variant="secondary"
                   className="mb-0"
                   style={{ verticalAlign: '15px' }}
+                  onClick={() => idcheck(member.mid)}
                 >
                   중복체크
                 </Button>
