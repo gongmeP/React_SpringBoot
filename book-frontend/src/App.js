@@ -10,7 +10,7 @@ import LoginForm from './pages/user/LoginForm';
 import JoinForm from './pages/user/JoinForm';
 import UpdateForm from './pages/book/UpdateForm';
 import JoinForm2 from './pages/user/JoinForm2';
-import Footer from './pages/Footer';
+import Footer from './components/Footer';
 
 function App() {
   return (
