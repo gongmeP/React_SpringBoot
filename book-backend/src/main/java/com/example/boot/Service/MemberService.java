@@ -21,4 +21,6 @@ public interface MemberService {
     String delete(Long id);
 
     boolean idcheck(String mid);
+
+    Member login(Member member);
 }

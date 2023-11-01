@@ -61,7 +61,27 @@ public class MemberServiceImpl implements MemberService {
         return exmid.isPresent();
     }
 
+    @Override
+    public Member login(Member member) {
+
+        Optional<Member> byloginid = MemberRepository.findByMid(member.getMid());
 
 
 
+
+        if(byloginid.isPresent()){
+            Member memberEntity = byloginid.get();
+            if(memberEntity.getMpass().equals(member.getMpass())){
+
+            return memberEntity;
+
+            }else {
+                return null;
+            }
+
+        }else{
+            return null;
+        }
+
+    }
 }

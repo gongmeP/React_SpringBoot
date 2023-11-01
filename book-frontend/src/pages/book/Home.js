@@ -19,6 +19,13 @@ function Home() {
       });
   }, [Pages]);
 
+  // const reBooks = () => {
+  //   const eaBooks = Math.max(12 - books.length, 0);
+  //   const reEaBooks = books.concat(Array(eaBooks).fill({}));
+
+  //   return reEaBooks.map((book) => <BookItem key={book.id} book={book} />);
+  // };
+
   return (
     <>
       <Row className="justify-content-evenly" style={{ margin: '0 auto' }}>
