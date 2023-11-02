@@ -17,13 +17,17 @@ const Login = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => res.text())
+      .then((res) => res.json())
       .then((res) => {
-        console.log(1, res);
-        if (res === '로그인성공') {
+        console.log(res);
+
+        if (res.loginID != null) {
+          window.sessionStorage.setItem('loginID', res.loginID);
+          window.sessionStorage.setItem('loginUsername', res.loginUsername);
+
           alert('로그인 되셨습니다');
-          navigate('/');
-        } else if (res === '로그인실패') {
+          // navigate('/');
+        } else {
           alert('아이디 및 패스워드 를 다시 확인해주세요');
           navigate('/loginForm');
         }
