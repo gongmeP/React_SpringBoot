@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="99dd339e-8bbe-494c-be66-c86f763ec2ae" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/book-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/book-backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-backend/src/main/java/com/example/boot/Controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/book-backend/src/main/java/com/example/boot/Controller/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/book-backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-backend/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/book-backend/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-backend/src/test/java/com/example/boot/Controller/BookControllerIntegreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/book-backend/src/test/java/com/example/boot/Controller/BookControllerIntegreTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/book-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/book-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/book-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/book-frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/book-frontend/src/setupTests.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2XKvotnvrYL9f4nZYKLCTLdh3Bf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/React_SpringBoot/book-backend"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="99dd339e-8bbe-494c-be66-c86f763ec2ae" name="변경" comment="" />
+      <created>1698390763518</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698390763518</updated>
+    </task>
+    <servers />
+  </component>
+</project>
