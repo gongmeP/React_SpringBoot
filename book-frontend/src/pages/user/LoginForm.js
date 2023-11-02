@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import store from '../../Redux/store';
+import { loginSuccess } from '../../Redux/Reducer';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const ReduxloginID = useSelector((state) => state.loginID);
 
   const Logingo = (e) => {
     e.preventDefault();
@@ -19,17 +24,18 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-
         if (res.loginID != null) {
+          store.dispatch(loginSuccess(res.loginID, res.loginUsername));
           window.sessionStorage.setItem('loginID', res.loginID);
           window.sessionStorage.setItem('loginUsername', res.loginUsername);
+
+          console.log(ReduxloginID);
 
           alert('로그인 되셨습니다');
           // navigate('/');
         } else {
           alert('아이디 및 패스워드 를 다시 확인해주세요');
-          navigate('/loginForm');
+          // navigate('/loginForm');
         }
       });
   };

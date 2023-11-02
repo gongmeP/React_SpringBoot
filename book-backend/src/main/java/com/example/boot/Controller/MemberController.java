@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
+@SessionAttributes
 public class MemberController {
 
     private  final MemberService memberService;
@@ -31,10 +33,8 @@ public class MemberController {
     @PostMapping("/Member/idcheck")
     @CrossOrigin
     public ResponseEntity<String> idcheck(@RequestBody String mid) {
-        System.out.println(mid);
-        boolean isMid = memberService.idcheck(mid);
 
-        System.out.println(isMid);
+        boolean isMid = memberService.idcheck(mid);
 
         String message;
         if (isMid) {
@@ -50,6 +50,7 @@ public class MemberController {
     @CrossOrigin
     public ResponseEntity<?> login(@RequestBody Member member, HttpSession session) {
         Member loginResult = memberService.login(member);
+
         System.out.println(member.toString());
 
         try{
@@ -68,6 +69,7 @@ public class MemberController {
             } else {
 
                 Map<String, String> loginNo = new HashMap<>();
+                loginNo.put("LoginID","");
                 return new ResponseEntity<>(loginNo, HttpStatus.OK);
             }
 

@@ -66,9 +66,6 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> byloginid = MemberRepository.findByMid(member.getMid());
 
-
-
-
         if(byloginid.isPresent()){
             Member memberEntity = byloginid.get();
             if(memberEntity.getMpass().equals(member.getMpass())){
