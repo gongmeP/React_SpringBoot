@@ -1,4 +1,4 @@
-# React-Sptringboot Book project
+# React-Sptringboot animation project
 
 ### SpringBoot
 
