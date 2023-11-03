@@ -19,11 +19,11 @@ export const Tr1 = styled.th`
   font-size: 16px;
   font-family: 'Noto Sans KR', sans-serif;
   @media (max-width: 767px) {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   @media (min-width: 768px) and (max-width: 991px) {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   @media (min-width: 992px) {
@@ -45,11 +45,11 @@ export const Tr2 = styled.th`
   font-size: 13px;
   font-family: 'Noto Sans KR', sans-serif;
   @media (max-width: 767px) {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   @media (min-width: 768px) and (max-width: 991px) {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   @media (min-width: 992px) {
