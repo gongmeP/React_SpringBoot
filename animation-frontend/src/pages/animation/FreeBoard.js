@@ -1,34 +1,27 @@
-import React from 'react';
-import BookItem from '../../components/BookItem';
-import { Row } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Row, Table } from 'react-bootstrap';
 import { useEffect } from 'react';
 import Page from '../../components/Page';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { setBookEA, setBooks, setPages } from '../../Redux/action';
 import store from '../../Redux/store';
+import { setFreeBoards } from '../../Redux/action';
+import { useSelector } from 'react-redux';
 
 function FreeBoard() {
-  const books = useSelector((state) => state.books);
-  const Pages = useSelector((state) => state.pages);
+  const freeBoards = useSelector((state) => state.freeBoards);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/book?page=${Pages}`, { method: 'GET' })
+    fetch(`http://localhost:8080/FreeBoard`, { method: 'GET' })
       .then((res) => res.json())
       .then((res) => {
-        console.log(1, res);
-
-        store.dispatch(setBooks(res.content));
-        store.dispatch(setBookEA(res.content.length));
+        store.dispatch(setFreeBoards(res));
       });
-  }, [Pages]);
+  }, []);
+
+  console.log(freeBoards);
 
   return (
     <>
-      <Row className="justify-content-evenly" style={{ margin: '0 auto' }}>
-        {books.map((book) => (
-          <BookItem key={book.id} book={book} />
-        ))}
-      </Row>
+      <Table striped bordered hover></Table>
       <Page></Page>
     </>
   );

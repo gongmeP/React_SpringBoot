@@ -26,3 +26,8 @@ export const setPages = (pages) => ({
   type: 'SET_PAGES',
   payload: pages,
 });
+
+export const setFreeBoards = (freeBoards) => ({
+  type: 'setFreeBoards',
+  payload: freeBoards,
+});

@@ -5,6 +5,7 @@ const initstate = {
   books: [],
   bookEA: 1,
   pages: 0,
+  freeBoards: [],
 };
 
 const Reducer = (state = initstate, action) => {
@@ -24,6 +25,8 @@ const Reducer = (state = initstate, action) => {
       return { ...state, bookEA: action.payload };
     case 'SET_PAGES':
       return { ...state, pages: action.payload };
+    case 'setFreeBoards':
+      return { ...state, freeBoards: action.payload };
     default:
       return state;
   }

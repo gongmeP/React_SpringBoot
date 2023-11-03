@@ -28,5 +28,4 @@ public class FreeBoard {
     private Long replyCount;
     private LocalDateTime fbDate = LocalDateTime.now();
 
-
 }

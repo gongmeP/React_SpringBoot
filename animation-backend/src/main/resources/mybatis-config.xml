@@ -4,7 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <!-- MyBatis 설정 -->
+
         <setting name="logImpl" value="SLF4J" />
     </settings>
+    <mappers>
+        <mapper resource="FreeBoardMapper.xml" />
+
+    </mappers>
 </configuration>
