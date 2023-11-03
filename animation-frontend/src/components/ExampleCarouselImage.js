@@ -11,6 +11,7 @@ function ExampleCarouselImage({ text, imageUrl }) {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          borderRadius: '10px',
         }}
         src={imageUrl}
         alt={text}

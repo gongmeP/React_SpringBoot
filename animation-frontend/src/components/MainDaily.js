@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
 import './BootStrapcss.css';
 function MainDaily() {
@@ -33,15 +33,23 @@ function MainDaily() {
   return (
     <>
       <div>요일별 신작</div>
-      <div>
-        <Button variant="secondary">월</Button>
-        <Button variant="secondary">화</Button>
-        <Button variant="secondary">수</Button>
-        <Button variant="secondary">목</Button>
-        <Button variant="secondary">금</Button>
-        <Button variant="secondary">토</Button>
-        <Button variant="secondary">일</Button>
-      </div>
+      <Row>
+        <Col style={{ width: '100%', height: 'auto' }}>
+          <Button variant="secondary">월</Button>
+
+          <Button variant="secondary">화</Button>
+
+          <Button variant="secondary">수</Button>
+
+          <Button variant="secondary">목</Button>
+
+          <Button variant="secondary">금</Button>
+
+          <Button variant="secondary">토</Button>
+
+          <Button variant="secondary">일</Button>
+        </Col>
+      </Row>
       <ItemsCarousel
         infiniteLoop={true} // 루프 해줌
         numberOfCards={5}
@@ -64,7 +72,7 @@ function MainDaily() {
               backgroundColor: 'transparent',
             }}
           >
-            <img src="./projectimg/button/R.jpg" width={25} height={25} />
+            <img src="./projectimg/button/R.jpg" width={20} height={20} />
           </button>
         }
         leftChevron={
@@ -78,7 +86,7 @@ function MainDaily() {
               backgroundColor: 'transparent',
             }}
           >
-            <img src="./projectimg/button/L.jpg" width={25} height={25} />
+            <img src="./projectimg/button/L.jpg" width={20} height={20} />
           </button>
         }
         outsideChevron={false}
