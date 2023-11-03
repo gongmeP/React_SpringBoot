@@ -27,7 +27,7 @@ function Header() {
               <Link to="/savaForm" className="nav-link">
                 글쓰기
               </Link>
-              <Link to="/board" className="nav-link">
+              <Link to="/freeBoard" className="nav-link">
                 자유게시판
               </Link>
             </Nav>

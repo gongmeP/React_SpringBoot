@@ -11,6 +11,7 @@ import JoinForm from './pages/user/JoinForm';
 import UpdateForm from './pages/animation/UpdateForm';
 import JoinForm2 from './pages/user/JoinForm2';
 import Footer from './components/Footer';
+import FreeBoard from './pages/animation/FreeBoard';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/joinForm" element={<JoinForm />} />
           <Route path="/joinForm2" element={<JoinForm2 />} />
           <Route path="/updateForm/:id" element={<UpdateForm />} />
+          <Route path="/freeBoard" element={<FreeBoard />} />
         </Routes>
       </Container>
       <Footer />

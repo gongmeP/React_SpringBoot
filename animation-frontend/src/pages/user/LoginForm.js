@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import store from '../../Redux/store';
-import { loginSuccess } from '../../Redux/Reducer';
+import { loginSuccess } from '../../Redux/action';
 import { useSelector } from 'react-redux';
 
 const Login = () => {
