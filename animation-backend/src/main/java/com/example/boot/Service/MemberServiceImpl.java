@@ -1,14 +1,11 @@
 package com.example.boot.Service;
 
-import com.example.boot.Entity.Book;
+
 import com.example.boot.Entity.Member;
 import com.example.boot.Repository.MemberRepository;
-import com.example.boot.mappers.MemberMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +13,7 @@ import java.util.Optional;
 @Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository MemberRepository;
-    private final MemberMapper memberMapper;
+
 
 
     @Override
