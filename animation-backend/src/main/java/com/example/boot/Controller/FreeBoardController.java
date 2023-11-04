@@ -5,9 +5,7 @@ import com.example.boot.Service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +26,33 @@ public class FreeBoardController {
         List<FreeBoard> freeBoards = freeBoardService.getAllFreeBoards();
 
         return freeBoards;
+    }
+
+    @PostMapping("/FreeBoard/Page")
+    @CrossOrigin
+    @ResponseBody
+    public List<FreeBoard> freeBoardsPage(@RequestParam(name = "page",defaultValue = "1")int page, Model model){
+       int pageSize = 10;
+       int offset = (page) * pageSize;
+
+        List<FreeBoard> freeBoardsPages = freeBoardService.getFreeBoardPages(pageSize,offset);
+
+//        System.out.println(freeBoardsPages.toString());
+
+        return freeBoardsPages;
+    }
+
+
+    @GetMapping("/FreeBoard/TotalPage")
+    @CrossOrigin
+    @ResponseBody
+    public int freeBoardsTotalPage(Model model){
+
+       int freeBoardsPages = freeBoardService.getFreeBoardTotalPages();
+
+        System.out.println(freeBoardsPages);
+
+        return freeBoardsPages;
     }
 
 }

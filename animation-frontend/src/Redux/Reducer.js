@@ -6,6 +6,8 @@ const initstate = {
   bookEA: 1,
   pages: 0,
   freeBoards: [],
+  freeBoardsEA: 1,
+  freeBoardspages: 1,
 };
 
 const Reducer = (state = initstate, action) => {
@@ -27,6 +29,10 @@ const Reducer = (state = initstate, action) => {
       return { ...state, pages: action.payload };
     case 'setFreeBoards':
       return { ...state, freeBoards: action.payload };
+    case 'setFreeBoardsEA':
+      return { ...state, freeBoardsEA: action.payload };
+    case 'setFreeBoardsPages':
+      return { ...state, freeBoardspages: action.payload };
     default:
       return state;
   }

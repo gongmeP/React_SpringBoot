@@ -1,14 +1,9 @@
 import React from 'react';
 import { Pagination } from 'react-bootstrap';
 import store from '../Redux/store';
-import { useSelector } from 'react-redux';
 import { setPages } from '../Redux/action';
-function Page() {
-  const bookEA = useSelector((stage) => stage.bookEA);
-  const pages = useSelector((stage) => stage.pages);
-  const totoalPage = Math.ceil(bookEA / 12) + 1;
-
-  console.log(totoalPage);
+function Page({ EA, Pages }) {
+  const totoalPage = Math.ceil(EA / 12) + 1;
 
   const PageClick = (lastpage) => {
     if (lastpage < 0) {
@@ -27,18 +22,18 @@ function Page() {
     <div className="d-flex justify-content-center mt-3">
       <Pagination>
         <Pagination.First onClick={() => PageClick(0)} />
-        <Pagination.Prev onClick={() => PageClick(pages - 1)} />
+        <Pagination.Prev onClick={() => PageClick(Pages - 1)} />
         {Array.from({ length: totoalPage }).map((_, mapPage) => (
           <Pagination.Item
             key={mapPage}
-            active={mapPage === pages}
+            active={mapPage === Pages}
             onClick={() => PageClick(mapPage)}
           >
             {mapPage + 1}
           </Pagination.Item>
         ))}
 
-        <Pagination.Next onClick={() => PageClick(pages + 1)} />
+        <Pagination.Next onClick={() => PageClick(Pages + 1)} />
         <Pagination.Last onClick={() => PageClick(totoalPage - 1)} />
       </Pagination>
     </div>

@@ -20,4 +20,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         return freeBoardMapper.getAllFreeBoards();
     }
+
+    @Override
+    public List<FreeBoard> getFreeBoardPages(int pageSize, int offset) {
+
+        return freeBoardMapper.getFreeBoardPages(pageSize,offset);
+    }
+
+    @Override
+    public int getFreeBoardTotalPages() {
+
+        return freeBoardMapper.getFreeBoardTotalPages();
+    }
 }
+

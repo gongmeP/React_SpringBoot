@@ -7,4 +7,8 @@ import java.util.List;
 public interface FreeBoardService {
 
     List<FreeBoard> getAllFreeBoards();
+
+    List<FreeBoard> getFreeBoardPages(int pageSize, int offset);
+
+    int getFreeBoardTotalPages();
 }

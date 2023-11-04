@@ -11,6 +11,7 @@ import store from '../../Redux/store';
 function Home() {
   const books = useSelector((state) => state.books);
   const Pages = useSelector((state) => state.pages);
+  const bookEA = useSelector((stage) => stage.bookEA);
 
   useEffect(() => {
     fetch(`http://localhost:8080/book?page=${Pages}`, { method: 'GET' })
@@ -31,7 +32,7 @@ function Home() {
           <BookItem key={book.id} book={book} />
         ))}
       </Row>
-      <Page></Page>
+      <Page EA={bookEA} Pages={Pages}></Page>
     </>
   );
 }

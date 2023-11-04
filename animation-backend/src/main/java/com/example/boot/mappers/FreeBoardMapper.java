@@ -10,4 +10,8 @@ import java.util.List;
 public interface FreeBoardMapper {
     List<FreeBoard> getAllFreeBoards();
 
+    List<FreeBoard> getFreeBoardPages(int pageSize, int offset);
+
+    int getFreeBoardTotalPages();
+
 }

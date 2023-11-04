@@ -31,3 +31,8 @@ export const setFreeBoards = (freeBoards) => ({
   type: 'setFreeBoards',
   payload: freeBoards,
 });
+
+export const setFreeBoardsEA = (freeBoardsEA) => ({
+  type: 'setFreeBoardsEA',
+  payload: freeBoardsEA,
+});
