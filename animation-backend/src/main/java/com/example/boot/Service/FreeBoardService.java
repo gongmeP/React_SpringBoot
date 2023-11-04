@@ -11,4 +11,6 @@ public interface FreeBoardService {
     List<FreeBoard> getFreeBoardPages(int pageSize, int offset);
 
     int getFreeBoardTotalPages();
+
+    List<FreeBoard> SaveFreeBoards(FreeBoard freeBoard);
 }

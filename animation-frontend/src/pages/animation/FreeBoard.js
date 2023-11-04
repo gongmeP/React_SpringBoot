@@ -6,8 +6,6 @@ import Page from '../../components/Page';
 import { useSelector } from 'react-redux';
 
 function FreeBoard() {
-  // const [page, setPageSize] = useState(1);
-
   const Pages = useSelector((state) => state.pages);
   const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
 
@@ -17,7 +15,6 @@ function FreeBoard() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         store.dispatch(setFreeBoards(res));
       });
   }, [Pages]);

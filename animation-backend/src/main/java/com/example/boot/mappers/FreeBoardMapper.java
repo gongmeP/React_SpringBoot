@@ -14,4 +14,6 @@ public interface FreeBoardMapper {
 
     int getFreeBoardTotalPages();
 
+    List<FreeBoard> SaveFreeBoards(FreeBoard freeBoard);
+
 }

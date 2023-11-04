@@ -32,5 +32,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         return freeBoardMapper.getFreeBoardTotalPages();
     }
+
+    @Override
+    public List<FreeBoard> SaveFreeBoards(FreeBoard freeBoard) {
+
+        return freeBoardMapper.SaveFreeBoards(freeBoard);
+    }
 }
 

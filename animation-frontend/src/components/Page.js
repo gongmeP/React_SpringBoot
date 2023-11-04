@@ -3,7 +3,7 @@ import { Pagination } from 'react-bootstrap';
 import store from '../Redux/store';
 import { setPages } from '../Redux/action';
 function Page({ EA, Pages }) {
-  const totoalPage = Math.ceil(EA / 12) + 1;
+  const totoalPage = Math.ceil(EA / 15);
 
   const PageClick = (lastpage) => {
     if (lastpage < 0) {

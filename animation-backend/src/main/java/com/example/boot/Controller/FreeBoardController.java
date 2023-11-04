@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,7 +33,7 @@ public class FreeBoardController {
     @CrossOrigin
     @ResponseBody
     public List<FreeBoard> freeBoardsPage(@RequestParam(name = "page",defaultValue = "1")int page, Model model){
-       int pageSize = 10;
+       int pageSize = 15;
        int offset = (page) * pageSize;
 
         List<FreeBoard> freeBoardsPages = freeBoardService.getFreeBoardPages(pageSize,offset);
@@ -53,6 +54,24 @@ public class FreeBoardController {
         System.out.println(freeBoardsPages);
 
         return freeBoardsPages;
+    }
+
+    @GetMapping("/FreeBoard/Save")
+    @CrossOrigin
+    @ResponseBody
+    public List<FreeBoard> freeBoardSave(@ModelAttribute("SaveData") FreeBoard freeBoard) {
+        List<FreeBoard> freeBoardSave = new ArrayList<>();
+
+        try {
+            freeBoardService.SaveFreeBoards(freeBoard);
+            freeBoardSave = freeBoardService.SaveFreeBoards(freeBoard);
+        } catch (Exception e) {
+
+            System.out.println(e);
+            System.out.println("/FreeBoard/Save 에러");
+        }
+
+        return freeBoardSave;
     }
 
 }

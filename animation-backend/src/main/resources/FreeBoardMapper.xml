@@ -13,4 +13,11 @@
     <select id="getFreeBoardTotalPages" resultType="int">
         select count(*) from fBoard where fbDel = 'n';
     </select>
+
+    <insert id="SaveFreeBoards" parameterType="java.util.Map">
+        insert into fBoard (fbTitle, fbContent, userid, photo)
+        values (#{fbTitle}, #{fbContent}, #{userid}, #{photo})
+    </insert>
+
+
 </mapper>
