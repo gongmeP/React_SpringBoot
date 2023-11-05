@@ -31,3 +31,9 @@
   .carousel-indicators [data-bs-target]{
     height: 4px !important;
   }
+
+
+  .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+  .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
+    height:450px;
+  }

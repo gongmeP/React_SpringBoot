@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class FreeBoardController {
@@ -56,15 +59,15 @@ public class FreeBoardController {
         return freeBoardsPages;
     }
 
-    @GetMapping("/FreeBoard/Save")
+    @PostMapping("/FreeBoard/Save")
     @CrossOrigin
     @ResponseBody
-    public List<FreeBoard> freeBoardSave(@ModelAttribute("SaveData") FreeBoard freeBoard) {
+    public List<FreeBoard> freeBoardSave(@ModelAttribute("SaveData") FreeBoard freeBoard, MultipartFile file) {
         List<FreeBoard> freeBoardSave = new ArrayList<>();
-
         try {
+
             freeBoardService.SaveFreeBoards(freeBoard);
-            freeBoardSave = freeBoardService.SaveFreeBoards(freeBoard);
+//            freeBoardSave = freeBoardService.SaveFreeBoards(freeBoard);
         } catch (Exception e) {
 
             System.out.println(e);
@@ -72,6 +75,34 @@ public class FreeBoardController {
         }
 
         return freeBoardSave;
+    }
+
+    @PostMapping("/FreeBoard/ImgSave")
+    @CrossOrigin
+    @ResponseBody
+    public List<String>  imgSava(MultipartFile file) throws Exception{
+        List<String> fileNamespath = new ArrayList<>();
+        System.out.println("asdasd");
+        try {
+            String Path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file";
+
+            UUID uuid = UUID.randomUUID();
+
+            String fileName = uuid + "_" + file.getOriginalFilename();
+
+            File saveFile = new File(Path,fileName);
+
+            file.transferTo(saveFile);
+
+            fileNamespath.add(fileName);
+            System.out.println(fileNamespath);
+            return fileNamespath;
+
+
+        }catch (Exception e){
+            System.out.println(e);
+            return fileNamespath;
+        }
     }
 
 }

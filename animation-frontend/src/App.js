@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Headers from './components/Header';
 import Home from './pages/animation/Home';
@@ -12,6 +12,7 @@ import UpdateForm from './pages/animation/UpdateForm';
 import JoinForm2 from './pages/user/JoinForm2';
 import Footer from './components/Footer';
 import FreeBoard from './pages/animation/FreeBoard';
+import SaveFreeBoard from './pages/animation/SaveFreeBoard';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/joinForm2" element={<JoinForm2 />} />
           <Route path="/updateForm/:id" element={<UpdateForm />} />
           <Route path="/freeBoard" element={<FreeBoard />} />
+          <Route path="/saveFreeBoard" element={<SaveFreeBoard />} />
         </Routes>
       </Container>
       <Footer />

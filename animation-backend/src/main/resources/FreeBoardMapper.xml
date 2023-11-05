@@ -14,10 +14,10 @@
         select count(*) from fBoard where fbDel = 'n';
     </select>
 
-    <insert id="SaveFreeBoards" parameterType="java.util.Map">
+    <select id="SaveFreeBoards" parameterType="com.example.boot.Entity.FreeBoard" >
         insert into fBoard (fbTitle, fbContent, userid, photo)
         values (#{fbTitle}, #{fbContent}, #{userid}, #{photo})
-    </insert>
+    </select>
 
 
 </mapper>

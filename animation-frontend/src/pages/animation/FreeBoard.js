@@ -4,6 +4,7 @@ import { setFreeBoards, setFreeBoardsEA } from '../../Redux/action';
 import Board from '../../components/Board';
 import Page from '../../components/Page';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function FreeBoard() {
   const Pages = useSelector((state) => state.pages);
@@ -33,6 +34,15 @@ function FreeBoard() {
     <>
       <Board></Board>
       <Page EA={freeBoardsEA} Pages={Pages}></Page>
+      <div style={{ display: 'flex', justifyContent: 'end' }}>
+        <Link
+          to="/saveFreeBoard"
+          className="btn btn-primary"
+          style={{ marginRight: '20px', marginTop: '-10px' }}
+        >
+          글쓰기
+        </Link>
+      </div>
     </>
   );
 }
