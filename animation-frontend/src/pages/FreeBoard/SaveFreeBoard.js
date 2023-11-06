@@ -126,10 +126,15 @@ function SaveFreeBoard() {
             }}
           />
         </Form.Group>
-
-        <Button variant="primary" type="submit">
-          등록
-        </Button>
+        <div style={{ display: 'flex', justifyContent: 'end' }}>
+          <Button
+            variant="primary"
+            type="submit"
+            style={{ marginRight: '20px' }}
+          >
+            게시글 등록
+          </Button>
+        </div>
       </Form>
     </div>
   );

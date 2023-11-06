@@ -11,8 +11,8 @@ import JoinForm from './pages/user/JoinForm';
 import UpdateForm from './pages/animation/UpdateForm';
 import JoinForm2 from './pages/user/JoinForm2';
 import Footer from './components/Footer';
-import FreeBoard from './pages/animation/FreeBoard';
-import SaveFreeBoard from './pages/animation/SaveFreeBoard';
+import SaveFreeBoard from './pages/FreeBoard/SaveFreeBoard';
+import FreeBoard from './pages/FreeBoard/FreeBoard';
 
 function App() {
   return (
