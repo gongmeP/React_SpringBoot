@@ -13,6 +13,7 @@ import JoinForm2 from './pages/user/JoinForm2';
 import Footer from './components/Footer';
 import SaveFreeBoard from './pages/FreeBoard/SaveFreeBoard';
 import FreeBoard from './pages/FreeBoard/FreeBoard';
+import DetailFreeBoard from './pages/FreeBoard/DetailFreeBoard';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/updateForm/:id" element={<UpdateForm />} />
           <Route path="/freeBoard" element={<FreeBoard />} />
           <Route path="/saveFreeBoard" element={<SaveFreeBoard />} />
+          <Route path="/detailFreeBoard" element={<DetailFreeBoard />} />
         </Routes>
       </Container>
       <Footer />

@@ -10,6 +10,7 @@ import {
   Tr2,
 } from '../styledcomponents/FreeBoard.styled';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Board() {
   const freeBoards = useSelector((state) => state.freeBoards);
@@ -21,6 +22,12 @@ function Board() {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${month}/${day}/${hours}:${minutes}`;
   }
+
+  const navigate = useNavigate();
+
+  const DetailFreeBoardGo = () => {
+    navigate('/detailFreeBoard');
+  };
 
   return (
     <CustomTable className="custom-table">
@@ -37,7 +44,9 @@ function Board() {
         {freeBoards.map((data) => (
           <Tr2 key={data.fbNum}>
             <Th1>{data.fbNum}</Th1>
-            <Th2>{data.fbTitle}</Th2>
+            <Th2 onClick={DetailFreeBoardGo} style={{ cursor: 'pointer' }}>
+              {data.fbTitle}
+            </Th2>
             <Th3>{data.userid}</Th3>
             <Th4>{DateTime(data.fbDate)}</Th4>
             <Th5>{data.fbReadCount}</Th5>

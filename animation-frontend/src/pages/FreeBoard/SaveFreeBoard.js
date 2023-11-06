@@ -3,8 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Link, useNavigate } from 'react-router-dom';
 
 function SaveFreeBoard() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fbTitle: '',
     fbContent: '',
@@ -48,8 +50,10 @@ function SaveFreeBoard() {
         });
       })
       .catch((err) => {
-        console.error('게시판 글 등록 실패:', err);
+        alert('게시판 글 등록 실패:', err);
       });
+    alert('게시글이 등록되었습니다.');
+    navigate('/freeBoard');
   };
 
   const customUploadAdapter = (loader) => {
