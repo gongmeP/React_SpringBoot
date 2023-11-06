@@ -95,8 +95,8 @@ function SaveFreeBoard() {
     <div className="container">
       <Form onSubmit={handleFormSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label>제목</Form.Label>
           <Form.Control
+            placeholder="제목을 입력하세요"
             type="text"
             name="fbTitle"
             value={formData.fbTitle}
@@ -104,11 +104,11 @@ function SaveFreeBoard() {
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>내용</Form.Label>
           <CKEditor
             editor={ClassicEditor}
             config={{
               extraPlugins: [uploadPlugin],
+              placeholder: '내용을 입력하세요',
             }}
             data=""
             onInit={(editor) => {}}

@@ -39,7 +39,6 @@ function DetailFreeBoard() {
       <h2></h2>
       <Form>
         <Form.Group className="mb-3">
-          <Form.Label>제목</Form.Label>
           <Form.Control
             type="text"
             name="fbTitle"
@@ -50,19 +49,19 @@ function DetailFreeBoard() {
         <Form.Group className="mb-3">
           <Row className="justify-content-center align-items-center">
             <Col md={4}>
-              <p className="mb-2">글쓴이 : {formData.userid}</p>
+              <p className="mb-3">글쓴이 : {formData.userid}</p>
             </Col>
             <Col md={4}>
-              <p className="mb-2">작성시간 : {DateTime(formData.fbDate)}</p>
+              <p className="mb-3">작성일 : {DateTime(formData.fbDate)}</p>
             </Col>
             <Col md={2}>
-              <p className="mb-2">조회수 : {formData.fbReadCount}</p>
+              <p className="mb-3">조회수 : {formData.fbReadCount}</p>
             </Col>
             <Col md={2}>
-              <p className="mb-2">댓글수 : {formData.replyCount}</p>
+              <p className="mb-3">댓글수 : {formData.replyCount}</p>
             </Col>
           </Row>
-          <Form.Label>내용</Form.Label>
+
           <Form.Control
             as="textarea"
             rows={10}
