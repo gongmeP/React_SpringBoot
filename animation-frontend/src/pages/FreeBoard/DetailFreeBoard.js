@@ -1,13 +1,38 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 function DetailFreeBoard() {
+  const { fbNum } = useParams();
   const navigate = useNavigate();
   const freeBoardGo = () => {
     navigate('/freeBoard');
   };
+
+  const [formData, setFormData] = useState({});
+
+  function DateTime(fbDate) {
+    const date = new Date(fbDate);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${year}/${month}/${day} ${hours}:${minutes}`;
+  }
+  console.log(fbNum);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/FreeBoard/Detail/${fbNum}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setFormData(res[0]);
+        console.log(res[0]);
+      });
+  }, []);
 
   return (
     <div className="container">
@@ -15,17 +40,41 @@ function DetailFreeBoard() {
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>제목</Form.Label>
-          <Form.Control type="text" name="fbTitle" value={''} readOnly={true} />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>내용</Form.Label>
           <Form.Control
             type="text"
-            name="fbContent"
-            value={''}
+            name="fbTitle"
+            value={formData.fbTitle}
             readOnly={true}
-            style={{ height: '600px' }}
           />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Row className="justify-content-center align-items-center">
+            <Col md={4}>
+              <p className="mb-2">글쓴이 : {formData.userid}</p>
+            </Col>
+            <Col md={4}>
+              <p className="mb-2">작성시간 : {DateTime(formData.fbDate)}</p>
+            </Col>
+            <Col md={2}>
+              <p className="mb-2">조회수 : {formData.fbReadCount}</p>
+            </Col>
+            <Col md={2}>
+              <p className="mb-2">댓글수 : {formData.replyCount}</p>
+            </Col>
+          </Row>
+          <Form.Label>내용</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={10}
+            name="fbContent"
+            value={formData.fbContent}
+            readOnly={true}
+            style={{ textAlign: 'left', resize: 'none', height: '450px' }}
+          >
+            {/* <div style={{ height: '600px' }}>
+              <img src="imageUrl" fluid />
+            </div> */}
+          </Form.Control>
         </Form.Group>
 
         <div style={{ display: 'flex', justifyContent: 'end' }}>

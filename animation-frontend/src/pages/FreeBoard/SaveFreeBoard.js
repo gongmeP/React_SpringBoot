@@ -93,7 +93,6 @@ function SaveFreeBoard() {
 
   return (
     <div className="container">
-      <h2>게시판 글 등록</h2>
       <Form onSubmit={handleFormSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>제목</Form.Label>

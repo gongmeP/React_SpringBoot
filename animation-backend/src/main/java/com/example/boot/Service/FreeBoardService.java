@@ -13,4 +13,7 @@ public interface FreeBoardService {
     int getFreeBoardTotalPages();
 
     List<FreeBoard> SaveFreeBoards(FreeBoard freeBoard);
+
+
+    List<FreeBoard>  getIdByFreeBoards(Long fnNum);
 }

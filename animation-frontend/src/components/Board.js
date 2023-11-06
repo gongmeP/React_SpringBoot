@@ -11,6 +11,7 @@ import {
 } from '../styledcomponents/FreeBoard.styled';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import DetailFreeBoard from '../pages/FreeBoard/DetailFreeBoard';
 
 function Board() {
   const freeBoards = useSelector((state) => state.freeBoards);
@@ -25,8 +26,8 @@ function Board() {
 
   const navigate = useNavigate();
 
-  const DetailFreeBoardGo = () => {
-    navigate('/detailFreeBoard');
+  const DetailFreeBoardGo = (fbNum) => {
+    navigate(`/detailFreeBoard/${fbNum}`);
   };
 
   return (
@@ -44,7 +45,10 @@ function Board() {
         {freeBoards.map((data) => (
           <Tr2 key={data.fbNum}>
             <Th1>{data.fbNum}</Th1>
-            <Th2 onClick={DetailFreeBoardGo} style={{ cursor: 'pointer' }}>
+            <Th2
+              onClick={() => DetailFreeBoardGo(data.fbNum)}
+              style={{ cursor: 'pointer' }}
+            >
               {data.fbTitle}
             </Th2>
             <Th3>{data.userid}</Th3>

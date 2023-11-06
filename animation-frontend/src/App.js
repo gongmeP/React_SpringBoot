@@ -30,7 +30,7 @@ function App() {
           <Route path="/updateForm/:id" element={<UpdateForm />} />
           <Route path="/freeBoard" element={<FreeBoard />} />
           <Route path="/saveFreeBoard" element={<SaveFreeBoard />} />
-          <Route path="/detailFreeBoard" element={<DetailFreeBoard />} />
+          <Route path="/detailFreeBoard/:fbNum" element={<DetailFreeBoard />} />
         </Routes>
       </Container>
       <Footer />

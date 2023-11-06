@@ -16,4 +16,6 @@ public interface FreeBoardMapper {
 
     List<FreeBoard> SaveFreeBoards(FreeBoard freeBoard);
 
+    List<FreeBoard> getIdByFreeBoards(Long fbNum);
+
 }

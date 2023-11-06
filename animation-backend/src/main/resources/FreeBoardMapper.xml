@@ -7,7 +7,7 @@
     </select>
 
     <select id="getFreeBoardPages" resultType="com.example.boot.Entity.FreeBoard">
-        select * from fBoard order by fbNum DESC limit #{pageSize} offset #{offset}
+        select * from fBoard where fbDel = 'n' order by fbNum DESC limit #{pageSize} offset #{offset}
     </select>
 
     <select id="getFreeBoardTotalPages" resultType="int">
@@ -19,5 +19,7 @@
         values (#{fbTitle}, #{fbContent}, #{userid}, #{photo})
     </select>
 
-
+    <select id="getIdByFreeBoards" resultType="com.example.boot.Entity.FreeBoard">
+        select * from fBoard where fbNum = #{fbNum};
+    </select>
 </mapper>

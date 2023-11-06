@@ -38,5 +38,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         return freeBoardMapper.SaveFreeBoards(freeBoard);
     }
+
+    @Override
+    public List<FreeBoard> getIdByFreeBoards(Long fnNum) {
+
+        return freeBoardMapper.getIdByFreeBoards(fnNum);
+    }
 }
 

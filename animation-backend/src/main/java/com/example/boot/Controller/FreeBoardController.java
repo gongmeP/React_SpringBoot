@@ -41,7 +41,6 @@ public class FreeBoardController {
 
         List<FreeBoard> freeBoardsPages = freeBoardService.getFreeBoardPages(pageSize,offset);
 
-//        System.out.println(freeBoardsPages.toString());
 
         return freeBoardsPages;
     }
@@ -67,7 +66,7 @@ public class FreeBoardController {
         try {
 
             freeBoardService.SaveFreeBoards(freeBoard);
-//            freeBoardSave = freeBoardService.SaveFreeBoards(freeBoard);
+
         } catch (Exception e) {
 
             System.out.println(e);
@@ -103,6 +102,16 @@ public class FreeBoardController {
             System.out.println(e);
             return fileNamespath;
         }
+    }
+
+
+    @GetMapping("/FreeBoard/Detail/{fbNum}")
+    @CrossOrigin
+    @ResponseBody
+    public List<FreeBoard> getIdByFreeBoards(@PathVariable Long fbNum){
+        List<FreeBoard> freeBoards = freeBoardService.getIdByFreeBoards(fbNum);
+
+        return freeBoards;
     }
 
 }
