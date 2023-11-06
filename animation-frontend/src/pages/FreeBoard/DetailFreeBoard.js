@@ -8,12 +8,15 @@ import styled from 'styled-components';
 
 function DetailFreeBoard() {
   const { fbNum } = useParams();
+
   const navigate = useNavigate();
+
   const freeBoardGo = () => {
     navigate('/freeBoard');
   };
-
-  const [formData, setFormData] = useState({});
+  const UpdatefreeBoardGo = () => {
+    navigate(`/updateFreeBoard/${fbNum}`);
+  };
 
   function DateTime(fbDate) {
     const date = new Date(fbDate);
@@ -24,7 +27,8 @@ function DetailFreeBoard() {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${year}/${month}/${day} ${hours}:${minutes}`;
   }
-  console.log(fbNum);
+
+  const [formData, setFormData] = useState({});
   const [imageDimensions, setImageDimensions] = useState({
     width: 0,
     height: 0,
@@ -49,8 +53,6 @@ function DetailFreeBoard() {
       });
     };
   }, [formData.photo]);
-
-  console.log(imageDimensions.width);
 
   return (
     <div className="container">
@@ -96,6 +98,13 @@ function DetailFreeBoard() {
         <div
           style={{ display: 'flex', justifyContent: 'end', marginTop: '20px' }}
         >
+          <Button
+            variant="btn btn-warning"
+            style={{ marginRight: '20px' }}
+            onClick={UpdatefreeBoardGo}
+          >
+            게시글 수정하기
+          </Button>
           <Button
             variant="primary"
             style={{ marginRight: '20px' }}

@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import SaveFreeBoard from './pages/FreeBoard/SaveFreeBoard';
 import FreeBoard from './pages/FreeBoard/FreeBoard';
 import DetailFreeBoard from './pages/FreeBoard/DetailFreeBoard';
+import UpdateFreeBoard from './pages/FreeBoard/UpdateFreeBoard';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/freeBoard" element={<FreeBoard />} />
           <Route path="/saveFreeBoard" element={<SaveFreeBoard />} />
           <Route path="/detailFreeBoard/:fbNum" element={<DetailFreeBoard />} />
+          <Route path="/updateFreeBoard/:fbNum" element={<UpdateFreeBoard />} />
         </Routes>
       </Container>
       <Footer />
