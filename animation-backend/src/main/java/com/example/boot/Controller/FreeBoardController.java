@@ -51,6 +51,7 @@ public class FreeBoardController {
     @ResponseBody
     public int freeBoardsTotalPage(Model model){
 
+
        int freeBoardsPages = freeBoardService.getFreeBoardTotalPages();
 
         System.out.println(freeBoardsPages);
@@ -105,13 +106,38 @@ public class FreeBoardController {
     }
 
 
+    //디테일 데이터 뽑아주는 부분
     @GetMapping("/FreeBoard/Detail/{fbNum}")
     @CrossOrigin
     @ResponseBody
     public List<FreeBoard> getIdByFreeBoards(@PathVariable Long fbNum){
-        List<FreeBoard> freeBoards = freeBoardService.getIdByFreeBoards(fbNum);
+        List<FreeBoard> freeBoards = new ArrayList<>();
+        try{
+           freeBoards = freeBoardService.getIdByFreeBoards(fbNum);
 
+        }
+       catch (Exception e){
+
+           System.out.println(e);
+           System.out.println("/FreeBoard/Detail 에러");
+
+       }
         return freeBoards;
+    }
+
+    //조회수 올리는부분
+    @GetMapping("/FreeBoard/ReadCountUp/{fbNum}")
+    @CrossOrigin
+    @ResponseBody
+    public void Long(@PathVariable Long fbNum){
+       try{
+           freeBoardService.FBReadCountUp(fbNum);
+
+       }catch (Exception e){
+           System.out.println(e);
+           System.out.println("/FreeBoard/ReadCountUp 에러");
+       }
+
     }
 
 }

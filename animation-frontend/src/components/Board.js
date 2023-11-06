@@ -27,6 +27,11 @@ function Board() {
   const navigate = useNavigate();
 
   const DetailFreeBoardGo = (fbNum) => {
+    fetch(`http://localhost:8080/FreeBoard/ReadCountUp/${fbNum}`)
+      .then((res) => res)
+      .then((res) => {
+        console.log(res);
+      });
     navigate(`/detailFreeBoard/${fbNum}`);
   };
 

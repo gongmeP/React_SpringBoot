@@ -16,4 +16,7 @@ public interface FreeBoardService {
 
 
     List<FreeBoard>  getIdByFreeBoards(Long fnNum);
+
+    Long  FBReadCountUp(Long fnNum);
+
 }

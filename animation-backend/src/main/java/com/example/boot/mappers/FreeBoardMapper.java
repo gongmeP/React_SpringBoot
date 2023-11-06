@@ -18,4 +18,6 @@ public interface FreeBoardMapper {
 
     List<FreeBoard> getIdByFreeBoards(Long fbNum);
 
+    Long FBReadCountUp(Long fnNum);
+
 }

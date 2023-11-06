@@ -44,5 +44,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         return freeBoardMapper.getIdByFreeBoards(fnNum);
     }
+
+    @Override
+    public Long FBReadCountUp(Long fnNum) {
+        return freeBoardMapper. FBReadCountUp(fnNum);
+    }
+
+
 }
 

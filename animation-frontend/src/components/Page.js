@@ -32,7 +32,7 @@ function Page({ EA, Pages }) {
             {mapPage + 1}
           </Pagination.Item>
         ))}
-
+        {/* <Pagination.Ellipsis /> */}
         <Pagination.Next onClick={() => PageClick(Pages + 1)} />
         <Pagination.Last onClick={() => PageClick(totoalPage - 1)} />
       </Pagination>
