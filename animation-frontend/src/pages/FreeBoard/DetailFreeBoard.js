@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import styled from 'styled-components';
 
 function DetailFreeBoard() {
   const { fbNum } = useParams();
@@ -24,6 +25,10 @@ function DetailFreeBoard() {
     return `${year}/${month}/${day} ${hours}:${minutes}`;
   }
   console.log(fbNum);
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     fetch(`http://localhost:8080/FreeBoard/Detail/${fbNum}`)
@@ -33,6 +38,19 @@ function DetailFreeBoard() {
         console.log(res[0]);
       });
   }, []);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = `http://localhost:8080/file/${formData.photo}`;
+    image.onload = () => {
+      setImageDimensions({
+        width: image.naturalWidth / 10,
+        height: image.naturalHeight / 10,
+      });
+    };
+  }, [formData.photo]);
+
+  console.log(imageDimensions.width);
 
   return (
     <div className="container">
@@ -61,22 +79,23 @@ function DetailFreeBoard() {
               <p className="mb-3">댓글수 : {formData.replyCount}</p>
             </Col>
           </Row>
-
-          <Form.Control
-            as="textarea"
-            rows={10}
-            name="fbContent"
-            value={formData.fbContent}
-            readOnly={true}
-            style={{ textAlign: 'left', resize: 'none', height: '450px' }}
-          >
-            {/* <div style={{ height: '600px' }}>
-              <img src="imageUrl" fluid />
-            </div> */}
-          </Form.Control>
         </Form.Group>
 
-        <div style={{ display: 'flex', justifyContent: 'end' }}>
+        <PostContainer>
+          {formData.fbContent}
+          <img
+            src={`http://localhost:8080/file/${formData.photo}`}
+            alt="이미지"
+            style={{
+              width: imageDimensions.width,
+              height: imageDimensions.height,
+            }}
+          />
+        </PostContainer>
+
+        <div
+          style={{ display: 'flex', justifyContent: 'end', marginTop: '20px' }}
+        >
           <Button
             variant="primary"
             style={{ marginRight: '20px' }}
@@ -89,5 +108,14 @@ function DetailFreeBoard() {
     </div>
   );
 }
+
+const PostContainer = styled.div`
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(204, 204, 204, 0.6);
+  padding: 10px;
+  border-radius: 10px;
+`;
 
 export default DetailFreeBoard;

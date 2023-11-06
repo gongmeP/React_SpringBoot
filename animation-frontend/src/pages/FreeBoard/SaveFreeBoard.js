@@ -14,6 +14,8 @@ function SaveFreeBoard() {
     userid: sessionStorage.getItem('loginID'),
   });
 
+  console.log(formData.fbTitle);
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     if (type === 'file') {
@@ -70,7 +72,11 @@ function SaveFreeBoard() {
             })
               .then((res) => res.json())
               .then((res) => {
-                setFormData({ ...formData, photo: res[0] });
+                //prevData : setFormData 의 이전상태 값 가져와서 복사 후 초기화 방지용 !!
+                setFormData((prevData) => ({
+                  ...prevData,
+                  photo: res[0],
+                }));
                 setTimeout(() => {
                   resolve({
                     default: `${API_URL}/file/${res}`,
