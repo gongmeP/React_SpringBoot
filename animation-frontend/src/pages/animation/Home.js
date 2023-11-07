@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import BookItem from '../../components/AniItem';
 import { Row } from 'react-bootstrap';
 import Page from '../../components/Page';
 import Banner from '../../components/Banner';
-import MainDaily from '../../components/MainDaily';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { setAni, setAniEA } from '../../Redux/action';
 import store from '../../Redux/store';
 import AniItem from '../../components/AniItem';
+import AniMainDaily from '../../components/AniMainDaily';
 
 function Home() {
-  const Ani = useSelector((state) => state.Ani);
+  const Ani1Page = useSelector((state) => state.Ani);
   const Pages = useSelector((state) => state.pages);
   const AniEA = useSelector((stage) => stage.AniEA);
 
@@ -27,10 +26,10 @@ function Home() {
   return (
     <>
       <Banner></Banner>
-      <MainDaily></MainDaily>
+      <AniMainDaily></AniMainDaily>
       <Row className="justify-content-evenly" style={{ margin: '0 auto' }}>
-        {Ani.map((Ani) => (
-          <AniItem key={Ani.id} Ani={Ani} />
+        {Ani1Page.map((Ani1Page) => (
+          <AniItem key={Ani1Page.id} Ani={Ani1Page} />
         ))}
       </Row>
       <Page EA={AniEA} Pages={Pages}></Page>

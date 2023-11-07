@@ -2,24 +2,25 @@ import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
 import './BootStrapcss.css';
-function MainDaily() {
-  const posts = [
-    { id: 1, image: '이미지1', title: '애니메이션 제목 1' },
-    { id: 2, image: '이미지2', title: '애니메이션 제목 2' },
-    { id: 3, image: '이미지3', title: '애니메이션 제목 3' },
-    { id: 4, image: '이미지4', title: '애니메이션 제목 4' },
-    { id: 5, image: '이미지5', title: '애니메이션 제목 5' },
-    { id: 6, image: '이미지6', title: '애니메이션 제목 6' },
-    { id: 7, image: '이미지7', title: '애니메이션 제목 7' },
-    { id: 8, image: '이미지8', title: '애니메이션 제목 8' },
-    { id: 9, image: '이미지9', title: '애니메이션 제목 9' },
-    { id: 10, image: '이미지10', title: '애니메이션 제목 10' },
+import { useSelector } from 'react-redux';
+import store from '../Redux/store';
+import { setAniALLArray } from '../Redux/action';
+import { useEffect } from 'react';
+function AniMainDaily() {
+  const AniALLArray = useSelector((state) => state.AniALLArray);
 
-    // 추가 게시글
-  ];
+  useEffect(() => {
+    fetch(`http://localhost:8080/Ani/ALL`, { method: 'GET' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(1, res);
 
-  const postsPerPage = 3;
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+        store.dispatch(setAniALLArray(res));
+      });
+  }, []);
+
+  const postsPerPage = 10;
+  const totalPages = Math.ceil(AniALLArray.length / postsPerPage);
   const [activeItemIndex, setActiveItemIndex] = useState(0);
 
   const prevPage = () => {
@@ -91,10 +92,10 @@ function MainDaily() {
         }
         outsideChevron={false}
       >
-        {posts.map((post) => (
-          <div key={post.id} className="p-2">
-            <h3>{post.image}</h3>
-            <p>{post.title}</p>
+        {AniALLArray.map((AniALLArray) => (
+          <div key={AniALLArray.id} className="p-2">
+            <p>{AniALLArray.photo}</p>
+            <h3>{AniALLArray.title}</h3>
           </div>
         ))}
       </ItemsCarousel>
@@ -102,4 +103,4 @@ function MainDaily() {
   );
 }
 
-export default MainDaily;
+export default AniMainDaily;

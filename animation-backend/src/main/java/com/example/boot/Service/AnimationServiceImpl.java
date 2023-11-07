@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -32,6 +34,14 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public Page<Animation> getAllAniData(Pageable pageable) {
         return animationRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @Override
+    public List<Animation> getAllAniDataALL() {
+
+        return animationRepository.findAll();
+
     }
 
     @Transactional

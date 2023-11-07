@@ -18,7 +18,7 @@ public class AnimationController {
 
     @PostMapping("/Ani")
     @CrossOrigin
-    public ResponseEntity<?> save(@RequestBody Animation animation){ //json
+    public ResponseEntity<?> save(@RequestBody Animation animation){
 
 
         return new ResponseEntity<>(animationService.saveAni(animation),HttpStatus.CREATED);
@@ -29,6 +29,12 @@ public class AnimationController {
     public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 12,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
         return new ResponseEntity<>(animationService.getAllAniData(pageable),HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping("/Ani/ALL")
+    public ResponseEntity<?> findAll(){
+        return new ResponseEntity<>(animationService.getAllAniDataALL(), HttpStatus.OK);
     }
 
     @GetMapping("/Ani/{id}")

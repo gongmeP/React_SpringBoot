@@ -22,6 +22,11 @@ export const setAniEA = (AniEA) => ({
   payload: AniEA,
 });
 
+export const setAniALLArray = (AniALLArray) => ({
+  type: 'setAniALLArray',
+  payload: AniALLArray,
+});
+
 export const setPages = (pages) => ({
   type: 'SET_PAGES',
   payload: pages,

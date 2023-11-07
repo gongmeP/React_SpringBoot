@@ -8,6 +8,7 @@ const initstate = {
   freeBoards: [],
   freeBoardsEA: 1,
   formData: [],
+  AniALLArray: [],
 };
 
 const Reducer = (state = initstate, action) => {
@@ -33,6 +34,8 @@ const Reducer = (state = initstate, action) => {
       return { ...state, freeBoardsEA: action.payload };
     case 'setFormData':
       return { ...state, formData: action.payload };
+    case 'setAniALLArray':
+      return { ...state, AniALLArray: action.payload };
     default:
       return state;
   }
