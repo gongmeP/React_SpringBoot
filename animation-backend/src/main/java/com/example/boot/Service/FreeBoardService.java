@@ -19,4 +19,8 @@ public interface FreeBoardService {
 
     Long  FBReadCountUp(Long fnNum);
 
+    List<FreeBoard> UpdatefreeBoardSave( FreeBoard freeBoard);
+
+
+
 }

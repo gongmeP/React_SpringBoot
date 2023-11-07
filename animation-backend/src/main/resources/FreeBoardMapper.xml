@@ -27,4 +27,11 @@
         update fBoard set fbReadCount = fbReadCount+1 where fbNum = #{fbNum};
     </update>
 
+    <update id="UpdatefreeBoardSave" parameterType="com.example.boot.Entity.FreeBoard">
+        update fBoard
+        set fbTitle = #{fbTitle},
+        fbContent = #{fbContent},
+        fbDate = #{fbDate}
+        where fbNum = #{fbNum};
+    </update>
 </mapper>

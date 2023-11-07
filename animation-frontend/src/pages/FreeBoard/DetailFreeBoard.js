@@ -103,7 +103,7 @@ function DetailFreeBoard() {
             style={{ marginRight: '20px' }}
             onClick={UpdatefreeBoardGo}
           >
-            게시글 수정하기
+            수정
           </Button>
           <Button
             variant="primary"

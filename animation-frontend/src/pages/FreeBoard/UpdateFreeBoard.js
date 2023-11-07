@@ -46,7 +46,7 @@ function UpdateFreeBoard() {
   };
 
   const API_URL = 'http://localhost:8080';
-  const UPLOAD_ENDPOINT = 'FreeBoard/Save';
+
   const Updategogos = (e) => {
     e.preventDefault();
 
@@ -56,7 +56,7 @@ function UpdateFreeBoard() {
     body.append('photo', formData.photo);
     body.append('userid', formData.userid);
 
-    fetch(`${API_URL}/${UPLOAD_ENDPOINT}`, {
+    fetch(`http://localhost:8080/FreeBoard/Update/${fbNum}`, {
       method: 'post',
       body: body,
     })
@@ -72,7 +72,7 @@ function UpdateFreeBoard() {
       .catch((err) => {
         alert('게시판 글 등록 실패:', err);
       });
-    alert('게시글이 등록되었습니다.');
+    alert('게시글이 수정되었습니다.');
     navigate('/freeBoard');
   };
 
@@ -163,7 +163,7 @@ function UpdateFreeBoard() {
             type="submit"
             style={{ marginRight: '20px' }}
           >
-            게시글 저장
+            수정 저장
           </Button>
         </div>
       </Form>

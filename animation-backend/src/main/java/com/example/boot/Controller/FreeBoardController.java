@@ -129,15 +129,35 @@ public class FreeBoardController {
     @GetMapping("/FreeBoard/ReadCountUp/{fbNum}")
     @CrossOrigin
     @ResponseBody
-    public void Long(@PathVariable Long fbNum){
-       try{
-           freeBoardService.FBReadCountUp(fbNum);
+    public void Long(@PathVariable Long fbNum) {
+        try {
+            freeBoardService.FBReadCountUp(fbNum);
 
-       }catch (Exception e){
-           System.out.println(e);
-           System.out.println("/FreeBoard/ReadCountUp 에러");
-       }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("/FreeBoard/ReadCountUp 에러");
+        }
 
+    }
+
+
+    //수정
+    @PostMapping("/FreeBoard/Update/{fbNum}")
+    @CrossOrigin
+    @ResponseBody
+    public List<FreeBoard> UpdatefreeBoardSave(@ModelAttribute("SaveData") FreeBoard freeBoard, MultipartFile file) {
+        List<FreeBoard> freeBoardSave = new ArrayList<>();
+        try {
+
+            freeBoardService.UpdatefreeBoardSave(freeBoard);
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+            System.out.println("/FreeBoard/ReadCountUp/ 에러");
+        }
+
+        return freeBoardSave;
     }
 
 }

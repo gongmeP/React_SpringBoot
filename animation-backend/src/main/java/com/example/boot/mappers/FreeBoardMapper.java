@@ -20,4 +20,7 @@ public interface FreeBoardMapper {
 
     Long FBReadCountUp(Long fnNum);
 
+
+    List<FreeBoard> UpdatefreeBoardSave(FreeBoard freeBoard);
+
 }

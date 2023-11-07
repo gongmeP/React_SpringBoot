@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,6 +52,16 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         return freeBoardMapper. FBReadCountUp(fnNum);
     }
 
+    @Override
+    public List<FreeBoard> UpdatefreeBoardSave(FreeBoard freeBoard) {
+        try{
 
+            LocalDateTime currentTime =  LocalDateTime.now();
+            freeBoard.setFbDate(currentTime);
+        }catch (Exception e){
+            System.out.println("FreeBoardService 오류 UpdatefreeBoardSave");
+        }
+        return freeBoardMapper.UpdatefreeBoardSave(freeBoard);
+    }
 }
 
