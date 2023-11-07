@@ -7,6 +7,7 @@
 - MYSQL
 - Maven
 - Lombok
+- Mybatis
 
 ### React
 

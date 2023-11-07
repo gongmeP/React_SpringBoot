@@ -46,6 +46,7 @@ function Board() {
     fetch(`http://localhost:8080/FreeBoard/ReadCountUp/${fbNum}`)
       .then((res) => res)
       .then((res) => {
+        window.scrollTo(0, 0);
         navigate(`/detailFreeBoard/${fbNum}`);
       });
   };

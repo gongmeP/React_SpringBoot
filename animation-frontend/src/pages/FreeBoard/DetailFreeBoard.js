@@ -72,8 +72,6 @@ function DetailFreeBoard() {
   const formData = useSelector((state) => state.formData);
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     fetch(`http://localhost:8080/FreeBoard/Detail/${fbNum}`)
       .then((res) => res.json())
       .then((res) => {
@@ -139,10 +137,10 @@ function DetailFreeBoard() {
           style={{
             display: 'flex',
             justifyContent: 'end',
-            marginTop: '20px',
+            marginTop: '40px',
             marginBottom: '100px',
             borderBottom: '2px dotted black',
-            paddingBottom: '100px',
+            paddingBottom: '40px',
           }}
         >
           <Button

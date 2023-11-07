@@ -11,6 +11,14 @@ import {
 import { Link } from 'react-router-dom';
 
 function Header() {
+  const sessionID = window.sessionStorage.getItem('loginID');
+
+  const logoutgo = () => {
+    sessionStorage.clear();
+    alert('로그아웃 되었습니다.');
+    window.location.href = '/';
+  };
+
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
@@ -46,20 +54,36 @@ function Header() {
               </Row>
             </Form>
             <Nav className="">
-              <Link
-                to="/joinForm"
-                className="nav-link"
-                style={{ font: '12px' }}
-              >
-                회원가입
-              </Link>
-              <Link
-                to="/loginForm"
-                className="nav-link"
-                style={{ font: '12px' }}
-              >
-                로그인
-              </Link>
+              {sessionID ? (
+                <Link className="nav-link" style={{ font: '12px' }}>
+                  {sessionID}님
+                </Link>
+              ) : (
+                <Link
+                  to="/joinForm"
+                  className="nav-link"
+                  style={{ font: '12px' }}
+                >
+                  회원가입
+                </Link>
+              )}
+              {sessionID ? (
+                <Link
+                  onClick={logoutgo}
+                  className="nav-link"
+                  style={{ font: '12px' }}
+                >
+                  로그아웃
+                </Link>
+              ) : (
+                <Link
+                  to="/loginForm"
+                  className="nav-link"
+                  style={{ font: '12px' }}
+                >
+                  로그인
+                </Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

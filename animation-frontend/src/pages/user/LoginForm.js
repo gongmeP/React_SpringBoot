@@ -32,7 +32,7 @@ const Login = () => {
           console.log(ReduxloginID);
 
           alert('로그인 되셨습니다');
-          // navigate('/');
+          window.location.href = '/';
         } else {
           alert('아이디 및 패스워드 를 다시 확인해주세요');
           // navigate('/loginForm');
