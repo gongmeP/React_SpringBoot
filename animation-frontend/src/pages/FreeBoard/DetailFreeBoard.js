@@ -17,6 +17,19 @@ function DetailFreeBoard() {
   const UpdatefreeBoardGo = () => {
     navigate(`/updateFreeBoard/${fbNum}`);
   };
+  const DeletefreeBoardGo = () => {
+    fetch(`http://localhost:8080/FreeBoard/Delete/${fbNum}`)
+      .then((res) => res.text())
+      .then((res) => {
+        console.log(res);
+        if (res === 'DeleteOk') {
+          alert('게시글이 삭제 되었습니다.');
+          navigate('/freeBoard');
+        } else {
+          alert('게시글이 삭제 에러');
+        }
+      });
+  };
 
   function DateTime(fbDate) {
     const date = new Date(fbDate);
@@ -99,6 +112,13 @@ function DetailFreeBoard() {
           style={{ display: 'flex', justifyContent: 'end', marginTop: '20px' }}
         >
           <Button
+            variant="primary"
+            style={{ marginRight: '20px' }}
+            onClick={freeBoardGo}
+          >
+            게시글 목록보기
+          </Button>
+          <Button
             variant="btn btn-warning"
             style={{ marginRight: '20px' }}
             onClick={UpdatefreeBoardGo}
@@ -106,11 +126,11 @@ function DetailFreeBoard() {
             수정
           </Button>
           <Button
-            variant="primary"
+            variant="btn btn-warning"
             style={{ marginRight: '20px' }}
-            onClick={freeBoardGo}
+            onClick={DeletefreeBoardGo}
           >
-            게시글 목록보기
+            삭제
           </Button>
         </div>
       </Form>

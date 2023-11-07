@@ -129,7 +129,7 @@ public class FreeBoardController {
     @GetMapping("/FreeBoard/ReadCountUp/{fbNum}")
     @CrossOrigin
     @ResponseBody
-    public void Long(@PathVariable Long fbNum) {
+    public void ReadCountUp(@PathVariable Long fbNum) {
         try {
             freeBoardService.FBReadCountUp(fbNum);
 
@@ -154,10 +154,32 @@ public class FreeBoardController {
         } catch (Exception e) {
 
             System.out.println(e);
-            System.out.println("/FreeBoard/ReadCountUp/ 에러");
+            System.out.println("/FreeBoard/Update/ 에러");
         }
 
         return freeBoardSave;
+    }
+
+
+
+    //삭제
+    @GetMapping("/FreeBoard/Delete/{fbNum}")
+    @CrossOrigin
+    @ResponseBody
+    public String DeletefreeBoardSave(@PathVariable Long fbNum) {
+
+        try {
+
+            freeBoardService.DeletefreeBoardSave(fbNum);
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+            System.out.println("/FreeBoard/Delete/ 에러");
+        }
+
+        return "DeleteOk";
+
     }
 
 }

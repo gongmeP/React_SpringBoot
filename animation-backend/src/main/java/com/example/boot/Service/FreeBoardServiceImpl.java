@@ -23,6 +23,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         return freeBoardMapper.getAllFreeBoards();
     }
 
+
     @Override
     public List<FreeBoard> getFreeBoardPages(int pageSize, int offset) {
 
@@ -63,5 +64,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         }
         return freeBoardMapper.UpdatefreeBoardSave(freeBoard);
     }
+
+    @Override
+    public Long DeletefreeBoardSave(Long fnNum) {
+        return freeBoardMapper.DeletefreeBoardSave(fnNum);
+    }
+
 }
 

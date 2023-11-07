@@ -23,4 +23,6 @@ public interface FreeBoardMapper {
 
     List<FreeBoard> UpdatefreeBoardSave(FreeBoard freeBoard);
 
+    Long DeletefreeBoardSave(Long fnNum);
+
 }

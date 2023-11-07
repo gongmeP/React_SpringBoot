@@ -34,4 +34,8 @@
         fbDate = #{fbDate}
         where fbNum = #{fbNum};
     </update>
+
+    <update id="DeletefreeBoardSave" parameterType="Long">
+        update fBoard set fbDel = 'Y' where fbNum = #{fbNum};
+    </update>
 </mapper>
