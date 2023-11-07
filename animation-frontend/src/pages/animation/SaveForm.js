@@ -16,7 +16,7 @@ function SaveForm(props) {
 
   const submitBook = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8080/book', {
+    fetch('http://localhost:8080/Ani', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

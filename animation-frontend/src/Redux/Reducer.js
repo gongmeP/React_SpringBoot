@@ -2,8 +2,8 @@ const initstate = {
   Login_TF: false,
   loginID: null,
   loginUsername: null,
-  books: [],
-  bookEA: 1,
+  Ani: [],
+  AniEA: 1,
   pages: 0,
   freeBoards: [],
   freeBoardsEA: 1,
@@ -21,10 +21,10 @@ const Reducer = (state = initstate, action) => {
       };
     case 'LOGIN_FAIL':
       return { ...state, Login_TF: false };
-    case 'SET_BOOKS':
-      return { ...state, books: action.payload };
-    case 'SET_BOOK_EA':
-      return { ...state, bookEA: action.payload };
+    case 'setAni':
+      return { ...state, Ani: action.payload };
+    case 'setAniEA':
+      return { ...state, AniEA: action.payload };
     case 'SET_PAGES':
       return { ...state, pages: action.payload };
     case 'setFreeBoards':

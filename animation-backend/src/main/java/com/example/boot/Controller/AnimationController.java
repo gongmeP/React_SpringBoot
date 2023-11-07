@@ -16,7 +16,7 @@ public class AnimationController {
 
     private final AnimationService animationService;
 
-    @PostMapping("/book")
+    @PostMapping("/Ani")
     @CrossOrigin
     public ResponseEntity<?> save(@RequestBody Animation animation){ //json
 
@@ -25,20 +25,20 @@ public class AnimationController {
     }
 
     @CrossOrigin
-    @GetMapping("/book")
+    @GetMapping("/Ani")
     public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 12,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
         return new ResponseEntity<>(animationService.getAllAniData(pageable),HttpStatus.OK);
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/Ani/{id}")
     @CrossOrigin
     public ResponseEntity<?> findById(@PathVariable Long id){
 
         return new ResponseEntity<>(animationService.getAniById(id),HttpStatus.OK);
     }
 
-    @PutMapping("/book/{id}")
+    @PutMapping("/Ani/{id}")
     @CrossOrigin
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Animation animation){
         System.out.println(id);
@@ -46,7 +46,7 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.Aniupdate(id, animation),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/book/{id}")
+    @DeleteMapping("/Ani/{id}")
     @CrossOrigin
     public ResponseEntity<?> deleteById(@PathVariable Long id){
 

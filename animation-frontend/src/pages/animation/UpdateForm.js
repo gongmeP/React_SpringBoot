@@ -12,7 +12,7 @@ function UpdateForm(props) {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8080/book/${id}`)
+    fetch(`http://localhost:8080/Ani/${id}`)
       .then((res) => res.json())
       .then((res) => {
         setBook(res);
@@ -27,7 +27,7 @@ function UpdateForm(props) {
 
   const submitBook = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8080/book/${id}`, {
+    fetch(`http://localhost:8080/Ani/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

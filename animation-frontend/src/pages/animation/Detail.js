@@ -9,7 +9,7 @@ function Detail(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/book/${id}`)
+    fetch(`http://localhost:8080/Ani/${id}`)
       .then((res) => res.json())
       .then((res) => {
         setBooks(res);
@@ -23,7 +23,7 @@ function Detail(props) {
   });
 
   const deleteBook = () => {
-    fetch(`http://localhost:8080/book/${id}`, {
+    fetch(`http://localhost:8080/Ani/${id}`, {
       method: 'DELETE',
     })
       .then((res) => res.text())

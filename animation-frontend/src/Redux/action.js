@@ -12,14 +12,14 @@ export const loginFail = () => {
   };
 };
 
-export const setBooks = (books) => ({
-  type: 'SET_BOOKS',
-  payload: books,
+export const setAni = (Ani) => ({
+  type: 'setAni',
+  payload: Ani,
 });
 
-export const setBookEA = (bookEA) => ({
-  type: 'SET_BOOK_EA',
-  payload: bookEA,
+export const setAniEA = (AniEA) => ({
+  type: 'setAniEA',
+  payload: AniEA,
 });
 
 export const setPages = (pages) => ({
