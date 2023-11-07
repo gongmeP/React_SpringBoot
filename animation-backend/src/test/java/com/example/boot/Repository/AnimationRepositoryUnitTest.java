@@ -1,7 +1,7 @@
 package com.example.boot.Repository;
 
 
-import com.example.boot.Entity.Book;
+import com.example.boot.Entity.Animation;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,11 +22,11 @@ public class AnimationRepositoryUnitTest {
 
     @Test
     public void save_test(){
-        Book book = new Book(null,"123","1234");
+        Animation animation = new Animation(null,"123","1234");
 
-        Book bookEntity = animationRepository.save(book);
+        Animation animationEntityEntity = animationRepository.save(animation);
 
-        assertEquals("123",bookEntity.getTitle());
+        assertEquals("123", animationEntityEntity.getTitle());
     }
 
 }

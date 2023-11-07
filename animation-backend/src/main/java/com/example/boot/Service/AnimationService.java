@@ -1,19 +1,19 @@
 package com.example.boot.Service;
 
-import com.example.boot.Entity.Book;
+import com.example.boot.Entity.Animation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface AnimationService {
 
-    Book saveBook(Book book);
+    Animation saveAni(Animation animation);
 
-    Book getBookById(Long id);
+    Animation getAniById(Long id);
 
-    Page<Book> getAllBookData(Pageable pageable);
+    Page<Animation> getAllAniData(Pageable pageable);
 
-    Book update(Long id,Book book);
+    Animation Aniupdate(Long id, Animation animation);
 
-    String delete(Long id);
+    String Anidelete(Long id);
 
 }

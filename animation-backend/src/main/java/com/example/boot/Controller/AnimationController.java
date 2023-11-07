@@ -1,6 +1,6 @@
 package com.example.boot.Controller;
 
-import com.example.boot.Entity.Book;
+import com.example.boot.Entity.Animation;
 import com.example.boot.Service.AnimationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -18,32 +18,32 @@ public class AnimationController {
 
     @PostMapping("/book")
     @CrossOrigin
-    public ResponseEntity<?> save(@RequestBody Book book){ //json
+    public ResponseEntity<?> save(@RequestBody Animation animation){ //json
 
 
-        return new ResponseEntity<>(animationService.saveBook(book),HttpStatus.CREATED);
+        return new ResponseEntity<>(animationService.saveAni(animation),HttpStatus.CREATED);
     }
 
     @CrossOrigin
     @GetMapping("/book")
     public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 12,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
-        return new ResponseEntity<>(animationService.getAllBookData(pageable),HttpStatus.OK);
+        return new ResponseEntity<>(animationService.getAllAniData(pageable),HttpStatus.OK);
     }
 
     @GetMapping("/book/{id}")
     @CrossOrigin
     public ResponseEntity<?> findById(@PathVariable Long id){
 
-        return new ResponseEntity<>(animationService.getBookById(id),HttpStatus.OK);
+        return new ResponseEntity<>(animationService.getAniById(id),HttpStatus.OK);
     }
 
     @PutMapping("/book/{id}")
     @CrossOrigin
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Book book){
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Animation animation){
         System.out.println(id);
-        System.out.println(book);
-        return new ResponseEntity<>(animationService.update(id,book),HttpStatus.CREATED);
+        System.out.println(animation);
+        return new ResponseEntity<>(animationService.Aniupdate(id, animation),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/book/{id}")
@@ -52,7 +52,7 @@ public class AnimationController {
 
 
 
-        return new ResponseEntity<>(animationService.delete(id),HttpStatus.CREATED);
+        return new ResponseEntity<>(animationService.Anidelete(id),HttpStatus.CREATED);
     }
 
   

@@ -1,6 +1,5 @@
 package com.example.boot.Service;
 
-import com.example.boot.Entity.Book;
 import com.example.boot.Entity.Member;
 
 import java.util.List;

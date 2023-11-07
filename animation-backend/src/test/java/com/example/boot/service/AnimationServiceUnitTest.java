@@ -1,6 +1,6 @@
 package com.example.boot.service;
 
-import com.example.boot.Entity.Book;
+import com.example.boot.Entity.Animation;
 import com.example.boot.Repository.AnimationRepository;
 import com.example.boot.Service.AnimationService;
 import org.junit.jupiter.api.Test;
@@ -28,18 +28,18 @@ public class AnimationServiceUnitTest {
     //given
     @Test
     public  void save_test(){
-        Book book = new Book();
-        book.setTitle("책제목");
-        book.setAuthor("책저자1");
+        Animation animation = new Animation();
+        animation.setTitle("책제목");
+        animation.setAuthor("책저자1");
         
         //stub - 동작 지정
-        when(animationRepository.save(book)).thenReturn(book);
+        when(animationRepository.save(animation)).thenReturn(animation);
 
         //test execute
-        Book bookEntity = animationService.saveBook(book);
+        Animation animationEntityEntity = animationService.saveBook(animation);
 
         //then
-        assertEquals(bookEntity,book);
+        assertEquals(animationEntityEntity, animation);
     }
 
 }

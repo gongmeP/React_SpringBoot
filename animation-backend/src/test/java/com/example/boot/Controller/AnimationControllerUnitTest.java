@@ -1,6 +1,6 @@
 package com.example.boot.Controller;
 
-import com.example.boot.Entity.Book;
+import com.example.boot.Entity.Animation;
 import com.example.boot.Service.AnimationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
@@ -40,10 +40,10 @@ public class AnimationControllerUnitTest {
     @Test
     public void save_Test() throws Exception {
         // Given (테스트 하기위한 준비)
-        Book book = new Book(null, "스프링", "균");
-        String content = new ObjectMapper().writeValueAsString(book);
+        Animation animation = new Animation(null, "스프링", "균");
+        String content = new ObjectMapper().writeValueAsString(animation);
 
-        when(animationService.saveBook(book)).thenReturn(new Book(1L, "스프링", "균"));
+        when(animationService.saveBook(animation)).thenReturn(new Animation(1L, "스프링", "균"));
 
         // When (테스트 실행)
         ResultActions resultActions =
@@ -65,11 +65,11 @@ public class AnimationControllerUnitTest {
     @Test
     public void findAllTest() throws Exception{
         //given 테스트용 데이터
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(1L,"스프링부트","park"));
-        books.add(new Book(2L,"리엑트","park2"));
+        List<Animation> animationEntities = new ArrayList<>();
+        animationEntities.add(new Animation(1L,"스프링부트","park"));
+        animationEntities.add(new Animation(2L,"리엑트","park2"));
 
-        when(animationService.getAllBookData()).thenReturn(books);
+        when(animationService.getAllBookData()).thenReturn(animationEntities);
 
         //when 실행
         ResultActions resultActions = mockMvc.perform(get("/book")
@@ -87,7 +87,7 @@ public class AnimationControllerUnitTest {
     public void findById_Test() throws Exception{
         //given
         Long id = 1L;
-        when(animationService.getBookById(id)).thenReturn(new Book(1L,"자바","kyun"));
+        when(animationService.getBookById(id)).thenReturn(new Animation(1L,"자바","kyun"));
 
         //when
         ResultActions resultActions = mockMvc.perform(get("/book/{id}",id)
@@ -106,9 +106,9 @@ public class AnimationControllerUnitTest {
     public void update_Test() throws Exception{
         //given
         Long id = 1L;
-        Book book = new Book(null, "수정하기", "균");
-        String content = new ObjectMapper().writeValueAsString(book);
-        when(animationService.update(id,book)).thenReturn(new Book(1L, "수정하기", "균"));
+        Animation animation = new Animation(null, "수정하기", "균");
+        String content = new ObjectMapper().writeValueAsString(animation);
+        when(animationService.update(id, animation)).thenReturn(new Animation(1L, "수정하기", "균"));
 
         // When
         ResultActions resultActions =

@@ -9,7 +9,7 @@ package com.example.boot.Controller;
 
 
 
-import com.example.boot.Entity.Book;
+import com.example.boot.Entity.Animation;
 import com.example.boot.Repository.AnimationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -64,8 +64,8 @@ public class AnimationControllerIntegreTest {
         @Test
         public void save_Test() throws Exception {
             // Given (테스트 하기위한 준비)
-            Book book = new Book(null, "스프링", "균");
-            String content = new ObjectMapper().writeValueAsString(book);
+            Animation animation = new Animation(null, "스프링", "균");
+            String content = new ObjectMapper().writeValueAsString(animation);
 
 
             // When (테스트 실행)
@@ -89,11 +89,11 @@ public class AnimationControllerIntegreTest {
     @Test
     public void findAllTest() throws Exception{
         //given 테스트용 데이터
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(null,"스프링부트","park"));
-        books.add(new Book(null,"리엑트","park2"));
-        books.add(new Book(null,"Junit","park3"));
-        animationRepository.saveAll(books);
+        List<Animation> animationEntities = new ArrayList<>();
+        animationEntities.add(new Animation(null,"스프링부트","park"));
+        animationEntities.add(new Animation(null,"리엑트","park2"));
+        animationEntities.add(new Animation(null,"Junit","park3"));
+        animationRepository.saveAll(animationEntities);
 
 //        when(bookService.getAllBookData()).thenReturn(bookRepository.findAll());
 
@@ -118,11 +118,11 @@ public class AnimationControllerIntegreTest {
         //넣어둘 테스트용 데이터
         Long id = 2L;
 
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(null,"스프링부트","park"));
-        books.add(new Book(null,"리엑트","park2"));
-        books.add(new Book(null,"Junit","park3"));
-        animationRepository.saveAll(books);
+        List<Animation> animationEntities = new ArrayList<>();
+        animationEntities.add(new Animation(null,"스프링부트","park"));
+        animationEntities.add(new Animation(null,"리엑트","park2"));
+        animationEntities.add(new Animation(null,"Junit","park3"));
+        animationRepository.saveAll(animationEntities);
 
 
         //when
@@ -145,14 +145,14 @@ public class AnimationControllerIntegreTest {
 
         Long id = 1L;
 
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(null,"스프링부트","park"));
-        books.add(new Book(null,"리엑트","park2"));
-        books.add(new Book(null,"Junit","park3"));
-        animationRepository.saveAll(books);
+        List<Animation> animationEntities = new ArrayList<>();
+        animationEntities.add(new Animation(null,"스프링부트","park"));
+        animationEntities.add(new Animation(null,"리엑트","park2"));
+        animationEntities.add(new Animation(null,"Junit","park3"));
+        animationRepository.saveAll(animationEntities);
 
-        Book book = new Book(null, "수정하기", "균");
-        String content = new ObjectMapper().writeValueAsString(book);
+        Animation animation = new Animation(null, "수정하기", "균");
+        String content = new ObjectMapper().writeValueAsString(animation);
 
 
         // When
@@ -177,11 +177,11 @@ public class AnimationControllerIntegreTest {
     public void delete_Test() throws Exception{
         //given
         Long id = 1L;
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(null,"스프링부트","park"));
-        books.add(new Book(null,"리엑트","park2"));
-        books.add(new Book(null,"Junit","park3"));
-        animationRepository.saveAll(books);
+        List<Animation> animationEntities = new ArrayList<>();
+        animationEntities.add(new Animation(null,"스프링부트","park"));
+        animationEntities.add(new Animation(null,"리엑트","park2"));
+        animationEntities.add(new Animation(null,"Junit","park3"));
+        animationRepository.saveAll(animationEntities);
 
 
         // When
