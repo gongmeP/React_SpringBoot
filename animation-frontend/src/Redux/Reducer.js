@@ -7,6 +7,7 @@ const initstate = {
   pages: 0,
   freeBoards: [],
   freeBoardsEA: 1,
+  formData: [],
 };
 
 const Reducer = (state = initstate, action) => {
@@ -30,6 +31,8 @@ const Reducer = (state = initstate, action) => {
       return { ...state, freeBoards: action.payload };
     case 'setFreeBoardsEA':
       return { ...state, freeBoardsEA: action.payload };
+    case 'setFormData':
+      return { ...state, formData: action.payload };
     default:
       return state;
   }

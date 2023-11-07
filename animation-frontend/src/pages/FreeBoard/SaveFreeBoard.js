@@ -27,35 +27,47 @@ function SaveFreeBoard() {
 
   const API_URL = 'http://localhost:8080';
   const UPLOAD_ENDPOINT = 'FreeBoard/Save';
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  const SaveFreeBoardGo = (e) => {
+    if (formData.fbTitle === '') {
+      alert('제목을 입력하세요');
+      return;
+    }
+    if (formData.fbContent === '') {
+      alert('내용을 입력하세요');
+      return;
+    }
 
-    const body = new FormData();
-    body.append('fbTitle', formData.fbTitle);
-    body.append('fbContent', formData.fbContent);
-    body.append('photo', formData.photo);
-    body.append('userid', formData.userid);
+    if (window.confirm('게시글을 등록 하시겠습니까?')) {
+      e.preventDefault();
 
-    fetch(`${API_URL}/${UPLOAD_ENDPOINT}`, {
-      method: 'post',
-      body: body,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('등록된 게시판 글:', res);
+      const body = new FormData();
+      body.append('fbTitle', formData.fbTitle);
+      body.append('fbContent', formData.fbContent);
+      body.append('photo', formData.photo);
+      body.append('userid', formData.userid);
 
-        setFormData({
-          fbTitle: '',
-          fbContent: '',
-          photo: '',
-          userid: sessionStorage.getItem('loginID'),
-        });
+      fetch(`${API_URL}/${UPLOAD_ENDPOINT}`, {
+        method: 'post',
+        body: body,
       })
-      .catch((err) => {
-        alert('게시판 글 등록 실패:', err);
-      });
-    alert('게시글이 등록되었습니다.');
-    navigate('/freeBoard');
+        .then((res) => res.json())
+        .then((res) => {
+          console.log('등록된 게시판 글:', res);
+
+          setFormData({
+            fbTitle: '',
+            fbContent: '',
+            photo: '',
+            userid: sessionStorage.getItem('loginID'),
+          });
+        })
+        .catch((err) => {
+          alert('게시판 글 등록 실패:', err);
+        });
+      alert('게시글이 등록되었습니다.');
+      navigate('/freeBoard');
+    } else {
+    }
   };
 
   const customUploadAdapter = (loader) => {
@@ -99,7 +111,7 @@ function SaveFreeBoard() {
 
   return (
     <div className="container">
-      <Form onSubmit={handleFormSubmit}>
+      <Form onSubmit={SaveFreeBoardGo}>
         <Form.Group className="mb-3">
           <Form.Control
             placeholder="제목을 입력하세요"

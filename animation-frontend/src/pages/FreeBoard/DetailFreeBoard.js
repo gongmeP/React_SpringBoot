@@ -5,8 +5,29 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
+import Board from '../../components/Board';
+import { useSelector } from 'react-redux';
+import Page from '../../components/Page';
+import store from '../../Redux/store';
+import {
+  setFormData,
+  setFreeBoards,
+  setFreeBoardsEA,
+} from '../../Redux/action';
 
 function DetailFreeBoard() {
+  const Pages = useSelector((state) => state.pages);
+  const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
+  useEffect(() => {
+    fetch(`http://localhost:8080/FreeBoard/TotalPage`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        store.dispatch(setFreeBoardsEA(res));
+      });
+  }, []);
+
   const { fbNum } = useParams();
 
   const navigate = useNavigate();
@@ -18,17 +39,19 @@ function DetailFreeBoard() {
     navigate(`/updateFreeBoard/${fbNum}`);
   };
   const DeletefreeBoardGo = () => {
-    fetch(`http://localhost:8080/FreeBoard/Delete/${fbNum}`)
-      .then((res) => res.text())
-      .then((res) => {
-        console.log(res);
-        if (res === 'DeleteOk') {
-          alert('게시글이 삭제 되었습니다.');
-          navigate('/freeBoard');
-        } else {
-          alert('게시글이 삭제 에러');
-        }
-      });
+    if (window.confirm('게시글을 삭제 하시겠습니까?')) {
+      fetch(`http://localhost:8080/FreeBoard/Delete/${fbNum}`)
+        .then((res) => res.text())
+        .then((res) => {
+          if (res === 'DeleteOk') {
+            alert('게시글이 삭제 되었습니다.');
+            navigate('/freeBoard');
+          } else {
+            alert('게시글이 삭제 에러');
+          }
+        });
+    } else {
+    }
   };
 
   function DateTime(fbDate) {
@@ -41,20 +64,22 @@ function DetailFreeBoard() {
     return `${year}/${month}/${day} ${hours}:${minutes}`;
   }
 
-  const [formData, setFormData] = useState({});
   const [imageDimensions, setImageDimensions] = useState({
     width: 0,
     height: 0,
   });
 
+  const formData = useSelector((state) => state.formData);
+  // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     fetch(`http://localhost:8080/FreeBoard/Detail/${fbNum}`)
       .then((res) => res.json())
       .then((res) => {
-        setFormData(res[0]);
-        console.log(res[0]);
+        store.dispatch(setFormData(res[0]));
       });
-  }, []);
+  }, [formData]);
 
   useEffect(() => {
     const image = new Image();
@@ -98,18 +123,27 @@ function DetailFreeBoard() {
 
         <PostContainer>
           {formData.fbContent}
-          <img
-            src={`http://localhost:8080/file/${formData.photo}`}
-            alt="이미지"
-            style={{
-              width: imageDimensions.width,
-              height: imageDimensions.height,
-            }}
-          />
+          {formData.photo ? (
+            <img
+              src={`http://localhost:8080/file/${formData.photo}`}
+              alt="이미지"
+              style={{
+                width: imageDimensions.width,
+                height: imageDimensions.height,
+              }}
+            />
+          ) : null}
         </PostContainer>
 
         <div
-          style={{ display: 'flex', justifyContent: 'end', marginTop: '20px' }}
+          style={{
+            display: 'flex',
+            justifyContent: 'end',
+            marginTop: '20px',
+            marginBottom: '100px',
+            borderBottom: '2px dotted black',
+            paddingBottom: '100px',
+          }}
         >
           <Button
             variant="primary"
@@ -119,14 +153,14 @@ function DetailFreeBoard() {
             게시글 목록보기
           </Button>
           <Button
-            variant="btn btn-warning"
+            variant="warning"
             style={{ marginRight: '20px' }}
             onClick={UpdatefreeBoardGo}
           >
             수정
           </Button>
           <Button
-            variant="btn btn-warning"
+            variant="danger"
             style={{ marginRight: '20px' }}
             onClick={DeletefreeBoardGo}
           >
@@ -134,6 +168,8 @@ function DetailFreeBoard() {
           </Button>
         </div>
       </Form>
+      <Board></Board>
+      <Page EA={freeBoardsEA} Pages={Pages}></Page>
     </div>
   );
 }
