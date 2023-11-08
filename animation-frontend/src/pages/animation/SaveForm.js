@@ -7,7 +7,6 @@ function SaveForm(props) {
     title: '',
     content: '',
     photo: '',
-    photoFile: '',
     genre: '',
     dayOfWeek: '',
     averageRating: 0,
@@ -50,9 +49,19 @@ function SaveForm(props) {
   const Imgname = (e) => {
     const Imgname = e.target.files[0].name;
     const Imgfile = e.target.files[0];
-    console.log(e.target.files);
 
-    setAniInsert({ ...AniInsert, photo: Imgname, photoFile: Imgfile });
+    const formData = new FormData();
+    formData.append('file', Imgfile);
+
+    fetch('http://localhost:8080/Ani/PhotoSave', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res[0]);
+        setAniInsert({ ...AniInsert, photo: res[0] });
+      });
   };
 
   const submitAnisave = (e) => {
@@ -61,8 +70,6 @@ function SaveForm(props) {
     if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
       const formData = new FormData();
       formData.append('file', AniInsert.photoFile);
-
-      console.log(formData);
 
       fetch('http://localhost:8080/Ani', {
         method: 'POST',
@@ -79,21 +86,9 @@ function SaveForm(props) {
             return null;
           }
         })
-        .then((res) => {});
-
-      fetch('http://localhost:8080/Ani/PhotoSave', {
-        method: 'POST',
-        body: formData,
-      })
         .then((res) => {
-          res.json();
-        })
-        .then((res) => {
-          if (res !== null) {
-            navigate('/');
-          } else {
-            alert('목록 업로드에 실패했습니다');
-          }
+          alert('업로드 완료되었습니다.');
+          navigate('/');
         });
     } else {
     }

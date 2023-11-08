@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import store from '../Redux/store';
 import { setAniALLArray } from '../Redux/action';
 import { useEffect } from 'react';
+import styled from 'styled-components';
 function AniMainDaily() {
   const AniALLArray = useSelector((state) => state.AniALLArray);
 
@@ -22,7 +23,7 @@ function AniMainDaily() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(123123, res);
+        console.log(res);
 
         store.dispatch(setAniALLArray(res));
       });
@@ -33,11 +34,11 @@ function AniMainDaily() {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
 
   const prevPage = () => {
-    setActiveItemIndex(activeItemIndex - 3);
+    setActiveItemIndex(activeItemIndex - 2);
   };
 
   const nextPage = () => {
-    setActiveItemIndex(activeItemIndex + 3);
+    setActiveItemIndex(activeItemIndex + 2);
   };
 
   return (
@@ -104,19 +105,19 @@ function AniMainDaily() {
       </Row>
       <ItemsCarousel
         infiniteLoop={true} // 루프 해줌
-        numberOfCards={6}
+        numberOfCards={5}
         enableSwipe={true} // 스와이프 활성화 모바일에서 쓰일거임
         gutter={12} // 슬라이드 사이의 간격
-        showSlither={true} // 슬라이더 경계 부분을 표시할지 여부
+        showSlither={false} // 슬라이더 경계 부분을 표시할지 여부
         firstAndLastGutter={true} // 첫 번째 및 마지막 슬라이드 사이의 간격을 표시할지 여부
         freeScrolling={true} // 무한 스크롤 사용 여부
         requestToChangeActive={(value) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
         activeItemIndex={activeItemIndex} // 활성 슬라이드 인덱스
-        slidesToScroll={3}
+        slidesToScroll={2}
         rightChevron={
           <button
             type="button"
-            onClick={prevPage}
+            onClick={nextPage}
             style={{
               border: '0',
               width: '25px',
@@ -124,7 +125,12 @@ function AniMainDaily() {
               backgroundColor: 'transparent',
             }}
           >
-            <img src="./projectimg/button/R.jpg" width={20} height={20} />
+            <img
+              src="./projectimg/button/R.jpg"
+              alt="이미지"
+              width={20}
+              height={20}
+            />
           </button>
         }
         leftChevron={
@@ -138,14 +144,22 @@ function AniMainDaily() {
               backgroundColor: 'transparent',
             }}
           >
-            <img src="./projectimg/button/L.jpg" width={20} height={20} />
+            <img
+              src="./projectimg/button/L.jpg"
+              alt="이미지"
+              width={20}
+              height={20}
+            />
           </button>
         }
         outsideChevron={false}
       >
         {AniALLArray.map((AniALLArray) => (
-          <div key={AniALLArray.id} className="p-2">
-            <p>{AniALLArray.photo}</p>
+          <div key={AniALLArray.id} className="p-0">
+            <AniImg
+              src={`http://localhost:8080/file/AniImgFile/${AniALLArray.photo}`}
+              alt="이미지"
+            ></AniImg>
             <h3>{AniALLArray.title}</h3>
           </div>
         ))}
@@ -153,5 +167,11 @@ function AniMainDaily() {
     </>
   );
 }
+const AniImg = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 5px;
+`;
 
 export default AniMainDaily;
