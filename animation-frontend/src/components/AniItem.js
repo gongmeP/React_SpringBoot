@@ -6,10 +6,7 @@ function AniItem({ Ani }) {
   const { id, title, author } = Ani;
 
   return (
-    <Card
-      style={{ width: '18rem', marginBottom: '10px', marginRight: '1px' }}
-      key={Ani.id}
-    >
+    <Card className="anicard" key={Ani.id}>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>{title}</Card.Title>

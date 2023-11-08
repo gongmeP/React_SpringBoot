@@ -2,13 +2,17 @@ package com.example.boot.Service;
 
 import com.example.boot.Entity.Animation;
 import com.example.boot.Repository.AnimationRepository;
+import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -19,8 +23,28 @@ public class AnimationServiceImpl implements AnimationService {
 
     @Transactional
     @Override
-    public Animation saveAni(Animation animation) {
+    public  Animation saveAni(Animation animation , MultipartFile AniImgFile) {
+
+        try{
+            String AniImgPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\AniImgFile";
+            UUID uuid = UUID.randomUUID();
+
+            String AniImgName = uuid + "_" + AniImgFile.getOriginalFilename();
+
+            java.io.File saveFile = new File(AniImgPath,AniImgName);
+
+            AniImgFile.transferTo(saveFile);
+
+
+        }catch (Exception e){
+
+            System.out.println(e);
+            System.out.println("Service Ani Save 오류");
+
+        }
+
         return animationRepository.save(animation);
+
     }
 
 

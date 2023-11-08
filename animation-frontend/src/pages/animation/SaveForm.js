@@ -1,66 +1,153 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function SaveForm(props) {
-  const [book, setBook] = useState({
+  const [AniInsert, setAniInsert] = useState({
     title: '',
-    author: '',
+    content: '',
+    photo: '',
+    genre: '',
+    dayOfWeek: '',
+    averageRating: 0,
+    uploaded: 0,
+    viewCount: 0,
+    viewed: 0,
+    viewedTime: null,
+    favorite: 0,
   });
 
   const navigate = useNavigate();
 
   const changeValue = (e) => {
-    setBook({ ...book, [e.target.name]: e.target.value });
+    setAniInsert({ ...AniInsert, [e.target.name]: e.target.value });
   };
 
-  const submitBook = (e) => {
+  const genre = (e) => {
+    const genre = e.target.value;
+    setAniInsert({ ...AniInsert, genre: genre });
+  };
+
+  const dayOfWeek = (e) => {
+    const dayOfWeek = e.target.value;
+    setAniInsert({ ...AniInsert, dayOfWeek: dayOfWeek });
+  };
+
+  const uploaded = (e) => {
+    let uploaded = e.target.value;
+
+    if (uploaded === '예') {
+      uploaded = 1;
+    } else {
+      uploaded = 0;
+    }
+    console.log(uploaded);
+
+    setAniInsert({ ...AniInsert, dayOfWeek: uploaded });
+  };
+
+  const Imgname = (e) => {
+    const Imgname = e.target.files[0].name;
+
+    setAniInsert({ ...AniInsert, photo: Imgname });
+  };
+
+  const submitAnisave = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8080/Ani', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(book),
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          return res.json();
-        } else {
-          return null;
-        }
+    if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
+      fetch('http://localhost:8080/Ani', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify(AniInsert),
       })
-      .then((res) => {
-        if (res !== null) {
-          navigate('/');
-          console.log(2, res);
-        } else {
-          alert('책 등록에 실패하였습니다.');
-        }
-      });
+        .then((res) => {
+          if (res.status === 201) {
+            return res.json();
+          } else {
+            return null;
+          }
+        })
+        .then((res) => {
+          if (res !== null) {
+            navigate('/');
+          } else {
+            alert('목록 업로드에 실패했습니다');
+          }
+        });
+    } else {
+    }
   };
 
   return (
     <>
-      <Form onSubmit={submitBook}>
+      <Form onSubmit={submitAnisave}>
         <Form.Group className="mb-3">
-          <Form.Label>제목</Form.Label>
+          <Form.Label>애니메이션 제목</Form.Label>
           <Form.Control
             name="title"
             placeholder="제목을 입력하세요"
             onChange={changeValue}
           />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>내용</Form.Label>
+
+          <Form.Label className="mt-3">애니메이션 줄거리</Form.Label>
           <Form.Control
-            name="author"
-            placeholder="내용을 입력하세요"
+            name="content"
+            placeholder="줄거리를 입력하세요"
             onChange={changeValue}
           />
+          <Form.Label className="mt-3">
+            애니메이션 썸네일 이미지를 첨부하세요
+          </Form.Label>
+          <br></br>
+          <input type="file" name="photo" onChange={Imgname}></input>
+          <br></br>
+
+          <Form.Label className="mt-3">장르</Form.Label>
+          <Form.Select onChange={genre} style={{ width: '50%' }}>
+            <option>선택</option>
+            <option>액션</option>
+            <option>개그</option>
+            <option>미스터리</option>
+            <option>로맨스</option>
+            <option>모험</option>
+            <option>SF</option>
+          </Form.Select>
+          <Form.Label className="mt-3">방영요일</Form.Label>
+          <Form.Select onChange={dayOfWeek} style={{ width: '50%' }}>
+            <option>선택</option>
+            <option>완결</option>
+            <option>월</option>
+            <option>화</option>
+            <option>수</option>
+            <option>목</option>
+            <option>금</option>
+            <option>토</option>
+            <option>일</option>
+          </Form.Select>
+          <Form.Label className="mt-3">
+            영상 목록에 바로 업로드 하시나요?
+          </Form.Label>
+          <div>
+            <Form.Check
+              type="radio"
+              label="예"
+              value="예"
+              onClick={uploaded}
+              name="optionGroup"
+            />
+            <Form.Check
+              type="radio"
+              label="아니오"
+              value="아니오"
+              onClick={uploaded}
+              name="optionGroup"
+            />
+          </div>
         </Form.Group>
         <Button variant="primary" type="submit">
-          Submit
+          업로드
         </Button>
       </Form>
     </>

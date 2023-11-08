@@ -36,24 +36,38 @@ function AniMainDaily() {
       <div>요일별 신작</div>
       <Row>
         <Col style={{ width: '100%', height: 'auto' }}>
-          <Button variant="secondary">월</Button>
+          <Button variant="secondary" className="secondary2">
+            월
+          </Button>
 
-          <Button variant="secondary">화</Button>
+          <Button variant="secondary" className="secondary2">
+            화
+          </Button>
 
-          <Button variant="secondary">수</Button>
+          <Button variant="secondary" className="secondary2">
+            수
+          </Button>
 
-          <Button variant="secondary">목</Button>
+          <Button variant="secondary" className="secondary2">
+            목
+          </Button>
 
-          <Button variant="secondary">금</Button>
+          <Button variant="secondary" className="secondary2">
+            금
+          </Button>
 
-          <Button variant="secondary">토</Button>
+          <Button variant="secondary" className="secondary2">
+            토
+          </Button>
 
-          <Button variant="secondary">일</Button>
+          <Button variant="secondary" className="secondary2">
+            일
+          </Button>
         </Col>
       </Row>
       <ItemsCarousel
         infiniteLoop={true} // 루프 해줌
-        numberOfCards={5}
+        numberOfCards={6}
         enableSwipe={true} // 스와이프 활성화 모바일에서 쓰일거임
         gutter={12} // 슬라이드 사이의 간격
         showSlither={true} // 슬라이더 경계 부분을 표시할지 여부

@@ -16,16 +16,34 @@
     height: 45px !important;
   }
 
-.btn-secondary {
+.secondary2 {
     margin: 0px;
     margin-right: 15px ;
-    padding: 0px;
+    padding: 0px !important;
    width: 42px !important;
    height: 42px !important;
    border-radius: 21px !important;
    text-align: center !important;
    line-height: 40px;
    font-size: 16px !important;
+  font-family: 'Noto Sans KR', sans-serif;
+  @media (max-width: 767px) {
+    font-size: 14px !important;
+    width: 31px !important;
+    height: 31px !important;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    font-size: 15px !important;
+    width: 37px !important;
+    height: 37px !important;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 16px !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
   }
 
   .carousel-indicators [data-bs-target]{
@@ -36,4 +54,12 @@
   .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
   .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
     height:450px;
+  }
+  
+  .anicard {
+    width: 100% !important;
+    min-width: 150px !important;
+    max-width: 200px !important;
+    margin-bottom: 10px;
+    height: auto !important;
   }

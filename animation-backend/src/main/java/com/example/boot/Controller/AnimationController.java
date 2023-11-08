@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,15 +19,15 @@ public class AnimationController {
 
     @PostMapping("/Ani")
     @CrossOrigin
-    public ResponseEntity<?> save(@RequestBody Animation animation){
+    public ResponseEntity<?> save(@RequestBody Animation animation, MultipartFile AniImgFile){
 
 
-        return new ResponseEntity<>(animationService.saveAni(animation),HttpStatus.CREATED);
+        return new ResponseEntity<>(animationService.saveAni(animation,AniImgFile),HttpStatus.CREATED);
     }
 
     @CrossOrigin
     @GetMapping("/Ani")
-    public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 12,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
+    public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 15,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
         return new ResponseEntity<>(animationService.getAllAniData(pageable),HttpStatus.OK);
     }
