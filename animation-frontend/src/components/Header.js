@@ -29,11 +29,11 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Link to="/daily" className="nav-link">
-                요일별 신작
+              <Link to="/allList" className="nav-link">
+                애니리스트
               </Link>
               <Link to="/savaForm" className="nav-link">
-                글쓰기
+                임시. 애니데이터추가
               </Link>
               <Link to="/freeBoard" className="nav-link">
                 자유게시판
