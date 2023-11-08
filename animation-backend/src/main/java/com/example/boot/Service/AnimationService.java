@@ -21,4 +21,6 @@ public interface AnimationService {
 
     String Anidelete(Long id);
 
+    List<Animation> getDayOfWeek(String day_of_week);
+
 }

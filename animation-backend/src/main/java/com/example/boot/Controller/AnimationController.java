@@ -73,6 +73,15 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.getAllAniDataALL(), HttpStatus.OK);
     }
 
+    @CrossOrigin
+    @PostMapping("/Ani/DayOfWeek")
+    public ResponseEntity<?> AniDayOfWeek(@RequestBody String day_of_week){
+
+        System.out.println(day_of_week);
+
+        return new ResponseEntity<>(animationService.getDayOfWeek(day_of_week), HttpStatus.OK);
+    }
+
     @GetMapping("/Ani/{id}")
     @CrossOrigin
     public ResponseEntity<?> findById(@PathVariable Long id){

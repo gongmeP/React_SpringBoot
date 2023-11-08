@@ -9,15 +9,24 @@ import { useEffect } from 'react';
 function AniMainDaily() {
   const AniALLArray = useSelector((state) => state.AniALLArray);
 
+  const [Day, setDay] = useState('월');
+
+  const DayChange = (day) => {
+    setDay(day);
+  };
+
   useEffect(() => {
-    fetch(`http://localhost:8080/Ani/ALL`, { method: 'GET' })
+    fetch(`http://localhost:8080/Ani/DayOfWeek`, {
+      method: 'POST',
+      body: Day,
+    })
       .then((res) => res.json())
       .then((res) => {
-        console.log(1, res);
+        console.log(123123, res);
 
         store.dispatch(setAniALLArray(res));
       });
-  }, []);
+  }, [Day]);
 
   const postsPerPage = 10;
   const totalPages = Math.ceil(AniALLArray.length / postsPerPage);
@@ -36,31 +45,59 @@ function AniMainDaily() {
       <div>요일별 신작</div>
       <Row>
         <Col style={{ width: '100%', height: 'auto' }}>
-          <Button variant="secondary" className="secondary2">
+          <Button
+            variant="secondary"
+            className="secondary2"
+            onClick={() => DayChange('월')}
+          >
             월
           </Button>
 
-          <Button variant="secondary" className="secondary2">
+          <Button
+            variant="secondary"
+            className="secondary2"
+            onClick={() => DayChange('화')}
+          >
             화
           </Button>
 
-          <Button variant="secondary" className="secondary2">
+          <Button
+            variant="secondary"
+            className="secondary2"
+            onClick={() => DayChange('수')}
+          >
             수
           </Button>
 
-          <Button variant="secondary" className="secondary2">
+          <Button
+            variant="secondary"
+            className="secondary2"
+            onClick={() => DayChange('목')}
+          >
             목
           </Button>
 
-          <Button variant="secondary" className="secondary2">
+          <Button
+            variant="secondary"
+            className="secondary2"
+            onClick={() => DayChange('금')}
+          >
             금
           </Button>
 
-          <Button variant="secondary" className="secondary2">
+          <Button
+            variant="secondary"
+            className="secondary2"
+            onClick={() => DayChange('토')}
+          >
             토
           </Button>
 
-          <Button variant="secondary" className="secondary2">
+          <Button
+            variant="secondary"
+            className="secondary2"
+            onClick={() => DayChange('일')}
+          >
             일
           </Button>
         </Col>

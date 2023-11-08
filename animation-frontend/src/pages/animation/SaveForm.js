@@ -112,9 +112,11 @@ function SaveForm(props) {
 
           <Form.Label className="mt-3">애니메이션 줄거리</Form.Label>
           <Form.Control
+            as="textarea"
             name="content"
             placeholder="줄거리를 입력하세요"
             onChange={changeValue}
+            style={{ height: '200px', resize: 'none' }}
           />
           <Form.Label className="mt-3">
             애니메이션 썸네일 이미지를 첨부하세요

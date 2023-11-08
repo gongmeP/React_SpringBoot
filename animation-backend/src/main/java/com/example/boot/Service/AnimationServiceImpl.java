@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 
@@ -30,6 +30,13 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public Animation getAniById(Long id) {
         return animationRepository.findById(id).orElseThrow(()->new IllegalArgumentException("ID 를 확인해주세요"));
+    }
+
+    @Override
+    @Transactional
+    public List<Animation> getDayOfWeek(String day_of_week) {
+        String uploaded = "y";
+        return animationRepository.findByDayOfWeekAndUploaded(day_of_week,uploaded);
     }
 
     @Transactional
