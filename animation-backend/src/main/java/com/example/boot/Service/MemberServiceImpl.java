@@ -14,8 +14,6 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository MemberRepository;
 
-
-
     @Override
     @Transactional
     public Member saveMember(Member member) {

@@ -27,11 +27,11 @@ public class Animation {
     private String genre;
     private String dayOfWeek;
     private double averageRating;
-    private boolean uploaded;
+    private String uploaded;
     private int viewCount;
-    private boolean viewed;
+    private String viewed;
     private LocalDateTime viewedTime;
-    private boolean favorite;
+    private String favorite;
     private LocalDateTime Date = LocalDateTime.now();
 
 

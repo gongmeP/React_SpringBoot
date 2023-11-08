@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AnimationService {
 
-    Animation saveAni(Animation animation, MultipartFile File);
+    Animation saveAni(Animation animation);
 
     Animation getAniById(Long id);
 

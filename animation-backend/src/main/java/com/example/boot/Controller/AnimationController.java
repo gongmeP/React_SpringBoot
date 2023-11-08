@@ -11,6 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @RestController
 public class AnimationController {
@@ -19,10 +24,40 @@ public class AnimationController {
 
     @PostMapping("/Ani")
     @CrossOrigin
-    public ResponseEntity<?> save(@RequestBody Animation animation, MultipartFile AniImgFile){
+    public ResponseEntity<?> save(@RequestBody Animation animation){
 
 
-        return new ResponseEntity<>(animationService.saveAni(animation,AniImgFile),HttpStatus.CREATED);
+
+        return new ResponseEntity<>(animationService.saveAni(animation),HttpStatus.CREATED);
+    }
+
+
+    @PostMapping("/Ani/PhotoSave")
+    @CrossOrigin
+    @ResponseBody
+    public List<String> imgSava(MultipartFile file) throws Exception{
+        List<String> fileNamespath = new ArrayList<>();
+
+        try {
+            String Path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\AniImgFile";
+
+            UUID uuid = UUID.randomUUID();
+
+            String fileName = uuid + "_" + file.getOriginalFilename();
+
+            File saveFile = new File(Path,fileName);
+
+            file.transferTo(saveFile);
+
+            fileNamespath.add(fileName);
+            System.out.println(fileNamespath);
+            return fileNamespath;
+
+
+        }catch (Exception e){
+            System.out.println(e);
+            return fileNamespath;
+        }
     }
 
     @CrossOrigin
