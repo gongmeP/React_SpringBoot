@@ -16,6 +16,7 @@
 - npm install react-bootstrap bootstrap
 - npm install styled-components
 - npm install --save @ckeditor/ckeditor5-build-classic
+- npm install axios
 
 "txt
 import 'bootstrap/dist/css/bootstrap.min.css';
