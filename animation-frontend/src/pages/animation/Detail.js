@@ -37,19 +37,24 @@ function Detail(props) {
 
   return (
     <>
-      <Container className="my-4">
+      <Container className="mb-4">
         <Row>
           <Col md={7}>
             <h1>{detailAni.title}</h1>
-            <p>
-              <StrongStyled>장르:</StrongStyled> {detailAni.genre}
-            </p>
+            <P_Styled2>
+              {detailAni.dayOfWeek === '완결'
+                ? `${detailAni.genre} / ${detailAni.dayOfWeek}`
+                : `${detailAni.genre} / 방영중`}
+            </P_Styled2>
             <h3>줄거리</h3>
-            <p>{detailAni.content}</p>
+            <P_Styled2>{detailAni.content}</P_Styled2>
             <P_Styled>
               <StrongStyled>평점 </StrongStyled>
               {detailAni.averageRating}
-              <StarImg src="../projectimg/star/free-star.jpg"></StarImg>
+              <StarImg
+                src="../projectimg/star/free-star.jpg"
+                alt="별점"
+              ></StarImg>
             </P_Styled>
           </Col>
           <Col md={5} className="aniimgs">
@@ -60,8 +65,18 @@ function Detail(props) {
             />
           </Col>
         </Row>
-        <div>재생사진</div>
-        <h2>재생하기</h2>
+        <Row>
+          <Col
+            md={9}
+            style={{ height: '60px', display: 'flex' }}
+            className="mt-2"
+          >
+            <PlayImg_Styled src="../projectimg/button/play.png" />
+            <PlayDiv_Styled>재생하기</PlayDiv_Styled>
+            <PlayImg_Styled src="../projectimg/button/plus.png" />
+            <PlayDiv_Styled>즐겨찾기 추가</PlayDiv_Styled>
+          </Col>
+        </Row>
       </Container>
 
       <Link to={`/updateForm/${id}`}>
@@ -76,26 +91,44 @@ function Detail(props) {
 const AniImg = styled.img`
   width: 100%;
   height: auto;
-  border-radius: 5px;
-  margin-top: 5px;
+  border-radius: 0.3125rem;
+  margin-top: 0.3125rem;
 `;
 
 const StarImg = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-bottom: 4px;
+  width: 1.5625rem;
+  height: 1.5625rem;
+  margin-bottom: 0.25rem;
 `;
 
 const StrongStyled = styled.strong`
-  height: 25px;
+  height: 1.5625rem;
   margin: 0;
   padding: 0;
-  line-height: 25px;
+  line-height: 1.5625rem;
 `;
 
 const P_Styled = styled.p`
-  height: 25px;
-  line-height: 25px;
+  height: 1.5625rem;
+  line-height: 1.5625rem;
+`;
+
+const P_Styled2 = styled.p`
+  font-size: 1rem;
+`;
+
+const PlayImg_Styled = styled.img`
+  height: 3.75rem;
+  width: 3.75rem;
+  cursor: pointer;
+`;
+
+const PlayDiv_Styled = styled.div`
+  height: 3.75rem;
+  width: 40%;
+  font-size: 1.25rem;
+  line-height: 3.75rem;
+  cursor: pointer;
 `;
 
 export default Detail;
