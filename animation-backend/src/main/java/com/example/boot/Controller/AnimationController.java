@@ -106,6 +106,7 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.Anidelete(id),HttpStatus.CREATED);
     }
 
-  
+
+
 
 }

@@ -12,8 +12,11 @@ import {
   StarImg,
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
+import { useSelector } from 'react-redux';
 
 function Detail(props) {
+  const userid = sessionStorage.getItem('loginID');
+  console.log(userid);
   const propsParam = useParams();
   const id = propsParam.id;
   const navigate = useNavigate();
@@ -41,6 +44,18 @@ function Detail(props) {
       });
   };
 
+  const favorite = async () => {
+    try {
+      const res = await axios.post(`http://localhost:8080/Favorite`, {
+        Ani_id: detailAni.id,
+        member_mid: userid,
+      });
+
+      console.log(res.data);
+    } catch (error) {
+      console.error('Detail axios Error');
+    }
+  };
   console.log(detailAni);
 
   return (
@@ -81,8 +96,11 @@ function Detail(props) {
           >
             <PlayImg_Styled src="../projectimg/button/play.png" />
             <PlayDiv_Styled>재생하기</PlayDiv_Styled>
-            <PlayImg_Styled src="../projectimg/button/plus.png" />
-            <PlayDiv_Styled>즐겨찾기 추가</PlayDiv_Styled>
+            <PlayImg_Styled
+              src="../projectimg/button/plus.png"
+              onClick={favorite}
+            />
+            <PlayDiv_Styled onClick={favorite}>보관함 추가</PlayDiv_Styled>
           </Col>
         </Row>
       </Container>
