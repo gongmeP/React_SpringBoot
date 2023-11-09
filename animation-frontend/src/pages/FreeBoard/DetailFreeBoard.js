@@ -14,18 +14,18 @@ import {
   setFreeBoards,
   setFreeBoardsEA,
 } from '../../Redux/action';
+import axios from 'axios';
 
 function DetailFreeBoard() {
   const Pages = useSelector((state) => state.pages);
   const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
+
   useEffect(() => {
-    fetch(`http://localhost:8080/FreeBoard/TotalPage`, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        store.dispatch(setFreeBoardsEA(res));
-      });
+    const getTotalPage = async () => {
+      const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
+      store.dispatch(setFreeBoardsEA(res.data));
+      getTotalPage();
+    };
   }, []);
 
   const { fbNum } = useParams();
@@ -38,18 +38,17 @@ function DetailFreeBoard() {
   const UpdatefreeBoardGo = () => {
     navigate(`/updateFreeBoard/${fbNum}`);
   };
-  const DeletefreeBoardGo = () => {
+  const DeletefreeBoardGo = async () => {
     if (window.confirm('게시글을 삭제 하시겠습니까?')) {
-      fetch(`http://localhost:8080/FreeBoard/Delete/${fbNum}`)
-        .then((res) => res.text())
-        .then((res) => {
-          if (res === 'DeleteOk') {
-            alert('게시글이 삭제 되었습니다.');
-            navigate('/freeBoard');
-          } else {
-            alert('게시글이 삭제 에러');
-          }
-        });
+      const res = await axios.get(
+        `http://localhost:8080/FreeBoard/Delete/${fbNum}`,
+      );
+      if (res.data === 'DeleteOk') {
+        alert('게시글이 삭제 되었습니다.');
+        navigate('/freeBoard');
+      } else {
+        alert('게시글이 삭제 에러');
+      }
     } else {
     }
   };
@@ -72,11 +71,13 @@ function DetailFreeBoard() {
   const formData = useSelector((state) => state.formData);
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
-    fetch(`http://localhost:8080/FreeBoard/Detail/${fbNum}`)
-      .then((res) => res.json())
-      .then((res) => {
-        store.dispatch(setFormData(res[0]));
-      });
+    const fetchdata = async () => {
+      const res = await axios.get(
+        `http://localhost:8080/FreeBoard/Detail/${fbNum}`,
+      );
+      store.dispatch(setFormData(res.data[0]));
+    };
+    fetchdata();
   }, [formData]);
 
   useEffect(() => {
@@ -84,8 +85,8 @@ function DetailFreeBoard() {
     image.src = `http://localhost:8080/file/${formData.photo}`;
     image.onload = () => {
       setImageDimensions({
-        width: image.naturalWidth / 10,
-        height: image.naturalHeight / 10,
+        width: image.naturalWidth / 5,
+        height: image.naturalHeight / 5,
       });
     };
   }, [formData.photo]);

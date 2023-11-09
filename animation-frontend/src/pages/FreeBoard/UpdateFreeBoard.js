@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function UpdateFreeBoard() {
   const { fbNum } = useParams();
@@ -16,11 +17,13 @@ function UpdateFreeBoard() {
     retextContent: '',
   });
   useEffect(() => {
-    fetch(`http://localhost:8080/FreeBoard/Detail/${fbNum}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setFormData(res[0]);
-      });
+    const fetchdata = async () => {
+      const res = await axios.get(
+        `http://localhost:8080/FreeBoard/Detail/${fbNum}`,
+      );
+      setFormData(res.data[0]);
+    };
+    fetchdata();
   }, []);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ function UpdateFreeBoard() {
 
   const API_URL = 'http://localhost:8080';
 
-  const Updategogos = (e) => {
+  const Updategogos = async (e) => {
     e.preventDefault();
 
     const body = new FormData();
@@ -55,23 +58,21 @@ function UpdateFreeBoard() {
     body.append('fbContent', TextContent.retextContent);
     body.append('photo', formData.photo);
     body.append('userid', formData.userid);
-
-    fetch(`http://localhost:8080/FreeBoard/Update/${fbNum}`, {
-      method: 'post',
-      body: body,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setFormData({
-          fbTitle: '',
-          fbContent: '',
-          photo: '',
-          userid: sessionStorage.getItem('loginID'),
-        });
-      })
-      .catch((err) => {
-        alert('게시판 글 등록 실패:', err);
+    try {
+      const res = await axios.post(
+        `http://localhost:8080/FreeBoard/Update/${fbNum}`,
+        body,
+      );
+      setFormData({
+        fbTitle: '',
+        fbContent: '',
+        photo: '',
+        userid: sessionStorage.getItem('loginID'),
       });
+    } catch (error) {
+      console.log('UpdateFrreBoard Axios error');
+    }
+
     alert('게시글이 수정되었습니다.');
     navigate('/freeBoard');
   };

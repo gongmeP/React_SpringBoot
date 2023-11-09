@@ -3,41 +3,28 @@ import { Container, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import store from '../../Redux/store';
 import { loginSuccess } from '../../Redux/action';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const ReduxloginID = useSelector((state) => state.loginID);
-
-  const Logingo = (e) => {
+  const Logingo = async (e) => {
     e.preventDefault();
     const data = { mid: id, mpass: password };
-    fetch('http://localhost:8080/Member/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.loginID != null) {
-          store.dispatch(loginSuccess(res.loginID, res.loginUsername));
-          window.sessionStorage.setItem('loginID', res.loginID);
-          window.sessionStorage.setItem('loginUsername', res.loginUsername);
 
-          console.log(ReduxloginID);
+    const res = await axios.post('http://localhost:8080/Member/login', data);
 
-          alert('로그인 되셨습니다');
-          window.location.href = '/';
-        } else {
-          alert('아이디 및 패스워드 를 다시 확인해주세요');
-          // navigate('/loginForm');
-        }
-      });
+    if (res.data.loginID != null) {
+      store.dispatch(loginSuccess(res.data.loginID, res.data.loginUsername));
+      window.sessionStorage.setItem('loginID', res.data.loginID);
+      window.sessionStorage.setItem('loginUsername', res.data.loginUsername);
+
+      alert('로그인 되셨습니다');
+      window.location.href = '/';
+    } else {
+      alert('아이디 및 패스워드 를 다시 확인해주세요');
+    }
   };
 
   return (

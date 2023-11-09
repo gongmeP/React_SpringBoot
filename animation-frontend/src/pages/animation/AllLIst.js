@@ -5,6 +5,7 @@ import Page from '../../components/Page';
 import { setAni, setAniEA } from '../../Redux/action';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
+import axios from 'axios';
 
 function AllList() {
   const Ani1Page = useSelector((state) => state.Ani);
@@ -12,14 +13,12 @@ function AllList() {
   const AniEA = useSelector((stage) => stage.AniEA);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/Ani?page=${Pages}`, { method: 'GET' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(1, res);
-
-        store.dispatch(setAni(res.content));
-        store.dispatch(setAniEA(res.totalElements));
-      });
+    const fetchData = async () => {
+      const res = await axios.get(`http://localhost:8080/Ani?page=${Pages}`);
+      store.dispatch(setAni(res.data.content));
+      store.dispatch(setAniEA(res.data.totalElements));
+    };
+    fetchData();
   }, [Pages]);
   return (
     <>

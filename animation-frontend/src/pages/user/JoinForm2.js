@@ -7,6 +7,7 @@ import {
 } from '../../styledcomponents/JoinForm.styled';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function JoinForm2() {
   const [zipcode, setZipcode] = useState('');
@@ -64,7 +65,7 @@ function JoinForm2() {
     }).open();
   };
 
-  const memberadd = () => {
+  const memberadd = async () => {
     if (member.mid === '') {
       alert('아이디를 입력해주세요.');
       return;
@@ -94,21 +95,9 @@ function JoinForm2() {
       return;
     }
 
-    fetch('http://localhost:8080/addMember', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(member),
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          return res.json();
-        } else {
-          return null;
-        }
-      })
-      .then((res) => {});
+    const res = await axios.post('http://localhost:8080/addMember', member);
+
+    console.log(res.status);
     setShowCompleteModal(true);
   };
 
@@ -142,23 +131,24 @@ function JoinForm2() {
     navigate('/');
   };
   const [idcheckok, setIdcheckok] = useState(false);
-  const idcheck = (mid) => {
-    console.log(mid);
-    fetch('http://localhost:8080/Member/idcheck', {
-      method: 'POST',
+  const idcheck = async (mid) => {
+    if (mid === '') {
+      alert('아이디를 입력해주세요');
+      return;
+    }
+    const res = await axios.post('http://localhost:8080/Member/idcheck', mid, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain',
       },
-      body: mid,
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        console.log(1, res);
-        alert(res);
-        if (res === '아이디를 사용할 수 있습니다.') {
-          setIdcheckok(true);
-        }
-      });
+    });
+
+    if (res.data === '아이디를 사용할 수 있습니다.') {
+      alert(res.data);
+      setIdcheckok(true);
+    } else {
+      setIdcheckok(false);
+      alert(res.data);
+    }
   };
 
   return (

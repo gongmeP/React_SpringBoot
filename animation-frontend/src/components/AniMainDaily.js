@@ -7,6 +7,7 @@ import store from '../Redux/store';
 import { setAniALLArray } from '../Redux/action';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 function AniMainDaily() {
   const AniALLArray = useSelector((state) => state.AniALLArray);
 
@@ -17,16 +18,23 @@ function AniMainDaily() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8080/Ani/DayOfWeek`, {
-      method: 'POST',
-      body: Day,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-
-        store.dispatch(setAniALLArray(res));
-      });
+    const fetchData = async () => {
+      try {
+        const res = await axios.post(
+          'http://localhost:8080/Ani/DayOfWeek',
+          Day,
+          {
+            headers: {
+              'Content-Type': 'text/plain',
+            },
+          },
+        );
+        store.dispatch(setAniALLArray(res.data));
+      } catch (error) {
+        console.log('AniMainDaily AxiosError');
+      }
+    };
+    fetchData();
   }, [Day]);
 
   const postsPerPage = 10;

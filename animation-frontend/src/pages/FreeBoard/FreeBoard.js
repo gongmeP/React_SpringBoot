@@ -5,29 +5,28 @@ import Board from '../../components/Board';
 import Page from '../../components/Page';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function FreeBoard() {
   const Pages = useSelector((state) => state.pages);
   const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/FreeBoard/Page?page=${Pages}`, {
-      method: 'POST',
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        store.dispatch(setFreeBoards(res));
-      });
+    const PagesFetch = async () => {
+      const res = await axios.post(
+        `http://localhost:8080/FreeBoard/Page?page=${Pages}`,
+      );
+      store.dispatch(setFreeBoards(res.data));
+    };
+    PagesFetch();
   }, [Pages]);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/FreeBoard/TotalPage`, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        store.dispatch(setFreeBoardsEA(res));
-      });
+    const TotalPage = async () => {
+      const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
+      store.dispatch(setFreeBoardsEA(res.data));
+    };
+    TotalPage();
   }, []);
 
   return (

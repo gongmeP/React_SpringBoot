@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,11 +13,11 @@ function UpdateForm(props) {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8080/Ani/${id}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setBook(res);
-      });
+    const fetchdata = async () => {
+      const res = await axios.get(`http://localhost:8080/Ani/${id}`);
+      setBook(res.data);
+    };
+    fetchdata();
   }, []);
 
   const navigate = useNavigate();

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -46,50 +47,43 @@ function SaveForm(props) {
     setAniInsert({ ...AniInsert, uploaded: uploaded });
   };
 
-  const Imgname = (e) => {
+  const Imgname = async (e) => {
     const Imgname = e.target.files[0].name;
     const Imgfile = e.target.files[0];
 
     const formData = new FormData();
     formData.append('file', Imgfile);
 
-    fetch('http://localhost:8080/Ani/PhotoSave', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res[0]);
-        setAniInsert({ ...AniInsert, photo: res[0] });
-      });
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/Ani/PhotoSave',
+        formData,
+      );
+      setAniInsert({ ...AniInsert, photo: res.data[0] });
+    } catch (error) {
+      console.log('SaveFormAxiosError');
+    }
   };
 
-  const submitAnisave = (e) => {
+  const submitAnisave = async (e) => {
     e.preventDefault();
 
     if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
-      const formData = new FormData();
-      formData.append('file', AniInsert.photoFile);
+      try {
+        const formData = new FormData();
+        formData.append('file', AniInsert.photoFile);
 
-      fetch('http://localhost:8080/Ani', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          // 'Content-Type': 'multipart/form-data',
-        },
-        body: JSON.stringify(AniInsert),
-      })
-        .then((res) => {
-          if (res.status === 201) {
-            return res.json();
-          } else {
-            return null;
-          }
-        })
-        .then((res) => {
-          alert('업로드 완료되었습니다.');
-          navigate('/');
+        const res = await axios.post('http://localhost:8080/Ani', AniInsert, {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+          },
         });
+
+        alert('업로드 완료되었습니다.');
+        navigate('/');
+      } catch (error) {
+        console.log('SaveForm Error');
+      }
     } else {
     }
   };

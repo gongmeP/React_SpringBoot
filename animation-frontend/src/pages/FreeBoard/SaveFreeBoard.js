@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SaveFreeBoard() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function SaveFreeBoard() {
 
   const API_URL = 'http://localhost:8080';
   const UPLOAD_ENDPOINT = 'FreeBoard/Save';
-  const SaveFreeBoardGo = (e) => {
+  const SaveFreeBoardGo = async (e) => {
     if (formData.fbTitle === '') {
       alert('제목을 입력하세요');
       return;
@@ -46,24 +47,17 @@ function SaveFreeBoard() {
       body.append('photo', formData.photo);
       body.append('userid', formData.userid);
 
-      fetch(`${API_URL}/${UPLOAD_ENDPOINT}`, {
-        method: 'post',
-        body: body,
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log('등록된 게시판 글:', res);
-
-          setFormData({
-            fbTitle: '',
-            fbContent: '',
-            photo: '',
-            userid: sessionStorage.getItem('loginID'),
-          });
-        })
-        .catch((err) => {
-          alert('게시판 글 등록 실패:', err);
+      try {
+        const res = await axios.post(`${API_URL}/${UPLOAD_ENDPOINT}`, body);
+        setFormData({
+          fbTitle: '',
+          fbContent: '',
+          photo: '',
+          userid: sessionStorage.getItem('loginID'),
         });
+      } catch (error) {
+        console.log('SaveFreeNoard Axiox error');
+      }
       alert('게시글이 등록되었습니다.');
       navigate('/freeBoard');
     } else {
