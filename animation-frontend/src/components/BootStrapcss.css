@@ -64,3 +64,13 @@
     height: auto !important;
   }
 
+
+  .aniimgs{
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  *{
+    font-family: 'Noto Sans KR', sans-serif;
+
+  }

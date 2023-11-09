@@ -117,12 +117,16 @@ function SaveForm(props) {
           <Form.Label className="mt-3">장르</Form.Label>
           <Form.Select onChange={genre} style={{ width: '50%' }}>
             <option>선택</option>
+            <option>판타지</option>
             <option>액션</option>
             <option>개그</option>
             <option>미스터리</option>
             <option>로맨스</option>
             <option>모험</option>
             <option>SF</option>
+            <option>스포츠</option>
+            <option>아이돌</option>
+            <option>드라마</option>
           </Form.Select>
           <Form.Label className="mt-3">방영요일</Form.Label>
           <Form.Select onChange={dayOfWeek} style={{ width: '50%' }}>

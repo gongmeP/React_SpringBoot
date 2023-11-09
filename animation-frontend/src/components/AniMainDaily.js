@@ -166,7 +166,7 @@ function AniMainDaily() {
           <div key={AniALLArray.id} className="p-0">
             <AniImg
               src={`http://localhost:8080/file/AniImgFile/${AniALLArray.photo}`}
-              alt="이미지"
+              alt={AniALLArray.photo}
             ></AniImg>
             <h3>{AniALLArray.title}</h3>
           </div>
