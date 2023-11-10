@@ -30,7 +30,7 @@ public class FavoriteServiceImpl implements  FavoriteService{
             //아이디 있나 확인
 
             Optional<Member> mid = memberRepository.findByMid(favoriteDTO.getMember_mid());
-            if (mid.isPresent()) {
+
                 Member member = mid.get();
                 //애니번호 있나 확인
                 Animation animation = animationRepository.findById(favoriteDTO.getAni_id())
@@ -52,13 +52,65 @@ public class FavoriteServiceImpl implements  FavoriteService{
                         .build();
 
                 favoriteRepository.save(favorite); // 그리고 DB 저장해줌
-            }
+
 
 
         }catch (Exception e){
             System.out.println(e);
             System.out.println("Favorite Service Error");
 
+        }
+
+    }
+
+
+    @Override
+
+    public void FavoriteDelete(FavoriteDTO favoriteDTO){
+      try{
+
+          Optional<Member> members = memberRepository.findByMid(favoriteDTO.getMember_mid());
+          Member member = members.orElseThrow(() -> new NotFoundException("Could not find member with mid: " + favoriteDTO.getMember_mid()));
+
+            Animation animation = animationRepository.findById(favoriteDTO.getAni_id())
+                    .orElseThrow(()-> new NotFoundException("Could not found AniId : " + favoriteDTO.getAni_id()));
+
+             Favorite favorite = favoriteRepository.findByMemberAndAnimation(member,animation)
+                    .orElseThrow(()-> new NotFoundException("Could not found favorite "));
+
+
+        favoriteRepository.delete(favorite);
+        }catch (Exception e){
+
+          System.out.println(e);
+          System.out.println("FavoriteDelete Service Error");
+  }
+
+    }
+
+    @Override
+    public Favorite FavoriteCheck(FavoriteDTO favoriteDTO) {
+
+        try{
+            Optional<Member> members = memberRepository.findByMid(favoriteDTO.getMember_mid());
+            Member member = members.orElseThrow(() -> new NotFoundException("Could not find member with mid: " + favoriteDTO.getMember_mid()));
+
+            Animation animation = animationRepository.findById(favoriteDTO.getAni_id())
+                    .orElseThrow(() -> new NotFoundException("Could not find AniId: " + favoriteDTO.getAni_id()));
+
+            Optional<Favorite> favoriteOptional = favoriteRepository.findByMemberAndAnimation(member, animation);
+
+            if (favoriteOptional.isPresent()) {
+                return favoriteOptional.get();
+
+            } else {
+                return null;
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("FavoriteCheck Service Error");
+            return null;
         }
 
     }

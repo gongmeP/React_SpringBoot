@@ -16,7 +16,6 @@ import { useSelector } from 'react-redux';
 
 function Detail(props) {
   const userid = sessionStorage.getItem('loginID');
-  console.log(userid);
   const propsParam = useParams();
   const id = propsParam.id;
   const navigate = useNavigate();
@@ -29,6 +28,20 @@ function Detail(props) {
     };
     fetch();
   }, []);
+
+  const [favoriteOK, setFavoriteOK] = useState({});
+  useEffect(() => {
+    const fetch2 = async () => {
+      if (detailAni.id !== undefined) {
+        const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
+          Ani_id: detailAni.id,
+          member_mid: userid,
+        });
+        setFavoriteOK(res2.data);
+      }
+    };
+    fetch2();
+  }, [detailAni.id]);
 
   const deleteBook = () => {
     fetch(`http://localhost:8080/Ani/${id}`, {
@@ -96,11 +109,23 @@ function Detail(props) {
           >
             <PlayImg_Styled src="../projectimg/button/play.png" />
             <PlayDiv_Styled>재생하기</PlayDiv_Styled>
-            <PlayImg_Styled
-              src="../projectimg/button/plus.png"
-              onClick={favorite}
-            />
-            <PlayDiv_Styled onClick={favorite}>보관함 추가</PlayDiv_Styled>
+            {favoriteOK === '보관함 있음' ? (
+              <>
+                <PlayImg_Styled
+                  src="../projectimg/button/minus.png"
+                  onClick={favorite}
+                />
+                <PlayDiv_Styled onClick={favorite}>보관함 제거</PlayDiv_Styled>
+              </>
+            ) : (
+              <>
+                <PlayImg_Styled
+                  src="../projectimg/button/plus.png"
+                  onClick={favorite}
+                />
+                <PlayDiv_Styled onClick={favorite}>보관함 추가</PlayDiv_Styled>
+              </>
+            )}
           </Col>
         </Row>
       </Container>

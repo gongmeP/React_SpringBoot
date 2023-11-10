@@ -2,8 +2,10 @@ package com.example.boot.Controller;
 
 import com.example.boot.Dto.FavoriteDTO;
 
+import com.example.boot.Entity.Favorite;
 import com.example.boot.Service.FavoriteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,31 @@ public class FavoriteController {
         favoriteService.FavoriteAdd(favoriteDTO);
 
 
-        return ResponseEntity.ok("Favorite added successfully");
+        return ResponseEntity.ok("Favorite add successfully");
+    }
+
+    @PostMapping("/Favorite/Delete")
+    @CrossOrigin
+    public ResponseEntity<?> FavoriteDelete(@RequestBody FavoriteDTO favoriteDTO) {
+        favoriteService.FavoriteDelete(favoriteDTO);
+
+
+        return ResponseEntity.ok("Favorite delete successfully");
+    }
+
+
+    @PostMapping("/Favorite/Check")
+    @CrossOrigin
+    public ResponseEntity<?> FavoriteCheck(@RequestBody FavoriteDTO favoriteDTO) {
+
+        Favorite favorite =  favoriteService.FavoriteCheck(favoriteDTO);
+
+        if (favorite != null) {
+            return ResponseEntity.status(HttpStatus.OK).body("보관함 있음");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("보관함 없음");
+        }
+
     }
 
 
