@@ -12,7 +12,6 @@ import {
   StarImg,
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
-import { useSelector } from 'react-redux';
 
 function Detail(props) {
   const userid = sessionStorage.getItem('loginID');
@@ -41,7 +40,7 @@ function Detail(props) {
       }
     };
     fetch2();
-  }, [detailAni.id]);
+  }, [detailAni.id, userid]);
 
   const deleteBook = () => {
     fetch(`http://localhost:8080/Ani/${id}`, {
@@ -65,11 +64,36 @@ function Detail(props) {
       });
 
       console.log(res.data);
+
+      const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
+        Ani_id: detailAni.id,
+        member_mid: userid,
+      });
+      setFavoriteOK(res2.data);
     } catch (error) {
       console.error('Detail axios Error');
     }
   };
   console.log(detailAni);
+
+  const favoriteDelete = async () => {
+    try {
+      const res = await axios.post(`http://localhost:8080/Favorite/Delete`, {
+        Ani_id: detailAni.id,
+        member_mid: userid,
+      });
+
+      console.log(res.data);
+
+      const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
+        Ani_id: detailAni.id,
+        member_mid: userid,
+      });
+      setFavoriteOK(res2.data);
+    } catch (error) {
+      console.error('Detail axios Error');
+    }
+  };
 
   return (
     <>
@@ -113,9 +137,11 @@ function Detail(props) {
               <>
                 <PlayImg_Styled
                   src="../projectimg/button/minus.png"
-                  onClick={favorite}
+                  onClick={favoriteDelete}
                 />
-                <PlayDiv_Styled onClick={favorite}>보관함 제거</PlayDiv_Styled>
+                <PlayDiv_Styled onClick={favoriteDelete}>
+                  보관함 제거
+                </PlayDiv_Styled>
               </>
             ) : (
               <>

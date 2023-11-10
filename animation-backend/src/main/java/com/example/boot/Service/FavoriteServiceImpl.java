@@ -28,10 +28,9 @@ public class FavoriteServiceImpl implements  FavoriteService{
     public void FavoriteAdd(FavoriteDTO favoriteDTO)  {
         try{
             //아이디 있나 확인
+            Optional<Member> members = memberRepository.findByMid(favoriteDTO.getMember_mid());
+            Member member = members.orElseThrow(() -> new NotFoundException("Could not find member with mid: " + favoriteDTO.getMember_mid()));
 
-            Optional<Member> mid = memberRepository.findByMid(favoriteDTO.getMember_mid());
-
-                Member member = mid.get();
                 //애니번호 있나 확인
                 Animation animation = animationRepository.findById(favoriteDTO.getAni_id())
                         .orElseThrow(()-> new NotFoundException("Could not found AniId : " + favoriteDTO.getAni_id()));
