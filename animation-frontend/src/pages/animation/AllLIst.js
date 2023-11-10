@@ -8,26 +8,33 @@ import store from '../../Redux/store';
 import axios from 'axios';
 
 function AllList() {
-  const Ani1Page = useSelector((state) => state.Ani);
+  const Anidata = useSelector((state) => state.Ani);
   const Pages = useSelector((state) => state.pages);
   const AniEA = useSelector((stage) => stage.AniEA);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await axios.get(`http://localhost:8080/Ani?page=${Pages}`);
+  //     store.dispatch(setAni(res.data.content));
+  //     store.dispatch(setAniEA(res.data.totalElements));
+  //   };
+  //   fetchData();
+  // }, [Pages]);
+
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:8080/Ani?page=${Pages}`);
-      store.dispatch(setAni(res.data.content));
-      store.dispatch(setAniEA(res.data.totalElements));
+      const res = await axios.get(`http://localhost:8080/Ani/ALL`);
+      store.dispatch(setAni(res.data));
     };
     fetchData();
-  }, [Pages]);
+  }, []);
   return (
     <>
-      <Row className="justify-content-evenly" style={{ margin: '0 auto' }}>
-        {Ani1Page.map((Ani1Page) => (
-          <AniItem key={Ani1Page.id} Ani={Ani1Page} />
+      <Row style={{ margin: '0 auto', float: 'left', margin: '10px' }}>
+        {Anidata.map((Anidata) => (
+          <AniItem key={Anidata.id} Anidata={Anidata} />
         ))}
       </Row>
-      <Page EA={AniEA} Pages={Pages}></Page>
     </>
   );
 }

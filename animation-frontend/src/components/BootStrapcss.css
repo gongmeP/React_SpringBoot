@@ -55,15 +55,6 @@
   .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
     height:450px;
   }
-  
-  .anicard {
-    width: 100% !important;
-    min-width: 150px !important;
-    max-width: 200px !important;
-    margin-bottom: 10px;
-    height: auto !important;
-  }
-
 
   .aniimgs{
     padding: 0 !important;
@@ -73,6 +64,26 @@
   *{
     font-family: 'Noto Sans KR', sans-serif;
 
+  }
+
+  .anicard {
+    width: 23% !important;
+    margin-bottom: 20px;
+    margin-left: 1%;
+    margin-right: 1%;
+
+
+    @media (max-width: 767px) {
+      width: 48% !important;
+      margin-left: 1%;
+      margin-right: 1%;
+    }
+  
+    @media (min-width: 768px) and (max-width: 991px) {
+      width: 31% !important;
+      margin-left: 1%;
+      margin-right: 1%;
+    }
   }
 
   html {

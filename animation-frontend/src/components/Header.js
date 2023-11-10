@@ -32,6 +32,7 @@ function Header() {
               <Link to="/allList" className="nav-link">
                 애니리스트
               </Link>
+
               <Link to="/savaForm" className="nav-link">
                 임시. 애니데이터추가
               </Link>
@@ -39,25 +40,17 @@ function Header() {
                 자유게시판
               </Link>
             </Nav>
-            <Form inline>
-              <Row>
-                <Col xs="auto">
-                  <Form.Control
-                    type="text"
-                    placeholder="검색어를 입력하세요."
-                    className=" mr-sm-2"
-                  />
-                </Col>
-                <Col xs="auto">
-                  <Button type="submit">검색</Button>
-                </Col>
-              </Row>
-            </Form>
+
             <Nav className="">
               {sessionID ? (
-                <Link className="nav-link" style={{ font: '12px' }}>
-                  {sessionID}님
-                </Link>
+                <>
+                  <Link className="nav-link" style={{ font: '12px' }}>
+                    {sessionID}님
+                  </Link>
+                  <Link to="/List" className="nav-link">
+                    보관함
+                  </Link>
+                </>
               ) : (
                 <Link
                   to="/joinForm"

@@ -8,6 +8,7 @@ import { setAniALLArray } from '../Redux/action';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function AniMainDaily() {
   const AniALLArray = useSelector((state) => state.AniALLArray);
 
@@ -40,6 +41,11 @@ function AniMainDaily() {
   const postsPerPage = 10;
   const totalPages = Math.ceil(AniALLArray.length / postsPerPage);
   const [activeItemIndex, setActiveItemIndex] = useState(0);
+
+  const navigate = useNavigate();
+  const AniDetailGo = (id) => {
+    navigate('/Ani/' + id);
+  };
 
   const prevPage = () => {
     setActiveItemIndex(activeItemIndex - 2);
@@ -165,6 +171,7 @@ function AniMainDaily() {
         {AniALLArray.map((AniALLArray) => (
           <div key={AniALLArray.id} className="p-0">
             <AniImg
+              onClick={() => AniDetailGo(AniALLArray.id)}
               src={`http://localhost:8080/file/AniImgFile/${AniALLArray.photo}`}
               alt={AniALLArray.photo}
             ></AniImg>
@@ -180,6 +187,7 @@ const AniImg = styled.img`
   height: auto;
   border-radius: 5px;
   margin-top: 5px;
+  cursor: pointer;
 `;
 
 export default AniMainDaily;

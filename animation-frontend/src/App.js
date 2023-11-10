@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Headers />
-      <Container>
+      <Container style={{ padding: '0' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/savaForm" element={<SaveForm />} />
