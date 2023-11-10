@@ -21,7 +21,7 @@ function Header() {
 
   return (
     <>
-      <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
+      <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
         <Container>
           <Link to="/" className="navbar-brand">
             홈
