@@ -7,7 +7,7 @@ function AniItem({ Anidata }) {
 
   return (
     // <Row className="" style={{ margin: '0 auto', float: 'left' }}>
-    <Card className="anicard" key={Anidata.id}>
+    <Card className="anicard" key={Anidata.id} style={{ float: 'left' }}>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>{title}</Card.Title>

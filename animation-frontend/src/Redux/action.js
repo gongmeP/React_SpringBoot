@@ -16,6 +16,10 @@ export const setAni = (Ani) => ({
   type: 'setAni',
   payload: Ani,
 });
+export const setSearchAni = (SearchAni) => ({
+  type: 'setSearchAni',
+  payload: SearchAni,
+});
 
 export const setAniEA = (AniEA) => ({
   type: 'setAniEA',

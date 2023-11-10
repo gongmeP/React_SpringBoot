@@ -111,8 +111,8 @@ function SaveForm(props) {
             애니메이션 썸네일 이미지를 첨부하세요
           </Form.Label>
           <br></br>
-          <input type="file" name="photo" onChange={Imgname}></input>
-          <br></br>
+          <Form.Control type="file" name="photo" onChange={Imgname} />
+          {/* <input type="file" name="photo" onChange={Imgname}></input> */}
 
           <Form.Label className="mt-3">장르</Form.Label>
           <Form.Select onChange={genre} style={{ width: '50%' }}>

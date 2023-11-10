@@ -23,4 +23,6 @@ public interface AnimationService {
 
     List<Animation> getDayOfWeek(String day_of_week);
 
+    List<Animation> SearchByTitle(String title);
+
 }

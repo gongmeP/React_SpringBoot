@@ -106,7 +106,13 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.Anidelete(id),HttpStatus.CREATED);
     }
 
+    @GetMapping("/Ani/search")
+    @CrossOrigin
+    public ResponseEntity<?> SearchByTitle(String title){
 
+
+        return new ResponseEntity<>(animationService.SearchByTitle(title),HttpStatus.CREATED);
+    }
 
 
 }

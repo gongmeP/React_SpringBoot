@@ -3,6 +3,7 @@ const initstate = {
   loginID: null,
   loginUsername: null,
   Ani: [],
+  SearchAni: [],
   AniEA: 1,
   pages: 0,
   freeBoards: [],
@@ -24,6 +25,8 @@ const Reducer = (state = initstate, action) => {
       return { ...state, Login_TF: false };
     case 'setAni':
       return { ...state, Ani: action.payload };
+    case 'setSearchAni':
+      return { ...state, SearchAni: action.payload };
     case 'setAniEA':
       return { ...state, AniEA: action.payload };
     case 'SET_PAGES':

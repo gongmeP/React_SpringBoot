@@ -10,5 +10,6 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> findByDayOfWeekAndUploaded(String dayOfWeek, String uploaded);
 
+    List<Animation> searchByTitleContaining(String Title);
 
 }

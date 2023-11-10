@@ -71,4 +71,10 @@ public class AnimationServiceImpl implements AnimationService {
     }
 
 
+    @Override
+    public List<Animation> SearchByTitle(String Title) {
+
+      return  animationRepository.searchByTitleContaining(Title);
+
+    }
 }
