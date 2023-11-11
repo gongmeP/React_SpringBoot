@@ -8,12 +8,12 @@ import {
   Th5,
   Tr1,
   Tr2,
-} from '../styledcomponents/FreeBoard.styled';
+} from '../../styledcomponents/FreeBoard.styled';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import DetailFreeBoard from '../pages/FreeBoard/DetailFreeBoard';
-import store from '../Redux/store';
-import { setFreeBoards } from '../Redux/action';
+import DetailFreeBoard from '../../pages/FreeBoard/DetailFreeBoard';
+import store from '../../Redux/store';
+import { setFreeBoards } from '../../Redux/action';
 import { useEffect } from 'react';
 
 function Board() {

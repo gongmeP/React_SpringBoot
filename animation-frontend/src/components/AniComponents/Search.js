@@ -9,8 +9,8 @@ import {
   InputGroup,
   Row,
 } from 'react-bootstrap';
-import store from '../Redux/store';
-import { setAni } from '../Redux/action';
+import { setAni } from '../../Redux/action';
+import store from '../../Redux/store';
 
 function Search() {
   const [searchText, setSearchText] = useState('');

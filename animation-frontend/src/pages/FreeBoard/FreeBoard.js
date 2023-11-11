@@ -5,12 +5,12 @@ import {
   setFreeBoardsEA,
   setSearchTF,
 } from '../../Redux/action';
-import Board from '../../components/Board';
-import Page from '../../components/Page';
+import Board from '../../components/BoardComponents/Board';
+import Page from '../../components/BoardComponents/Page';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import BoradSerch from '../../components/BoardSerch';
+import BoradSerch from '../../components/BoardComponents/BoardSerch';
 import { Button } from 'react-bootstrap';
 
 function FreeBoard() {

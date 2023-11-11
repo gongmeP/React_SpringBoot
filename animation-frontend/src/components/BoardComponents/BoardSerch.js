@@ -9,8 +9,12 @@ import {
   InputGroup,
   Row,
 } from 'react-bootstrap';
-import store from '../Redux/store';
-import { setFreeBoards, setFreeBoardsEA, setSearchTF } from '../Redux/action';
+import store from '../../Redux/store';
+import {
+  setFreeBoards,
+  setFreeBoardsEA,
+  setSearchTF,
+} from '../../Redux/action';
 import { useSelector } from 'react-redux';
 
 function BoradSerch() {

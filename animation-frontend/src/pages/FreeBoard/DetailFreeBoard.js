@@ -5,9 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import Board from '../../components/Board';
+import Board from '../../components/BoardComponents/Board';
 import { useSelector } from 'react-redux';
-import Page from '../../components/Page';
+import Page from '../../components/BoardComponents/Page';
 import store from '../../Redux/store';
 import {
   setFormData,

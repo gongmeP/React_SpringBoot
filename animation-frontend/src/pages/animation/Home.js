@@ -1,5 +1,5 @@
-import Banner from '../../components/Banner';
-import AniMainDaily from '../../components/AniMainDaily';
+import AniMainDaily from '../../components/AniComponents/AniMainDaily';
+import Banner from '../../components/AniComponents/Banner';
 
 function Home() {
   return (

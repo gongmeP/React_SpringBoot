@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pagination } from 'react-bootstrap';
-import store from '../Redux/store';
-import { setPages, setSearchPages } from '../Redux/action';
+import store from '../../Redux/store';
+import { setPages, setSearchPages } from '../../Redux/action';
 import { useSelector } from 'react-redux';
 function Page({ EA, Pages }) {
   const SearchTF = useSelector((store) => store.SearchTF);

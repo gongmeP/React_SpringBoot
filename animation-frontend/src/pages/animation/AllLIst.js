@@ -8,13 +8,13 @@ import {
   Offcanvas,
   Row,
 } from 'react-bootstrap';
-import AniItem from '../../components/AniItem';
+import AniItem from '../../components/AniComponents/AniItem';
 import { setAni } from '../../Redux/action';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
 import axios from 'axios';
-import Genrefilter from '../../components/Genrefilter';
-import Search from '../../components/Search';
+import Genrefilter from '../../components/AniComponents/Genrefilter';
+import Search from '../../components/AniComponents/Search';
 
 function AllList() {
   const Anidata = useSelector((state) => state.Ani);

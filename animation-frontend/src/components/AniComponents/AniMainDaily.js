@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
-import './BootStrapcss.css';
+import '../../styledcomponents/BootStrapcss.css';
 import { useSelector } from 'react-redux';
-import store from '../Redux/store';
-import { setAniALLArray } from '../Redux/action';
+import store from '../../Redux/store';
+import { setAniALLArray } from '../../Redux/action';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';

@@ -1,7 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
 import ExampleCarouselImage from './ExampleCarouselImage';
 import React from 'react';
-import './BootStrapcss.css';
+import '../../styledcomponents/BootStrapcss.css';
 
 function Banner() {
   return (

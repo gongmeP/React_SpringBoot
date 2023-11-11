@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import store from '../Redux/store';
+import store from '../../Redux/store';
 import axios from 'axios';
-import { setAni } from '../Redux/action';
+import { setAni } from '../../Redux/action';
 import { useSelector } from 'react-redux';
 import ResetButton from './ResetButton';
 

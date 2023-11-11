@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
 
-import Headers from './components/Header';
+import Headers from './components/MainComponents/Header';
 import Home from './pages/animation/Home';
 import SaveForm from './pages/animation/SaveForm';
 import Detail from './pages/animation/Detail';
@@ -10,7 +10,7 @@ import LoginForm from './pages/user/LoginForm';
 import JoinForm from './pages/user/JoinForm';
 import UpdateForm from './pages/animation/UpdateForm';
 import JoinForm2 from './pages/user/JoinForm2';
-import Footer from './components/Footer';
+import Footer from './components/MainComponents/Footer';
 import SaveFreeBoard from './pages/FreeBoard/SaveFreeBoard';
 import FreeBoard from './pages/FreeBoard/FreeBoard';
 import DetailFreeBoard from './pages/FreeBoard/DetailFreeBoard';
