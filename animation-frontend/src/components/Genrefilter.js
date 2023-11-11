@@ -3,32 +3,13 @@ import { Button, Form } from 'react-bootstrap';
 import store from '../Redux/store';
 import axios from 'axios';
 import { setAni } from '../Redux/action';
+import { useSelector } from 'react-redux';
+import ResetButton from './ResetButton';
 
 function Genrefilter() {
-  const [genreArray, setGenreArray] = useState({
-    genre: [
-      '판타지',
-      '액션',
-      '개그',
-      '미스터리',
-      '로맨스',
-      '모험',
-      'SF',
-      '스포츠',
-      '아이돌',
-      '드라마',
-    ],
-  });
+  const genreArray = useSelector((store) => store.genreArray);
 
-  const ResetButton = () => {
-    setCheckFiler([]);
-    genreArray.genre.forEach((genre) => {
-      const checkbox = document.getElementById(genre);
-      checkbox.checked = false;
-    });
-  };
   const [checkfilter, setCheckFiler] = useState([]);
-  const [updatecheckbox, setUpdatecheckbox] = useState(false);
   useEffect(() => {
     const Genre = async () => {
       if (checkfilter.length !== 0) {
@@ -49,13 +30,11 @@ function Genrefilter() {
         fetchData();
       }
     };
-
     Genre();
   }, [checkfilter]);
 
+  //체크될때 장르데이터 배열화 시키는 부분
   const Filter = async (e) => {
-    const updatecheckbox = e.target.checked;
-
     if (e.target.checked === true && !checkfilter.includes(e.target.id)) {
       setCheckFiler((prevFilter) => [...prevFilter, e.target.id]);
     } else if (e.target.checked === false) {
@@ -63,18 +42,15 @@ function Genrefilter() {
         prevFilter.filter((id) => id !== e.target.id),
       );
     }
-
-    setUpdatecheckbox(updatecheckbox);
   };
   return (
     <>
-      <Button
-        variant="outline-secondary"
-        onClick={ResetButton}
-        className="mb-3"
-      >
-        초기화
-      </Button>
+      {/* 리셋시키는 버튼 컴포넌트*/}
+      <ResetButton
+        genreArray={genreArray}
+        checkfilter={checkfilter}
+        setCheckFiler={setCheckFiler}
+      ></ResetButton>
       {genreArray.genre.map((genre) => (
         <Form.Check
           key={genre}

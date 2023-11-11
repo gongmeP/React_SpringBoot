@@ -50,3 +50,8 @@ export const setFormData = (formData) => ({
   type: 'setFormData',
   payload: formData,
 });
+
+export const setGenreArray = (GenreArray) => ({
+  type: 'setGenreArray',
+  payload: GenreArray,
+});

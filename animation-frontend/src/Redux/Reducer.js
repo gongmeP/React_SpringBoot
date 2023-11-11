@@ -10,6 +10,20 @@ const initstate = {
   freeBoardsEA: 1,
   formData: [],
   AniALLArray: [],
+  genreArray: {
+    genre: [
+      '판타지',
+      '액션',
+      '개그',
+      '미스터리',
+      '로맨스',
+      '모험',
+      'SF',
+      '스포츠',
+      '아이돌',
+      '드라마',
+    ],
+  },
 };
 
 const Reducer = (state = initstate, action) => {
@@ -39,6 +53,8 @@ const Reducer = (state = initstate, action) => {
       return { ...state, formData: action.payload };
     case 'setAniALLArray':
       return { ...state, AniALLArray: action.payload };
+    case 'setGenreArray':
+      return { ...state, genreArray: action.payload };
     default:
       return state;
   }
