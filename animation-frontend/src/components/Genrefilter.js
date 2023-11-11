@@ -1,9 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import store from '../Redux/store';
 
-const ResetButton = () => {};
+function Genrefilter() {
+  const [genreArray, setGenreArray] = useState({
+    genre: [
+      '판타지',
+      '액션',
+      '개그',
+      '미스터리',
+      '로맨스',
+      '모험',
+      'SF',
+      '스포츠',
+      '아이돌',
+      '드라마',
+    ],
+  });
 
-function genrefilter() {
+  const ResetButton = () => {
+    setCheckFiler([]);
+  };
+  const [checkfilter, setCheckFiler] = useState([]);
+  const Filter = async (e) => {
+    if (e.target.checked === true && !checkfilter.includes(e.target.id)) {
+      setCheckFiler((prevFilter) => [...prevFilter, e.target.id]);
+    } else if (e.target.checked === false) {
+      setCheckFiler((prevFilter) =>
+        prevFilter.filter((id) => id !== e.target.id),
+      );
+      console.log(checkfilter);
+    }
+
+    // const res2 = await axios.get(
+    //   `http://localhost:8080/Ani/search?title=${searchText}`,
+    // );
+
+    // stores.dispatch(setAni(res2.data));
+  };
   return (
     <>
       <Button
@@ -13,18 +47,17 @@ function genrefilter() {
       >
         초기화
       </Button>
-      <Form.Check type="checkbox" id="genre1" label="판타지" />
-      <Form.Check type="checkbox" id="genre2" label="액션" />
-      <Form.Check type="checkbox" id="genre3" label="개그" />
-      <Form.Check type="checkbox" id="genre4" label="미스터리" />
-      <Form.Check type="checkbox" id="genre5" label="로맨스" />
-      <Form.Check type="checkbox" id="genre6" label="모험" />
-      <Form.Check type="checkbox" id="genre7" label="SF" />
-      <Form.Check type="checkbox" id="genre8" label="스포츠" />
-      <Form.Check type="checkbox" id="genre9" label="아이돌" />
-      <Form.Check type="checkbox" id="genre10" label="드라마" />
+      {genreArray.genre.map((genre) => (
+        <Form.Check
+          key={genre}
+          type="checkbox"
+          id={genre}
+          label={genre}
+          onChange={Filter}
+        />
+      ))}
     </>
   );
 }
 
-export default genrefilter;
+export default Genrefilter;
