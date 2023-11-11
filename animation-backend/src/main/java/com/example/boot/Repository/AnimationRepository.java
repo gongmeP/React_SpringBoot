@@ -12,4 +12,6 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> searchByTitleContaining(String Title);
 
+    List<Animation> findByGenreIn(List<String> genres);
+
 }

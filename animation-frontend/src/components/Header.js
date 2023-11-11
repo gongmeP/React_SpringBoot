@@ -30,7 +30,7 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/allList" className="nav-link">
-                애니리스트
+                태그검색
               </Link>
 
               <Link to="/savaForm" className="nav-link">

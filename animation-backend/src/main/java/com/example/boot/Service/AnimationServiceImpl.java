@@ -77,4 +77,12 @@ public class AnimationServiceImpl implements AnimationService {
       return  animationRepository.searchByTitleContaining(Title);
 
     }
+
+
+    @Override
+    public List<Animation> GenreFilterByTitle(List<String> genre) {
+
+
+        return  animationRepository.findByGenreIn(genre);
+    }
 }

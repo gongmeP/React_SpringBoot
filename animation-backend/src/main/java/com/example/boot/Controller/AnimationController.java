@@ -114,5 +114,14 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.SearchByTitle(title),HttpStatus.CREATED);
     }
 
+    @PostMapping("/Ani/GenreFilter")
+    @CrossOrigin
+    public ResponseEntity<?> GenreFilterByTitle(@RequestBody List<String> genre){
+
+        List<Animation> animation = animationService.GenreFilterByTitle(genre);
+
+        return new ResponseEntity<>(animation,HttpStatus.CREATED);
+    }
+
 
 }

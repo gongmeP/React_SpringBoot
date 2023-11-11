@@ -25,4 +25,6 @@ public interface AnimationService {
 
     List<Animation> SearchByTitle(String title);
 
+
+    List<Animation> GenreFilterByTitle(List<String> genre);
 }
