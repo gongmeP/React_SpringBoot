@@ -24,6 +24,8 @@ const initstate = {
       '드라마',
     ],
   },
+  SearchTF: '',
+  SearchPages: 0,
 };
 
 const Reducer = (state = initstate, action) => {
@@ -55,6 +57,10 @@ const Reducer = (state = initstate, action) => {
       return { ...state, AniALLArray: action.payload };
     case 'setGenreArray':
       return { ...state, genreArray: action.payload };
+    case 'setSearchTF':
+      return { ...state, SearchTF: action.payload };
+    case 'setSearchPages':
+      return { ...state, SearchPages: action.payload };
     default:
       return state;
   }

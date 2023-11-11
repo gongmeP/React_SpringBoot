@@ -1,10 +1,19 @@
 import React from 'react';
 import { Pagination } from 'react-bootstrap';
 import store from '../Redux/store';
-import { setPages } from '../Redux/action';
+import { setPages, setSearchPages } from '../Redux/action';
+import { useSelector } from 'react-redux';
 function Page({ EA, Pages }) {
-  const totoalPage = Math.ceil(EA / 15);
+  const SearchTF = useSelector((store) => store.SearchTF);
 
+  console.log(SearchTF);
+  const totoalPage = Math.ceil(EA / 15);
+  const SearchPages = useSelector((state) => state.SearchPages);
+
+  //검색일때 데이터갯수 검색데이터 갯수로 업데이트
+  if (SearchTF === 'Search') {
+    Pages = SearchPages;
+  }
   const PageClick = (lastpage) => {
     if (lastpage < 0) {
       alert('첫번째 페이지 입니다.');
@@ -15,11 +24,16 @@ function Page({ EA, Pages }) {
       return;
     }
 
-    store.dispatch(setPages(lastpage));
+    //검색일때 페이지 구분
+    if (SearchTF === 'NotSearch') {
+      store.dispatch(setPages(lastpage));
+    } else if (SearchTF === 'Search') {
+      store.dispatch(setSearchPages(lastpage));
+    }
   };
 
   return (
-    <div className="d-flex justify-content-center mt-3">
+    <div className="d-flex justify-content-center mt-0">
       <Pagination>
         <Pagination.First onClick={() => PageClick(0)} />
         <Pagination.Prev onClick={() => PageClick(Pages - 1)} />

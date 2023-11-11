@@ -1,5 +1,6 @@
 package com.example.boot.Controller;
 
+import com.example.boot.Dto.FreeBoardDTO;
 import com.example.boot.Entity.FreeBoard;
 import com.example.boot.Service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class FreeBoardController {
     @ResponseBody
     public List<String>  imgSava(MultipartFile file) throws Exception{
         List<String> fileNamespath = new ArrayList<>();
-        System.out.println("asdasd");
+
         try {
             String Path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file";
 
@@ -180,6 +181,21 @@ public class FreeBoardController {
 
         return "DeleteOk";
 
+    }
+
+    @GetMapping("/FreeBoard/search")
+    @CrossOrigin
+    @ResponseBody
+    public FreeBoardDTO BoardSearch(@RequestParam(name = "page",defaultValue = "1")int page, String fbtitle){
+        int pageSize = 15;
+        int offset = (page) * pageSize;
+
+        FreeBoardDTO Searchdata = freeBoardService.BoardSearch(fbtitle,pageSize,offset);
+
+
+
+
+       return Searchdata;
     }
 
 

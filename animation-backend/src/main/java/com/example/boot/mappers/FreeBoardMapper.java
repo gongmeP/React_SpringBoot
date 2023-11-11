@@ -20,9 +20,12 @@ public interface FreeBoardMapper {
 
     Long FBReadCountUp(Long fnNum);
 
-
     List<FreeBoard> UpdatefreeBoardSave(FreeBoard freeBoard);
 
     Long DeletefreeBoardSave(Long fnNum);
+
+    List<FreeBoard> BoardSearch (String fbtitle, int pageSize, int offset);
+
+    int SearchTotalPage(String fbtitle);
 
 }

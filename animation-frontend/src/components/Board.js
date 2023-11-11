@@ -29,16 +29,6 @@ function Board() {
     return `${month}/${day}/${hours}:${minutes}`;
   }
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/FreeBoard/Page?page=${Pages}`, {
-      method: 'POST',
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        store.dispatch(setFreeBoards(res));
-      });
-  }, [Pages]);
-
   const navigate = useNavigate();
 
   const formData = useSelector((state) => state.formData);

@@ -1,5 +1,6 @@
 package com.example.boot.Service;
 
+import com.example.boot.Dto.FreeBoardDTO;
 import com.example.boot.Entity.FreeBoard;
 import com.example.boot.mappers.FreeBoardMapper;
 import lombok.RequiredArgsConstructor;
@@ -70,5 +71,16 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         return freeBoardMapper.DeletefreeBoardSave(fnNum);
     }
 
+
+    @Override
+    public FreeBoardDTO BoardSearch(String fbtitle, int pageSize, int offset) {
+
+        List<FreeBoard> freeBoard = freeBoardMapper.BoardSearch(fbtitle,pageSize,offset);
+
+        int totalPage = freeBoardMapper.SearchTotalPage(fbtitle);
+
+
+        return new FreeBoardDTO (freeBoard,totalPage);
+    }
 }
 

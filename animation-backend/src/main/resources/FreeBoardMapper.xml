@@ -38,4 +38,12 @@
     <update id="DeletefreeBoardSave" parameterType="Long">
         update fBoard set fbDel = 'Y' where fbNum = #{fbNum};
     </update>
+
+    <select id="BoardSearch" resultType="com.example.boot.Entity.FreeBoard">
+        select * from fBoard where fbtitle LIKE '%' #{fbtitle} '%' order by fbNum desc limit #{pageSize} offset #{offset}
+    </select>
+
+    <select id="SearchTotalPage" resultType="int">
+        select count(*) from fBoard where fbtitle LIKE '%' #{fbtitle} '%'
+    </select>
 </mapper>

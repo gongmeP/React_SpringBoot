@@ -55,3 +55,13 @@ export const setGenreArray = (GenreArray) => ({
   type: 'setGenreArray',
   payload: GenreArray,
 });
+
+export const setSearchTF = (SearchTF) => ({
+  type: 'setSearchTF',
+  payload: SearchTF,
+});
+
+export const setSearchPages = (SearchPages) => ({
+  type: 'setSearchPages',
+  payload: SearchPages,
+});
