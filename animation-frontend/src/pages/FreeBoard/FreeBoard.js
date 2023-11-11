@@ -8,9 +8,10 @@ import {
 import Board from '../../components/Board';
 import Page from '../../components/Page';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BoradSerch from '../../components/BoardSerch';
+import { Button } from 'react-bootstrap';
 
 function FreeBoard() {
   const Pages = useSelector((state) => state.pages);
@@ -37,10 +38,21 @@ function FreeBoard() {
     TotalPage();
   }, []);
 
+  const boardlistgo = () => {
+    window.location.href = '/freeBoard';
+  };
+
   return (
     <>
       <Board></Board>
       <div style={{ display: 'flex', justifyContent: 'end' }}>
+        <Button
+          onClick={boardlistgo}
+          className="btn-primary mb-1"
+          style={{ marginRight: '20px', marginTop: '10px' }}
+        >
+          전체글
+        </Button>
         <Link
           to="/saveFreeBoard"
           className="btn btn-primary mb-1"
