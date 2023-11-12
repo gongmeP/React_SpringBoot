@@ -7,74 +7,193 @@ function UpdateForm(props) {
   const propsParam = useParams();
   const id = propsParam.id;
 
-  const [book, setBook] = useState({
+  const [AniInsert, setAniInsert] = useState({
     title: '',
-    author: '',
+    content: '',
+    photo: '',
+    genre: '',
+    dayOfWeek: '',
+    averageRating: 0,
+    uploaded: 'n',
+    viewCount: 0,
+    viewed: 'n',
+    viewedTime: null,
+    favorite: 'n',
   });
 
   useEffect(() => {
     const fetchdata = async () => {
       const res = await axios.get(`http://localhost:8080/Ani/${id}`);
-      setBook(res.data);
+      setAniInsert(res.data);
+      console.log(res.data);
     };
     fetchdata();
   }, []);
 
+  const submitBook = async (e) => {
+    e.preventDefault();
+    const res = await axios.put(`http://localhost:8080/Ani/${id}`, AniInsert);
+    console.log(res.data);
+  };
+
   const navigate = useNavigate();
 
   const changeValue = (e) => {
-    setBook({ ...book, [e.target.name]: e.target.value });
+    setAniInsert({ ...AniInsert, [e.target.name]: e.target.value });
   };
 
-  const submitBook = (e) => {
+  const genre = (e) => {
+    const genre = e.target.value;
+    setAniInsert({ ...AniInsert, genre: genre });
+  };
+
+  const dayOfWeek = (e) => {
+    const dayOfWeek = e.target.value;
+    setAniInsert({ ...AniInsert, dayOfWeek: dayOfWeek });
+  };
+
+  const uploaded = (e) => {
+    let uploaded = e.target.value;
+
+    if (uploaded === '예') {
+      uploaded = 'y';
+    } else {
+      uploaded = 'n';
+    }
+    console.log(uploaded);
+
+    setAniInsert({ ...AniInsert, uploaded: uploaded });
+  };
+
+  const Imgname = async (e) => {
+    const Imgname = e.target.files[0].name;
+    const Imgfile = e.target.files[0];
+
+    const formData = new FormData();
+    formData.append('file', Imgfile);
+
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/Ani/PhotoSave',
+        formData,
+      );
+      setAniInsert({ ...AniInsert, photo: res.data[0] });
+    } catch (error) {
+      console.log('SaveFormAxiosError');
+    }
+  };
+
+  const submitAnisave = async (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8080/Ani/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(book),
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          return res.json();
-        } else {
-          return null;
-        }
-      })
-      .then((res) => {
-        if (res !== null) {
-          navigate(`/book/${id}`);
-          console.log(2, res);
-        } else {
-          alert('책 등록에 실패하였습니다.');
-        }
-      });
+
+    if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
+      try {
+        const formData = new FormData();
+        formData.append('file', AniInsert.photoFile);
+
+        const res = await axios.post('http://localhost:8080/Ani', AniInsert, {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+        });
+
+        alert('업로드 완료되었습니다.');
+        navigate('/');
+      } catch (error) {
+        console.log('SaveForm Error');
+      }
+    } else {
+    }
   };
 
   return (
     <>
-      <Form onSubmit={submitBook}>
+      <Form onSubmit={submitAnisave}>
         <Form.Group className="mb-3">
-          <Form.Label>제목</Form.Label>
+          <Form.Label>애니메이션 제목</Form.Label>
           <Form.Control
             name="title"
-            placeholder="수정 할 제목을 입력하세요"
+            placeholder="제목을 입력하세요"
             onChange={changeValue}
-            value={book.title}
+            value={AniInsert.title}
           />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>내용</Form.Label>
+
+          <Form.Label className="mt-3">애니메이션 줄거리</Form.Label>
           <Form.Control
-            name="author"
-            placeholder="수정 할 내용을 입력하세요"
+            as="textarea"
+            name="content"
+            placeholder="줄거리를 입력하세요"
             onChange={changeValue}
-            value={book.author}
+            style={{ height: '200px', resize: 'none' }}
+            value={AniInsert.content}
           />
+          <Form.Label className="mt-3">
+            애니메이션 썸네일 이미지를 첨부하세요
+          </Form.Label>
+          <br></br>
+          <Form.Label className="mt-0">
+            * 미첨부시 기존 이미지 사용!! *
+          </Form.Label>
+          <br></br>
+          <Form.Control type="file" name="photo" onChange={Imgname} />
+          {/* <input type="file" name="photo" onChange={Imgname}></input> */}
+
+          <Form.Label className="mt-3">장르</Form.Label>
+          <Form.Select
+            onChange={genre}
+            style={{ width: '50%' }}
+            value={AniInsert.genre}
+          >
+            <option>선택</option>
+            <option>판타지</option>
+            <option>액션</option>
+            <option>개그</option>
+            <option>미스터리</option>
+            <option>로맨스</option>
+            <option>모험</option>
+            <option>SF</option>
+            <option>스포츠</option>
+            <option>아이돌</option>
+            <option>드라마</option>
+          </Form.Select>
+          <Form.Label className="mt-3">방영요일</Form.Label>
+          <Form.Select
+            onChange={dayOfWeek}
+            style={{ width: '50%' }}
+            value={AniInsert.dayOfWeek}
+          >
+            <option>선택</option>
+            <option>완결</option>
+            <option>월</option>
+            <option>화</option>
+            <option>수</option>
+            <option>목</option>
+            <option>금</option>
+            <option>토</option>
+            <option>일</option>
+          </Form.Select>
+          <Form.Label className="mt-3">
+            영상 목록에 바로 업로드 하시나요?
+          </Form.Label>
+          <div>
+            <Form.Check
+              type="radio"
+              label="예"
+              value="예"
+              onClick={uploaded}
+              name="optionGroup"
+            />
+            <Form.Check
+              type="radio"
+              label="아니오"
+              value="아니오"
+              onClick={uploaded}
+              name="optionGroup"
+            />
+          </div>
         </Form.Group>
         <Button variant="primary" type="submit">
-          Submit
+          업로드
         </Button>
       </Form>
     </>

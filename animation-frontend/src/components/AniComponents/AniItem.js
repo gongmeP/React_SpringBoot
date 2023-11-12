@@ -7,7 +7,10 @@ function AniItem({ Anidata }) {
 
   return (
     <Card className="anicard" key={Anidata.id} style={{ float: 'left' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img
+        variant="top"
+        src={`http://localhost:8080/file/AniImgFile/${AniALLArray.photo}`}
+      />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{title}</Card.Text>

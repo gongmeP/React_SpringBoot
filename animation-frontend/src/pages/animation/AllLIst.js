@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Col,
-  Form,
-  FormControl,
-  InputGroup,
-  Offcanvas,
-  Row,
-} from 'react-bootstrap';
+import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
 import AniItem from '../../components/AniComponents/AniItem';
 import { setAni } from '../../Redux/action';
 import { useSelector } from 'react-redux';
@@ -15,6 +7,7 @@ import store from '../../Redux/store';
 import axios from 'axios';
 import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
+import styled from 'styled-components';
 
 function AllList() {
   const Anidata = useSelector((state) => state.Ani);
@@ -64,13 +57,20 @@ function AllList() {
           <Genrefilter></Genrefilter> {/*필터 컴포넌트 여기 */}
         </Col>
         <Col md={10} sm={10} xs={12}>
-          {Anidata.map((ani) => (
-            <AniItem key={ani.id} Anidata={ani} />
-          ))}
+          {Anidata.length <= 0 ? (
+            <H2styled>검색하신 결과가 없어요.</H2styled>
+          ) : (
+            Anidata.map((ani) => <AniItem key={ani.id} Anidata={ani} />)
+          )}
         </Col>
       </Row>
     </>
   );
 }
+
+const H2styled = styled.h2`
+  text-align: center;
+  margin-top: 50px;
+`;
 
 export default AllList;

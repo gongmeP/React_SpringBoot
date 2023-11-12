@@ -36,6 +36,9 @@ function Header() {
               <Link to="/freeBoard" className="nav-link">
                 자유게시판
               </Link>
+              <Link to="/List" className="nav-link">
+                보관함
+              </Link>
             </Nav>
 
             <Nav className="">
@@ -43,9 +46,6 @@ function Header() {
                 <>
                   <Link className="nav-link" style={{ font: '12px' }}>
                     {sessionID}님
-                  </Link>
-                  <Link to="/List" className="nav-link">
-                    보관함
                   </Link>
                 </>
               ) : (

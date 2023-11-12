@@ -29,20 +29,6 @@ function Detail(props) {
     fetch();
   }, []);
 
-  const [favoriteOK, setFavoriteOK] = useState({});
-  useEffect(() => {
-    const fetch2 = async () => {
-      if (detailAni.id !== undefined) {
-        const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
-          Ani_id: detailAni.id,
-          member_mid: userid,
-        });
-        setFavoriteOK(res2.data);
-      }
-    };
-    fetch2();
-  }, [detailAni.id, userid]);
-
   const deleteBook = () => {
     fetch(`http://localhost:8080/Ani/${id}`, {
       method: 'DELETE',
@@ -55,45 +41,6 @@ function Detail(props) {
           alert('삭제실패');
         }
       });
-  };
-
-  const favorite = async () => {
-    try {
-      const res = await axios.post(`http://localhost:8080/Favorite`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
-
-      console.log(res.data);
-
-      const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
-      setFavoriteOK(res2.data);
-    } catch (error) {
-      console.error('Detail axios Error');
-    }
-  };
-  console.log(detailAni);
-
-  const favoriteDelete = async () => {
-    try {
-      const res = await axios.post(`http://localhost:8080/Favorite/Delete`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
-
-      console.log(res.data);
-
-      const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
-      setFavoriteOK(res2.data);
-    } catch (error) {
-      console.error('Detail axios Error');
-    }
   };
 
   return (
@@ -131,29 +78,7 @@ function Detail(props) {
             md={9}
             style={{ height: '60px', display: 'flex' }}
             className="mt-2"
-          >
-            <PlayImg_Styled src="../projectimg/button/play.png" />
-            <PlayDiv_Styled>재생하기</PlayDiv_Styled>
-            {favoriteOK === '보관함 있음' ? (
-              <>
-                <PlayImg_Styled
-                  src="../projectimg/button/minus.png"
-                  onClick={favoriteDelete}
-                />
-                <PlayDiv_Styled onClick={favoriteDelete}>
-                  보관함 제거
-                </PlayDiv_Styled>
-              </>
-            ) : (
-              <>
-                <PlayImg_Styled
-                  src="../projectimg/button/plus.png"
-                  onClick={favorite}
-                />
-                <PlayDiv_Styled onClick={favorite}>보관함 추가</PlayDiv_Styled>
-              </>
-            )}
-          </Col>
+          ></Col>
         </Row>
       </Container>
 
