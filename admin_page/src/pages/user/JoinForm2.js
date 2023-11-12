@@ -58,10 +58,6 @@ function JoinForm2() {
       alert('전화번호를 입력해주세요.');
       return;
     }
-    if (member.maddress === '') {
-      alert('주소를 입력해주세요.');
-      return;
-    }
 
     const res = await axios.post('http://localhost:8080/addMember', member);
 

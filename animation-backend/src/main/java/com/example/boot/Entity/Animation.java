@@ -30,6 +30,7 @@ public class Animation {
     private String viewed;
     private LocalDateTime viewedTime;
     private String favorite;
+    private String anidelete;
     private LocalDateTime Date = LocalDateTime.now();
 
 

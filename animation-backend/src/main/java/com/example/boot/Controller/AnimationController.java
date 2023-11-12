@@ -27,7 +27,6 @@ public class AnimationController {
     public ResponseEntity<?> save(@RequestBody Animation animation){
 
 
-
         return new ResponseEntity<>(animationService.saveAni(animation),HttpStatus.CREATED);
     }
 
