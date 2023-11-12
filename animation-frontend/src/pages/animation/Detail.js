@@ -155,13 +155,6 @@ function Detail(props) {
           </Col>
         </Row>
       </Container>
-
-      <Link to={`/updateForm/${id}`}>
-        <a className="btn btn-warning">수정</a>
-      </Link>
-      <Button variant="danger" onClick={deleteBook}>
-        삭제
-      </Button>
     </>
   );
 }

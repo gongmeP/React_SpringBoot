@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import '../../styledcomponents/BootStrapcss.css';
 import {
   AniImg,
   P_Styled,

@@ -31,7 +31,7 @@ const Login = () => {
     <Container>
       <div className="d-flex justify-content-center align-items-center">
         <Form style={{ width: '80%' }} onSubmit={Logingo}>
-          <h2 className="text-center mb-4">회원 로그인</h2>
+          <h2 className="text-center mb-4">관리자 로그인</h2>
           <Form.Group controlId="text" className="mb-4">
             <Form.Label>아이디</Form.Label>
             <Form.Control

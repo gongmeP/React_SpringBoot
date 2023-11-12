@@ -33,9 +33,6 @@ function Header() {
                 장르검색
               </Link>
 
-              <Link to="/savaForm" className="nav-link">
-                임시. 애니데이터추가
-              </Link>
               <Link to="/freeBoard" className="nav-link">
                 자유게시판
               </Link>

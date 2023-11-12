@@ -24,20 +24,22 @@ function Header() {
       <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
         <Container>
           <Link to="/" className="navbar-brand">
-            홈
+            관리자 로그인
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/allList" className="nav-link">
-                장르검색
+                전체목록
               </Link>
-
               <Link to="/savaForm" className="nav-link">
-                임시. 애니데이터추가
+                애니메이션추가
               </Link>
               <Link to="/freeBoard" className="nav-link">
-                자유게시판
+                배너추가
+              </Link>
+              <Link to="/freeBoard" className="nav-link">
+                게시판관리
               </Link>
             </Nav>
 
@@ -57,7 +59,7 @@ function Header() {
                   className="nav-link"
                   style={{ font: '12px' }}
                 >
-                  회원가입
+                  관리자 신청
                 </Link>
               )}
               {sessionID ? (
