@@ -98,7 +98,7 @@ function UpdateForm(props) {
         });
 
         alert('업로드 완료되었습니다.');
-        navigate('/');
+        navigate('/allList');
       } catch (error) {
         console.log('SaveForm Error');
       }
@@ -193,7 +193,7 @@ function UpdateForm(props) {
           </div>
         </Form.Group>
         <Button variant="primary" type="submit">
-          업로드
+          수정하기
         </Button>
       </Form>
     </>

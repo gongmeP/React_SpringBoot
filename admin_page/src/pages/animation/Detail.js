@@ -29,19 +29,14 @@ function Detail(props) {
     fetch();
   }, []);
 
-  const deleteBook = () => {
-    fetch(`http://localhost:8080/Ani/${id}`, {
-      method: 'DELETE',
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        if (res === 'ok') {
-          navigate('/');
-        } else {
-          alert('삭제실패');
-        }
-      });
-  };
+  // const deletAni = async () => {
+  //   const res = await axios.delete(`http://localhost:8080/Ani/${id}`);
+  //   if (res.data === 'ok') {
+  //     alert('삭제되었습니다');
+  //   } else {
+  //     alert('삭제실패');
+  //   }
+  // };
 
   return (
     <>
@@ -85,9 +80,9 @@ function Detail(props) {
       <Link to={`/updateForm/${id}`}>
         <a className="btn btn-warning">수정</a>
       </Link>
-      <Button variant="danger" onClick={deleteBook}>
+      {/* <Button variant="danger" onClick={deletAni}>
         삭제
-      </Button>
+      </Button> */}
     </>
   );
 }
