@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function JoinForm2() {
-  const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
   const [member, setMember] = useState({
     mid: '',
@@ -20,17 +19,7 @@ function JoinForm2() {
     mnumber: '',
     maddress: '',
   });
-  const [lastaddes, setLastaddes] = useState('');
-  const setLastaddes1 = (e) => {
-    const value = e.target.value;
-    const fullAddress = `${address} ${value}`;
-    setLastaddes(fullAddress);
 
-    setMember({
-      ...member,
-      maddress: fullAddress,
-    });
-  };
   const datain = (e) => {
     setMember({ ...member, [e.target.name]: e.target.value });
     console.log(member);
@@ -42,27 +31,6 @@ function JoinForm2() {
       ...member,
       memail: value,
     });
-  };
-
-  const thisEmail = (e) => {
-    const emailvalue = e.target.value;
-    setMember({
-      ...member,
-      memail: `${member.memail}@${emailvalue}`,
-    });
-  };
-
-  const Postgo = () => {
-    new window.daum.Postcode({
-      oncomplete: function (data) {
-        setZipcode(data.zonecode);
-        setAddress(data.address);
-        setMember({
-          ...member,
-          maddress: `${data.zonecode} ${data.address}`,
-        });
-      },
-    }).open();
   };
 
   const memberadd = async () => {
@@ -153,7 +121,7 @@ function JoinForm2() {
 
   return (
     <AgreeMainStyled>
-      <AgreeStyled>회원가입</AgreeStyled>
+      <AgreeStyled>관리자 신청</AgreeStyled>
 
       <Agree_check>
         <AgreeCheckSpan1>기본정보 입력</AgreeCheckSpan1>
@@ -212,6 +180,16 @@ function JoinForm2() {
               </Col>
             </Form.Group>
 
+            <Col className="mb-3 " controlId="formPlaintextemail">
+              <Form.Control
+                style={{ marginRight: '10px' }}
+                placeholder="사내 이메일주소"
+                value={member.memail}
+                onChange={EmailChange}
+                name="memail"
+              />
+            </Col>
+
             <Row>
               <Col
                 className="mb-3 d-flex align-items-center"
@@ -219,19 +197,18 @@ function JoinForm2() {
               >
                 <Form.Control
                   style={{ marginRight: '10px' }}
-                  placeholder="이메일"
+                  placeholder="소속 (ex: IT 개발실 )"
                   value={member.memail}
                   onChange={EmailChange}
                   name="memail"
                 />
 
-                <Form.Select onChange={thisEmail} style={{ width: '50%' }}>
-                  <option>직접입력</option>
-                  <option>google.com</option>
-                  <option>naver.com</option>
-                  <option>daum.net</option>
-                  <option>nate.com</option>
-                  <option>hanmail.net</option>
+                <Form.Select style={{ width: '50%' }}>
+                  <option>매니저</option>
+                  <option>팀장</option>
+                  <option>실장</option>
+                  <option>임원</option>
+                  <option>외부관리자</option>
                 </Form.Select>
               </Col>
             </Row>
@@ -247,49 +224,13 @@ function JoinForm2() {
               </Col>
             </Form.Group>
 
-            <Row className="justify-content-center">
-              <Col sm={7}>
-                <Form.Control placeholder="우편번호" value={zipcode} readOnly />
-              </Col>
-              <Col sm={5}>
-                <Button
-                  onClick={Postgo}
-                  variant="secondary"
-                  className="mb-0"
-                  style={{ verticalAlign: '15px', fontSize: '14px' }}
-                >
-                  우편번호 찾기
-                </Button>
-              </Col>
-              <Form.Group>
-                <Col>
-                  <Form.Control
-                    className="mb-3"
-                    placeholder="주소"
-                    value={address}
-                    readOnly
-                  />
-                </Col>
-              </Form.Group>
-              <Form.Group>
-                <Col>
-                  <Form.Control
-                    className="mb-3"
-                    placeholder="상세주소"
-                    onChange={setLastaddes1}
-                    name="maddress"
-                  />
-                </Col>
-              </Form.Group>
-            </Row>
-
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
                 onClick={() => setShowadd(true)}
                 style={{ width: '30%', marginTop: '20px', marginRight: '10px' }}
                 variant="primary"
               >
-                회원가입
+                관리자 신청
               </Button>
 
               <Button
@@ -301,7 +242,9 @@ function JoinForm2() {
               </Button>
 
               <Modal show={showadd} onHide={setShowadd}>
-                <Modal.Body>입력하신 정보로 회원가입 하시겠습니까?</Modal.Body>
+                <Modal.Body>
+                  입력하신 정보로 관리자 신청 하시겠습니까?
+                </Modal.Body>
                 <Modal.Footer>
                   <Button variant="primary" onClick={memberadd1}>
                     네
@@ -313,7 +256,7 @@ function JoinForm2() {
               </Modal>
 
               <Modal show={showCompleteModal} onHide={handleCloseCompleteModal}>
-                <Modal.Body>가입이 완료되셨습니다</Modal.Body>
+                <Modal.Body>신청이 완료되셨습니다</Modal.Body>
                 <Modal.Footer>
                   <Button variant="primary" onClick={gohome}>
                     확인
@@ -322,7 +265,7 @@ function JoinForm2() {
               </Modal>
 
               <Modal show={shownoadd} onHide={setShownoadd}>
-                <Modal.Body>회원가입 을 취소하시겠습니까?</Modal.Body>
+                <Modal.Body>관리자 신청 을 취소하시겠습니까?</Modal.Body>
                 <Modal.Footer>
                   <Button variant="primary" onClick={noadd1}>
                     네

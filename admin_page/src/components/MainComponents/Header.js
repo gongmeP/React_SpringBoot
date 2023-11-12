@@ -44,16 +44,7 @@ function Header() {
             </Nav>
 
             <Nav className="">
-              {sessionID ? (
-                <>
-                  <Link className="nav-link" style={{ font: '12px' }}>
-                    {sessionID}님
-                  </Link>
-                  <Link to="/List" className="nav-link">
-                    보관함
-                  </Link>
-                </>
-              ) : (
+              {sessionID ? null : (
                 <Link
                   to="/joinForm"
                   className="nav-link"
@@ -70,15 +61,7 @@ function Header() {
                 >
                   로그아웃
                 </Link>
-              ) : (
-                <Link
-                  to="/loginForm"
-                  className="nav-link"
-                  style={{ font: '12px' }}
-                >
-                  로그인
-                </Link>
-              )}
+              ) : null}
             </Nav>
           </Navbar.Collapse>
         </Container>
