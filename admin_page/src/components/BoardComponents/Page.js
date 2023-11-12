@@ -23,8 +23,7 @@ function Page({ EA, Pages }) {
       setCurrentPageArray(totalPageArray[Math.floor(Pages / limit)]);
     }
   }, [Pages]);
-  // console.log(Pages);
-  console.log(Pages % limit);
+
   useEffect(() => {
     const slicedPageArray = LimitPage(totalPage, limit);
     setTotalPageArray(slicedPageArray);

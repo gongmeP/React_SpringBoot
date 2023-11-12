@@ -13,19 +13,31 @@ import {
   setFormData,
   setFreeBoards,
   setFreeBoardsEA,
+  setSearchTF,
 } from '../../Redux/action';
 import axios from 'axios';
+import BoradSerch from '../../components/BoardComponents/BoardSerch';
 
 function DetailFreeBoard() {
   const Pages = useSelector((state) => state.pages);
   const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
-
+  const searchTF = useSelector((store) => store.searchTF);
   useEffect(() => {
-    const getTotalPage = async () => {
+    const PagesFetch = async () => {
+      const res = await axios.post(
+        `http://localhost:8080/FreeBoard/Page?page=${Pages}`,
+      );
+      store.dispatch(setFreeBoards(res.data));
+      store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
+    };
+    PagesFetch();
+  }, [Pages]);
+  useEffect(() => {
+    const TotalPage = async () => {
       const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
       store.dispatch(setFreeBoardsEA(res.data));
-      getTotalPage();
     };
+    TotalPage();
   }, []);
 
   const { fbNum } = useParams();
@@ -169,6 +181,7 @@ function DetailFreeBoard() {
       </Form>
       <Board></Board>
       <Page EA={freeBoardsEA} Pages={Pages}></Page>
+      <BoradSerch></BoradSerch>
     </div>
   );
 }

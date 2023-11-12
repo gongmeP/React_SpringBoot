@@ -28,7 +28,6 @@ function FreeBoard() {
     };
     PagesFetch();
   }, [Pages]);
-  console.log(searchTF);
 
   useEffect(() => {
     const TotalPage = async () => {
