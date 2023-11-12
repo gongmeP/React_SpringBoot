@@ -58,6 +58,7 @@ function Genrefilter() {
           id={genre}
           label={genre}
           onChange={Filter}
+          style={{ minHeight: '2.2rem', fontSize: '1.1rem' }}
         />
       ))}
     </>

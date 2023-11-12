@@ -6,7 +6,6 @@ function AniItem({ Anidata }) {
   const { id, title } = Anidata;
 
   return (
-    // <Row className="" style={{ margin: '0 auto', float: 'left' }}>
     <Card className="anicard" key={Anidata.id} style={{ float: 'left' }}>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
@@ -17,7 +16,6 @@ function AniItem({ Anidata }) {
         </Link>
       </Card.Body>
     </Card>
-    // </Row>
   );
 }
 

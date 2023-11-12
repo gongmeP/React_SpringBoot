@@ -11,9 +11,12 @@ function AniItem({ Anidata }) {
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Text>{title}</Card.Text>
+        {/* <Card.Text>{title}</Card.Text> */}
         <Link to={'/Ani/' + id} className="btn btn-primary">
-          View Details
+          수정
+        </Link>
+        <Link to={'/Ani/' + id} className="btn btn-primary">
+          삭제
         </Link>
       </Card.Body>
     </Card>

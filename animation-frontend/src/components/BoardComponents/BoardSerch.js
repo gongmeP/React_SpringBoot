@@ -38,7 +38,6 @@ function BoradSerch() {
       `http://localhost:8080/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
     );
 
-    console.log(res.data);
     store.dispatch(setFreeBoards(res.data.freeBoard));
     store.dispatch(setFreeBoardsEA(res.data.totalPage));
     store.dispatch(setSearchTF('Search'));
@@ -54,7 +53,6 @@ function BoradSerch() {
         `http://localhost:8080/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
       );
 
-      console.log(res.data);
       store.dispatch(setFreeBoards(res.data.freeBoard));
       store.dispatch(setFreeBoardsEA(res.data.totalPage));
       store.dispatch(setSearchTF('Search'));
