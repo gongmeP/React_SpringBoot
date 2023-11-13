@@ -13,9 +13,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function Board() {
-  const freeBoards = useSelector((state) => state.freeBoards);
-  const Pages = useSelector((state) => state.pages);
-  const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
+  const freeBoards = useSelector((state) => state.AniBoardState.freeBoards);
+  const Pages = useSelector((state) => state.AniBoardState.pages);
+  const freeBoardsEA = useSelector((state) => state.AniBoardState.freeBoardsEA);
   function DateTime(fbDate) {
     const date = new Date(fbDate);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -27,7 +27,7 @@ function Board() {
 
   const navigate = useNavigate();
 
-  const formData = useSelector((state) => state.formData);
+  const formData = useSelector((state) => state.AniBoardState.formData);
   const DetailFreeBoardGo = (fbNum) => {
     fetch(`http://localhost:8080/FreeBoard/ReadCountUp/${fbNum}`)
       .then((res) => res)

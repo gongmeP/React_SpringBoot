@@ -26,7 +26,8 @@ public class Member {
     private String memail;
     private String mnumber;
     private String maddress;
-    private String mdelete;
+    private String mdelete = "n";
 
-    private LocalDateTime mTime = LocalDateTime.now();
+    private LocalDateTime logintime = LocalDateTime.now();
+    private LocalDateTime mtime = LocalDateTime.now();
 }

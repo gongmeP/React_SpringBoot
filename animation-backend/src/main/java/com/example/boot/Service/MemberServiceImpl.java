@@ -1,11 +1,16 @@
 package com.example.boot.Service;
 
 
+import com.example.boot.Dto.MemberDTO;
 import com.example.boot.Entity.Member;
 import com.example.boot.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -75,5 +80,16 @@ public class MemberServiceImpl implements MemberService {
             return null;
         }
 
+    }
+
+    @Override
+    public MemberDTO memberListpage(int page,int pageSize, Member member) {
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+
+        long totalMembers = MemberRepository.count();
+        Page<Member> memberlist = MemberRepository.findAll(pageable);
+
+        return new MemberDTO(memberlist,totalMembers);
     }
 }

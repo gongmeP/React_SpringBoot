@@ -14,9 +14,9 @@ import BoradSerch from '../../components/BoardComponents/BoardSerch';
 import { Button } from 'react-bootstrap';
 
 function FreeBoard() {
-  const Pages = useSelector((state) => state.pages);
-  const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
-  const searchTF = useSelector((store) => store.searchTF);
+  const Pages = useSelector((state) => state.AniBoardState.pages);
+  const freeBoardsEA = useSelector((stage) => stage.AniBoardState.freeBoardsEA);
+  const searchTF = useSelector((store) => store.AniBoardState.searchTF);
 
   useEffect(() => {
     const PagesFetch = async () => {

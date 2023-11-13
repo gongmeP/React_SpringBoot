@@ -1,5 +1,6 @@
 package com.example.boot.Controller;
 
+import com.example.boot.Dto.MemberDTO;
 import com.example.boot.Entity.Member;
 import com.example.boot.Service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -79,6 +81,30 @@ public class MemberController {
         return ResponseEntity.ok("로그인실패");
     }
 
+
+    @GetMapping("/Memberlist/Page")
+    @CrossOrigin
+    public MemberDTO memberList(
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "pagesize", defaultValue = "1") int pageSize,
+            Member member){
+        
+        try{
+
+            int offset = (page) * pageSize;
+
+            MemberDTO MemberlistTototalEA = memberService.memberListpage(page,pageSize,member);
+
+
+            return MemberlistTototalEA;
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("/MemberList/Page 에러");
+        }
+
+        return null;
+
+    }
 
 
 

@@ -18,7 +18,7 @@ import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';
 
 function AllList() {
-  const Anidata = useSelector((state) => state.Ani);
+  const Anidata = useSelector((state) => state.AniBoardState.Ani);
 
   useEffect(() => {
     const fetchData = async () => {

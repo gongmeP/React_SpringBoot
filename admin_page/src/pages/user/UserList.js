@@ -6,6 +6,11 @@ import {
   Th4,
   Tr1,
 } from '../../styledcomponents/Userlist.styled';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import store from '../../Redux/store';
+import { SetUserArray } from '../../Redux/UserAcrion';
+import { useEffect } from 'react';
 
 function UserList() {
   function DateTime(fbDate) {
@@ -16,6 +21,21 @@ function UserList() {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${month}/${day}/${hours}:${minutes}`;
   }
+
+  const PageSize = useSelector((state) => state.userState.UserPageSize);
+  const Pages = useSelector((state) => state.userState.UserPage);
+
+  useEffect(() => {
+    const PagesFetch = async () => {
+      const res = await axios.post(
+        `http://localhost:8080/FreeBoard/Page?page=${Pages}&pagesize=${PageSize}`,
+      );
+      store.dispatch(SetUserArray(res.data));
+      // store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
+      console.log(res.data);
+    };
+    PagesFetch();
+  }, [Pages]);
 
   return (
     <>

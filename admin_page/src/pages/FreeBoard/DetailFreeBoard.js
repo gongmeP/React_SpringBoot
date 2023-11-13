@@ -19,9 +19,9 @@ import axios from 'axios';
 import BoradSerch from '../../components/BoardComponents/BoardSerch';
 
 function DetailFreeBoard() {
-  const Pages = useSelector((state) => state.pages);
-  const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
-  const searchTF = useSelector((store) => store.searchTF);
+  const Pages = useSelector((state) => state.AniBoardState.pages);
+  const freeBoardsEA = useSelector((stage) => stage.AniBoardState.freeBoardsEA);
+  const searchTF = useSelector((store) => store.AniBoardState.searchTF);
   useEffect(() => {
     const PagesFetch = async () => {
       const res = await axios.post(
@@ -80,7 +80,7 @@ function DetailFreeBoard() {
     height: 0,
   });
 
-  const formData = useSelector((state) => state.formData);
+  const formData = useSelector((state) => state.AniBoardState.formData);
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
     const fetchdata = async () => {

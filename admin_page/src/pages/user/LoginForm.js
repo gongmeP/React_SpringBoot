@@ -21,7 +21,7 @@ const Login = () => {
       window.sessionStorage.setItem('loginUsername', res.data.loginUsername);
 
       alert('로그인 되셨습니다');
-      window.location.href = '/';
+      window.location.href = '/allList';
     } else {
       alert('아이디 및 패스워드 를 다시 확인해주세요');
     }

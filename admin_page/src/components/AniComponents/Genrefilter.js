@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import ResetButton from './ResetButton';
 
 function Genrefilter() {
-  const genreArray = useSelector((store) => store.genreArray);
+  const genreArray = useSelector((store) => store.AniBoardState.genreArray);
 
   const [checkfilter, setCheckFiler] = useState([]);
   useEffect(() => {

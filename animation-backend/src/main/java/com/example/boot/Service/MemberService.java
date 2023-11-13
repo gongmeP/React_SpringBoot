@@ -1,5 +1,6 @@
 package com.example.boot.Service;
 
+import com.example.boot.Dto.MemberDTO;
 import com.example.boot.Entity.Member;
 
 import java.util.List;
@@ -21,4 +22,7 @@ public interface MemberService {
     boolean idcheck(String mid);
 
     Member login(Member member);
+
+    MemberDTO memberListpage(int page, int pageSize, Member member);
+
 }

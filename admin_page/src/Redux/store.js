@@ -1,6 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import Reducer from './Reducer';
+import UserReducer from './UserReducer';
 
-const store = createStore(Reducer);
+const rootReducer = combineReducers({
+  AniBoardState: Reducer,
+  userState: UserReducer,
+});
+
+const store = createStore(rootReducer);
 
 export default store;
