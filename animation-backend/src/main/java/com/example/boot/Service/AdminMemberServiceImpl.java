@@ -1,7 +1,6 @@
 package com.example.boot.Service;
 
 import com.example.boot.Entity.AdminMember;
-import com.example.boot.Entity.Member;
 import com.example.boot.Repository.AdminMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,5 +26,27 @@ public class AdminMemberServiceImpl implements AdminMemberService {
         Optional<AdminMember> exmid = adminMemberRepository.findByAdminid(adminid);
 
         return exmid.isPresent();
+    }
+
+
+    @Override
+    public AdminMember login(AdminMember adminMember) {
+
+        Optional<AdminMember> byloginid = adminMemberRepository.findByAdminid(adminMember.getAdminid());
+
+        if(byloginid.isPresent()){
+            AdminMember adminMemberEntity = byloginid.get();
+            if(adminMemberEntity.getAdminpass().equals(adminMember.getAdminpass())){
+
+                return adminMemberEntity;
+
+            }else {
+                return null;
+            }
+
+        }else{
+            return null;
+        }
+
     }
 }

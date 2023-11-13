@@ -1,6 +1,7 @@
 package com.example.boot.Controller;
 
 import com.example.boot.Entity.AdminMember;
+import com.example.boot.Entity.Member;
 import com.example.boot.Service.AdminMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -43,5 +48,40 @@ public class AdminMemberController {
 
         return ResponseEntity.ok(message);
     }
+
+
+    @PostMapping("/Admin/login")
+    @CrossOrigin
+    public ResponseEntity<?> login(@RequestBody AdminMember adminMember, HttpSession session) {
+        AdminMember loginResult = adminMemberService.login(adminMember);
+
+        System.out.println(adminMember.toString());
+
+        try{
+
+            if (loginResult != null) {
+
+                Map<String, String> responseData = new HashMap<>();
+                responseData.put("loginID", loginResult.getAdminid());
+                responseData.put("loginUsername", loginResult.getAdminname());
+
+
+                return new ResponseEntity<>(responseData, HttpStatus.OK);
+
+            } else {
+
+                Map<String, String> loginNo = new HashMap<>();
+                loginNo.put("LoginID","");
+                return new ResponseEntity<>(loginNo, HttpStatus.OK);
+            }
+
+        }catch (Exception e){
+            System.out.println("Member Login 에러");
+        }
+
+        return ResponseEntity.ok("로그인실패");
+    }
+
+
 
 }

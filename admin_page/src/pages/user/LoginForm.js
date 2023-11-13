@@ -11,9 +11,9 @@ const Login = () => {
 
   const Logingo = async (e) => {
     e.preventDefault();
-    const data = { mid: id, mpass: password };
+    const data = { adminid: id, adminpass: password };
 
-    const res = await axios.post('http://localhost:8080/Member/login', data);
+    const res = await axios.post('http://localhost:8080/Admin/login', data);
 
     if (res.data.loginID != null) {
       store.dispatch(loginSuccess(res.data.loginID, res.data.loginUsername));
