@@ -12,3 +12,8 @@ export const SetUserArray = (UserArray) => ({
   type: 'SetUserArray',
   payload: UserArray,
 });
+
+export const SetUserArrayEA = (UserArrayEA) => ({
+  type: 'SetUserArrayEA',
+  payload: UserArrayEA,
+});

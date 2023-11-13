@@ -2,6 +2,7 @@ const initstate = {
   UserPageSize: 15,
   UserPage: 0,
   UserArray: [],
+  UserArrayEA: 0,
 };
 
 const UserReducer = (userstate = initstate, action) => {
@@ -12,6 +13,8 @@ const UserReducer = (userstate = initstate, action) => {
       return { ...userstate, UserPage: action.payload };
     case 'SetUserArray':
       return { ...userstate, UserArray: action.payload };
+    case 'SetUserArrayEA':
+      return { ...userstate, UserArrayEA: action.payload };
     default:
       return userstate;
   }

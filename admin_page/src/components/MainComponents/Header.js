@@ -18,12 +18,8 @@ function Header() {
       <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
         <Container>
           {sessionID ? (
-            <Link
-              onClick={logoutgo}
-              className="navbar-brand"
-              style={{ font: '12px' }}
-            >
-              로그아웃
+            <Link to="/allList" className="navbar-brand">
+              전체목록
             </Link>
           ) : (
             <Link to="/" className="navbar-brand">
@@ -34,9 +30,6 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             {sessionID ? (
               <Nav className="me-auto">
-                <Link to="/allList" className="nav-link">
-                  전체목록
-                </Link>
                 <Link to="/savaForm" className="nav-link">
                   애니메이션추가
                 </Link>
@@ -56,6 +49,15 @@ function Header() {
               >
                 관리자 신청
               </Link>
+              {sessionID ? (
+                <Link
+                  onClick={logoutgo}
+                  className="nav-link"
+                  style={{ font: '12px' }}
+                >
+                  로그아웃
+                </Link>
+              ) : null}
             </Nav>
           </Navbar.Collapse>
         </Container>

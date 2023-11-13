@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
-import { SetUserArray } from '../../Redux/UserAcrion';
+import { SetUserArray, SetUserArrayEA } from '../../Redux/UserAcrion';
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 
@@ -36,9 +36,7 @@ function UserListItem() {
         `http://localhost:8080/Memberlist/Page?page=${Pages}&pagesize=${PageSize}`,
       );
       store.dispatch(SetUserArray(res.data.member.content));
-      // store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
-      console.log(res.data.member.content);
-      console.log(res.data.totalPage);
+      store.dispatch(SetUserArrayEA(res.data.totalPage));
     };
 
     PagesFetch();
