@@ -37,30 +37,39 @@ function JoinForm2() {
   };
 
   const memberadd = async () => {
-    // if (Adminmember.adminid === '') {
-    //   alert('아이디를 입력해주세요.');
-    //   return;
-    // }
-    // if (idcheckok === false) {
-    //   alert('아이디 중복을 체크 하셔야합니다.');
-    //   return;
-    // }
-    // if (Adminmember.adminpass === '') {
-    //   alert('패스워드를 입력해주세요.');
-    //   return;
-    // }
-    // if (Adminmember.adminname === '') {
-    //   alert('이름을 입력해주세요.');
-    //   return;
-    // }
-    // if (Adminmember.adminemail === '') {
-    //   alert('이메일을 입력해주세요.');
-    //   return;
-    // }
-    // if (Adminmember.adminnumber === '') {
-    //   alert('전화번호를 입력해주세요.');
-    //   return;
-    // }
+    if (Adminmember.adminid === '') {
+      alert('아이디를 입력해주세요.');
+      return;
+    }
+    if (idcheckok === false) {
+      alert('아이디 중복을 체크 하셔야합니다.');
+      return;
+    }
+    if (Adminmember.adminpass === '') {
+      alert('패스워드를 입력해주세요.');
+      return;
+    }
+    if (Adminmember.adminname === '') {
+      alert('이름을 입력해주세요.');
+      return;
+    }
+    if (Adminmember.adminemail === '') {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+    if (Adminmember.adminnumber === '') {
+      alert('전화번호를 입력해주세요.');
+      return;
+    }
+    if (Adminmember.admindepartment === '') {
+      alert('소속을 입력해주세요.');
+      return;
+    }
+
+    if (Adminmember.adminrank === '') {
+      alert('직급을 선택 해주세요.');
+      return;
+    }
 
     const res = await axios.post('http://localhost:8080/addAdmin', Adminmember);
 
@@ -104,7 +113,7 @@ function JoinForm2() {
       return;
     }
     const res = await axios.post(
-      'http://localhost:8080/Member/idcheck',
+      'http://localhost:8080/Admin/idcheck',
       adminid,
       {
         headers: {
@@ -207,6 +216,7 @@ function JoinForm2() {
                 />
 
                 <Form.Select style={{ width: '50%' }} onChange={adminrank}>
+                  <option>직급을 선택하세요</option>
                   <option>매니저</option>
                   <option>팀장</option>
                   <option>실장</option>

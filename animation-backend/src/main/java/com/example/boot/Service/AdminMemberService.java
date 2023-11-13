@@ -5,4 +5,6 @@ import com.example.boot.Entity.AdminMember;
 
 public interface AdminMemberService {
     AdminMember saveadmin(AdminMember adminMember);
+
+    boolean idcheck(String adminid);
 }

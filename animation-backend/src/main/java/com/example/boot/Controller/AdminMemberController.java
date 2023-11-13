@@ -25,4 +25,23 @@ public class AdminMemberController {
         return new ResponseEntity<>(adminMemberService.saveadmin(adminMember), HttpStatus.CREATED);
     }
 
+
+
+    @PostMapping("/Admin/idcheck")
+    @CrossOrigin
+    public ResponseEntity<String> idcheck(@RequestBody String adminid) {
+
+
+        boolean isMid = adminMemberService.idcheck(adminid);
+
+        String message;
+        if (isMid) {
+            message = "이미 사용중인 아이디 입니다.";
+        } else {
+            message = "아이디를 사용할 수 있습니다.";
+        }
+
+        return ResponseEntity.ok(message);
+    }
+
 }
