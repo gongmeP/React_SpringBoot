@@ -11,49 +11,51 @@ function Header() {
     window.location.href = '/';
   };
 
+  console.log(sessionID);
+
   return (
     <>
       <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
         <Container>
-          <Link to="/" className="navbar-brand">
-            관리자 로그인
-          </Link>
+          {sessionID ? (
+            <Link
+              onClick={logoutgo}
+              className="navbar-brand"
+              style={{ font: '12px' }}
+            >
+              로그아웃
+            </Link>
+          ) : (
+            <Link to="/" className="navbar-brand">
+              관리자 로그인
+            </Link>
+          )}
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Link to="/allList" className="nav-link">
-                전체목록
-              </Link>
-              <Link to="/savaForm" className="nav-link">
-                애니메이션추가
-              </Link>
-              <Link to="/freeBoard" className="nav-link">
-                배너추가
-              </Link>
-              <Link to="/freeBoard" className="nav-link">
-                게시판관리
-              </Link>
-            </Nav>
-
+            {sessionID ? (
+              <Nav className="me-auto">
+                <Link to="/allList" className="nav-link">
+                  전체목록
+                </Link>
+                <Link to="/savaForm" className="nav-link">
+                  애니메이션추가
+                </Link>
+                <Link to="/freeBoard" className="nav-link">
+                  회원관리
+                </Link>
+                <Link to="/freeBoard" className="nav-link">
+                  게시판관리
+                </Link>
+              </Nav>
+            ) : null}
             <Nav className="">
-              {sessionID ? null : (
-                <Link
-                  to="/joinForm"
-                  className="nav-link"
-                  style={{ font: '12px' }}
-                >
-                  관리자 신청
-                </Link>
-              )}
-              {sessionID ? (
-                <Link
-                  onClick={logoutgo}
-                  className="nav-link"
-                  style={{ font: '12px' }}
-                >
-                  로그아웃
-                </Link>
-              ) : null}
+              <Link
+                to="/joinForm"
+                className="nav-link"
+                style={{ font: '12px' }}
+              >
+                관리자 신청
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -76,7 +76,7 @@ public class AdminMemberController {
             }
 
         }catch (Exception e){
-            System.out.println("Member Login 에러");
+            System.out.println("AdminMember Login 에러");
         }
 
         return ResponseEntity.ok("로그인실패");
