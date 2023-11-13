@@ -40,7 +40,7 @@ function Header() {
                 <Link to="/savaForm" className="nav-link">
                   애니메이션추가
                 </Link>
-                <Link to="/freeBoard" className="nav-link">
+                <Link to="/userlist" className="nav-link">
                   회원관리
                 </Link>
                 <Link to="/freeBoard" className="nav-link">
