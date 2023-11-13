@@ -91,8 +91,6 @@ public class MemberController {
         
         try{
 
-            int offset = (page) * pageSize;
-
             MemberDTO MemberlistTototalEA = memberService.memberListpage(page,pageSize,member);
 
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member,Long> {
     Optional<Member> findByMid(String mid);
 
-    Page<Member> findAll(Pageable pageable);
+    Page<Member> findByMdelete(String mdelete, Pageable pageable);
 
     long count();
 

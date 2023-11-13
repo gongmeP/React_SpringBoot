@@ -70,7 +70,7 @@ export const Th3 = styled.th`
 `;
 
 export const Th4 = styled.th`
-  width: 21%;
+  width: 23%;
 `;
 
 export const Th5 = styled.th`
