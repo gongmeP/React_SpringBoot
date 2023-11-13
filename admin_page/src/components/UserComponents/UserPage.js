@@ -17,9 +17,6 @@ function UserPage() {
   //     Pages = SearchPages;
   //   }
 
-  console.log(Pages);
-  console.log(EA);
-
   const [totalPageArray, setTotalPageArray] = useState([]);
   const [currentPageArray, setCurrentPageArray] = useState([]);
 
@@ -69,7 +66,7 @@ function UserPage() {
   };
 
   return (
-    <div className="d-flex justify-content-center mt-0">
+    <div className="d-flex justify-content-center mt-3">
       <Pagination>
         <Pagination.First onClick={() => PageClick(0)} />
         <Pagination.Prev onClick={() => PageClick(Pages - 1)} />

@@ -2,10 +2,8 @@ import React from 'react';
 import {
   CustomTable,
   Th1,
-  Th2,
   Th3,
   Th4,
-  Th5,
   Tr1,
   Tr2,
 } from '../../styledcomponents/Userlist.styled';
@@ -23,7 +21,7 @@ function UserListItem() {
 
   function DateTime(fbDate) {
     const date = new Date(fbDate);
-    const year = date.getFullYear().toString(); // 년도를 추가
+    const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     const hours = date.getHours().toString().padStart(2, '0');
@@ -40,7 +38,7 @@ function UserListItem() {
     };
 
     PagesFetch();
-  }, [Pages]);
+  }, [Pages, PageSize]);
 
   const deletemember = () => {};
   return (
