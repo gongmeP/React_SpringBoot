@@ -19,14 +19,16 @@ public class AdminMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String amid;
-    private String amass;
-    private String amname;
-    private String amemail;
-    private String amdepartment;
-    private String amrank;
-    private String amdelete = "N";
+    private String adminid;
+    private String adminpass;
+    private String adminname;
+    private String adminemail;
+    private String adminnumber;
+    private String admindepartment;
+    private String adminrank;
+    private String approval;
+    private String iddelete;
 
 
-    private LocalDateTime amtime = LocalDateTime.now();
+    private LocalDateTime intime = LocalDateTime.now();
 }

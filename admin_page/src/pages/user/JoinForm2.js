@@ -10,58 +10,61 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function JoinForm2() {
-  const [address, setAddress] = useState('');
-  const [member, setMember] = useState({
-    mid: '',
-    mpass: '',
-    mname: '',
-    memail: '',
-    mnumber: '',
-    maddress: '',
+  const [Adminmember, setAdminMember] = useState({
+    adminid: '',
+    adminpass: '',
+    adminname: '',
+    adminemail: '',
+    adminnumber: '',
+    admindepartment: '',
+    adminrank: '',
+    approval: 'n',
+    iddelete: 'n',
   });
 
   const datain = (e) => {
-    setMember({ ...member, [e.target.name]: e.target.value });
-    console.log(member);
+    setAdminMember({ ...Adminmember, [e.target.name]: e.target.value });
+    console.log(Adminmember);
   };
 
-  const EmailChange = (e) => {
+  const adminrank = (e) => {
     const value = e.target.value;
-    setMember({
-      ...member,
-      memail: value,
+    console.log(value);
+    setAdminMember({
+      ...Adminmember,
+      adminrank: value,
     });
   };
 
   const memberadd = async () => {
-    if (member.mid === '') {
-      alert('아이디를 입력해주세요.');
-      return;
-    }
-    if (idcheckok === false) {
-      alert('아이디 중복을 체크 하셔야합니다.');
-      return;
-    }
-    if (member.mpass === '') {
-      alert('패스워드를 입력해주세요.');
-      return;
-    }
-    if (member.mname === '') {
-      alert('이름을 입력해주세요.');
-      return;
-    }
-    if (member.memail === '') {
-      alert('이메일을 입력해주세요.');
-      return;
-    }
-    if (member.mnumber === '') {
-      alert('전화번호를 입력해주세요.');
-      return;
-    }
+    // if (Adminmember.adminid === '') {
+    //   alert('아이디를 입력해주세요.');
+    //   return;
+    // }
+    // if (idcheckok === false) {
+    //   alert('아이디 중복을 체크 하셔야합니다.');
+    //   return;
+    // }
+    // if (Adminmember.adminpass === '') {
+    //   alert('패스워드를 입력해주세요.');
+    //   return;
+    // }
+    // if (Adminmember.adminname === '') {
+    //   alert('이름을 입력해주세요.');
+    //   return;
+    // }
+    // if (Adminmember.adminemail === '') {
+    //   alert('이메일을 입력해주세요.');
+    //   return;
+    // }
+    // if (Adminmember.adminnumber === '') {
+    //   alert('전화번호를 입력해주세요.');
+    //   return;
+    // }
 
-    const res = await axios.post('http://localhost:8080/addMember', member);
+    const res = await axios.post('http://localhost:8080/addAdmin', Adminmember);
 
-    console.log(res.status);
+    console.log(res.data);
     setShowCompleteModal(true);
   };
 
@@ -95,16 +98,20 @@ function JoinForm2() {
     navigate('/');
   };
   const [idcheckok, setIdcheckok] = useState(false);
-  const idcheck = async (mid) => {
-    if (mid === '') {
+  const idcheck = async (adminid) => {
+    if (adminid === '') {
       alert('아이디를 입력해주세요');
       return;
     }
-    const res = await axios.post('http://localhost:8080/Member/idcheck', mid, {
-      headers: {
-        'Content-Type': 'text/plain',
+    const res = await axios.post(
+      'http://localhost:8080/Member/idcheck',
+      adminid,
+      {
+        headers: {
+          'Content-Type': 'text/plain',
+        },
       },
-    });
+    );
 
     if (res.data === '아이디를 사용할 수 있습니다.') {
       alert(res.data);
@@ -128,9 +135,9 @@ function JoinForm2() {
               <Col sm={7}>
                 <Form.Control
                   placeholder="아이디"
-                  value={member.mid}
+                  value={Adminmember.adminid}
                   onChange={datain}
-                  name="mid"
+                  name="adminid"
                   readOnly={idcheckok}
                 />
               </Col>
@@ -139,7 +146,7 @@ function JoinForm2() {
                   variant="secondary"
                   className="mb-0"
                   style={{ verticalAlign: '15px' }}
-                  onClick={() => idcheck(member.mid)}
+                  onClick={() => idcheck(Adminmember.adminid)}
                 >
                   중복체크
                 </Button>
@@ -150,9 +157,9 @@ function JoinForm2() {
                 <Form.Control
                   type="password"
                   placeholder="비밀번호"
-                  value={member.mpass}
+                  value={Adminmember.adminpass}
                   onChange={datain}
-                  name="mpass"
+                  name="adminpass"
                 />
               </Col>
             </Form.Group>
@@ -169,9 +176,9 @@ function JoinForm2() {
               <Col>
                 <Form.Control
                   placeholder="이름"
-                  value={member.mname}
+                  value={Adminmember.adminname}
                   onChange={datain}
-                  name="mname"
+                  name="adminname"
                 />
               </Col>
             </Form.Group>
@@ -180,9 +187,9 @@ function JoinForm2() {
               <Form.Control
                 style={{ marginRight: '10px' }}
                 placeholder="사내 이메일주소"
-                value={member.memail}
-                onChange={EmailChange}
-                name="memail"
+                value={Adminmember.adminemail}
+                onChange={datain}
+                name="adminemail"
               />
             </Col>
 
@@ -194,12 +201,12 @@ function JoinForm2() {
                 <Form.Control
                   style={{ marginRight: '10px' }}
                   placeholder="소속 (ex: IT 개발실 )"
-                  value={member.memail}
-                  onChange={EmailChange}
-                  name="memail"
+                  value={Adminmember.admindepartment}
+                  onChange={datain}
+                  name="admindepartment"
                 />
 
-                <Form.Select style={{ width: '50%' }}>
+                <Form.Select style={{ width: '50%' }} onChange={adminrank}>
                   <option>매니저</option>
                   <option>팀장</option>
                   <option>실장</option>
@@ -213,9 +220,9 @@ function JoinForm2() {
               <Col>
                 <Form.Control
                   placeholder="휴대폰 번호"
-                  value={member.mnumber}
+                  value={Adminmember.adminnumber}
                   onChange={datain}
-                  name="mnumber"
+                  name="adminnumber"
                 />
               </Col>
             </Form.Group>
