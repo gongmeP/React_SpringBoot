@@ -104,4 +104,15 @@ public class MemberServiceImpl implements MemberService {
 
         return new MemberDTO(memberlist,countByMdeleteAndMidLike);
     }
+
+    @Override
+    public MemberDTO MemberlistNameSearch(int page, int pageSize, String mname) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").descending());
+
+        long countByMdeleteAndMidLike = MemberRepository.countByMdeleteAndMnameLike("n", "%"+mname+"%");
+        Page<Member> memberlist = MemberRepository.findByMdeleteAndMnameLike("n",pageable, "%"+mname+"%");
+
+
+        return new MemberDTO(memberlist,countByMdeleteAndMidLike);
+    }
 }

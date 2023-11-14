@@ -109,16 +109,22 @@ public class MemberController {
     public MemberDTO memberList(
             @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "pagesize", defaultValue = "1") int pageSize,
-            String mid){
+            String mid , String mname){
 
         try{
+            MemberDTO memberlistSearch = null;
 
-            System.out.println(mid);
+            if(mid != null){
+                memberlistSearch = memberService.MemberlistIdSearch(page,pageSize,mid);
+            }else if(mname!=null) {
 
-            MemberDTO MemberlistIdSearch = memberService.MemberlistIdSearch(page,pageSize,mid);
+                memberlistSearch = memberService.MemberlistNameSearch(page,pageSize,mname);
+            }
+            else{
+                System.out.println("/Memberlist/IdSearch RequestParam 에러");
+            }
 
-
-            return MemberlistIdSearch;
+            return memberlistSearch;
         }catch (Exception e){
             System.out.println(e);
             System.out.println("/MemberList/Search 에러");

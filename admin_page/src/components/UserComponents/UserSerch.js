@@ -24,8 +24,8 @@ function UserSearch() {
   const [searchText, setSearchText] = useState('');
   const searchTF = useSelector((store) => store.userState.UserSearchTF);
   const [render, setRender] = useState(false);
+  const [select, setSelect] = useState('아이디');
 
-  console.log(searchText);
   const SearchEnter = async (e) => {
     e.preventDefault();
 
@@ -37,11 +37,18 @@ function UserSearch() {
   };
 
   const Search = async () => {
-    const res = await axios.get(
-      `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
-    );
-
-    console.log(res.data);
+    let res;
+    if (select === '아이디') {
+      res = await axios.get(
+        `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+      );
+    } else if (select === '이름') {
+      res = await axios.get(
+        `http://localhost:8080/Memberlist/IdSearch?mname=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+      );
+    } else {
+      console.log('아이디 이름 셀렉트오류');
+    }
     store.dispatch(SetUserArray(res.data.member.content));
     store.dispatch(SetUserArrayEA(res.data.totalPage));
     store.dispatch(SetUserSearchTF('Search'));
@@ -53,9 +60,18 @@ function UserSearch() {
       return;
     }
     const SearchPage = async () => {
-      const res = await axios.get(
-        `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
-      );
+      let res;
+      if (select === '아이디') {
+        res = await axios.get(
+          `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+        );
+      } else if (select === '이름') {
+        res = await axios.get(
+          `http://localhost:8080/Memberlist/IdSearch?mname=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+        );
+      } else {
+        console.log('아이디 이름 셀렉트오류');
+      }
 
       store.dispatch(SetUserArray(res.data.member.content));
       store.dispatch(SetUserArrayEA(res.data.totalPage));
@@ -63,11 +79,21 @@ function UserSearch() {
     };
     SearchPage();
   }, [SearchPages]);
+
+  const IdAndName = (e) => {
+    setSelect(e.target.value);
+  };
   return (
     <>
       <Row>
-        <Col md={2} sm={2} xs={1}></Col>
-        <Col md={8} sm={8} xs={10}>
+        <Col md={1} sm={1} xs={1}></Col>
+        <Col md={2} sm={3} xs={3}>
+          <Form.Select onChange={IdAndName} defaultValue={'아이디'}>
+            <option>아이디</option>
+            <option>이름</option>
+          </Form.Select>
+        </Col>
+        <Col md={7} sm={7} xs={7}>
           <Form onSubmit={SearchEnter}>
             <InputGroup className="mb-3">
               <FormControl
