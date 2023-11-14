@@ -10,19 +10,22 @@ import {
   Row,
 } from 'react-bootstrap';
 import store from '../../Redux/store';
-import {
-  setFreeBoards,
-  setFreeBoardsEA,
-  setSearchTF,
-} from '../../Redux/action';
-import { useSelector } from 'react-redux';
 
-function BoradSerch() {
-  const SearchPages = useSelector((store) => store.AniBoardState.SearchPages);
+import { useSelector } from 'react-redux';
+import {
+  SetUserArray,
+  SetUserArrayEA,
+  SetUserSearchTF,
+} from '../../Redux/UserAcrion';
+
+function UserSearch() {
+  const SearchPages = useSelector((store) => store.userState.UserSearchPage);
+  const PageSize = useSelector((state) => state.userState.UserPageSize);
   const [searchText, setSearchText] = useState('');
-  const searchTF = useSelector((store) => store.AniBoardState.searchTF);
+  const searchTF = useSelector((store) => store.userState.UserSearchTF);
   const [render, setRender] = useState(false);
 
+  console.log(searchText);
   const SearchEnter = async (e) => {
     e.preventDefault();
 
@@ -35,12 +38,13 @@ function BoradSerch() {
 
   const Search = async () => {
     const res = await axios.get(
-      `http://localhost:8080/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
+      `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
     );
 
-    store.dispatch(setFreeBoards(res.data.freeBoard));
-    store.dispatch(setFreeBoardsEA(res.data.totalPage));
-    store.dispatch(setSearchTF('Search'));
+    console.log(res.data);
+    store.dispatch(SetUserArray(res.data.member.content));
+    store.dispatch(SetUserArrayEA(res.data.totalPage));
+    store.dispatch(SetUserSearchTF('Search'));
   };
 
   useEffect(() => {
@@ -50,13 +54,12 @@ function BoradSerch() {
     }
     const SearchPage = async () => {
       const res = await axios.get(
-        `http://localhost:8080/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
+        `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
       );
 
-      store.dispatch(setFreeBoards(res.data.freeBoard));
-      store.dispatch(setFreeBoardsEA(res.data.totalPage));
-      store.dispatch(setSearchTF('Search'));
-      // 검색이면 검색동작을 위해 Search 넣어준곳
+      store.dispatch(SetUserArray(res.data.member.content));
+      store.dispatch(SetUserArrayEA(res.data.totalPage));
+      store.dispatch(SetUserSearchTF('Search'));
     };
     SearchPage();
   }, [SearchPages]);
@@ -85,4 +88,4 @@ function BoradSerch() {
   );
 }
 
-export default BoradSerch;
+export default UserSearch;

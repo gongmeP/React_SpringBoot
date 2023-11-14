@@ -10,7 +10,11 @@ import {
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
-import { SetUserArray, SetUserArrayEA } from '../../Redux/UserAcrion';
+import {
+  SetUserArray,
+  SetUserArrayEA,
+  SetUserSearchTF,
+} from '../../Redux/UserAcrion';
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 
@@ -35,6 +39,7 @@ function UserListItem() {
       );
       store.dispatch(SetUserArray(res.data.member.content));
       store.dispatch(SetUserArrayEA(res.data.totalPage));
+      store.dispatch(SetUserSearchTF('NotSearch'));
     };
 
     PagesFetch();
@@ -47,7 +52,8 @@ function UserListItem() {
         <thead>
           <Tr1>
             <Th1>
-              <input type="checkbox"></input>
+              {/* <input type="checkbox"></input>
+              전체선택 */}
             </Th1>
             <Th4>아이디</Th4>
             <Th3>이름</Th3>
@@ -73,7 +79,7 @@ function UserListItem() {
                   className="mb-2"
                   onClick={deletemember}
                 >
-                  삭제
+                  회원 삭제
                 </Button>
               </Th3>
             </Tr2>

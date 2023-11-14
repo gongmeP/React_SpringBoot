@@ -25,4 +25,6 @@ public interface MemberService {
 
     MemberDTO memberListpage(int page, int pageSize, Member member);
 
+    MemberDTO MemberlistIdSearch(int page, int pageSize, String mid);
+
 }

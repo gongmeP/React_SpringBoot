@@ -104,6 +104,30 @@ public class MemberController {
 
     }
 
+    @GetMapping("/Memberlist/IdSearch")
+    @CrossOrigin
+    public MemberDTO memberList(
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "pagesize", defaultValue = "1") int pageSize,
+            String mid){
+
+        try{
+
+            System.out.println(mid);
+
+            MemberDTO MemberlistIdSearch = memberService.MemberlistIdSearch(page,pageSize,mid);
+
+
+            return MemberlistIdSearch;
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("/MemberList/Search 에러");
+        }
+
+        return null;
+
+    }
+
 
 
 }

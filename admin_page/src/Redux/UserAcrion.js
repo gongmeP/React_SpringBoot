@@ -17,3 +17,13 @@ export const SetUserArrayEA = (UserArrayEA) => ({
   type: 'SetUserArrayEA',
   payload: UserArrayEA,
 });
+
+export const SetUserSearchPage = (UserSearchPage) => ({
+  type: 'SetUserSearchPage',
+  payload: UserSearchPage,
+});
+
+export const SetUserSearchTF = (UserSearchTF) => ({
+  type: 'SetUserSearchTF',
+  payload: UserSearchTF,
+});

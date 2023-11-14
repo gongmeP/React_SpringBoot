@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
 import store from '../../Redux/store';
-import { setPages, setSearchPages } from '../../Redux/action';
 import { useSelector } from 'react-redux';
-import { SetUserPage } from '../../Redux/UserAcrion';
+import { SetUserPage, SetUserSearchPage } from '../../Redux/UserAcrion';
 function UserPage() {
-  //   const SearchTF = useSelector((store) => store.AniBoardState.SearchTF);
-  //   const SearchPages = useSelector((state) => state.AniBoardState.SearchPages);
+  const SearchTF = useSelector((store) => store.userState.UserSearchTF);
+  const SearchPages = useSelector((state) => state.userState.UserSearchPage);
   const PageSize = useSelector((state) => state.userState.UserPageSize);
-  const Pages = useSelector((state) => state.userState.UserPage);
+  let Pages = useSelector((state) => state.userState.UserPage);
   const EA = useSelector((state) => state.userState.UserArrayEA);
   const totalPage = Math.ceil(EA / PageSize);
   const limit = 5;
-  //검색일때 데이터갯수 검색데이터 갯수로 업데이트
-  //   if (SearchTF === 'Search') {
-  //     Pages = SearchPages;
-  //   }
+  // 검색일때 데이터갯수 검색데이터 갯수로 업데이트
+  if (SearchTF === 'Search') {
+    Pages = SearchPages;
+  }
 
   const [totalPageArray, setTotalPageArray] = useState([]);
   const [currentPageArray, setCurrentPageArray] = useState([]);
@@ -54,15 +53,14 @@ function UserPage() {
       return;
     }
 
-    store.dispatch(SetUserPage(lastpage));
-    //UserListItem 에 useEffect 가 발동하기 위해 페이지 다시 압로드!!
+    // UserListItem 에 useEffect 가 발동하기 위해 페이지 다시 압로드!!
 
-    //검색일때 페이지 구분
-    // if (SearchTF === 'NotSearch') {
-    //   store.dispatch(setPages(lastpage));
-    // } else if (SearchTF === 'Search') {
-    //   store.dispatch(setSearchPages(lastpage));
-    // }
+    // 검색일때 페이지 구분
+    if (SearchTF === 'NotSearch') {
+      store.dispatch(SetUserPage(lastpage));
+    } else if (SearchTF === 'Search') {
+      store.dispatch(SetUserSearchPage(lastpage));
+    }
   };
 
   return (
