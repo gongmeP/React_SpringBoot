@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member login(Member member) {
 
-        Optional<Member> byloginid = MemberRepository.findByMid(member.getMid());
+        Optional<Member> byloginid = MemberRepository.findByMidAndMdelete(member.getMid(),"n");
 
         if(byloginid.isPresent()){
             Member memberEntity = byloginid.get();

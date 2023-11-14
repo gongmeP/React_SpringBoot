@@ -70,10 +70,10 @@ function JoinForm2() {
       alert('아이디를 입력해주세요.');
       return;
     }
-    // if (idcheckok === false) {
-    //   alert('아이디 중복을 체크 하셔야합니다.');
-    //   return;
-    // }
+    if (idcheckok === false) {
+      alert('아이디 중복을 체크 하셔야합니다.');
+      return;
+    }
     if (member.mpass === '') {
       alert('패스워드를 입력해주세요.');
       return;
