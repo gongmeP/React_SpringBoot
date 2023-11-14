@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CustomTable,
   Th1,
@@ -22,7 +22,7 @@ function UserListItem() {
   const PageSize = useSelector((state) => state.userState.UserPageSize);
   const Pages = useSelector((state) => state.userState.UserPage);
   const UserArray = useSelector((state) => state.userState.UserArray);
-
+  const [reuseEffect, SetReuseEffect] = useState(0);
   function DateTime(fbDate) {
     const date = new Date(fbDate);
     const year = date.getFullYear().toString();
@@ -43,9 +43,23 @@ function UserListItem() {
     };
 
     PagesFetch();
-  }, [Pages, PageSize]);
+  }, [Pages, PageSize, reuseEffect]);
 
-  const deletemember = () => {};
+  const deletemember = async (e) => {
+    if (window.confirm('! 회원을 삭제 할꺼에요? 정말로? !')) {
+      const res = await axios.put(
+        `http://localhost:8080/Memberlist/DeleteUpdate/${e.target.id}`,
+      );
+      if (res.data == '삭제완료') {
+        alert('회원이 삭제되었습니다.');
+        SetReuseEffect(+1);
+      } else {
+        alert('삭제오류');
+      }
+    } else {
+      alert('회원 삭제 취소했습니다.');
+    }
+  };
   return (
     <>
       <CustomTable className="custom-table">
@@ -78,6 +92,7 @@ function UserListItem() {
                   size="sm"
                   className="mb-2"
                   onClick={deletemember}
+                  id={UserArray.id}
                 >
                   회원 삭제
                 </Button>

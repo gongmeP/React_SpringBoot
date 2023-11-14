@@ -29,4 +29,8 @@ public interface MemberService {
 
     MemberDTO MemberlistNameSearch(int page, int pageSize, String mid);
 
+    String iddeleteY(Long id);
+
+
+
 }

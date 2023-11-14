@@ -136,4 +136,21 @@ public class MemberController {
 
 
 
+    @PutMapping("/Memberlist/DeleteUpdate/{id}")
+    @CrossOrigin
+    public ResponseEntity<?> iddeleteY(@PathVariable Long id){
+        String messge;
+        try {
+            messge = memberService.iddeleteY(id);
+            return ResponseEntity.ok(messge);
+        }catch (Exception e){
+            
+            return ResponseEntity.ok("/Memberlist/DeleteUpdate 오류");
+        }
+
+
+    }
+
+
+
 }

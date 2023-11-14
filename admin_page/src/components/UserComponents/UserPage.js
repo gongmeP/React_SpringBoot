@@ -64,7 +64,7 @@ function UserPage() {
   };
 
   return (
-    <div className="d-flex justify-content-center mt-3">
+    <div className="d-flex justify-content-center mt-0">
       <Pagination>
         <Pagination.First onClick={() => PageClick(0)} />
         <Pagination.Prev onClick={() => PageClick(Pages - 1)} />

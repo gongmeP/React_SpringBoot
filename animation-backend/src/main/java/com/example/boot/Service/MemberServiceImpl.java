@@ -87,7 +87,6 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO memberListpage(int page,int pageSize, Member member) {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").descending());
-
         long totalMembers = MemberRepository.count();
         Page<Member> memberlist = MemberRepository.findByMdelete("n",pageable);
 
@@ -114,5 +113,22 @@ public class MemberServiceImpl implements MemberService {
 
 
         return new MemberDTO(memberlist,countByMdeleteAndMidLike);
+    }
+
+    @Override
+    public String iddeleteY(Long id) {
+        try{
+            Member member = MemberRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("회원 정보없음"));
+
+            member.setMdelete("y");
+            MemberRepository.save(member);
+            return "삭제완료";
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("MemberService iddeleteY 에러");
+            return "삭제실패";
+        }
+
     }
 }
