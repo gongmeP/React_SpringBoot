@@ -27,3 +27,8 @@ export const SetUserSearchTF = (UserSearchTF) => ({
   type: 'SetUserSearchTF',
   payload: UserSearchTF,
 });
+
+export const SetSelectMemberArray = (SelectMemberArray) => ({
+  type: 'SetSelectMemberArray',
+  payload: SelectMemberArray,
+});

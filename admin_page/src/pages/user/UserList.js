@@ -4,14 +4,64 @@ import UserListItem from '../../components/UserComponents/UserListItem';
 import UserPage from '../../components/UserComponents/UserPage';
 import UserSearch from '../../components/UserComponents/UserSerch';
 import { Button } from 'react-bootstrap';
+import axios from 'axios';
+import store from '../../Redux/store';
+import {
+  SetUserArray,
+  SetUserArrayEA,
+  SetUserSearchTF,
+} from '../../Redux/UserAcrion';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 function UserList() {
+  const PageSize = useSelector((state) => state.userState.UserPageSize);
+  const Pages = useSelector((state) => state.userState.UserPage);
+  const [reuseEffect, SetReuseEffect] = useState(0);
+  const SelectMemberArray = useSelector(
+    (state) => state.userState.SelectMemberArray,
+  );
+
   const userListGo = () => {
     window.location.href = '/userlist';
   };
+
+  useEffect(() => {
+    const PagesFetch = async () => {
+      const res = await axios.get(
+        `http://localhost:8080/Memberlist/Page?page=${Pages}&pagesize=${PageSize}`,
+      );
+      store.dispatch(SetUserArray(res.data.member.content));
+      store.dispatch(SetUserArrayEA(res.data.totalPage));
+      store.dispatch(SetUserSearchTF('NotSearch'));
+    };
+
+    PagesFetch();
+  }, [Pages, PageSize, reuseEffect]);
+
+  const selectDelete = async () => {
+    if (window.confirm('! 선택된 회원을 삭제 할꺼에요? 정말로? !')) {
+      const res = await axios.put(
+        `http://localhost:8080/Memberlist/DeleteUpdateSelect/${SelectMemberArray}`,
+      );
+      if (res.data == '삭제완료') {
+        alert('회원이 삭제되었습니다.');
+        SetReuseEffect(reuseEffect + 1);
+      } else {
+        alert('삭제오류');
+      }
+    } else {
+      alert('회원 삭제 취소했습니다.');
+    }
+  };
+
   return (
     <>
-      <UserListItem></UserListItem>
+      <UserListItem
+        SetReuseEffect={SetReuseEffect}
+        reuseEffect={reuseEffect}
+      ></UserListItem>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button
           onClick={userListGo}
@@ -21,7 +71,7 @@ function UserList() {
           전체 회원 리스트
         </Button>
         <Button
-          onClick={userListGo}
+          onClick={selectDelete}
           className="btn-danger mb-1"
           style={{ marginRight: '20px', marginTop: '10px' }}
         >

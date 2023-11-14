@@ -131,4 +131,24 @@ public class MemberServiceImpl implements MemberService {
         }
 
     }
+
+    @Override
+    public String selectiddeleteY(List<Long> SelectMemberArray) {
+        try{
+            //SelectMemberArray 값을 하나씩 꺼내서 id 한개씩 넣어주면서 반복
+            for(Long id : SelectMemberArray){
+                Member member = MemberRepository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("회원 정보없음"));
+                member.setMdelete("y");
+                MemberRepository.save(member);
+
+            }
+
+            return "삭제완료";
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("MemberService selectiddeleteY 에러");
+            return "삭제실패";
+        }
+    }
 }

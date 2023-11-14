@@ -9,20 +9,15 @@ import {
 } from '../../styledcomponents/Userlist.styled';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import store from '../../Redux/store';
-import {
-  SetUserArray,
-  SetUserArrayEA,
-  SetUserSearchTF,
-} from '../../Redux/UserAcrion';
-import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import store from '../../Redux/store';
+import { SetSelectMemberArray } from '../../Redux/UserAcrion';
 
-function UserListItem() {
-  const PageSize = useSelector((state) => state.userState.UserPageSize);
-  const Pages = useSelector((state) => state.userState.UserPage);
+function UserListItem({ SetReuseEffect, reuseEffect }) {
   const UserArray = useSelector((state) => state.userState.UserArray);
-  const [reuseEffect, SetReuseEffect] = useState(0);
+  const SelectMemberArray = useSelector(
+    (state) => state.userState.SelectMemberArray,
+  );
   function DateTime(fbDate) {
     const date = new Date(fbDate);
     const year = date.getFullYear().toString();
@@ -32,18 +27,6 @@ function UserListItem() {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${year}/${month}/${day} ${hours}:${minutes}`;
   }
-  useEffect(() => {
-    const PagesFetch = async () => {
-      const res = await axios.get(
-        `http://localhost:8080/Memberlist/Page?page=${Pages}&pagesize=${PageSize}`,
-      );
-      store.dispatch(SetUserArray(res.data.member.content));
-      store.dispatch(SetUserArrayEA(res.data.totalPage));
-      store.dispatch(SetUserSearchTF('NotSearch'));
-    };
-
-    PagesFetch();
-  }, [Pages, PageSize, reuseEffect]);
 
   const deletemember = async (e) => {
     if (window.confirm('! 회원을 삭제 할꺼에요? 정말로? !')) {
@@ -52,7 +35,7 @@ function UserListItem() {
       );
       if (res.data == '삭제완료') {
         alert('회원이 삭제되었습니다.');
-        SetReuseEffect(+1);
+        SetReuseEffect(reuseEffect + 1);
       } else {
         alert('삭제오류');
       }
@@ -60,15 +43,25 @@ function UserListItem() {
       alert('회원 삭제 취소했습니다.');
     }
   };
+
+  const SelectMember = (e) => {
+    if (e.target.checked) {
+      store.dispatch(SetSelectMemberArray([...SelectMemberArray, e.target.id]));
+    } else if (!e.target.checked) {
+      store.dispatch(
+        SetSelectMemberArray(
+          SelectMemberArray.filter((id) => id !== e.target.id),
+        ),
+      );
+    }
+    console.log(SelectMemberArray);
+  };
   return (
     <>
       <CustomTable className="custom-table">
         <thead>
           <Tr1>
-            <Th1>
-              {/* <input type="checkbox"></input>
-              전체선택 */}
-            </Th1>
+            <Th1></Th1>
             <Th4>아이디</Th4>
             <Th3>이름</Th3>
             <Th4>최종 접속일</Th4>
@@ -80,7 +73,11 @@ function UserListItem() {
           {UserArray.map((UserArray) => (
             <Tr2 key={UserArray.id}>
               <Th1>
-                <input type="checkbox"></input>
+                <input
+                  type="checkbox"
+                  id={UserArray.id}
+                  onClick={SelectMember}
+                ></input>
               </Th1>
               <Th4>{UserArray.mid}</Th4>
               <Th3>{UserArray.mname}</Th3>

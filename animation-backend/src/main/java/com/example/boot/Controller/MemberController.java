@@ -151,6 +151,21 @@ public class MemberController {
 
     }
 
+    @PutMapping("/Memberlist/DeleteUpdateSelect/{SelectMemberArray}")
+    @CrossOrigin
+    public ResponseEntity<?> selectiddeleteY(@PathVariable List<Long> SelectMemberArray){
+        String messge;
+        try {
+            messge = memberService.selectiddeleteY(SelectMemberArray);
+            return ResponseEntity.ok(messge);
+        }catch (Exception e){
+
+            return ResponseEntity.ok("/Memberlist/DeleteUpdateSelect 오류");
+        }
+
+
+    }
+
 
 
 }

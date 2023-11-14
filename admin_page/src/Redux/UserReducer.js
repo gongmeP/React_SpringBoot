@@ -5,6 +5,7 @@ const initstate = {
   UserArrayEA: 0,
   UserSearchPage: 0,
   UserSearchTF: 'NotSearch',
+  SelectMemberArray: [],
 };
 
 const UserReducer = (userstate = initstate, action) => {
@@ -21,6 +22,8 @@ const UserReducer = (userstate = initstate, action) => {
       return { ...userstate, UserSearchPage: action.payload };
     case 'SetUserSearchTF':
       return { ...userstate, UserSearchTF: action.payload };
+    case 'SetSelectMemberArray':
+      return { ...userstate, SelectMemberArray: action.payload };
 
     default:
       return userstate;

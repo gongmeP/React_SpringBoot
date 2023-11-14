@@ -31,6 +31,7 @@ public interface MemberService {
 
     String iddeleteY(Long id);
 
+    String selectiddeleteY(List<Long> SelectMemberArray);
 
 
 }
