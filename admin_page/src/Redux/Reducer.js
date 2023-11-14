@@ -26,6 +26,7 @@ const initstate = {
   },
   SearchTF: '',
   SearchPages: 0,
+  SelectBoardArray: [],
 };
 
 const Reducer = (state = initstate, action) => {
@@ -61,6 +62,8 @@ const Reducer = (state = initstate, action) => {
       return { ...state, SearchTF: action.payload };
     case 'setSearchPages':
       return { ...state, SearchPages: action.payload };
+    case 'SetSelectBoardArray':
+      return { ...state, SelectBoardArray: action.payload };
     default:
       return state;
   }

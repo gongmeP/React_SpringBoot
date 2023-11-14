@@ -4,6 +4,7 @@ import com.example.boot.Dto.FreeBoardDTO;
 import com.example.boot.Entity.FreeBoard;
 import com.example.boot.Service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -192,11 +193,25 @@ public class FreeBoardController {
 
         FreeBoardDTO Searchdata = freeBoardService.BoardSearch(fbtitle,pageSize,offset);
 
-
-
-
        return Searchdata;
     }
+
+
+    @PutMapping("/FreeBoardList/SelectDelete/{SelectBoardArray}")
+    @CrossOrigin
+    public ResponseEntity<?> selectiddeleteY(@PathVariable List<Long> SelectBoardArray){
+        String messge;
+        try {
+            messge = freeBoardService.selectiddeleteY(SelectBoardArray);
+            return ResponseEntity.ok(messge);
+        }catch (Exception e){
+
+            return ResponseEntity.ok("/Memberlist/DeleteUpdateSelect 오류");
+        }
+
+
+    }
+
 
 
 

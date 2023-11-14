@@ -2,6 +2,7 @@ package com.example.boot.Service;
 
 import com.example.boot.Dto.FreeBoardDTO;
 import com.example.boot.Entity.FreeBoard;
+import com.example.boot.Entity.Member;
 import com.example.boot.mappers.FreeBoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,21 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 
         return new FreeBoardDTO (freeBoard,totalPage);
+    }
+
+    @Override
+    public String selectiddeleteY(List<Long> SelectBoardArray) {
+        try{
+            for(Long fnNum : SelectBoardArray) {
+              freeBoardMapper.DeletefreeBoardSave(fnNum);
+            }
+            return "삭제완료";
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("MemberService selectiddeleteY 에러");
+            return "삭제실패";
+        }
+
     }
 }
 

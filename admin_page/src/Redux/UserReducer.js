@@ -6,6 +6,7 @@ const initstate = {
   UserSearchPage: 0,
   UserSearchTF: 'NotSearch',
   SelectMemberArray: [],
+  SelectBoardArray: [],
 };
 
 const UserReducer = (userstate = initstate, action) => {

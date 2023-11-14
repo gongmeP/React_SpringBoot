@@ -32,3 +32,8 @@ export const SetSelectMemberArray = (SelectMemberArray) => ({
   type: 'SetSelectMemberArray',
   payload: SelectMemberArray,
 });
+
+export const SetSelectBoardArray = (SelectBoardArray) => ({
+  type: 'SetSelectBoardArray',
+  payload: SelectBoardArray,
+});

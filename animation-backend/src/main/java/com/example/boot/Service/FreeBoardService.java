@@ -26,4 +26,6 @@ public interface FreeBoardService {
 
     FreeBoardDTO BoardSearch (String fbtitle, int pageSize, int offset);
 
+    String selectiddeleteY(List<Long> SelectBoardArray);
+
 }

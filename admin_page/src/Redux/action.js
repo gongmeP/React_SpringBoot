@@ -65,3 +65,8 @@ export const setSearchPages = (SearchPages) => ({
   type: 'setSearchPages',
   payload: SearchPages,
 });
+
+export const SetSelectBoardArray = (SelectBoardArray) => ({
+  type: 'SetSelectBoardArray',
+  payload: SelectBoardArray,
+});

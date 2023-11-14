@@ -28,4 +28,6 @@ public interface FreeBoardMapper {
 
     int SearchTotalPage(String fbtitle);
 
+
+
 }

@@ -17,6 +17,10 @@ function FreeBoard() {
   const Pages = useSelector((state) => state.AniBoardState.pages);
   const freeBoardsEA = useSelector((stage) => stage.AniBoardState.freeBoardsEA);
   const searchTF = useSelector((store) => store.AniBoardState.searchTF);
+  const SelectBoardArray = useSelector(
+    (state) => state.AniBoardState.SelectBoardArray,
+  );
+  const [reuseEffect, SetReuseEffect] = useState(0);
 
   useEffect(() => {
     const PagesFetch = async () => {
@@ -27,7 +31,7 @@ function FreeBoard() {
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
     PagesFetch();
-  }, [Pages]);
+  }, [Pages, reuseEffect]);
 
   useEffect(() => {
     const TotalPage = async () => {
@@ -41,6 +45,22 @@ function FreeBoard() {
     window.location.href = '/freeBoard';
   };
 
+  const selectBoardDelete = async () => {
+    if (window.confirm('선택된 게시글을 전체 삭제합니다.')) {
+      const res = await axios.put(
+        `http://localhost:8080/FreeBoardList/SelectDelete/${SelectBoardArray}`,
+      );
+      if (res.data === '삭제완료') {
+        alert('게시글이 삭제되었습니다.');
+        SetReuseEffect(reuseEffect + 1);
+      } else {
+        alert('삭제오류');
+      }
+    } else {
+      alert('게시글 삭제를 취소했습니다.');
+    }
+  };
+
   return (
     <>
       <Board></Board>
@@ -52,13 +72,14 @@ function FreeBoard() {
         >
           전체글
         </Button>
-        <Link
-          to="/saveFreeBoard"
-          className="btn btn-primary mb-1"
+        <Button
+          onClick={selectBoardDelete}
+          variant="danger"
+          className="mb-1"
           style={{ marginRight: '20px', marginTop: '10px' }}
         >
-          글쓰기
-        </Link>
+          선택 게시글 전체삭제
+        </Button>
       </div>
       <Page EA={freeBoardsEA} Pages={Pages}></Page>
       <BoradSerch></BoradSerch>

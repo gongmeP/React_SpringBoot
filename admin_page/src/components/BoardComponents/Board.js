@@ -11,11 +11,18 @@ import {
 } from '../../styledcomponents/FreeBoard.styled';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import store from '../../Redux/store';
+import { SetSelectBoardArray } from '../../Redux/UserAcrion';
+import { useState } from 'react';
 
 function Board() {
   const freeBoards = useSelector((state) => state.AniBoardState.freeBoards);
   const Pages = useSelector((state) => state.AniBoardState.pages);
   const freeBoardsEA = useSelector((state) => state.AniBoardState.freeBoardsEA);
+  const SelectBoardArray = useSelector(
+    (state) => state.AniBoardState.SelectBoardArray,
+  );
+  const [allCheck, SetAllCheck] = useState(false);
   function DateTime(fbDate) {
     const date = new Date(fbDate);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -37,10 +44,42 @@ function Board() {
       });
   };
 
+  const SelectBoard = (e, fbNum) => {
+    if (e.target.checked) {
+      store.dispatch(SetSelectBoardArray([...SelectBoardArray, fbNum]));
+    } else if (!e.target.checked) {
+      store.dispatch(
+        SetSelectBoardArray(SelectBoardArray.filter((id) => id !== fbNum)),
+      );
+    }
+    console.log(SelectBoardArray);
+  };
+
+  const AllSelectBoard = (e) => {
+    if (e.target.checked) {
+      SetAllCheck(e.target.checked);
+      const allfbNum = freeBoards.map((data) => data.fbNum);
+      store.dispatch(SetSelectBoardArray(allfbNum));
+      console.log(allfbNum);
+    } else if (!e.target.checked) {
+      SetAllCheck(e.target.checked);
+      store.dispatch(SetSelectBoardArray([]));
+    }
+  };
+
   return (
     <CustomTable className="custom-table">
       <thead>
         <Tr1>
+          <Th1>
+            <input
+              style={{ marginRight: '5px' }}
+              type="checkbox"
+              id={'ALL'}
+              onClick={AllSelectBoard}
+              checked={allCheck}
+            ></input>
+          </Th1>
           <Th1>NO</Th1>
           <Th2>제목</Th2>
           <Th3>글쓴이</Th3>
@@ -51,6 +90,15 @@ function Board() {
       <tbody>
         {freeBoards.map((data) => (
           <Tr2 key={data.fbNum}>
+            <Th1>
+              <input
+                style={{ marginRight: '5px' }}
+                type="checkbox"
+                id={data.fbNum}
+                onClick={(e) => SelectBoard(e, data.fbNum)}
+                checked={SelectBoardArray.includes(data.fbNum)}
+              ></input>
+            </Th1>
             <Th1>{data.fbNum}</Th1>
             <Th2
               onClick={() => DetailFreeBoardGo(data.fbNum)}
