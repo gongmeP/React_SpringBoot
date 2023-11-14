@@ -20,7 +20,7 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     Page<Member> findByMdeleteAndMnameLike(String mdelete, Pageable pageable,String mname);
 
-    long count();
+    long countByMdelete(String mdelete);
 
     long countByMdeleteAndMidLike(String mdelete, String mid);
     long countByMdeleteAndMnameLike(String mdelete, String name);

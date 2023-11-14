@@ -87,7 +87,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO memberListpage(int page,int pageSize, Member member) {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").descending());
-        long totalMembers = MemberRepository.count();
+        long totalMembers = MemberRepository.countByMdelete("n");
         Page<Member> memberlist = MemberRepository.findByMdelete("n",pageable);
 
         return new MemberDTO(memberlist,totalMembers);
