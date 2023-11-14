@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +72,8 @@ public class MemberServiceImpl implements MemberService {
         if(byloginid.isPresent()){
             Member memberEntity = byloginid.get();
             if(memberEntity.getMpass().equals(member.getMpass())){
+                memberEntity.setLogintime(LocalDateTime.now());
+                MemberRepository.save(memberEntity);
 
             return memberEntity;
 
