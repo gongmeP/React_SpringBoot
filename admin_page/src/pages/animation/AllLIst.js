@@ -26,7 +26,7 @@ function AllList() {
       store.dispatch(setAni(res.data));
     };
     fetchData();
-  }, [Anidata]);
+  }, []);
 
   const [showMenu, setShowMenu] = useState(false);
   const handleMenuToggle = () => {
