@@ -95,6 +95,7 @@ public class FavoriteServiceImpl implements  FavoriteService{
             Optional<Member> members = memberRepository.findByMid(favoriteDTO.getMember_mid());
             Member member = members.orElseThrow(() -> new NotFoundException("Could not find member with mid: " + favoriteDTO.getMember_mid()));
 
+
             Animation animation = animationRepository.findById(favoriteDTO.getAni_id())
                     .orElseThrow(() -> new NotFoundException("Could not find AniId: " + favoriteDTO.getAni_id()));
 

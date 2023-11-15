@@ -15,8 +15,6 @@ function SaveFreeBoard() {
     userid: sessionStorage.getItem('loginID'),
   });
 
-  console.log(formData.fbTitle);
-
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     if (type === 'file') {
@@ -130,7 +128,6 @@ function SaveFreeBoard() {
               const doc = parser.parseFromString(data, 'text/html');
               const textContent = doc.body.textContent;
 
-              console.log({ event, editor, data });
               setFormData({ ...formData, fbContent: textContent });
             }}
             onBlur={(event, editor) => {

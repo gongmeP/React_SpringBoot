@@ -88,16 +88,35 @@
   
   }
 
+  .anicard2{
+    border: none !important;
+    width: 11.3125rem;
+    margin-bottom: 5px !important;
+  }
+
   .CardTitle {
     overflow: hidden;
     text-overflow: ellipsis;
     height: 36px; 
-   
+  
   }
+  .CardTitle2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 32px;
+    line-height: 16px !important; /* 예: 36px의 높이에서 텍스트 다음 줄 간격을 1.5로 조절 */
+  }
+ 
 
 .DailyCol{
   margin-top: 10px !important;
   margin-bottom: 10px !important;
+  width: 100%;
+  height: auto;
+}
+
+.DailyitemCol{
+  padding: 2px !important;
   width: 100%;
   height: auto;
 }

@@ -49,8 +49,6 @@ function Detail(props) {
         member_mid: userid,
       });
 
-      console.log(res.data);
-
       const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
         Ani_id: detailAni.id,
         member_mid: userid,
@@ -60,7 +58,6 @@ function Detail(props) {
       console.error('Detail axios Error');
     }
   };
-  console.log(detailAni);
 
   const favoriteDelete = async () => {
     try {
@@ -69,8 +66,6 @@ function Detail(props) {
         member_mid: userid,
       });
 
-      console.log(res.data);
-
       const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
         Ani_id: detailAni.id,
         member_mid: userid,
@@ -80,6 +75,8 @@ function Detail(props) {
       console.error('Detail axios Error');
     }
   };
+
+  const Playvideo = async () => {};
 
   return (
     <>
@@ -118,7 +115,7 @@ function Detail(props) {
             className="mt-2"
           >
             <PlayImg_Styled src="../projectimg/button/play.png" />
-            <PlayDiv_Styled>재생하기</PlayDiv_Styled>
+            <PlayDiv_Styled onClick={Playvideo}>재생하기</PlayDiv_Styled>
             {favoriteOK === '보관함 있음' ? (
               <>
                 <PlayImg_Styled

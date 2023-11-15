@@ -32,12 +32,14 @@ function Header() {
               <Link to="/allList" className="nav-link">
                 장르검색
               </Link>
-
-              <Link to="/freeBoard" className="nav-link">
-                자유게시판
+              <Link to="/dailyAniList" className="nav-link">
+                요일별 신작
               </Link>
               <Link to="/favoritelist" className="nav-link">
                 보관함
+              </Link>
+              <Link to="/freeBoard" className="nav-link">
+                자유게시판
               </Link>
             </Nav>
 

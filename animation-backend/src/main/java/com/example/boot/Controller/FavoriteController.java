@@ -22,8 +22,6 @@ public class FavoriteController {
     @CrossOrigin
     public ResponseEntity<?> FavoriteAdd(@RequestBody FavoriteDTO favoriteDTO) {
         favoriteService.FavoriteAdd(favoriteDTO);
-
-
         return ResponseEntity.ok("Favorite add successfully");
     }
 

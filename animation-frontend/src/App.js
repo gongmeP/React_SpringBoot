@@ -15,6 +15,7 @@ import DetailFreeBoard from './pages/FreeBoard/DetailFreeBoard';
 import UpdateFreeBoard from './pages/FreeBoard/UpdateFreeBoard';
 import AllList from './pages/animation/AllLIst';
 import Favorite from './pages/Favorite/Favorite';
+import DailyAniList from './pages/DailyAniList/DailyAniList';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/updateFreeBoard/:fbNum" element={<UpdateFreeBoard />} />
           <Route path="/allList" element={<AllList />} />
           <Route path="/favoritelist" element={<Favorite />} />
+          <Route path="/dailyAniList" element={<DailyAniList />} />
         </Routes>
       </Container>
       <Footer />

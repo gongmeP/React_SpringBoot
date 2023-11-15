@@ -146,9 +146,7 @@ function UpdateFreeBoard() {
               const doc = parser.parseFromString(data, 'text/html');
               const textContent = doc.body.textContent;
 
-              console.log({ event, editor, data });
               setTextContent({ ...TextContent, retextContent: textContent });
-              console.log(TextContent.retextContent);
             }}
             onBlur={(event, editor) => {
               // console.log('Blur.', editor);

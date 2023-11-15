@@ -33,7 +33,6 @@ function JoinForm2() {
   };
   const datain = (e) => {
     setMember({ ...member, [e.target.name]: e.target.value });
-    console.log(member);
   };
 
   const EmailChange = (e) => {
@@ -96,8 +95,6 @@ function JoinForm2() {
     }
 
     const res = await axios.post('http://localhost:8080/addMember', member);
-
-    console.log(res.status);
     setShowCompleteModal(true);
   };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
-import AniItem from '../../components/AniComponents/AniItem';
+import AniItem from '../../components/DailyAniListComponents/DailyItem';
 import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
