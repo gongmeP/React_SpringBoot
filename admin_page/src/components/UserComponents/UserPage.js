@@ -4,7 +4,7 @@ import store from '../../Redux/store';
 import { useSelector } from 'react-redux';
 import { SetUserPage, SetUserSearchPage } from '../../Redux/UserAcrion';
 function UserPage() {
-  const SearchTF = useSelector((store) => store.userState.UserSearchTF);
+  const SearchTF = useSelector((state) => state.userState.UserSearchTF);
   const SearchPages = useSelector((state) => state.userState.UserSearchPage);
   const PageSize = useSelector((state) => state.userState.UserPageSize);
   let Pages = useSelector((state) => state.userState.UserPage);

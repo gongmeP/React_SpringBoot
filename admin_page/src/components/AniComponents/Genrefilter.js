@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import store from '../../Redux/store';
 import axios from 'axios';
-import { setAni } from '../../Redux/action';
+import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import ResetButton from './ResetButton';
 
 function Genrefilter() {
-  const genreArray = useSelector((store) => store.AniBoardState.genreArray);
+  const genreArray = useSelector((state) => state.AniState.genreArray);
 
   const [checkfilter, setCheckFiler] = useState([]);
   useEffect(() => {

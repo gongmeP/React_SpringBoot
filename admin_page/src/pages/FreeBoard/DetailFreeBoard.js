@@ -14,14 +14,14 @@ import {
   setFreeBoards,
   setFreeBoardsEA,
   setSearchTF,
-} from '../../Redux/action';
+} from '../../Redux/BoardAction';
 import axios from 'axios';
 import BoradSerch from '../../components/BoardComponents/BoardSerch';
 
 function DetailFreeBoard() {
-  const Pages = useSelector((state) => state.AniBoardState.pages);
-  const freeBoardsEA = useSelector((stage) => stage.AniBoardState.freeBoardsEA);
-  const searchTF = useSelector((store) => store.AniBoardState.searchTF);
+  const Pages = useSelector((state) => state.BoardState.pages);
+  const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
+  const searchTF = useSelector((state) => state.BoardState.searchTF);
   useEffect(() => {
     const PagesFetch = async () => {
       const res = await axios.post(

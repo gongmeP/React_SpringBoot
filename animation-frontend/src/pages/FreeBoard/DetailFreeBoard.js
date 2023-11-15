@@ -14,14 +14,14 @@ import {
   setFreeBoards,
   setFreeBoardsEA,
   setSearchTF,
-} from '../../Redux/action';
+} from '../../Redux/BoardAction';
 import axios from 'axios';
-import BoradSerch from '../../components/BoardComponents/BoardSerch';
+import BoardSearch from '../../components/BoardComponents/BoardSearch';
 
 function DetailFreeBoard() {
-  const Pages = useSelector((state) => state.pages);
-  const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
-  const searchTF = useSelector((store) => store.searchTF);
+  const Pages = useSelector((state) => state.BoardState.pages);
+  const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
+  const searchTF = useSelector((state) => state.BoardState.searchTF);
   useEffect(() => {
     const PagesFetch = async () => {
       const res = await axios.post(
@@ -80,7 +80,7 @@ function DetailFreeBoard() {
     height: 0,
   });
 
-  const formData = useSelector((state) => state.formData);
+  const formData = useSelector((state) => state.BoardState.formData);
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
     const fetchdata = async () => {
@@ -181,7 +181,7 @@ function DetailFreeBoard() {
       </Form>
       <Board></Board>
       <Page EA={freeBoardsEA} Pages={Pages}></Page>
-      <BoradSerch></BoradSerch>
+      <BoardSearch></BoardSearch>
     </div>
   );
 }

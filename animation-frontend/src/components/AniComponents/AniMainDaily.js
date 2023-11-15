@@ -4,13 +4,13 @@ import ItemsCarousel from 'react-items-carousel';
 import '../../styledcomponents/BootStrapcss.css';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
-import { setAniALLArray } from '../../Redux/action';
+import { setAniALLArray } from '../../Redux/AniAction';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 function AniMainDaily() {
-  const AniALLArray = useSelector((state) => state.AniALLArray);
+  const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
 
   const [Day, setDay] = useState('월');
 

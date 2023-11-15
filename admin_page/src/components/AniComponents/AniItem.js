@@ -3,7 +3,6 @@ import React from 'react';
 import { Button, Card, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import store from '../../Redux/store';
 
 function AniItem({ Anidata, reEffect, setReEffect }) {
   const { id, title } = Anidata;

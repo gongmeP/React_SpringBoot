@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import store from '../../Redux/store';
-import { setAni } from '../../Redux/action';
 
 function Favorite() {
   //   const userid = sessionStorage.getItem('loginID');

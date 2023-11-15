@@ -12,15 +12,15 @@ import {
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import store from '../../Redux/store';
-import { SetSelectBoardArray } from '../../Redux/UserAcrion';
+import { SetSelectBoardArray } from '../../Redux/BoardAction';
 import { useState } from 'react';
 
 function Board() {
-  const freeBoards = useSelector((state) => state.AniBoardState.freeBoards);
-  const Pages = useSelector((state) => state.AniBoardState.pages);
-  const freeBoardsEA = useSelector((state) => state.AniBoardState.freeBoardsEA);
+  const freeBoards = useSelector((state) => state.BoardState.freeBoards);
+  const Pages = useSelector((state) => state.BoardState.pages);
+  const freeBoardsEA = useSelector((state) => state.BoardState.freeBoardsEA);
   const SelectBoardArray = useSelector(
-    (state) => state.AniBoardState.SelectBoardArray,
+    (state) => state.BoardState.SelectBoardArray,
   );
   const [allCheck, SetAllCheck] = useState(false);
   function DateTime(fbDate) {
@@ -34,7 +34,7 @@ function Board() {
 
   const navigate = useNavigate();
 
-  const formData = useSelector((state) => state.AniBoardState.formData);
+  const formData = useSelector((state) => state.BoardState.formData);
   const DetailFreeBoardGo = (fbNum) => {
     fetch(`http://localhost:8080/FreeBoard/ReadCountUp/${fbNum}`)
       .then((res) => res)

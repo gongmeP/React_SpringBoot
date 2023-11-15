@@ -1,9 +1,13 @@
 import { createStore, combineReducers } from 'redux';
-import Reducer from './Reducer';
 import UserReducer from './UserReducer';
+import LoginReducer from './LoginReducer';
+import AniReducer from './AniReducer';
+import BoardReducer from './BoardReducer';
 
 const rootReducer = combineReducers({
-  AniBoardState: Reducer,
+  loginState: LoginReducer,
+  AniState: AniReducer,
+  BoardState: BoardReducer,
   userState: UserReducer,
 });
 

@@ -4,19 +4,19 @@ import {
   setFreeBoards,
   setFreeBoardsEA,
   setSearchTF,
-} from '../../Redux/action';
+} from '../../Redux/BoardAction';
 import Board from '../../components/BoardComponents/Board';
 import Page from '../../components/BoardComponents/Page';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import BoradSerch from '../../components/BoardComponents/BoardSerch';
 import { Button } from 'react-bootstrap';
+import BoardSearch from '../../components/BoardComponents/BoardSearch';
 
 function FreeBoard() {
-  const Pages = useSelector((state) => state.pages);
-  const freeBoardsEA = useSelector((stage) => stage.freeBoardsEA);
-  const searchTF = useSelector((store) => store.searchTF);
+  const Pages = useSelector((state) => state.BoardState.pages);
+  const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
+  const searchTF = useSelector((state) => state.BoardState.searchTF);
 
   useEffect(() => {
     const PagesFetch = async () => {
@@ -61,7 +61,7 @@ function FreeBoard() {
         </Link>
       </div>
       <Page EA={freeBoardsEA} Pages={Pages}></Page>
-      <BoradSerch></BoradSerch>
+      <BoardSearch></BoardSearch>
     </>
   );
 }

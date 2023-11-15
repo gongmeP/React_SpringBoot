@@ -4,21 +4,20 @@ import {
   setFreeBoards,
   setFreeBoardsEA,
   setSearchTF,
-} from '../../Redux/action';
+} from '../../Redux/BoardAction';
 import Board from '../../components/BoardComponents/Board';
 import Page from '../../components/BoardComponents/Page';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BoradSerch from '../../components/BoardComponents/BoardSerch';
 import { Button } from 'react-bootstrap';
 
 function FreeBoard() {
-  const Pages = useSelector((state) => state.AniBoardState.pages);
-  const freeBoardsEA = useSelector((stage) => stage.AniBoardState.freeBoardsEA);
-  const searchTF = useSelector((store) => store.AniBoardState.searchTF);
+  const Pages = useSelector((state) => state.BoardState.pages);
+  const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
+  const searchTF = useSelector((state) => state.BoardState.searchTF);
   const SelectBoardArray = useSelector(
-    (state) => state.AniBoardState.SelectBoardArray,
+    (state) => state.BoardState.SelectBoardArray,
   );
   const [reuseEffect, SetReuseEffect] = useState(0);
 

@@ -1,6 +1,14 @@
-import { createStore } from 'redux';
-import Reducer from './Reducer';
+import { combineReducers, createStore } from 'redux';
+import LoginReducer from './LoginReducer';
+import AniReducer from './AniReducer';
+import BoardReducer from './BoardReducer';
 
-const store = createStore(Reducer);
+const rootReducer = combineReducers({
+  loginState: LoginReducer,
+  AniState: AniReducer,
+  BoardState: BoardReducer,
+});
+
+const store = createStore(rootReducer);
 
 export default store;

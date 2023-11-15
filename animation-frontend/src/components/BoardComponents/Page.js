@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
 import store from '../../Redux/store';
-import { setPages, setSearchPages } from '../../Redux/action';
+import { setPages, setSearchPages } from '../../Redux/BoardAction';
 import { useSelector } from 'react-redux';
 function Page({ EA, Pages }) {
-  const SearchTF = useSelector((store) => store.SearchTF);
+  const SearchTF = useSelector((state) => state.BoardState.SearchTF);
   const totalPage = Math.ceil(EA / 15);
-  const SearchPages = useSelector((state) => state.SearchPages);
+  const SearchPages = useSelector((state) => state.BoardState.SearchPages);
   const limit = 5;
   //검색일때 데이터갯수 검색데이터 갯수로 업데이트
   if (SearchTF === 'Search') {

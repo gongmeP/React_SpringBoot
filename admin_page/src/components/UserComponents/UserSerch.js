@@ -19,10 +19,10 @@ import {
 } from '../../Redux/UserAcrion';
 
 function UserSearch() {
-  const SearchPages = useSelector((store) => store.userState.UserSearchPage);
+  const SearchPages = useSelector((state) => state.userState.UserSearchPage);
   const PageSize = useSelector((state) => state.userState.UserPageSize);
   const [searchText, setSearchText] = useState('');
-  const searchTF = useSelector((store) => store.userState.UserSearchTF);
+  const searchTF = useSelector((state) => state.userState.UserSearchTF);
   const [render, setRender] = useState(false);
   const [select, setSelect] = useState('아이디');
 

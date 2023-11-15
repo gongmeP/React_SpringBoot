@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
 import AniItem from '../../components/AniComponents/AniItem';
-import { setAni } from '../../Redux/action';
+import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';
 
 function AllList() {
-  const Anidata = useSelector((state) => state.AniBoardState.Ani);
+  const Anidata = useSelector((state) => state.AniState.Ani);
 
   const [reEffect, setReEffect] = useState(0);
 

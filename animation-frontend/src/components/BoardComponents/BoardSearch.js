@@ -14,13 +14,13 @@ import {
   setFreeBoards,
   setFreeBoardsEA,
   setSearchTF,
-} from '../../Redux/action';
+} from '../../Redux/BoardAction';
 import { useSelector } from 'react-redux';
 
-function BoradSerch() {
-  const SearchPages = useSelector((store) => store.SearchPages);
+function BoardSearch() {
+  const SearchPages = useSelector((state) => state.BoardState.SearchPages);
   const [searchText, setSearchText] = useState('');
-  const searchTF = useSelector((store) => store.searchTF);
+  const searchTF = useSelector((state) => state.BoardState.searchTF);
   const [render, setRender] = useState(false);
 
   const SearchEnter = async (e) => {
@@ -85,4 +85,4 @@ function BoradSerch() {
   );
 }
 
-export default BoradSerch;
+export default BoardSearch;

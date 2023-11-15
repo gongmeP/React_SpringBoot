@@ -29,15 +29,6 @@ function Detail(props) {
     fetch();
   }, []);
 
-  // const deletAni = async () => {
-  //   const res = await axios.delete(`http://localhost:8080/Ani/${id}`);
-  //   if (res.data === 'ok') {
-  //     alert('삭제되었습니다');
-  //   } else {
-  //     alert('삭제실패');
-  //   }
-  // };
-
   return (
     <>
       <Container className="mb-4">

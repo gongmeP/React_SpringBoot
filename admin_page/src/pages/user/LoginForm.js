@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import store from '../../Redux/store';
-import { loginSuccess } from '../../Redux/action';
+import { loginSuccess } from '../../Redux/LoginAction';
 import axios from 'axios';
 
 const Login = () => {

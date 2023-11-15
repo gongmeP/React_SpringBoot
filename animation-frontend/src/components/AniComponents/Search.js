@@ -9,7 +9,7 @@ import {
   InputGroup,
   Row,
 } from 'react-bootstrap';
-import { setAni } from '../../Redux/action';
+import { setAni } from '../../Redux/AniAction';
 import store from '../../Redux/store';
 
 function Search() {

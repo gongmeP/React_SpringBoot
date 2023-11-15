@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Row } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-function AniItem({ Anidata }) {
+function FavoriteItem({ Anidata }) {
   const { id, title } = Anidata;
   const navigate = useNavigate();
   const Detailgo = () => {
@@ -26,4 +26,4 @@ function AniItem({ Anidata }) {
   );
 }
 
-export default AniItem;
+export default FavoriteItem;
