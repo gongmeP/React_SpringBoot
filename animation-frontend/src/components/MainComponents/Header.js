@@ -36,7 +36,7 @@ function Header() {
               <Link to="/freeBoard" className="nav-link">
                 자유게시판
               </Link>
-              <Link to="/List" className="nav-link">
+              <Link to="/favoritelist" className="nav-link">
                 보관함
               </Link>
             </Nav>

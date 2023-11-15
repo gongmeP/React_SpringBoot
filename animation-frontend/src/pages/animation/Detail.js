@@ -42,20 +42,6 @@ function Detail(props) {
     fetch2();
   }, [detailAni.id, userid]);
 
-  const deleteBook = () => {
-    fetch(`http://localhost:8080/Ani/${id}`, {
-      method: 'DELETE',
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        if (res === 'ok') {
-          navigate('/');
-        } else {
-          alert('삭제실패');
-        }
-      });
-  };
-
   const favorite = async () => {
     try {
       const res = await axios.post(`http://localhost:8080/Favorite`, {

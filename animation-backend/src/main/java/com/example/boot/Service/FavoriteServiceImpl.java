@@ -12,7 +12,9 @@ import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -110,6 +112,37 @@ public class FavoriteServiceImpl implements  FavoriteService{
             System.out.println("FavoriteCheck Service Error");
             return null;
         }
+
+    }
+
+    @Override
+    public List<Animation> FavoriteList(String userid) {
+        try{
+            List<Animation> animations = null;
+            Optional<Member> useridcheck = memberRepository.findByMid(userid);
+
+            if(useridcheck.isPresent()){
+                //Favorite 안에 mid 넣고 해당되는 데이터 호출하는곳
+                //findByMemberId 는 favorite 테이블에 없지만 member 가 있기때문에 다 가져옴
+                List<Favorite> favorite = favoriteRepository.findByMemberId(useridcheck.get().getId());
+
+                //받은 favorite 데이터안에 Favorite엔티티 안에 getAnimation 를 호출하는 반복문
+                // > .collect(Collectors.toList()); List 로 변경해주는것
+                animations = favorite.stream()
+                        .map(Favorite::getAnimation)
+                        .collect(Collectors.toList());
+
+                System.out.println(animations);
+                System.out.println("dd");
+            }
+            return animations;
+
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("FavoriteService FavoriteList 오류");
+            return null;
+        }
+
 
     }
 }
