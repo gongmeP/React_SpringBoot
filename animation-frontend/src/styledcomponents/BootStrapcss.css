@@ -27,9 +27,8 @@
    line-height: 2.625rem;
    font-size: 1rem !important;
   font-family: 'Noto Sans KR', sans-serif;
-  
-
   }
+
 
   .carousel-indicators [data-bs-target]{
     height: 4px !important;
@@ -128,6 +127,8 @@
   height: auto;
 }
 
+
+
 .DailyitemCol{
   padding: 2px !important;
   width: 100%;
@@ -138,3 +139,7 @@
     } */
 }
 
+.DailyitemCol2{
+  background-color: #F0EDFF;
+  color: #816BFF;
+}

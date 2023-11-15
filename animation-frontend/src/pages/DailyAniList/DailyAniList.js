@@ -12,6 +12,12 @@ import store from '../../Redux/store';
 import { setAniALLArray } from '../../Redux/AniAction';
 
 function DailyAniList() {
+  const reDate = new Date();
+  const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+  });
+  const rereDate = dayOfWeek.replace(/요일/, '');
+
   const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
   const [Daily, setDaily] = useState([
     '월',

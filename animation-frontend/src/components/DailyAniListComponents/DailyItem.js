@@ -38,10 +38,25 @@ function DailyItem({ day }) {
     setDay(day);
   };
 
+  const reDate = new Date();
+  const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+  });
+  const rereDate = dayOfWeek.replace(/요일/, '');
+
   return (
     <>
-      <Col className="DailyitemCol d-none d-lg-block">
-        <div style={{ textAlign: 'center', fontSize: '1.2rem' }}>{day}요일</div>
+      <Col
+        className={`DailyitemCol d-none d-lg-block ${
+          day === rereDate ? 'DailyitemCol2' : ''
+        }`}
+      >
+        <div
+          style={{ textAlign: 'center', fontSize: '1.2rem' }}
+          className={`${day === rereDate ? 'DailyitemCol2' : ''}`}
+        >
+          {day}요일
+        </div>
         {Ani.map((Ani) => (
           <Card className="anicard2" key={Ani.id}>
             <Card.Img
@@ -52,7 +67,9 @@ function DailyItem({ day }) {
             />
             <Card.Body className="p-0">
               <Card.Title
-                className="mb-0 CardTitle2"
+                className={`mb-0 CardTitle2 ${
+                  day === rereDate ? 'DailyitemCol2' : ''
+                }`}
                 style={{ fontSize: '0.9rem' }}
               >
                 {Ani.title}
