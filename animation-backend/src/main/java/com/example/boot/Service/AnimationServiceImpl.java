@@ -49,7 +49,7 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public List<Animation> getAllAniDataALL() {
 
-        return animationRepository.findAll();
+        return animationRepository.findByAnidelete("n");
 
     }
 
@@ -74,7 +74,7 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public List<Animation> SearchByTitle(String Title) {
 
-      return  animationRepository.searchByTitleContaining(Title);
+      return  animationRepository.searchByTitleContainingAndAnidelete(Title,"n");
 
     }
 
