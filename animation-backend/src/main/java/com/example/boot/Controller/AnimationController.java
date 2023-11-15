@@ -91,18 +91,15 @@ public class AnimationController {
     @PutMapping("/Ani/{id}")
     @CrossOrigin
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Animation animation){
-        System.out.println(id);
-        System.out.println(animation);
+
         return new ResponseEntity<>(animationService.Aniupdate(id, animation),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/Ani/{id}")
+    @PutMapping("/Ani/DeleteY/{id}")
     @CrossOrigin
-    public ResponseEntity<?> deleteById(@PathVariable Long id){
+    public ResponseEntity<?> DeleteY(@PathVariable Long id){
 
-
-
-        return new ResponseEntity<>(animationService.Anidelete(id),HttpStatus.CREATED);
+        return new ResponseEntity<>(animationService.DeleteY(id),HttpStatus.CREATED);
     }
 
     @GetMapping("/Ani/search")

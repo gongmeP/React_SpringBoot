@@ -56,7 +56,7 @@ public class AnimationServiceImpl implements AnimationService {
     @Transactional
     @Override
     public Animation Aniupdate(Long id, Animation animation) {
-        Animation animationEntityEntity = animationRepository.findById(id).orElseThrow(()->new IllegalArgumentException("ID 를 확인해주세요"));
+        Animation animationEntityEntity = animationRepository.findById(id).orElseThrow(()->new IllegalArgumentException("ID 없음"));
         animationEntityEntity.setTitle(animation.getTitle());
 
         return animationEntityEntity;
@@ -65,9 +65,16 @@ public class AnimationServiceImpl implements AnimationService {
 
     @Transactional
     @Override
-    public String Anidelete(Long id) {
-      animationRepository.deleteById(id);
-      return "ok";
+    public String DeleteY(Long id) {
+        try{
+
+           Animation animation = animationRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("ID 없음"));
+           animation.setAnidelete("y");
+           animationRepository.save(animation);
+            return "삭제완료";
+        }catch (Exception e){
+            return "삭제실패";
+        } 
     }
 
 

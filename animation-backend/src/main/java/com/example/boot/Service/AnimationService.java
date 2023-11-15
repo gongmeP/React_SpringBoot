@@ -19,7 +19,7 @@ public interface AnimationService {
 
     Animation Aniupdate(Long id, Animation animation);
 
-    String Anidelete(Long id);
+    String DeleteY(Long id);
 
     List<Animation> getDayOfWeek(String day_of_week);
 

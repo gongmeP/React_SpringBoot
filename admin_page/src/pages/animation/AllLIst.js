@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Col,
-  Form,
-  FormControl,
-  InputGroup,
-  Offcanvas,
-  Row,
-} from 'react-bootstrap';
+import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
 import AniItem from '../../components/AniComponents/AniItem';
 import { setAni } from '../../Redux/action';
 import { useSelector } from 'react-redux';
@@ -20,13 +12,15 @@ import styled from 'styled-components';
 function AllList() {
   const Anidata = useSelector((state) => state.AniBoardState.Ani);
 
+  const [reEffect, setReEffect] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(`http://localhost:8080/Ani/ALL`);
       store.dispatch(setAni(res.data));
     };
     fetchData();
-  }, []);
+  }, [reEffect]);
 
   const [showMenu, setShowMenu] = useState(false);
   const handleMenuToggle = () => {
@@ -68,7 +62,14 @@ function AllList() {
           {Anidata.length <= 0 ? (
             <H2styled>검색하신 결과가 없어요.</H2styled>
           ) : (
-            Anidata.map((ani) => <AniItem key={ani.id} Anidata={ani} />)
+            Anidata.map((ani) => (
+              <AniItem
+                key={ani.id}
+                Anidata={ani}
+                reEffect={reEffect}
+                setReEffect={setReEffect}
+              />
+            ))
           )}
         </Col>
       </Row>

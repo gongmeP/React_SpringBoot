@@ -16,4 +16,5 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> findByAnidelete(String string);
 
+
 }
