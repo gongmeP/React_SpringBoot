@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
 import '../../styledcomponents/BootStrapcss.css';
 import { useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ function AniMainDaily() {
 
   const DayChange = (day) => {
     setDay(day);
+    setActiveItemIndex(0);
   };
 
   useEffect(() => {
@@ -57,9 +58,9 @@ function AniMainDaily() {
 
   return (
     <>
-      <div>요일별 신작</div>
+      <h3 style={{ marginTop: '20px', marginBottom: '0px' }}>요일별 신작</h3>
       <Row>
-        <Col style={{ width: '100%', height: 'auto' }}>
+        <Col className="DailyCol">
           <Button
             variant="secondary"
             className="secondary2"
@@ -175,7 +176,9 @@ function AniMainDaily() {
               src={`http://localhost:8080/file/AniImgFile/${AniALLArray.photo}`}
               alt={AniALLArray.photo}
             ></AniImg>
-            <h3>{AniALLArray.title}</h3>
+            <div className="CardTitle" style={{ fontSize: '0.95rem' }}>
+              {AniALLArray.title}
+            </div>
           </div>
         ))}
       </ItemsCarousel>

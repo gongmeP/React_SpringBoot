@@ -1,6 +1,6 @@
 export const loginSuccess = (loginID, loginUsername) => {
   return {
-    type: 'LOGIN_SUCCESS',
+    type: 'loginSuccess',
     loginID,
     loginUsername,
   };

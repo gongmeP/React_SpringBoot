@@ -1,17 +1,17 @@
 const initstate = {
   Login_TF: false,
-  loginID: null,
-  loginUsername: null,
+  loginID: '',
+  loginUsername: '',
 };
 
 const LoginReducer = (state = initstate, action) => {
   switch (action.type) {
-    case 'LOGIN_SUCCESS':
+    case 'loginSuccess':
       return {
         ...state,
         Login_TF: true,
-        loginID: action.loginID,
-        loginUsername: action.loginUsername,
+        loginID: action.payload,
+        loginUsername: action.payload,
       };
     case 'LOGIN_FAIL':
       return { ...state, Login_TF: false };
