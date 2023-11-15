@@ -30,12 +30,19 @@ function AniItem({ Anidata }) {
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
       />
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
+      <Card.Body className="pb-0">
+        <Card.Title className="mb-0 CardTitle" style={{ fontSize: '1rem' }}>
+          {title}
+        </Card.Title>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <Link to={`/updateForm/${id}`}>
-            <a className="btn btn-warning">수정</a>
+            <Button variant="warning" size="sm" className="mb-1 mt-1">
+              수정
+            </Button>
           </Link>
+          <Button variant="danger" size="sm" className="mb-1 mt-1">
+            삭제
+          </Button>
         </div>
         <Uploaded>업로드 상태 : {Anidata.uploaded.toUpperCase()}</Uploaded>
         {/* <Form.Check
