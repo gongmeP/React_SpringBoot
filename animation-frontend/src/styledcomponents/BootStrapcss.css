@@ -90,8 +90,21 @@
 
   .anicard2{
     border: none !important;
-    width: 11.3125rem;
+    width: 181px !important;
     margin-bottom: 5px !important;
+    @media (min-width: 1200px) and (max-width: 1400px) {
+      width: 150px !important;
+     
+    }
+    @media (min-width: 1000px) and (max-width: 1199px) {
+      width: 130px !important;
+     
+    }
+    @media (min-width: 800px) and (max-width: 1000px) {
+      width: 124px !important;
+     
+    }
+ 
   }
 
   .CardTitle {
@@ -119,4 +132,9 @@
   padding: 2px !important;
   width: 100%;
   height: auto;
+  display: block;
+  /* @media (min-width: 1001px) {
+    display: block;
+    } */
 }
+

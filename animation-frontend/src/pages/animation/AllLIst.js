@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
-import AniItem from '../../components/DailyAniListComponents/DailyItem';
+
 import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';
+import AniItem from '../../components/AniComponents/AniItem';
 
 function AllList() {
   const Anidata = useSelector((state) => state.AniState.Ani);
