@@ -43,6 +43,10 @@ function Detail(props) {
   }, [detailAni.id, userid]);
 
   const favorite = async () => {
+    if (!window.sessionStorage.getItem('loginID')) {
+      alert('로그인 후 보관함 사용이 가능해요.');
+      navigate('/loginForm');
+    }
     try {
       const res = await axios.post(`http://localhost:8080/Favorite`, {
         Ani_id: detailAni.id,
@@ -76,7 +80,12 @@ function Detail(props) {
     }
   };
 
-  const Playvideo = async () => {};
+  const Playvideo = async () => {
+    if (!window.sessionStorage.getItem('loginID')) {
+      alert('로그인 서비스 이용이 가능해요.');
+      navigate('/loginForm');
+    }
+  };
 
   return (
     <>

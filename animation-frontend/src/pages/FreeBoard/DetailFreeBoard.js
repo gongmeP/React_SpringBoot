@@ -103,6 +103,7 @@ function DetailFreeBoard() {
     };
   }, [formData.photo]);
 
+  const sessionID = window.sessionStorage.getItem('loginID');
   return (
     <div className="container">
       <h2></h2>
@@ -164,20 +165,24 @@ function DetailFreeBoard() {
           >
             게시글 목록보기
           </Button>
-          <Button
-            variant="warning"
-            style={{ marginRight: '20px' }}
-            onClick={UpdatefreeBoardGo}
-          >
-            수정
-          </Button>
-          <Button
-            variant="danger"
-            style={{ marginRight: '20px' }}
-            onClick={DeletefreeBoardGo}
-          >
-            삭제
-          </Button>
+          {sessionID === formData.userid ? (
+            <>
+              <Button
+                variant="warning"
+                style={{ marginRight: '20px' }}
+                onClick={UpdatefreeBoardGo}
+              >
+                수정
+              </Button>
+              <Button
+                variant="danger"
+                style={{ marginRight: '20px' }}
+                onClick={DeletefreeBoardGo}
+              >
+                삭제
+              </Button>
+            </>
+          ) : null}
         </div>
       </Form>
       <Board></Board>

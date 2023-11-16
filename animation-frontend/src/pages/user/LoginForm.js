@@ -20,7 +20,7 @@ const Login = () => {
       window.sessionStorage.setItem('loginID', res.data.loginID);
       window.sessionStorage.setItem('loginUsername', res.data.loginUsername);
 
-      alert('로그인 되셨습니다');
+      alert('어서오세요! 로그인이 완료되었습니다.');
       window.location.href = '/';
     } else {
       alert('아이디 또는 비밀번호를 잘못 입력했습니다.');
