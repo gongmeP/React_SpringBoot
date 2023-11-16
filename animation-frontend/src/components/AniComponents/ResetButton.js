@@ -13,7 +13,7 @@ function ResetButton({ genreArray, checkfilter, setCheckFiler }) {
       <Button
         variant="outline-secondary"
         onClick={ResetButton}
-        className="mb-3"
+        className="mb-3 Buttoncolor2"
       >
         초기화
       </Button>

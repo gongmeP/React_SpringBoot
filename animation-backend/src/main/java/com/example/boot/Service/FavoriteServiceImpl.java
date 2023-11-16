@@ -30,11 +30,12 @@ public class FavoriteServiceImpl implements  FavoriteService{
         try{
             //아이디 있나 확인
             Optional<Member> members = memberRepository.findByMid(favoriteDTO.getMember_mid());
-            Member member = members.orElseThrow(() -> new NotFoundException("Could not find member with mid: " + favoriteDTO.getMember_mid()));
+            Member member = members
+                    .orElseThrow(() -> new NotFoundException("맴버 mid 미존재: " + favoriteDTO.getMember_mid()));
 
                 //애니번호 있나 확인
                 Animation animation = animationRepository.findById(favoriteDTO.getAni_id())
-                        .orElseThrow(()-> new NotFoundException("Could not found AniId : " + favoriteDTO.getAni_id()));
+                        .orElseThrow(()-> new NotFoundException("애니 id 미존재 : " + favoriteDTO.getAni_id()));
 
 //                즐찾확인 후 되어있으면 에러 반환
                 if (favoriteRepository.findByMemberAndAnimation(member, animation).isPresent()) {

@@ -85,7 +85,7 @@ function Detail(props) {
 
   const Playvideo = async () => {
     if (!window.sessionStorage.getItem('loginID')) {
-      alert('로그인 서비스 이용이 가능해요.');
+      alert('로그인 후 서비스 이용이 가능해요.');
       navigate('/loginForm');
       return;
     }
@@ -93,7 +93,12 @@ function Detail(props) {
       const res = await axios.put(
         `http://localhost:8080/Ani/ViewCounter/${id}`,
       );
-      alert('죄송합니다. 현재 서비스 준비 중입니다.');
+      const res2 = await axios.post(`http://localhost:8080/ViewList`, {
+        Ani_id: detailAni.id,
+        member_mid: userid,
+      });
+      console.log(res2.data);
+      // window.open('https://laftel.net/', '_blank');
     } catch (error) {
       console.error('ViewCounter axios Error');
     }

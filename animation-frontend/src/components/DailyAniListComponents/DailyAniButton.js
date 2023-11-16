@@ -4,6 +4,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { AniImg } from '../../styledcomponents/AniDetail.styled';
 
 function DailyAniButton({ setDay, Daily }) {
   const DayChange = (day) => {
@@ -49,12 +50,5 @@ function DailyAniButton({ setDay, Daily }) {
     </>
   );
 }
-const AniImg = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-top: 5px;
-  cursor: pointer;
-`;
 
 export default DailyAniButton;
