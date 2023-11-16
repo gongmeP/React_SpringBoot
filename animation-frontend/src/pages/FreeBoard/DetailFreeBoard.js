@@ -160,6 +160,7 @@ function DetailFreeBoard() {
             variant="primary"
             style={{ marginRight: '20px' }}
             onClick={freeBoardGo}
+            className="Buttoncolor2"
           >
             게시글 목록보기
           </Button>
@@ -180,6 +181,7 @@ function DetailFreeBoard() {
         </div>
       </Form>
       <Board></Board>
+      <br></br>
       <Page EA={freeBoardsEA} Pages={Pages}></Page>
       <BoardSearch></BoardSearch>
     </div>

@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   const sessionID = window.sessionStorage.getItem('loginID');
+  const sessionUsername = window.sessionStorage.getItem('loginUsername');
 
   const logoutgo = () => {
     sessionStorage.clear();
@@ -21,7 +22,7 @@ function Header() {
 
   return (
     <>
-      <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
+      <Navbar expand="md" className="MainNavber" data-bs-theme="dark">
         <Container>
           <Link to="/" className="navbar-brand">
             홈
@@ -35,9 +36,6 @@ function Header() {
               <Link to="/dailyAniList" className="nav-link">
                 요일별 신작
               </Link>
-              <Link to="/favoritelist" className="nav-link">
-                보관함
-              </Link>
               <Link to="/freeBoard" className="nav-link">
                 자유게시판
               </Link>
@@ -47,7 +45,7 @@ function Header() {
               {sessionID ? (
                 <>
                   <Link className="nav-link" style={{ font: '12px' }}>
-                    {sessionID}님
+                    {sessionUsername} 님
                   </Link>
                 </>
               ) : (
@@ -76,6 +74,9 @@ function Header() {
                   로그인
                 </Link>
               )}
+              <Link to="/favoritelist" className="nav-link">
+                보관함
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

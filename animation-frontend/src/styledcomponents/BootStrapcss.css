@@ -29,6 +29,12 @@
   font-family: 'Noto Sans KR', sans-serif;
   background-color: #D0D0D0 !important;
   border-color: #D0D0D0 !important;
+  transition: background-color 0.3s, border-color 0.3s;
+  }
+  .secondary2:hover {
+    background-color:#816BFF !important; 
+    border-color: #816BFF  !important; 
+    color: #F0EDFF !important;
   }
 
   .dailyButton1 {
@@ -49,8 +55,15 @@
       height: 3.5rem !important; 
       border-radius: 1.75rem !important;
       font-size: 1.2rem !important;
+
     }
-    }
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .dailyButton1:hover {
+    background-color:#816BFF !important; 
+    border-color: #816BFF  !important; 
+    color: #F0EDFF !important;
+  }
 
   .carousel-indicators [data-bs-target]{
     height: 4px !important;
@@ -156,12 +169,42 @@
   width: 100%;
   height: auto;
   display: block;
-  /* @media (min-width: 1001px) {
-    display: block;
-    } */
+ 
 }
 
 .DailyitemCol2{
   background-color: #F0EDFF !important;
+  color: #816BFF !important;
+  
+}
+.Buttoncolor2{
+  background-color: #816bff !important;
+  color: #F0EDFF !important;
+  border:none !important;
+}
+
+.MainNavber{
+  background-color: #816BFF !important;
+  color: white;
+  border:none !important;
+}
+
+.active>.page-link, .page-link.active{
+  background-color: #816BFF !important;
+  color: white !important;
+  border:1px solid #816BFF !important;
+}
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
+  background-color: #816BFF !important;
+  color: white;
+  border:1px solid #816BFF !important;
+}
+.nav-tabs .nav-link{
+  color: black !important;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+  color: #816BFF !important;
+}
+.page-link{
   color: #816BFF !important;
 }

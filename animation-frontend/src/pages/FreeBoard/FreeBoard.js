@@ -47,14 +47,14 @@ function FreeBoard() {
       <div style={{ display: 'flex', justifyContent: 'end' }}>
         <Button
           onClick={boardlistgo}
-          className="btn-primary mb-1"
+          className="btn-primary mb-1 Buttoncolor2"
           style={{ marginRight: '20px', marginTop: '10px' }}
         >
           전체글
         </Button>
         <Link
           to="/saveFreeBoard"
-          className="btn btn-primary mb-1"
+          className="btn btn-primary mb-1 Buttoncolor2"
           style={{ marginRight: '20px', marginTop: '10px' }}
         >
           글쓰기

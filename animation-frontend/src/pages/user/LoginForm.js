@@ -51,7 +51,12 @@ const Login = () => {
             />
           </Form.Group>
           <div className="d-flex justify-content-center">
-            <Button variant="primary" type="submit" style={{ width: '80%' }}>
+            <Button
+              variant="primary"
+              type="submit"
+              style={{ width: '80%' }}
+              className="Buttoncolor2"
+            >
               로그인
             </Button>
           </div>

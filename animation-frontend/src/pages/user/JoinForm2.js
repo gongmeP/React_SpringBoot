@@ -170,7 +170,7 @@ function JoinForm2() {
               <Col>
                 <Button
                   variant="secondary"
-                  className="mb-0"
+                  className="mb-0 Buttoncolor2"
                   style={{ verticalAlign: '15px' }}
                   onClick={() => idcheck(member.mid)}
                 >
@@ -252,7 +252,7 @@ function JoinForm2() {
                 <Button
                   onClick={Postgo}
                   variant="secondary"
-                  className="mb-0"
+                  className="mb-0 Buttoncolor2"
                   style={{ verticalAlign: '15px', fontSize: '14px' }}
                 >
                   우편번호 찾기
@@ -285,6 +285,7 @@ function JoinForm2() {
                 onClick={() => setShowadd(true)}
                 style={{ width: '30%', marginTop: '20px', marginRight: '10px' }}
                 variant="primary"
+                className="Buttoncolor2"
               >
                 회원가입
               </Button>
