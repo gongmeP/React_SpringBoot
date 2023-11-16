@@ -1,6 +1,7 @@
 package com.example.boot.Service;
 
 import com.example.boot.Dto.MemberDTO;
+import com.example.boot.Entity.Animation;
 import com.example.boot.Entity.Member;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public interface MemberService {
     String iddeleteY(Long id);
 
     String selectiddeleteY(List<Long> SelectMemberArray);
+
 
 
 }
