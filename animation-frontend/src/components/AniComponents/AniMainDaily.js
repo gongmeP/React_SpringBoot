@@ -82,66 +82,31 @@ function AniMainDaily() {
     };
   }, []);
 
+  const [Daily, setDaily] = useState([
+    '월',
+    '화',
+    '수',
+    '목',
+    '금',
+    '토',
+    '일',
+  ]);
+  const reDate = useSelector((state) => state.DailyState.today);
+
   return (
     <>
       <h3 style={{ marginTop: '20px', marginBottom: '0px' }}>요일별 신작</h3>
       <Row>
         <Col className="DailyCol">
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('월')}
-          >
-            월
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('화')}
-          >
-            화
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('수')}
-          >
-            수
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('목')}
-          >
-            목
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('금')}
-          >
-            금
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('토')}
-          >
-            토
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('일')}
-          >
-            일
-          </Button>
+          {Daily.map((day) => (
+            <Button
+              variant="secondary"
+              className={`secondary2 ${day === reDate ? 'DailyitemCol2' : ''}`}
+              onClick={() => DayChange(`${day}`)}
+            >
+              {day}
+            </Button>
+          ))}
         </Col>
       </Row>
       <ItemsCarousel
@@ -149,7 +114,7 @@ function AniMainDaily() {
         numberOfCards={AniCardEA}
         enableSwipe={true} // 스와이프 활성화 모바일에서 쓰일거임
         gutter={12} // 슬라이드 사이의 간격
-        showSlither={true} // 슬라이더 경계 부분을 표시할지 여부
+        showSlither={false} // 슬라이더 경계 부분을 표시할지 여부
         firstAndLastGutter={false} // 첫 번째 및 마지막 슬라이드 사이의 간격을 표시할지 여부
         freeScrolling={true} // 무한 스크롤 사용 여부
         requestToChangeActive={(value) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
