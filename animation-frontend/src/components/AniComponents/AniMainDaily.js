@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AniImg, HomeAniImg } from '../../styledcomponents/AniDetail.styled';
 function AniMainDaily() {
   const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
 
@@ -185,12 +186,5 @@ function AniMainDaily() {
     </>
   );
 }
-const AniImg = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-top: 5px;
-  cursor: pointer;
-`;
 
 export default AniMainDaily;

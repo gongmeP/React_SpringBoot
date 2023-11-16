@@ -26,7 +26,7 @@ public class Animation {
     private String dayOfWeek;
     private double averageRating;
     private String uploaded;
-    private int viewCount;
+    private Long viewCount;
     private String viewed;
     private LocalDateTime viewedTime;
     private String favorite;

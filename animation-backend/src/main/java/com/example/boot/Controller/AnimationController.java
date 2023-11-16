@@ -120,4 +120,12 @@ public class AnimationController {
     }
 
 
+    @PutMapping("/Ani/ViewCounter/{id}")
+    @CrossOrigin
+    public ResponseEntity<?> ViewCounter(@PathVariable Long id){
+
+        return new ResponseEntity<>(animationService.ViewCounterupdate(id),HttpStatus.CREATED);
+    }
+
+
 }

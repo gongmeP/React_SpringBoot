@@ -92,4 +92,18 @@ public class AnimationServiceImpl implements AnimationService {
 
         return  animationRepository.findByGenreIn(genre);
     }
+
+    @Override
+    public String ViewCounterupdate(Long id) {
+        try{
+            Animation animation = animationRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("ID 없음"));
+            Long viewcount = animation.getViewCount();
+            viewcount = viewcount + 1;
+            animation.setViewCount(viewcount);
+            animationRepository.save(animation);
+            return "ViewCount 업데이트 성공";
+        }catch (Exception e){
+            return "ViewCounterupdate 에러";
+        }
+    }
 }

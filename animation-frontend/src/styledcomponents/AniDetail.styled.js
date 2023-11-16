@@ -5,6 +5,7 @@ export const AniImg = styled.img`
   height: auto;
   border-radius: 0.3125rem;
   margin-top: 0.3125rem;
+  cursor: pointer;
 `;
 
 export const StarImg = styled.img`

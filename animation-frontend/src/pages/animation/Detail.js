@@ -46,6 +46,7 @@ function Detail(props) {
     if (!window.sessionStorage.getItem('loginID')) {
       alert('로그인 후 보관함 사용이 가능해요.');
       navigate('/loginForm');
+      return;
     }
     try {
       const res = await axios.post(`http://localhost:8080/Favorite`, {
@@ -58,6 +59,7 @@ function Detail(props) {
         member_mid: userid,
       });
       setFavoriteOK(res2.data);
+      alert('보관함에 추가되었어요!!');
     } catch (error) {
       console.error('Detail axios Error');
     }
@@ -75,6 +77,7 @@ function Detail(props) {
         member_mid: userid,
       });
       setFavoriteOK(res2.data);
+      alert('보관함에서 제거되었습니다.');
     } catch (error) {
       console.error('Detail axios Error');
     }
@@ -84,6 +87,15 @@ function Detail(props) {
     if (!window.sessionStorage.getItem('loginID')) {
       alert('로그인 서비스 이용이 가능해요.');
       navigate('/loginForm');
+      return;
+    }
+    try {
+      const res = await axios.put(
+        `http://localhost:8080/Ani/ViewCounter/${id}`,
+      );
+      alert('죄송합니다. 현재 서비스 준비 중입니다.');
+    } catch (error) {
+      console.error('ViewCounter axios Error');
     }
   };
 
@@ -123,7 +135,10 @@ function Detail(props) {
             style={{ height: '60px', display: 'flex' }}
             className="mt-2"
           >
-            <PlayImg_Styled src="../projectimg/button/play.png" />
+            <PlayImg_Styled
+              src="../projectimg/button/play.png"
+              onClick={Playvideo}
+            />
             <PlayDiv_Styled onClick={Playvideo}>재생하기</PlayDiv_Styled>
             {favoriteOK === '보관함 있음' ? (
               <>
