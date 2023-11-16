@@ -4,11 +4,13 @@ import com.example.boot.Entity.Animation;
 import com.example.boot.Repository.AnimationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -100,10 +102,36 @@ public class AnimationServiceImpl implements AnimationService {
             Long viewcount = animation.getViewCount();
             viewcount = viewcount + 1;
             animation.setViewCount(viewcount);
+            animation.setViewedTime(LocalDateTime.now());
             animationRepository.save(animation);
             return "ViewCount 업데이트 성공";
         }catch (Exception e){
             return "ViewCounterupdate 에러";
+        }
+    }
+
+    @Override
+    public List<Animation> ViewRanking() {
+        try{
+            LocalDateTime oneDay = LocalDateTime.now().minusHours(24);
+            Pageable pageable = PageRequest.of(0,10);
+            List<Animation>  animations = animationRepository.findTopViewdConterOneDay(oneDay,pageable);
+
+            return animations;
+        }catch (Exception e){
+            System.out.println("AniService ViewRanking 에러");
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<Animation> AllViewRanking() {
+        try{
+             List<Animation> animations =  animationRepository.findTop10ByOrderByViewCountDesc();
+            return animations;
+        }catch (Exception e){
+            return null;
         }
     }
 }

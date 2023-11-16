@@ -28,4 +28,8 @@ public interface AnimationService {
     List<Animation> GenreFilterByTitle(List<String> genre);
 
     String ViewCounterupdate(Long id);
+
+    List<Animation> ViewRanking();
+
+    List<Animation> AllViewRanking();
 }
