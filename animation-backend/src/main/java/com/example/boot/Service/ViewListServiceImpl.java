@@ -48,10 +48,7 @@ public class ViewListServiceImpl implements  ViewListService{
                         .viewtime(LocalDateTime.now())
                         .build();
                 viewListRepository.save(viewList);
-
             }
-
-
         }catch (Exception e){
             System.out.println(e);
             System.out.println("ViewList Service Data In Error");

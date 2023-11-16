@@ -97,8 +97,7 @@ function Detail(props) {
         Ani_id: detailAni.id,
         member_mid: userid,
       });
-      console.log(res2.data);
-      // window.open('https://laftel.net/', '_blank');
+      window.open('https://laftel.net/', '_blank');
     } catch (error) {
       console.error('ViewCounter axios Error');
     }

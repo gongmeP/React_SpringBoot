@@ -2,10 +2,27 @@ import styled from 'styled-components';
 
 export const AniImg = styled.img`
   width: 100%;
-  height: auto;
+
   border-radius: 0.3125rem;
   margin-top: 0.3125rem;
   cursor: pointer;
+  @media (max-width: 575px) {
+    height: auto;
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    height: 92px;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    height: 125px;
+  }
+  @media (min-width: 992px) and (max-width: 1200px) {
+    height: 126px;
+  }
+  @media (min-width: 1201px) and (max-width: 1400px) {
+    height: 120px;
+  }
 `;
 
 export const StarImg = styled.img`
