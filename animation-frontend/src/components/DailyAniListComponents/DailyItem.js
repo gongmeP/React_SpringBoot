@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 function DailyItem({ day }) {
@@ -11,6 +12,7 @@ function DailyItem({ day }) {
   const Detailgo = (id) => {
     navigate('/Ani/' + id);
   };
+  const reDate = useSelector((state) => state.DailyState.today);
 
   useEffect(() => {
     const fetchData123 = async () => {
@@ -32,28 +34,16 @@ function DailyItem({ day }) {
     fetchData123();
   }, [day]);
 
-  const [Day, setDay] = useState('월');
-
-  const DayChange = (day) => {
-    setDay(day);
-  };
-
-  const reDate = new Date();
-  const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
-    weekday: 'long',
-  });
-  const rereDate = dayOfWeek.replace(/요일/, '');
-
   return (
     <>
       <Col
         className={`DailyitemCol d-none d-lg-block ${
-          day === rereDate ? 'DailyitemCol2' : ''
+          day === reDate ? 'DailyitemCol2' : ''
         }`}
       >
         <div
           style={{ textAlign: 'center', fontSize: '1.2rem' }}
-          className={`${day === rereDate ? 'DailyitemCol2' : ''}`}
+          className={`${day === reDate ? 'DailyitemCol2' : ''}`}
         >
           {day}요일
         </div>
@@ -68,7 +58,7 @@ function DailyItem({ day }) {
             <Card.Body className="p-0">
               <Card.Title
                 className={`mb-0 CardTitle2 ${
-                  day === rereDate ? 'DailyitemCol2' : ''
+                  day === reDate ? 'DailyitemCol2' : ''
                 }`}
                 style={{ fontSize: '0.9rem' }}
               >

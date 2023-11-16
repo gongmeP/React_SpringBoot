@@ -1,15 +1,14 @@
 import React from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import DailyItem from '../../components/DailyAniListComponents/DailyItem';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import store from '../../Redux/store';
 import { setAniALLArray } from '../../Redux/AniAction';
+import DailyAniButton from '../../components/DailyAniListComponents/DailyAniButton';
+import { setToday } from '../../Redux/DailyAction';
 
 function DailyAniList() {
   const reDate = new Date();
@@ -17,8 +16,8 @@ function DailyAniList() {
     weekday: 'long',
   });
   const rereDate = dayOfWeek.replace(/요일/, '');
+  store.dispatch(setToday(rereDate));
 
-  const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
   const [Daily, setDaily] = useState([
     '월',
     '화',
@@ -28,7 +27,7 @@ function DailyAniList() {
     '토',
     '일',
   ]);
-  const [Day, setDay] = useState('월');
+  const [Day, setDay] = useState(`${rereDate}`);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,13 +48,6 @@ function DailyAniList() {
     fetchData();
   }, [Day]);
 
-  const DayChange = (day) => {
-    setDay(day);
-  };
-  const navigate = useNavigate();
-  const AniDetailGo = (id) => {
-    navigate('/Ani/' + id);
-  };
   return (
     <>
       <Row style={{ margin: '0 auto', margin: '10px' }}>
@@ -63,87 +55,9 @@ function DailyAniList() {
           <DailyItem day={day}></DailyItem>
         ))}
       </Row>
-      <Row className="d-block d-lg-none">
-        <Col className="DailyCol">
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('월')}
-          >
-            월
-          </Button>
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('화')}
-          >
-            화
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('수')}
-          >
-            수
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('목')}
-          >
-            목
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('금')}
-          >
-            금
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('토')}
-          >
-            토
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="secondary2"
-            onClick={() => DayChange('일')}
-          >
-            일
-          </Button>
-        </Col>
-      </Row>
-      <Row className="d-block d-lg-none d-flex">
-        {AniALLArray.map((AniALLArray) => (
-          <Col key={AniALLArray.id} className="p-1" md={3} sm={4} xs={4}>
-            <AniImg
-              onClick={() => AniDetailGo(AniALLArray.id)}
-              src={`http://localhost:8080/file/AniImgFile/${AniALLArray.photo}`}
-              alt={AniALLArray.photo}
-            ></AniImg>
-            <div className="CardTitle" style={{ fontSize: '0.95rem' }}>
-              {AniALLArray.title}
-            </div>
-          </Col>
-        ))}
-      </Row>
+      <DailyAniButton Day={Day} setDay={setDay} Daily={Daily}></DailyAniButton>
     </>
   );
 }
-const AniImg = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-top: 5px;
-  cursor: pointer;
-`;
 
 export default DailyAniList;
