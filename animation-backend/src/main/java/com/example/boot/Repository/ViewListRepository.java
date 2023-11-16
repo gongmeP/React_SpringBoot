@@ -1,13 +1,12 @@
 package com.example.boot.Repository;
 
 import com.example.boot.Entity.Animation;
-import com.example.boot.Entity.Favorite;
 import com.example.boot.Entity.Member;
 import com.example.boot.Entity.ViewList;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.swing.text.View;
+
 import java.util.List;
 import java.util.Optional;
 

@@ -5,11 +5,13 @@ import Banner from '../../components/AniComponents/Banner';
 import UserViewList from '../../components/AniComponents/UserViewList';
 
 function Home() {
+  const userid = window.sessionStorage.getItem('loginID');
+  console.log(userid);
   return (
     <>
       <Row>
         <Banner></Banner>
-        <UserViewList></UserViewList>
+        {userid !== null ? <UserViewList></UserViewList> : null}
         <AniMainDaily></AniMainDaily>
         <AniRanking></AniRanking>
       </Row>

@@ -25,6 +25,14 @@ export const AniImg = styled.img`
   }
 `;
 
+export const DetailAniImg = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 0.3125rem;
+  margin-top: 0.3125rem;
+  cursor: pointer;
+`;
+
 export const StarImg = styled.img`
   width: 1.5625rem;
   height: 1.5625rem;

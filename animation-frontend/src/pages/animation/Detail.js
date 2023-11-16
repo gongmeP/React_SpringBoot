@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {
   AniImg,
+  DetailAniImg,
   P_Styled,
   P_Styled2,
   PlayDiv_Styled,
@@ -126,7 +127,7 @@ function Detail(props) {
             </P_Styled>
           </Col>
           <Col md={5} className="aniimgs">
-            <AniImg
+            <DetailAniImg
               src={`http://localhost:8080/file/AniImgFile/${detailAni.photo}`}
               alt="애니 포스터"
               fluid
