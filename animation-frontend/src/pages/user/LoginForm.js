@@ -55,7 +55,7 @@ const Login = () => {
               variant="primary"
               type="submit"
               style={{ width: '80%' }}
-              className="Buttoncolor2"
+              className="PupleColorButton1"
             >
               로그인
             </Button>

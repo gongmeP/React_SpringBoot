@@ -3,6 +3,7 @@ import store from '../../Redux/store';
 import {
   setFreeBoards,
   setFreeBoardsEA,
+  setPages,
   setSearchTF,
 } from '../../Redux/BoardAction';
 import Board from '../../components/BoardComponents/Board';
@@ -17,6 +18,8 @@ function FreeBoard() {
   const Pages = useSelector((state) => state.BoardState.pages);
   const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
   const searchTF = useSelector((state) => state.BoardState.searchTF);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const PagesFetch = async () => {
@@ -33,6 +36,7 @@ function FreeBoard() {
     const TotalPage = async () => {
       const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
       store.dispatch(setFreeBoardsEA(res.data));
+      store.dispatch(setPages(0));
     };
     TotalPage();
   }, []);
@@ -41,24 +45,33 @@ function FreeBoard() {
     window.location.href = '/freeBoard';
   };
 
+  const SaveFreeBoardGo = () => {
+    if (sessionStorage.getItem('loginID') === null) {
+      alert('로그인 후 게시글 작성이 가능해요.');
+      navigate('/loginForm');
+      return;
+    }
+    navigate('/saveFreeBoard');
+  };
+
   return (
     <>
       <Board></Board>
       <div style={{ display: 'flex', justifyContent: 'end' }}>
         <Button
           onClick={boardlistgo}
-          className="btn-primary mb-1 Buttoncolor2"
+          className="btn-primary mb-1 PupleColorButton1"
           style={{ marginRight: '20px', marginTop: '10px' }}
         >
           전체글
         </Button>
-        <Link
-          to="/saveFreeBoard"
-          className="btn btn-primary mb-1 Buttoncolor2"
+        <Button
+          onClick={SaveFreeBoardGo}
+          className="btn btn-primary mb-1 PupleColorButton1"
           style={{ marginRight: '20px', marginTop: '10px' }}
         >
           글쓰기
-        </Link>
+        </Button>
       </div>
       <Page EA={freeBoardsEA} Pages={Pages}></Page>
       <BoardSearch></BoardSearch>

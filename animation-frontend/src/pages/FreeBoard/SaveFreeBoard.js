@@ -27,6 +27,7 @@ function SaveFreeBoard() {
   const API_URL = 'http://localhost:8080';
   const UPLOAD_ENDPOINT = 'FreeBoard/Save';
   const SaveFreeBoardGo = async (e) => {
+    e.preventDefault();
     if (formData.fbTitle === '') {
       alert('제목을 입력하세요');
       return;
@@ -37,8 +38,6 @@ function SaveFreeBoard() {
     }
 
     if (window.confirm('게시글을 등록 하시겠습니까?')) {
-      e.preventDefault();
-
       const body = new FormData();
       body.append('fbTitle', formData.fbTitle);
       body.append('fbContent', formData.fbContent);
@@ -140,6 +139,7 @@ function SaveFreeBoard() {
         </Form.Group>
         <div style={{ display: 'flex', justifyContent: 'end' }}>
           <Button
+            className="PupleColorButton1"
             variant="primary"
             type="submit"
             style={{ marginRight: '20px' }}

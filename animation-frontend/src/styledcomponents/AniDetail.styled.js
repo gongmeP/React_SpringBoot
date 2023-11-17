@@ -23,6 +23,9 @@ export const AniImg = styled.img`
   @media (min-width: 1201px) and (max-width: 1400px) {
     height: 120px;
   }
+  @media (min-width: 1401px) and (max-width: 2400px) {
+    height: 142px;
+  }
 `;
 
 export const DetailAniImg = styled.img`

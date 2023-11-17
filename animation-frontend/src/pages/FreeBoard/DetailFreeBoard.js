@@ -161,7 +161,7 @@ function DetailFreeBoard() {
             variant="primary"
             style={{ marginRight: '20px' }}
             onClick={freeBoardGo}
-            className="Buttoncolor2"
+            className="PupleColorButton1"
           >
             게시글 목록보기
           </Button>

@@ -86,7 +86,7 @@ function JoinForm() {
             onClick={agg_btn1}
             style={{ width: '50%', marginTop: '20px' }}
             variant="primary"
-            className="Buttoncolor2"
+            className="PupleColorButton1"
           >
             다음단계
           </Button>

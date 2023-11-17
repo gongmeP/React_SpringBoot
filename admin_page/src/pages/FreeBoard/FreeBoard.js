@@ -3,6 +3,7 @@ import store from '../../Redux/store';
 import {
   setFreeBoards,
   setFreeBoardsEA,
+  setPages,
   setSearchTF,
 } from '../../Redux/BoardAction';
 import Board from '../../components/BoardComponents/Board';
@@ -36,6 +37,7 @@ function FreeBoard() {
     const TotalPage = async () => {
       const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
       store.dispatch(setFreeBoardsEA(res.data));
+      store.dispatch(setPages(0));
     };
     TotalPage();
   }, []);
