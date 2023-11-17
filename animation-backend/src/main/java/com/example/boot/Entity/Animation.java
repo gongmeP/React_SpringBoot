@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @AllArgsConstructor
@@ -34,6 +33,5 @@ public class Animation {
     private String anidelete = "n";
 
     private LocalDateTime date = LocalDateTime.now();
-
 
 }

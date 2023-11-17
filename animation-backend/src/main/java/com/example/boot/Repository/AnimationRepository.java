@@ -20,9 +20,7 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> findByAnidelete(String string);
 
-   List<Animation> findByViewedTimeBefore(LocalDateTime oneDay);
 
-    List<Animation> findByViewedTimeAfter(LocalDateTime oneDay);
     List<Animation> findTop10ByOrderByViewCountDesc();
 
 }
