@@ -29,7 +29,5 @@ public interface AnimationService {
 
     String ViewCounterupdate(Long id);
 
-//    List<Animation> ViewRanking();
-
     List<Animation> AllViewRanking();
 }

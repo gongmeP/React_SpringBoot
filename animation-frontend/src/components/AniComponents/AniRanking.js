@@ -5,25 +5,22 @@ import { useNavigate } from 'react-router-dom';
 import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
+import { Button } from 'react-bootstrap';
 
 function AniRanking() {
-  //   useEffect(() => {
-  //     const OneDayRanking = async () => {
-  //       const res = await axios.get(`http://localhost:8080/Ani/AniRanking`);
-  //       console.log(res.data);
-  //     };
-  //     OneDayRanking();
-  //   }, []);
-
   const [AllRank, setAllRank] = useState([]);
+  const [ButtonActive, setButtonActive] = useState('today');
   useEffect(() => {
     const AniAllRanking = async () => {
+      if (ButtonActive === 'today') {
+      } else {
+      }
       const res = await axios.get(`http://localhost:8080/Ani/AniAllRanking`);
       setAllRank(res.data);
       console.log(res.data);
     };
     AniAllRanking();
-  }, []);
+  }, [ButtonActive]);
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const prevPage = () => {
@@ -62,11 +59,44 @@ function AniRanking() {
     };
   }, []);
 
+  const RangkingDataOn = (day) => {
+    setButtonActive(day);
+  };
+
   return (
     <>
       <h3 style={{ marginTop: '10px', marginBottom: '20px' }}>
-        역대 인기 TOP10
+        인기 애니 TOP10
       </h3>
+      <div>
+        <Button
+          variant="secondary"
+          className={`mb-3 RankingButton ${
+            ButtonActive === 'today' ? 'ButtonActive' : ''
+          }`}
+          onClick={() => RangkingDataOn('today')}
+        >
+          금일
+        </Button>
+        <Button
+          variant="secondary"
+          className={`mb-3 RankingButton ${
+            ButtonActive === 'thisWeek' ? 'ButtonActive' : ''
+          }`}
+          onClick={() => RangkingDataOn('thisWeek')}
+        >
+          이번주
+        </Button>
+        <Button
+          variant="secondary"
+          className={`mb-3 RankingButton ${
+            ButtonActive === 'allTime' ? 'ButtonActive' : ''
+          }`}
+          onClick={() => RangkingDataOn('allTime')}
+        >
+          역대
+        </Button>
+      </div>
       <ItemsCarousel
         infiniteLoop={true} // 루프 해줌
         numberOfCards={AniCardEA}
@@ -128,7 +158,7 @@ function AniRanking() {
             <div style={{ display: 'flex' }}>
               <h3 style={{ marginRight: '6px' }}>{index + 1}</h3>
               <div className="CardTitle" style={{ fontSize: '0.95rem' }}>
-                {AllRank.title}12312321123123
+                {AllRank.title}
               </div>
             </div>
           </div>

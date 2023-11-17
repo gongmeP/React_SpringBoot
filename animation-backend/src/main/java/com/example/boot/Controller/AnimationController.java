@@ -134,4 +134,11 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.AllViewRanking(),HttpStatus.CREATED);
     }
 
+    @GetMapping("/Ani/AniOneDayRanking")
+    @CrossOrigin
+    public ResponseEntity<?> AniOneDayRanking(){
+
+        return new ResponseEntity<>(animationService.AllViewRanking(),HttpStatus.CREATED);
+    }
+
 }
