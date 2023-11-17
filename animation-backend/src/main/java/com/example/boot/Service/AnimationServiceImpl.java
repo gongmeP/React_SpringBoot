@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @RequiredArgsConstructor
@@ -110,14 +113,44 @@ public class AnimationServiceImpl implements AnimationService {
         }
     }
 
+    
+    
+    // 일일랭킹 데이터 부족 이후 개발
     @Override
     public List<Animation> ViewRanking() {
         try{
-            LocalDateTime oneDay = LocalDateTime.now().minusHours(24);
+            LocalDateTime oneDay = LocalDateTime.now().minusDays(1);
             Pageable pageable = PageRequest.of(0,10);
-            List<Animation>  animations = animationRepository.findTopViewdConterOneDay(oneDay,pageable);
+            List<Animation> animationsBefore = animationRepository.findByViewedTimeBefore(oneDay);
+            List<Animation> animationsAfter = animationRepository.findByViewedTimeAfter(oneDay);
+            List<Animation> result = new ArrayList<>();
 
-            return animations;
+            for (Animation animationBefore : animationsBefore) {
+                for (Animation animationAfter : animationsAfter) {
+                    // ID가 같은 경우에만 계산
+//                    if (animationBefore.getId().equals(animationAfter.getId())) {
+
+                        // Animation 복사
+                        Animation resultAnimation = new Animation();
+                        // 필요한 필드 복사
+                        resultAnimation.setId(animationBefore.getId());
+                        resultAnimation.setTitle(animationBefore.getTitle());
+
+
+                        // viewCount 차이 계산
+                        long viewCountDifference = animationAfter.getViewCount() - animationBefore.getViewCount();
+                        resultAnimation.setViewCount(viewCountDifference);
+
+                        // 결과 리스트에 추가
+                        result.add(resultAnimation);
+
+                        break; // 중복을 피하기 위해 ID가 일치하는 첫 번째 Animation만 계산
+//                    }
+                }
+            }
+
+            System.out.println(result);
+            return result;
         }catch (Exception e){
             System.out.println("AniService ViewRanking 에러");
             return null;
@@ -131,6 +164,7 @@ public class AnimationServiceImpl implements AnimationService {
              List<Animation> animations =  animationRepository.findTop10ByOrderByViewCountDesc();
             return animations;
         }catch (Exception e){
+            System.out.println("AniService ViewALLRanking 에러");
             return null;
         }
     }

@@ -17,11 +17,7 @@ function Header() {
     <>
       <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
         <Container>
-          {sessionID ? (
-            <Link to="/allList" className="navbar-brand">
-              전체목록
-            </Link>
-          ) : (
+          {sessionID ? null : (
             <Link to="/" className="navbar-brand">
               관리자 로그인
             </Link>
@@ -30,6 +26,9 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             {sessionID ? (
               <Nav className="me-auto">
+                <Link to="/allList" className="nav-link">
+                  애니메이션 관리
+                </Link>
                 <Link to="/savaForm" className="nav-link">
                   애니메이션추가
                 </Link>

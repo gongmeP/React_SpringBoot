@@ -127,12 +127,12 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.ViewCounterupdate(id),HttpStatus.CREATED);
     }
 
-//    @GetMapping("/Ani/AniRanking")
-//    @CrossOrigin
-//    public ResponseEntity<?> AniRanking(){
-//
-//        return new ResponseEntity<>(animationService.ViewRanking(),HttpStatus.CREATED);
-//    }
+    @GetMapping("/Ani/AniDayRanking")
+    @CrossOrigin
+    public ResponseEntity<?> AniDayRanking(){
+
+        return new ResponseEntity<>(animationService.ViewRanking(),HttpStatus.CREATED);
+    }
 
 
     @GetMapping("/Ani/AniAllRanking")

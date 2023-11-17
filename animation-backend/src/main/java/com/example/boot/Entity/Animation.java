@@ -33,7 +33,7 @@ public class Animation {
 
     private String anidelete = "n";
 
-    private LocalDateTime Date = LocalDateTime.now();
+    private LocalDateTime date = LocalDateTime.now();
 
 
 }

@@ -20,9 +20,9 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> findByAnidelete(String string);
 
-    @Query("select a from Animation a where a.viewedTime >= :oneDay order by a.viewCount desc")
-    List<Animation> findTopViewdConterOneDay(@Param("oneDay")LocalDateTime oneDay, Pageable pageable);
+   List<Animation> findByViewedTimeBefore(LocalDateTime oneDay);
 
+    List<Animation> findByViewedTimeAfter(LocalDateTime oneDay);
     List<Animation> findTop10ByOrderByViewCountDesc();
 
 }
