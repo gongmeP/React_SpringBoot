@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -141,6 +142,21 @@ public class AnimationServiceImpl implements AnimationService {
             return animations;
         }catch (Exception e){
             System.out.println("AniService ViewALLRanking 에러");
+            return null;
+        }
+    }
+
+    @Override
+    public List<Animation> AniOneDayRanking() {
+        try{
+            LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+            List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateOrderByViewCountDesc(today);
+            List<Animation> getanimation = animations.stream().map(AnimationViewCount::getAnimation)
+                    .collect(Collectors.toList());
+            
+            return getanimation;
+        }catch (Exception e){
+            System.out.println("AniService AniOneDayRanking 에러");
             return null;
         }
     }

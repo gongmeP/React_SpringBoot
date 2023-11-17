@@ -30,4 +30,6 @@ public interface AnimationService {
     String ViewCounterupdate(Long id);
 
     List<Animation> AllViewRanking();
+
+    List<Animation> AniOneDayRanking();
 }

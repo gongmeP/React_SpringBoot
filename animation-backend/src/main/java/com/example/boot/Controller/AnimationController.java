@@ -138,7 +138,7 @@ public class AnimationController {
     @CrossOrigin
     public ResponseEntity<?> AniOneDayRanking(){
 
-        return new ResponseEntity<>(animationService.AllViewRanking(),HttpStatus.CREATED);
+        return new ResponseEntity<>(animationService.AniOneDayRanking(),HttpStatus.CREATED);
     }
 
 }

@@ -12,10 +12,12 @@ function AniRanking() {
   const [ButtonActive, setButtonActive] = useState('today');
   useEffect(() => {
     const AniAllRanking = async () => {
+      let res;
       if (ButtonActive === 'today') {
+        res = await axios.get(`http://localhost:8080/Ani/AniOneDayRanking`);
       } else {
+        res = await axios.get(`http://localhost:8080/Ani/AniAllRanking`);
       }
-      const res = await axios.get(`http://localhost:8080/Ani/AniAllRanking`);
       setAllRank(res.data);
       console.log(res.data);
     };

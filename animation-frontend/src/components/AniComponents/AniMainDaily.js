@@ -10,14 +10,16 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AniImg, HomeAniImg } from '../../styledcomponents/AniDetail.styled';
+import { setToday } from '../../Redux/DailyAction';
 function AniMainDaily() {
   const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
 
   const [Day, setDay] = useState('월');
-
+  const [ButtonActive, setButtonActive] = useState('월');
   const DayChange = (day) => {
     setDay(day);
     setActiveItemIndex(0);
+    setButtonActive(day);
   };
 
   useEffect(() => {
@@ -40,8 +42,6 @@ function AniMainDaily() {
     fetchData();
   }, [Day]);
 
-  const postsPerPage = 10;
-  const totalPages = Math.ceil(AniALLArray.length / postsPerPage);
   const [activeItemIndex, setActiveItemIndex] = useState(0);
 
   const navigate = useNavigate();
@@ -91,7 +91,13 @@ function AniMainDaily() {
     '토',
     '일',
   ]);
-  const reDate = useSelector((state) => state.DailyState.today);
+
+  const reDate = new Date();
+  const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+  });
+  const rereDate = dayOfWeek.replace(/요일/, '');
+  store.dispatch(setToday(rereDate));
 
   return (
     <>
@@ -100,8 +106,11 @@ function AniMainDaily() {
         <Col className="DailyCol">
           {Daily.map((day) => (
             <Button
+              key={day}
               variant="secondary"
-              className={`secondary2 ${day === reDate ? 'DailyitemCol2' : ''}`}
+              className={`secondary2 mb-3 ${
+                day === rereDate ? 'DailyitemCol2' : ''
+              } ${ButtonActive === day ? 'ButtonActive' : ''}`}
               onClick={() => DayChange(`${day}`)}
             >
               {day}
