@@ -109,7 +109,7 @@ public class AnimationControllerIntegreTest {
                 .andExpect(jsonPath("$.[2].title").value("Junit"))
                 .andDo(MockMvcResultHandlers.print());
 
-        System.out.println(resultActions);
+
     }
 
     @Test

@@ -56,7 +56,7 @@ public class FreeBoardController {
 
        int freeBoardsPages = freeBoardService.getFreeBoardTotalPages();
 
-        System.out.println(freeBoardsPages);
+
 
         return freeBoardsPages;
     }
@@ -97,7 +97,7 @@ public class FreeBoardController {
             file.transferTo(saveFile);
 
             fileNamespath.add(fileName);
-            System.out.println(fileNamespath);
+
             return fileNamespath;
 
 

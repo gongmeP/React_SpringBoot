@@ -55,7 +55,6 @@ public class AdminMemberController {
     public ResponseEntity<?> login(@RequestBody AdminMember adminMember, HttpSession session) {
         AdminMember loginResult = adminMemberService.login(adminMember);
 
-        System.out.println(adminMember.toString());
 
         try{
 

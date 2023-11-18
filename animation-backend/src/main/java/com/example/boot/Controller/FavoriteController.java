@@ -53,7 +53,6 @@ public class FavoriteController {
     @CrossOrigin
     public ResponseEntity<?> FavoriteList(@RequestParam String userid) {
 
-        System.out.println(userid);
         List<Animation> animationlist =  favoriteService.FavoriteList(userid);
 
 

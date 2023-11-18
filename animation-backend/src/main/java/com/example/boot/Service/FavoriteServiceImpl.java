@@ -45,8 +45,7 @@ public class FavoriteServiceImpl implements  FavoriteService{
                 }
 
                 //데이터를 넣는거임 favorite엔티티 memeber에다가 위에서 뽑은 member 값을 넣어주는거임
-                System.out.println(member);
-                System.out.println(animation);
+
                 Favorite favorite = Favorite.builder()
                         .member(member)
                         .animation(animation)
@@ -134,7 +133,7 @@ public class FavoriteServiceImpl implements  FavoriteService{
                         .map(Favorite::getAnimation)
                         .collect(Collectors.toList());
 
-                System.out.println(animations);
+
                 System.out.println("dd");
             }
             return animations;

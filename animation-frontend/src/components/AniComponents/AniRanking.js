@@ -15,6 +15,8 @@ function AniRanking() {
       let res;
       if (ButtonActive === 'today') {
         res = await axios.get(`http://localhost:8080/Ani/AniOneDayRanking`);
+      } else if (ButtonActive === 'thisWeek') {
+        res = await axios.get(`http://localhost:8080/Ani/AniWeekRanking`);
       } else {
         res = await axios.get(`http://localhost:8080/Ani/AniAllRanking`);
       }
@@ -78,7 +80,7 @@ function AniRanking() {
           }`}
           onClick={() => RangkingDataOn('today')}
         >
-          금일
+          일간
         </Button>
         <Button
           variant="secondary"
@@ -87,7 +89,7 @@ function AniRanking() {
           }`}
           onClick={() => RangkingDataOn('thisWeek')}
         >
-          이번주
+          주간
         </Button>
         <Button
           variant="secondary"

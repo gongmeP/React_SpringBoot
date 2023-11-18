@@ -32,4 +32,8 @@ public interface AnimationService {
     List<Animation> AllViewRanking();
 
     List<Animation> AniOneDayRanking();
+
+    List<Animation> AniWeekRanking();
+
+
 }

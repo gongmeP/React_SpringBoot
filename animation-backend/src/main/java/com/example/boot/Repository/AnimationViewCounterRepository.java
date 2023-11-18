@@ -12,4 +12,6 @@ public interface AnimationViewCounterRepository extends JpaRepository<AnimationV
     AnimationViewCount findByAnimationIdAndDate(Long animationId, LocalDateTime date);
 
     List<AnimationViewCount> findTop10ByDateOrderByViewCountDesc(LocalDateTime date);
+
+    List<AnimationViewCount> findTop10ByDateBetweenOrderByViewCountDesc(LocalDateTime Week, LocalDateTime today);
 }

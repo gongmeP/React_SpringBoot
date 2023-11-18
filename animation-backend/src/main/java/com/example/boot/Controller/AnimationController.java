@@ -49,7 +49,7 @@ public class AnimationController {
             file.transferTo(saveFile);
 
             fileNamespath.add(fileName);
-            System.out.println(fileNamespath);
+
             return fileNamespath;
 
 
@@ -76,7 +76,6 @@ public class AnimationController {
     @PostMapping("/Ani/DayOfWeek")
     public ResponseEntity<?> AniDayOfWeek(@RequestBody String day_of_week){
 
-        System.out.println(day_of_week);
 
         return new ResponseEntity<>(animationService.getDayOfWeek(day_of_week), HttpStatus.OK);
     }
@@ -139,6 +138,13 @@ public class AnimationController {
     public ResponseEntity<?> AniOneDayRanking(){
 
         return new ResponseEntity<>(animationService.AniOneDayRanking(),HttpStatus.CREATED);
+    }
+
+    @GetMapping("/Ani/AniWeekRanking")
+    @CrossOrigin
+    public ResponseEntity<?> AniWeekRanking(){
+
+        return new ResponseEntity<>(animationService.AniWeekRanking(),HttpStatus.CREATED);
     }
 
 }

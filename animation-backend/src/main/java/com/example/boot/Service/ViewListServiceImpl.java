@@ -35,7 +35,7 @@ public class ViewListServiceImpl implements  ViewListService{
             Member member = memberRepository.findByMid(viewListDTO.getMember_mid())
                     .orElseThrow(() -> new NotFoundException("맴버 mid 미존재: " + viewListDTO.getMember_mid()));
 
-            System.out.println(member);
+
 
             Animation animation = animationRepository.findById(viewListDTO.getAni_id())
                     .orElseThrow(()-> new NotFoundException("애니 id 미존재 : " + viewListDTO.getAni_id()));
@@ -77,7 +77,7 @@ public class ViewListServiceImpl implements  ViewListService{
                         .map(ViewList::getAnimation)
                         .collect(Collectors.toList());
 
-                System.out.println(animations);
+
 
             }
             return animations;

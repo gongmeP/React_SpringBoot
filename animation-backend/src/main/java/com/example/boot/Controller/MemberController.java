@@ -36,7 +36,7 @@ public class MemberController {
     @CrossOrigin
     public ResponseEntity<String> idcheck(@RequestBody String mid) {
 
-        System.out.println(mid);
+
         boolean isMid = memberService.idcheck(mid);
 
         String message;
@@ -54,7 +54,7 @@ public class MemberController {
     public ResponseEntity<?> login(@RequestBody Member member, HttpSession session) {
         Member loginResult = memberService.login(member);
 
-        System.out.println(member.toString());
+
 
         try{
 

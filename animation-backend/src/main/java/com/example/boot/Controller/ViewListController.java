@@ -28,7 +28,7 @@ public class ViewListController {
     @CrossOrigin
     public ResponseEntity<?> UserViewList(@RequestParam String userid) {
 
-        System.out.println(userid);
+
         List<Animation> animationlist = viewListService.ViewListgatdata(userid);
         
         if (animationlist != null) {
