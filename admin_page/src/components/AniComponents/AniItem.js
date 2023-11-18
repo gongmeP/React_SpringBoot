@@ -34,7 +34,7 @@ function AniItem({ Anidata, reEffect, setReEffect }) {
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
       />
-      <Card.Body className="pb-0">
+      <Card.Body className="p-0">
         <Card.Title className="mb-0 CardTitle" style={{ fontSize: '1rem' }}>
           {title}
         </Card.Title>

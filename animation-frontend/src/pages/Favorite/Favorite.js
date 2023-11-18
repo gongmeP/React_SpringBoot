@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import store from '../../Redux/store';
 import { setFavoriteList } from '../../Redux/FavoriteAction';
@@ -10,25 +10,36 @@ import { useNavigate } from 'react-router-dom';
 
 function Favorite() {
   const navigate = useNavigate();
-  const loginID = sessionStorage.getItem('loginID');
+  const userid = sessionStorage.getItem('loginID');
   const FavoriteList = useSelector((state) => state.FavoriteState.FavoriteList);
 
   useEffect(() => {
     const checkLogin = async () => {
-      if (!loginID) {
+      if (!userid) {
         alert('로그인 후 이용해주세요.');
         navigate('/loginForm');
       }
     };
     checkLogin();
-  }, [loginID, navigate]);
+  }, [userid, navigate]);
+
+  const [AllRank, setAllRank] = useState([]);
+  useEffect(() => {
+    if (userid !== null) {
+      const UserViewList = async () => {
+        const res = await axios.get(
+          `http://localhost:8080/ViewList/UserViewList?userid=${userid}`,
+        );
+        setAllRank(res.data);
+      };
+      UserViewList();
+    }
+  }, []);
 
   useEffect(() => {
     const FavoriteData = async () => {
       const res = await axios.get(
-        `http://localhost:8080/FavoriteList?userid=${sessionStorage.getItem(
-          'loginID',
-        )}`,
+        `http://localhost:8080/FavoriteList?userid=${userid}`,
       );
       store.dispatch(setFavoriteList(res.data));
     };
@@ -37,7 +48,7 @@ function Favorite() {
 
   return (
     <>
-      {loginID ? (
+      {AllRank ? (
         <Tabs
           defaultActiveKey="보관함"
           id="fill-tab-example"
@@ -56,8 +67,14 @@ function Favorite() {
               ))
             )}
           </Tab>
-          <Tab eventKey="최근본 목록" title="최근본 목록">
-            Tab content for Profile
+          <Tab eventKey="최근본 작품" title="최근본 작품">
+            {AllRank.length <= 0 ? (
+              <H2styled>최근본 작품이 없어요.</H2styled>
+            ) : (
+              AllRank.map((AllRank) => (
+                <FavoriteItem key={AllRank.id} FavoriteList={AllRank} />
+              ))
+            )}
           </Tab>
         </Tabs>
       ) : null}
