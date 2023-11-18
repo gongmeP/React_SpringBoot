@@ -4,6 +4,7 @@ import com.example.boot.Entity.AdminMember;
 import com.example.boot.Entity.Animation;
 import com.example.boot.Repository.AdminMemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,10 +19,11 @@ import java.util.Optional;
 public class AdminMemberServiceImpl implements AdminMemberService {
 
     private final AdminMemberRepository adminMemberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AdminMember saveadmin(AdminMember adminMember) {
-
+        adminMember.setAdminpass(passwordEncoder.encode(adminMember.getAdminpass()));
         return adminMemberRepository.save(adminMember);
     }
 
@@ -41,7 +43,7 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 
         if(byloginid.isPresent()){
             AdminMember adminMemberEntity = byloginid.get();
-            if(adminMemberEntity.getAdminpass().equals(adminMember.getAdminpass())){
+            if(passwordEncoder.matches(adminMember.getAdminpass(),adminMemberEntity.getAdminpass())){
 
                 return adminMemberEntity;
 
