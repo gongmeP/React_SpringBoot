@@ -8,6 +8,7 @@
 - Maven
 - Lombok
 - Mybatis
+- Spring Security
 
 ### React
 
@@ -15,12 +16,9 @@
 - npm install redux react-redux
 - npm install react-bootstrap bootstrap
 - npm install styled-components
-- npm install --save @ckeditor/ckeditor5-build-classic
+- npm install @ckeditor/ckeditor5-build-classic
 - npm install axios
-
-"txt
-import 'bootstrap/dist/css/bootstrap.min.css';
-"
+- npm install react-items-carousel
 
 ### setting
 
