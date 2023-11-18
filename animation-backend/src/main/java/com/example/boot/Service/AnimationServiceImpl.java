@@ -167,8 +167,6 @@ public class AnimationServiceImpl implements AnimationService {
             LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
             LocalDateTime Week= LocalDateTime.now().minusDays(7).withHour(0).withMinute(0).withSecond(0).withNano(0);
 
-            System.out.println(Week);
-            System.out.println(today);
             List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateBetweenOrderByViewCountDesc(Week,today);
             List<Animation> getanimation = animations.stream().map(AnimationViewCount::getAnimation)
                     .collect(Collectors.toList());

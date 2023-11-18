@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +21,19 @@ import java.util.Optional;
 @Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository MemberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public Member saveMember(Member member) {
-        return  MemberRepository.save(member);
+        try {
+
+            member.setMpass(passwordEncoder.encode(member.getMpass()));
+            return  MemberRepository.save(member);
+        }catch (Exception e){
+
+            return  null;
+        }
     }
 
     @Override
@@ -70,10 +79,13 @@ public class MemberServiceImpl implements MemberService {
 
         if(byloginid.isPresent()){
             Member memberEntity = byloginid.get();
-            if(memberEntity.getMpass().equals(member.getMpass())){
+         
+            //현재 입렫된 비밀번호 와 맴버리스트에 담긴 비밀번호와 matches 를 확인함
+            //matches 입력된 비번화 저장된 비번의 해시값을 비교 일치여부 확인
+            if(passwordEncoder.matches(member.getMpass(),memberEntity.getMpass())){
                 memberEntity.setLogintime(LocalDateTime.now());
                 MemberRepository.save(memberEntity);
-
+                System.out.println(memberEntity);
             return memberEntity;
 
             }else {
