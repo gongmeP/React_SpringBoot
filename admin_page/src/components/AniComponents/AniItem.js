@@ -3,12 +3,11 @@ import React from 'react';
 import { Button, Card, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 import { useSelector } from 'react-redux';
 
 function AniItem({ Anidata, reEffect, setReEffect }) {
   const { id, title } = Anidata;
-  const localurl = useSelector((state) => state.AniState.url);
   const navigate = useNavigate();
 
   const Detailgo = () => {
@@ -32,7 +31,7 @@ function AniItem({ Anidata, reEffect, setReEffect }) {
     <Card className="anicard" key={Anidata.id} style={{ float: 'left' }}>
       <Card.Img
         variant="top"
-        src={`${localurl}/file/AniImgFile/${Anidata.photo}`}
+        src={`${API_URL}/file/AniImgFile/${Anidata.photo}`}
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
       />

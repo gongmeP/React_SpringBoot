@@ -5,7 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 
 function SaveFreeBoard() {
   const navigate = useNavigate();
@@ -27,7 +27,6 @@ function SaveFreeBoard() {
     }
   };
 
-  const API_URL = 'http://localhost:8080';
   const SaveFreeBoardGo = async (e) => {
     if (formData.fbTitle === '') {
       alert('제목을 입력하세요');
@@ -72,7 +71,7 @@ function SaveFreeBoard() {
           loader.file.then((file) => {
             body.append('file', file);
 
-            fetch(`http://localhost:8080/FreeBoard/ImgSave`, {
+            fetch(`${API_URL}/FreeBoard/ImgSave`, {
               method: 'POST',
               body: body,
             })

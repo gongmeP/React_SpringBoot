@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate } from 'react-router-dom';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 
 function SaveFreeBoard() {
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ function SaveFreeBoard() {
     }
   };
 
-  const API_URL = 'http://localhost:8080';
   const UPLOAD_ENDPOINT = 'FreeBoard/Save';
   const SaveFreeBoardGo = async (e) => {
     e.preventDefault();
@@ -69,7 +68,7 @@ function SaveFreeBoard() {
           loader.file.then((file) => {
             body.append('file', file);
 
-            fetch(`http://localhost:8080/FreeBoard/ImgSave`, {
+            fetch(`${API_URL}/FreeBoard/ImgSave`, {
               method: 'POST',
               body: body,
             })

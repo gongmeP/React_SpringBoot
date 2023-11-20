@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 
 function UpdateFreeBoard() {
   const { fbNum } = useParams();
@@ -45,8 +45,6 @@ function UpdateFreeBoard() {
       setFormData({ ...formData, [name]: value });
     }
   };
-
-  const API_URL = 'http://localhost:8080';
 
   const Updategogos = async (e) => {
     e.preventDefault();

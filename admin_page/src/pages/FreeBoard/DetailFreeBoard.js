@@ -16,7 +16,7 @@ import {
   setSearchTF,
 } from '../../Redux/BoardAction';
 import BoradSerch from '../../components/BoardComponents/BoardSerch';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 
 function DetailFreeBoard() {
   const Pages = useSelector((state) => state.BoardState.pages);
@@ -77,7 +77,6 @@ function DetailFreeBoard() {
   });
 
   const formData = useSelector((state) => state.BoardState.formData);
-  const localurl = useSelector((state) => state.AniState.url);
   console.log(formData);
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
@@ -91,7 +90,7 @@ function DetailFreeBoard() {
 
   useEffect(() => {
     const image = new Image();
-    image.src = `${localurl}/file/${formData.photo}`;
+    image.src = `${API_URL}/file/${formData.photo}`;
     image.onload = () => {
       setImageDimensions({
         width: image.naturalWidth / 5,
@@ -133,7 +132,7 @@ function DetailFreeBoard() {
           {formData.fbContent}
           {formData.photo ? (
             <img
-              src={`${localurl}/file/${formData.photo}`}
+              src={`${API_URL}/file/${formData.photo}`}
               alt="이미지"
               style={{
                 width: imageDimensions.width,
