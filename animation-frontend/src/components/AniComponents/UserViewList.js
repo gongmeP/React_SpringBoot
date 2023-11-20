@@ -18,7 +18,11 @@ function UserViewList() {
         const res = await axiosAPI.get(
           `/ViewList/UserViewList?userid=${userid}`,
         );
-        setAllRank(res.data);
+        if (res.data === '시청데이터 없음') {
+          setAllRank([]);
+        } else {
+          setAllRank(res.data);
+        }
       };
       UserViewList();
     }
