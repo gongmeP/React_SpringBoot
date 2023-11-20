@@ -27,7 +27,7 @@ function Board() {
 
   const formData = useSelector((state) => state.BoardState.formData);
   const DetailFreeBoardGo = (fbNum) => {
-    fetch(`http://localhost:8080/FreeBoard/ReadCountUp/${fbNum}`)
+    fetch(`/FreeBoard/ReadCountUp/${fbNum}`)
       .then((res) => res)
       .then((res) => {
         window.scrollTo(0, 0);

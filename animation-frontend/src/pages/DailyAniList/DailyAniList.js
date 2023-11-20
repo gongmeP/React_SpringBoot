@@ -9,6 +9,7 @@ import store from '../../Redux/store';
 import { setAniALLArray } from '../../Redux/AniAction';
 import DailyAniButton from '../../components/DailyAniListComponents/DailyAniButton';
 import { setToday } from '../../Redux/DailyAction';
+import axiosAPI from '../../axiosAPI';
 
 function DailyAniList() {
   const reDate = new Date();
@@ -31,15 +32,11 @@ function DailyAniList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.post(
-          'http://localhost:8080/Ani/DayOfWeek',
-          Day,
-          {
-            headers: {
-              'Content-Type': 'text/plain',
-            },
+        const res = await axiosAPI.post('/Ani/DayOfWeek', Day, {
+          headers: {
+            'Content-Type': 'text/plain',
           },
-        );
+        });
         store.dispatch(setAniALLArray(res.data));
       } catch (error) {
         console.log('AniMainDaily AxiosError');

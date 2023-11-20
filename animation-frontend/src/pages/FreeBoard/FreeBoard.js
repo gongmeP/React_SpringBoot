@@ -13,6 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import BoardSearch from '../../components/BoardComponents/BoardSearch';
+import axiosAPI from '../../axiosAPI';
 
 function FreeBoard() {
   const Pages = useSelector((state) => state.BoardState.pages);
@@ -23,9 +24,7 @@ function FreeBoard() {
 
   useEffect(() => {
     const PagesFetch = async () => {
-      const res = await axios.post(
-        `http://localhost:8080/FreeBoard/Page?page=${Pages}`,
-      );
+      const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
       store.dispatch(setFreeBoards(res.data));
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
@@ -34,7 +33,7 @@ function FreeBoard() {
 
   useEffect(() => {
     const TotalPage = async () => {
-      const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
+      const res = await axiosAPI.get(`/FreeBoard/TotalPage`);
       store.dispatch(setFreeBoardsEA(res.data));
       store.dispatch(setPages(0));
     };

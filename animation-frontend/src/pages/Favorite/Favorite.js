@@ -7,6 +7,7 @@ import FavoriteItem from '../../components/FavoriteComponents/FavoriteItem';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axiosAPI from '../../axiosAPI';
 
 function Favorite() {
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ function Favorite() {
   useEffect(() => {
     if (userid !== null) {
       const UserViewList = async () => {
-        const res = await axios.get(
-          `http://localhost:8080/ViewList/UserViewList?userid=${userid}`,
+        const res = await axiosAPI.get(
+          `/ViewList/UserViewList?userid=${userid}`,
         );
         setAllRank(res.data);
       };
@@ -38,9 +39,7 @@ function Favorite() {
 
   useEffect(() => {
     const FavoriteData = async () => {
-      const res = await axios.get(
-        `http://localhost:8080/FavoriteList?userid=${userid}`,
-      );
+      const res = await axiosAPI.get(`/FavoriteList?userid=${userid}`);
       store.dispatch(setFavoriteList(res.data));
     };
     FavoriteData();

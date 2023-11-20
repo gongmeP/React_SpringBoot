@@ -13,8 +13,11 @@ import {
   StarImg,
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
+import axiosAPI from '../../axiosAPI';
+import { useSelector } from 'react-redux';
 
 function Detail(props) {
+  const localurl = useSelector((state) => state.AniState.url);
   const userid = sessionStorage.getItem('loginID');
   const propsParam = useParams();
   const id = propsParam.id;
@@ -23,7 +26,7 @@ function Detail(props) {
   const [detailAni, setDetailAni] = useState({});
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get(`http://localhost:8080/Ani/${id}`);
+      const res = await axiosAPI.get(`/Ani/${id}`);
       setDetailAni(res.data);
     };
     fetch();
@@ -33,7 +36,7 @@ function Detail(props) {
   useEffect(() => {
     const fetch2 = async () => {
       if (detailAni.id !== undefined) {
-        const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
+        const res2 = await axiosAPI.post(`/Favorite/Check`, {
           Ani_id: detailAni.id,
           member_mid: userid,
         });
@@ -50,12 +53,12 @@ function Detail(props) {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:8080/Favorite`, {
+      const res = await axiosAPI.post(`/Favorite`, {
         Ani_id: detailAni.id,
         member_mid: userid,
       });
 
-      const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
+      const res2 = await axiosAPI.post(`/Favorite/Check`, {
         Ani_id: detailAni.id,
         member_mid: userid,
       });
@@ -68,12 +71,12 @@ function Detail(props) {
 
   const favoriteDelete = async () => {
     try {
-      const res = await axios.post(`http://localhost:8080/Favorite/Delete`, {
+      const res = await axiosAPI.post(`/Favorite/Delete`, {
         Ani_id: detailAni.id,
         member_mid: userid,
       });
 
-      const res2 = await axios.post(`http://localhost:8080/Favorite/Check`, {
+      const res2 = await axiosAPI.post(`/Favorite/Check`, {
         Ani_id: detailAni.id,
         member_mid: userid,
       });
@@ -91,10 +94,8 @@ function Detail(props) {
       return;
     }
     try {
-      const res = await axios.put(
-        `http://localhost:8080/Ani/ViewCounter/${id}`,
-      );
-      const res2 = await axios.post(`http://localhost:8080/ViewList`, {
+      const res = await axiosAPI.put(`/Ani/ViewCounter/${id}`);
+      const res2 = await axiosAPI.post(`/ViewList`, {
         Ani_id: detailAni.id,
         member_mid: userid,
       });
@@ -128,7 +129,7 @@ function Detail(props) {
           </Col>
           <Col md={5} className="aniimgs">
             <DetailAniImg
-              src={`http://localhost:8080/file/AniImgFile/${detailAni.photo}`}
+              src={`${localurl}/File/AniImgFile/${detailAni.photo}`}
               alt="애니 포스터"
               fluid
             />

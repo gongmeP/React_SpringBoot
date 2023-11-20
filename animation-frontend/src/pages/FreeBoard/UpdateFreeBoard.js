@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import axiosAPI from '../../axiosAPI';
 
 function UpdateFreeBoard() {
   const { fbNum } = useParams();
@@ -18,9 +18,7 @@ function UpdateFreeBoard() {
   });
   useEffect(() => {
     const fetchdata = async () => {
-      const res = await axios.get(
-        `http://localhost:8080/FreeBoard/Detail/${fbNum}`,
-      );
+      const res = await axiosAPI.get(`/FreeBoard/Detail/${fbNum}`);
       setFormData(res.data[0]);
     };
     fetchdata();
@@ -28,7 +26,7 @@ function UpdateFreeBoard() {
 
   useEffect(() => {
     const image = new Image();
-    image.src = `http://localhost:8080/file/${formData.photo}`;
+    image.src = `/file/${formData.photo}`;
     image.onload = () => {
       setImageDimensions({
         width: image.naturalWidth / 10,
@@ -59,10 +57,7 @@ function UpdateFreeBoard() {
     body.append('photo', formData.photo);
     body.append('userid', formData.userid);
     try {
-      const res = await axios.post(
-        `http://localhost:8080/FreeBoard/Update/${fbNum}`,
-        body,
-      );
+      const res = await axiosAPI.post(`/FreeBoard/Update/${fbNum}`, body);
       setFormData({
         fbTitle: '',
         fbContent: '',
@@ -85,7 +80,7 @@ function UpdateFreeBoard() {
           loader.file.then((file) => {
             body.append('file', file);
 
-            fetch(`http://localhost:8080/FreeBoard/ImgSave`, {
+            fetch(`/FreeBoard/ImgSave`, {
               method: 'POST',
               body: body,
             })

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { AniImg } from '../../styledcomponents/AniDetail.styled';
 
 function DailyAniButton({ setDay, Daily }) {
+  const localurl = useSelector((state) => state.AniState.url);
   const DayChange = (day) => {
     setDay(day);
   };
@@ -38,7 +39,7 @@ function DailyAniButton({ setDay, Daily }) {
           <Col key={AniALLArray.id} className="p-1" md={3} sm={4} xs={4}>
             <AniImg
               onClick={() => AniDetailGo(AniALLArray.id)}
-              src={`http://localhost:8080/file/AniImgFile/${AniALLArray.photo}`}
+              src={`${localurl}/File/AniImgFile/${AniALLArray.photo}`}
               alt={AniALLArray.photo}
             ></AniImg>
             <div className="CardTitle" style={{ fontSize: '0.95rem' }}>

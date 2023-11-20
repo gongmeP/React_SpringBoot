@@ -4,18 +4,18 @@ import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
 import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
-import axios from 'axios';
 import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';
 import AniItem from '../../components/AniComponents/AniItem';
+import axiosAPI from '../../axiosAPI';
 
 function AllList() {
   const Anidata = useSelector((state) => state.AniState.Ani);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:8080/Ani/ALL`);
+      const res = await axiosAPI.get(`/Ani/ALL`);
       store.dispatch(setAni(res.data));
     };
     fetchData();

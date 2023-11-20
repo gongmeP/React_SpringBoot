@@ -11,15 +11,14 @@ import {
 } from 'react-bootstrap';
 import { setAni } from '../../Redux/AniAction';
 import store from '../../Redux/store';
+import axiosAPI from '../../axiosAPI';
 
 function Search() {
   const [searchText, setSearchText] = useState('');
   const Search = async (e) => {
     e.preventDefault();
 
-    const res2 = await axios.get(
-      `http://localhost:8080/Ani/search?title=${searchText}`,
-    );
+    const res2 = await axiosAPI.get(`/Ani/search?title=${searchText}`);
 
     store.dispatch(setAni(res2.data));
   };

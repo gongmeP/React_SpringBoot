@@ -8,6 +8,7 @@ import {
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axiosAPI from '../../axiosAPI';
 
 function JoinForm2() {
   const [zipcode, setZipcode] = useState('');
@@ -94,7 +95,7 @@ function JoinForm2() {
       return;
     }
 
-    const res = await axios.post('http://localhost:8080/addMember', member);
+    const res = await axiosAPI.post('/addMember', member);
     setShowCompleteModal(true);
   };
 
@@ -133,7 +134,7 @@ function JoinForm2() {
       alert('아이디를 입력해주세요');
       return;
     }
-    const res = await axios.post('http://localhost:8080/Member/idcheck', mid, {
+    const res = await axiosAPI.post('/Member/idcheck', mid, {
       headers: {
         'Content-Type': 'text/plain',
       },

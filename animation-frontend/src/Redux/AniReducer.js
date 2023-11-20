@@ -17,6 +17,7 @@ const initstate = {
       '드라마',
     ],
   },
+  url: 'http://localhost:8080',
 };
 
 const AniReducer = (state = initstate, action) => {
@@ -31,6 +32,8 @@ const AniReducer = (state = initstate, action) => {
       return { ...state, AniALLArray: action.payload };
     case 'setGenreArray':
       return { ...state, genreArray: action.payload };
+    case 'setURL':
+      return { ...state, url: action.payload };
     default:
       return state;
   }

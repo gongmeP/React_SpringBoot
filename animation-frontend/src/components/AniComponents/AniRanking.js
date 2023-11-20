@@ -6,19 +6,22 @@ import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
 import { Button } from 'react-bootstrap';
+import axiosAPI from '../../axiosAPI';
+import { useSelector } from 'react-redux';
 
 function AniRanking() {
+  const localurl = useSelector((state) => state.AniState.url);
   const [AllRank, setAllRank] = useState([]);
   const [ButtonActive, setButtonActive] = useState('today');
   useEffect(() => {
     const AniAllRanking = async () => {
       let res;
       if (ButtonActive === 'today') {
-        res = await axios.get(`http://localhost:8080/Ani/AniOneDayRanking`);
+        res = await axiosAPI.get(`/Ani/AniOneDayRanking`);
       } else if (ButtonActive === 'thisWeek') {
-        res = await axios.get(`http://localhost:8080/Ani/AniWeekRanking`);
+        res = await axiosAPI.get(`/Ani/AniWeekRanking`);
       } else {
-        res = await axios.get(`http://localhost:8080/Ani/AniAllRanking`);
+        res = await axiosAPI.get(`/Ani/AniAllRanking`);
       }
       setAllRank(res.data);
       console.log(res.data);
@@ -156,7 +159,7 @@ function AniRanking() {
           <div key={AllRank.id} className="p-0">
             <AniImg
               onClick={() => AniDetailGo(AllRank.id)}
-              src={`http://localhost:8080/file/AniImgFile/${AllRank.photo}`}
+              src={`${localurl}/File/AniImgFile/${AllRank.photo}`}
               alt={AllRank.photo}
             ></AniImg>
             <div style={{ display: 'flex' }}>

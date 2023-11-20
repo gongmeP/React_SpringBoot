@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import store from '../../Redux/store';
 import { loginSuccess } from '../../Redux/LoginAction';
 import axios from 'axios';
+import axiosAPI from '../../axiosAPI';
 
 const Login = () => {
   const [id, setId] = useState('');
@@ -13,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     const data = { mid: id, mpass: password };
 
-    const res = await axios.post('http://localhost:8080/Member/login', data);
+    const res = await axiosAPI.post('/Member/login', data);
 
     if (res.data.loginID != null) {
       store.dispatch(loginSuccess(res.data.loginID, res.data.loginUsername));

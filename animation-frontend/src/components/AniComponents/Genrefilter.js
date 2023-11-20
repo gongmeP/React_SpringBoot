@@ -5,6 +5,7 @@ import axios from 'axios';
 import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import ResetButton from './ResetButton';
+import axiosAPI from '../../axiosAPI';
 
 function Genrefilter() {
   const genreArray = useSelector((state) => state.AniState.genreArray);
@@ -14,17 +15,14 @@ function Genrefilter() {
     const Genre = async () => {
       if (checkfilter.length !== 0) {
         try {
-          const res = await axios.post(
-            `http://localhost:8080/Ani/GenreFilter`,
-            checkfilter,
-          );
+          const res = await axiosAPI.post(`/Ani/GenreFilter`, checkfilter);
           store.dispatch(setAni(res.data));
         } catch (error) {
           console.error('Genre axios Error');
         }
       } else if (checkfilter.length === 0) {
         const fetchData = async () => {
-          const res = await axios.get(`http://localhost:8080/Ani/ALL`);
+          const res = await axiosAPI.get(`/Ani/ALL`);
           store.dispatch(setAni(res.data));
         };
         fetchData();

@@ -17,16 +17,16 @@ import {
 } from '../../Redux/BoardAction';
 import axios from 'axios';
 import BoardSearch from '../../components/BoardComponents/BoardSearch';
+import axiosAPI from '../../axiosAPI';
 
 function DetailFreeBoard() {
+  const localurl = useSelector((state) => state.AniState.url);
   const Pages = useSelector((state) => state.BoardState.pages);
   const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
   const searchTF = useSelector((state) => state.BoardState.searchTF);
   useEffect(() => {
     const PagesFetch = async () => {
-      const res = await axios.post(
-        `http://localhost:8080/FreeBoard/Page?page=${Pages}`,
-      );
+      const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
       store.dispatch(setFreeBoards(res.data));
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
@@ -34,7 +34,7 @@ function DetailFreeBoard() {
   }, [Pages]);
   useEffect(() => {
     const TotalPage = async () => {
-      const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
+      const res = await axiosAPI.get(`/FreeBoard/TotalPage`);
       store.dispatch(setFreeBoardsEA(res.data));
     };
     TotalPage();
@@ -52,9 +52,7 @@ function DetailFreeBoard() {
   };
   const DeletefreeBoardGo = async () => {
     if (window.confirm('게시글을 삭제 하시겠습니까?')) {
-      const res = await axios.get(
-        `http://localhost:8080/FreeBoard/Delete/${fbNum}`,
-      );
+      const res = await axiosAPI.get(`/FreeBoard/Delete/${fbNum}`);
       if (res.data === 'DeleteOk') {
         alert('게시글이 삭제 되었습니다.');
         navigate('/freeBoard');
@@ -84,9 +82,7 @@ function DetailFreeBoard() {
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
     const fetchdata = async () => {
-      const res = await axios.get(
-        `http://localhost:8080/FreeBoard/Detail/${fbNum}`,
-      );
+      const res = await axiosAPI.get(`/FreeBoard/Detail/${fbNum}`);
       store.dispatch(setFormData(res.data[0]));
     };
     fetchdata();
@@ -94,7 +90,7 @@ function DetailFreeBoard() {
 
   useEffect(() => {
     const image = new Image();
-    image.src = `http://localhost:8080/file/${formData.photo}`;
+    image.src = `${localurl}/file/${formData.photo}`;
     image.onload = () => {
       setImageDimensions({
         width: image.naturalWidth / 5,
@@ -137,7 +133,7 @@ function DetailFreeBoard() {
           {formData.fbContent}
           {formData.photo ? (
             <img
-              src={`http://localhost:8080/file/${formData.photo}`}
+              src={`${localurl}/file/${formData.photo}`}
               alt="이미지"
               style={{
                 width: imageDimensions.width,
