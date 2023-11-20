@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import BoradSerch from '../../components/BoardComponents/BoardSerch';
 import { Button } from 'react-bootstrap';
+import axiosAPI from '../../axiosAPI';
 
 function FreeBoard() {
   const Pages = useSelector((state) => state.BoardState.pages);
@@ -24,9 +25,7 @@ function FreeBoard() {
 
   useEffect(() => {
     const PagesFetch = async () => {
-      const res = await axios.post(
-        `http://localhost:8080/FreeBoard/Page?page=${Pages}`,
-      );
+      const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
       store.dispatch(setFreeBoards(res.data));
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
@@ -35,7 +34,7 @@ function FreeBoard() {
 
   useEffect(() => {
     const TotalPage = async () => {
-      const res = await axios.get(`http://localhost:8080/FreeBoard/TotalPage`);
+      const res = await axiosAPI.get(`/FreeBoard/TotalPage`);
       store.dispatch(setFreeBoardsEA(res.data));
       store.dispatch(setPages(0));
     };
@@ -48,8 +47,8 @@ function FreeBoard() {
 
   const selectBoardDelete = async () => {
     if (window.confirm('선택된 게시글을 전체 삭제합니다.')) {
-      const res = await axios.put(
-        `http://localhost:8080/FreeBoardList/SelectDelete/${SelectBoardArray}`,
+      const res = await axiosAPI.put(
+        `/FreeBoardList/SelectDelete/${SelectBoardArray}`,
       );
       if (res.data === '삭제완료') {
         alert('게시글이 삭제되었습니다.');

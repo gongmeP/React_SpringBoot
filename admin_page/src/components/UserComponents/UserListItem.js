@@ -30,9 +30,7 @@ function UserListItem({ SetReuseEffect, reuseEffect }) {
 
   const deletemember = async (e) => {
     if (window.confirm('! 회원을 삭제 할꺼에요? 정말로? !')) {
-      const res = await axios.put(
-        `http://localhost:8080/Memberlist/DeleteUpdate/${e.target.id}`,
-      );
+      const res = await axiosAPI.put(`/Memberlist/DeleteUpdate/${e.target.id}`);
       if (res.data == '삭제완료') {
         alert('회원이 삭제되었습니다.');
         SetReuseEffect(reuseEffect + 1);

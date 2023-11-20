@@ -13,6 +13,7 @@ import {
   StarImg,
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
+import axiosAPI from '../../axiosAPI';
 
 function Detail(props) {
   const userid = sessionStorage.getItem('loginID');
@@ -23,7 +24,7 @@ function Detail(props) {
   const [detailAni, setDetailAni] = useState({});
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get(`http://localhost:8080/Ani/${id}`);
+      const res = await axiosAPI.get(`/Ani/${id}`);
       setDetailAni(res.data);
     };
     fetch();
@@ -53,7 +54,7 @@ function Detail(props) {
           </Col>
           <Col md={5} className="aniimgs">
             <AniImg
-              src={`http://localhost:8080/file/AniImgFile/${detailAni.photo}`}
+              src={`/file/AniImgFile/${detailAni.photo}`}
               alt="애니 포스터"
               fluid
             />

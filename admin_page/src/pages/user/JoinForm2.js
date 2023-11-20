@@ -8,6 +8,7 @@ import {
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axiosAPI from '../../axiosAPI';
 
 function JoinForm2() {
   const [Adminmember, setAdminMember] = useState({
@@ -71,7 +72,7 @@ function JoinForm2() {
       return;
     }
 
-    const res = await axios.post('http://localhost:8080/addAdmin', Adminmember);
+    const res = await axiosAPI.post('/addAdmin', Adminmember);
 
     console.log(res.data);
     setShowCompleteModal(true);
@@ -112,15 +113,11 @@ function JoinForm2() {
       alert('아이디를 입력해주세요');
       return;
     }
-    const res = await axios.post(
-      'http://localhost:8080/Admin/idcheck',
-      adminid,
-      {
-        headers: {
-          'Content-Type': 'text/plain',
-        },
+    const res = await axiosAPI.post('/Admin/idcheck', adminid, {
+      headers: {
+        'Content-Type': 'text/plain',
       },
-    );
+    });
 
     if (res.data === '아이디를 사용할 수 있습니다.') {
       alert(res.data);

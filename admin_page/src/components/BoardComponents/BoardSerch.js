@@ -16,6 +16,7 @@ import {
   setSearchTF,
 } from '../../Redux/BoardAction';
 import { useSelector } from 'react-redux';
+import axiosAPI from '../../axiosAPI';
 
 function BoradSerch() {
   const SearchPages = useSelector((state) => state.BoardState.SearchPages);
@@ -34,8 +35,8 @@ function BoradSerch() {
   };
 
   const Search = async () => {
-    const res = await axios.get(
-      `http://localhost:8080/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
+    const res = await axiosAPI.get(
+      `/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
     );
 
     store.dispatch(setFreeBoards(res.data.freeBoard));
@@ -49,8 +50,8 @@ function BoradSerch() {
       return;
     }
     const SearchPage = async () => {
-      const res = await axios.get(
-        `http://localhost:8080/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
+      const res = await axiosAPI.get(
+        `/FreeBoard/search?fbtitle=${searchText}&page=${SearchPages}`,
       );
 
       store.dispatch(setFreeBoards(res.data.freeBoard));

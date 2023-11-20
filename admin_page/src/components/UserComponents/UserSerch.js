@@ -17,6 +17,7 @@ import {
   SetUserArrayEA,
   SetUserSearchTF,
 } from '../../Redux/UserAcrion';
+import axiosAPI from '../../axiosAPI';
 
 function UserSearch() {
   const SearchPages = useSelector((state) => state.userState.UserSearchPage);
@@ -39,12 +40,12 @@ function UserSearch() {
   const Search = async () => {
     let res;
     if (select === '아이디') {
-      res = await axios.get(
-        `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+      res = await axiosAPI.get(
+        `/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
       );
     } else if (select === '이름') {
-      res = await axios.get(
-        `http://localhost:8080/Memberlist/IdSearch?mname=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+      res = await axiosAPI.get(
+        `/Memberlist/IdSearch?mname=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
       );
     } else {
       console.log('아이디 이름 셀렉트오류');
@@ -62,12 +63,12 @@ function UserSearch() {
     const SearchPage = async () => {
       let res;
       if (select === '아이디') {
-        res = await axios.get(
-          `http://localhost:8080/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+        res = await axiosAPI.get(
+          `/Memberlist/IdSearch?mid=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
         );
       } else if (select === '이름') {
-        res = await axios.get(
-          `http://localhost:8080/Memberlist/IdSearch?mname=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
+        res = await axiosAPI.get(
+          `/Memberlist/IdSearch?mname=${searchText}&page=${SearchPages}&pagesize=${PageSize}`,
         );
       } else {
         console.log('아이디 이름 셀렉트오류');

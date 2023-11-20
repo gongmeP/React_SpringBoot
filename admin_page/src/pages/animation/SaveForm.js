@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axiosAPI from '../../axiosAPI';
 
 function SaveForm(props) {
   const [AniInsert, setAniInsert] = useState({
@@ -48,20 +49,17 @@ function SaveForm(props) {
   };
 
   const Imgname = async (e) => {
-    const Imgname = e.target.files[0].name;
     const Imgfile = e.target.files[0];
 
     const formData = new FormData();
     formData.append('file', Imgfile);
 
     try {
-      const res = await axios.post(
-        'http://localhost:8080/Ani/PhotoSave',
-        formData,
-      );
+      const res = await axiosAPI.post('/Ani/PhotoSave', formData);
       setAniInsert({ ...AniInsert, photo: res.data[0] });
+      console.log(res.data[0]);
     } catch (error) {
-      console.log('SaveFormAxiosError');
+      console.error('SaveFormAxiosError:', error);
     }
   };
 
@@ -70,14 +68,7 @@ function SaveForm(props) {
 
     if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
       try {
-        const formData = new FormData();
-        formData.append('file', AniInsert.photoFile);
-
-        const res = await axios.post('http://localhost:8080/Ani', AniInsert, {
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-          },
-        });
+        const res = await axiosAPI.post('/Ani', AniInsert, {});
 
         alert('업로드 완료되었습니다.');
         navigate('/');

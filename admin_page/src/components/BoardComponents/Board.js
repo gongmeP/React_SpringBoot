@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import store from '../../Redux/store';
 import { SetSelectBoardArray } from '../../Redux/BoardAction';
 import { useState } from 'react';
+import axiosAPI from '../../axiosAPI';
 
 function Board() {
   const freeBoards = useSelector((state) => state.BoardState.freeBoards);
@@ -34,14 +35,10 @@ function Board() {
 
   const navigate = useNavigate();
 
-  const formData = useSelector((state) => state.BoardState.formData);
-  const DetailFreeBoardGo = (fbNum) => {
-    fetch(`http://localhost:8080/FreeBoard/ReadCountUp/${fbNum}`)
-      .then((res) => res)
-      .then((res) => {
-        window.scrollTo(0, 0);
-        navigate(`/detailFreeBoard/${fbNum}`);
-      });
+  const DetailFreeBoardGo = async (fbNum) => {
+    const res = await axiosAPI.get(`/FreeBoard/ReadCountUp/${fbNum}`);
+    window.scrollTo(0, 0);
+    navigate(`/detailFreeBoard/${fbNum}`);
   };
 
   const SelectBoard = (e, fbNum) => {

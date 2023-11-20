@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+import axiosAPI from '../../axiosAPI';
 
 function UpdateForm(props) {
   const propsParam = useParams();
@@ -23,7 +24,7 @@ function UpdateForm(props) {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const res = await axios.get(`http://localhost:8080/Ani/${id}`);
+      const res = await axiosAPI.get(`/Ani/${id}`);
       setAniInsert(res.data);
       console.log(res.data);
     };
@@ -32,7 +33,7 @@ function UpdateForm(props) {
 
   const submitBook = async (e) => {
     e.preventDefault();
-    const res = await axios.put(`http://localhost:8080/Ani/${id}`, AniInsert);
+    const res = await axiosAPI.put(`/Ani/${id}`, AniInsert);
     console.log(res.data);
   };
 
@@ -73,10 +74,7 @@ function UpdateForm(props) {
     formData.append('file', Imgfile);
 
     try {
-      const res = await axios.post(
-        'http://localhost:8080/Ani/PhotoSave',
-        formData,
-      );
+      const res = await axiosAPI.post('/Ani/PhotoSave', formData);
       setAniInsert({ ...AniInsert, photo: res.data[0] });
     } catch (error) {
       console.log('SaveFormAxiosError');
@@ -91,7 +89,7 @@ function UpdateForm(props) {
         const formData = new FormData();
         formData.append('file', AniInsert.photoFile);
 
-        const res = await axios.post('http://localhost:8080/Ani', AniInsert, {
+        const res = await axiosAPI.post('/Ani', AniInsert, {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
           },

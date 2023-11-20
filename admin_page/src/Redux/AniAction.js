@@ -20,3 +20,8 @@ export const setAniALLArray = (AniALLArray) => ({
   type: 'setAniALLArray',
   payload: AniALLArray,
 });
+
+export const setURL = (url) => ({
+  type: 'setURL',
+  payload: url,
+});

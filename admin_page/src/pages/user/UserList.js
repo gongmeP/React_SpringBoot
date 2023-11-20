@@ -14,6 +14,7 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import axiosAPI from '../../axiosAPI';
 
 function UserList() {
   const PageSize = useSelector((state) => state.userState.UserPageSize);
@@ -29,8 +30,8 @@ function UserList() {
 
   useEffect(() => {
     const PagesFetch = async () => {
-      const res = await axios.get(
-        `http://localhost:8080/Memberlist/Page?page=${Pages}&pagesize=${PageSize}`,
+      const res = await axiosAPI.get(
+        `/Memberlist/Page?page=${Pages}&pagesize=${PageSize}`,
       );
       store.dispatch(SetUserArray(res.data.member.content));
       store.dispatch(SetUserArrayEA(res.data.totalPage));
@@ -42,8 +43,8 @@ function UserList() {
 
   const selectDelete = async () => {
     if (window.confirm('! 선택된 회원을 삭제 할꺼에요? 정말로? !')) {
-      const res = await axios.put(
-        `http://localhost:8080/Memberlist/DeleteUpdateSelect/${SelectMemberArray}`,
+      const res = await axiosAPI.put(
+        `/Memberlist/DeleteUpdateSelect/${SelectMemberArray}`,
       );
       if (res.data == '삭제완료') {
         alert('회원이 삭제되었습니다.');
