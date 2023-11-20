@@ -13,11 +13,10 @@ import {
   StarImg,
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 import { useSelector } from 'react-redux';
 
 function Detail(props) {
-  const localurl = useSelector((state) => state.AniState.url);
   const userid = sessionStorage.getItem('loginID');
   const propsParam = useParams();
   const id = propsParam.id;
@@ -129,7 +128,7 @@ function Detail(props) {
           </Col>
           <Col md={5} className="aniimgs">
             <DetailAniImg
-              src={`${localurl}/File/AniImgFile/${detailAni.photo}`}
+              src={`${API_URL}/File/AniImgFile/${detailAni.photo}`}
               alt="애니 포스터"
               fluid
             />

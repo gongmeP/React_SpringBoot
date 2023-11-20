@@ -9,10 +9,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AniImg, HomeAniImg } from '../../styledcomponents/AniDetail.styled';
 import { setToday } from '../../Redux/DailyAction';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 function AniMainDaily() {
   const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
-  const localurl = useSelector((state) => state.AniState.url);
 
   const [Day, setDay] = useState('월');
   const [ButtonActive, setButtonActive] = useState('월');
@@ -169,7 +168,7 @@ function AniMainDaily() {
           <div key={AniALLArray.id} className="p-0">
             <AniImg
               onClick={() => AniDetailGo(AniALLArray.id)}
-              src={`${localurl}/File/AniImgFile/${AniALLArray.photo}`}
+              src={`${API_URL}/File/AniImgFile/${AniALLArray.photo}`}
               alt={AniALLArray.photo}
             ></AniImg>
             <div className="CardTitle" style={{ fontSize: '0.95rem' }}>

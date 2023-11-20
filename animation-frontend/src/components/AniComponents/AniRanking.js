@@ -6,11 +6,10 @@ import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
 import { Button } from 'react-bootstrap';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 import { useSelector } from 'react-redux';
 
 function AniRanking() {
-  const localurl = useSelector((state) => state.AniState.url);
   const [AllRank, setAllRank] = useState([]);
   const [ButtonActive, setButtonActive] = useState('today');
   useEffect(() => {
@@ -159,7 +158,7 @@ function AniRanking() {
           <div key={AllRank.id} className="p-0">
             <AniImg
               onClick={() => AniDetailGo(AllRank.id)}
-              src={`${localurl}/File/AniImgFile/${AllRank.photo}`}
+              src={`${API_URL}/File/AniImgFile/${AllRank.photo}`}
               alt={AllRank.photo}
             ></AniImg>
             <div style={{ display: 'flex' }}>

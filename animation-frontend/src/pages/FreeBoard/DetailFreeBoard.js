@@ -17,10 +17,9 @@ import {
 } from '../../Redux/BoardAction';
 import axios from 'axios';
 import BoardSearch from '../../components/BoardComponents/BoardSearch';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 
 function DetailFreeBoard() {
-  const localurl = useSelector((state) => state.AniState.url);
   const Pages = useSelector((state) => state.BoardState.pages);
   const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
   const searchTF = useSelector((state) => state.BoardState.searchTF);
@@ -86,11 +85,11 @@ function DetailFreeBoard() {
       store.dispatch(setFormData(res.data[0]));
     };
     fetchdata();
-  }, [formData]);
+  }, [fbNum]);
 
   useEffect(() => {
     const image = new Image();
-    image.src = `${localurl}/file/${formData.photo}`;
+    image.src = `${API_URL}/file/${formData.photo}`;
     image.onload = () => {
       setImageDimensions({
         width: image.naturalWidth / 5,
@@ -133,7 +132,7 @@ function DetailFreeBoard() {
           {formData.fbContent}
           {formData.photo ? (
             <img
-              src={`${localurl}/file/${formData.photo}`}
+              src={`${API_URL}/file/${formData.photo}`}
               alt="이미지"
               style={{
                 width: imageDimensions.width,

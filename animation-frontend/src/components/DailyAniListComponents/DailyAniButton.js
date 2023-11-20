@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AniImg } from '../../styledcomponents/AniDetail.styled';
+import { API_URL } from '../../axiosAPI';
 
 function DailyAniButton({ setDay, Daily }) {
-  const localurl = useSelector((state) => state.AniState.url);
   const DayChange = (day) => {
     setDay(day);
   };
@@ -39,7 +39,7 @@ function DailyAniButton({ setDay, Daily }) {
           <Col key={AniALLArray.id} className="p-1" md={3} sm={4} xs={4}>
             <AniImg
               onClick={() => AniDetailGo(AniALLArray.id)}
-              src={`${localurl}/File/AniImgFile/${AniALLArray.photo}`}
+              src={`${API_URL}/File/AniImgFile/${AniALLArray.photo}`}
               alt={AniALLArray.photo}
             ></AniImg>
             <div className="CardTitle" style={{ fontSize: '0.95rem' }}>

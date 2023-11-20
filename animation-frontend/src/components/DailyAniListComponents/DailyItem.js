@@ -5,10 +5,9 @@ import { useEffect } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 
 function DailyItem({ day }) {
-  const localurl = useSelector((state) => state.AniState.url);
   const [Ani, setDailyAni] = useState([]);
   const navigate = useNavigate();
   const Detailgo = (id) => {
@@ -49,7 +48,7 @@ function DailyItem({ day }) {
           <Card className="anicard2" key={Ani.id}>
             <Card.Img
               variant="top"
-              src={`${localurl}/File/AniImgFile/${Ani.photo}`}
+              src={`${API_URL}/File/AniImgFile/${Ani.photo}`}
               onClick={() => Detailgo(Ani.id)}
               style={{ cursor: 'pointer' }}
             />

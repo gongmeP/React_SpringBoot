@@ -5,12 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 import { useSelector } from 'react-redux';
 
 function UserViewList() {
   const userid = window.sessionStorage.getItem('loginID');
-  const localurl = useSelector((state) => state.AniState.url);
 
   const [AllRank, setAllRank] = useState([]);
   useEffect(() => {
@@ -124,7 +123,7 @@ function UserViewList() {
               <div key={AllRank.id} className="p-0">
                 <AniImg
                   onClick={() => AniDetailGo(AllRank.id)}
-                  src={`${localurl}/File/AniImgFile/${AllRank.photo}`}
+                  src={`${API_URL}/File/AniImgFile/${AllRank.photo}`}
                   alt={AllRank.photo}
                 ></AniImg>
                 <div className="CardTitle" style={{ fontSize: '0.95rem' }}>
