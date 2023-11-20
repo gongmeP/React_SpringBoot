@@ -123,7 +123,7 @@ function UserViewList() {
               <div key={AllRank.id} className="p-0">
                 <AniImg
                   onClick={() => AniDetailGo(AllRank.id)}
-                  src={`${API_URL}/File/AniImgFile/${AllRank.photo}`}
+                  src={`${API_URL}/file/AniImgFile/${AllRank.photo}`}
                   alt={AllRank.photo}
                 ></AniImg>
                 <div className="CardTitle" style={{ fontSize: '0.95rem' }}>

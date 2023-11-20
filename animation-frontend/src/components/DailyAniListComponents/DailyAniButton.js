@@ -39,7 +39,7 @@ function DailyAniButton({ setDay, Daily }) {
           <Col key={AniALLArray.id} className="p-1" md={3} sm={4} xs={4}>
             <AniImg
               onClick={() => AniDetailGo(AniALLArray.id)}
-              src={`${API_URL}/File/AniImgFile/${AniALLArray.photo}`}
+              src={`${API_URL}/file/AniImgFile/${AniALLArray.photo}`}
               alt={AniALLArray.photo}
             ></AniImg>
             <div className="CardTitle" style={{ fontSize: '0.95rem' }}>

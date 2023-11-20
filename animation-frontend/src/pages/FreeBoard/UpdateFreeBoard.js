@@ -78,7 +78,7 @@ function UpdateFreeBoard() {
           loader.file.then((file) => {
             body.append('file', file);
 
-            fetch(`/FreeBoard/ImgSave`, {
+            fetch(`${API_URL}/FreeBoard/ImgSave`, {
               method: 'POST',
               body: body,
             })

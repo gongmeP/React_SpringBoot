@@ -14,7 +14,6 @@ import {
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
 import axiosAPI, { API_URL } from '../../axiosAPI';
-import { useSelector } from 'react-redux';
 
 function Detail(props) {
   const userid = sessionStorage.getItem('loginID');
@@ -128,7 +127,7 @@ function Detail(props) {
           </Col>
           <Col md={5} className="aniimgs">
             <DetailAniImg
-              src={`${API_URL}/File/AniImgFile/${detailAni.photo}`}
+              src={`${API_URL}/file/AniImgFile/${detailAni.photo}`}
               alt="애니 포스터"
               fluid
             />

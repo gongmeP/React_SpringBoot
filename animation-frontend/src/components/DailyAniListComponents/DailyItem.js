@@ -48,7 +48,7 @@ function DailyItem({ day }) {
           <Card className="anicard2" key={Ani.id}>
             <Card.Img
               variant="top"
-              src={`${API_URL}/File/AniImgFile/${Ani.photo}`}
+              src={`${API_URL}/file/AniImgFile/${Ani.photo}`}
               onClick={() => Detailgo(Ani.id)}
               style={{ cursor: 'pointer' }}
             />

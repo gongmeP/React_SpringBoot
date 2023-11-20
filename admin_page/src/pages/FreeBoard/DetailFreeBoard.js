@@ -77,7 +77,7 @@ function DetailFreeBoard() {
   });
 
   const formData = useSelector((state) => state.BoardState.formData);
-  console.log(formData);
+
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
     const fetchdata = async () => {
@@ -86,7 +86,7 @@ function DetailFreeBoard() {
       console.log(res.data);
     };
     fetchdata();
-  }, [formData]);
+  }, [fbNum]);
 
   useEffect(() => {
     const image = new Image();

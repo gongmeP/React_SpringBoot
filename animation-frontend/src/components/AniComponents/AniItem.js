@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../axiosAPI';
 
 function AniItem({ Anidata }) {
   const { id, title } = Anidata;
@@ -9,12 +10,12 @@ function AniItem({ Anidata }) {
   const Detailgo = () => {
     navigate('/Ani/' + id);
   };
-  const localurl = useSelector((state) => state.AniState.url);
+
   return (
     <Card className="anicard" key={Anidata.id} style={{ float: 'left' }}>
       <Card.Img
         variant="top"
-        src={`${localurl}/File/AniImgFile/${Anidata.photo}`}
+        src={`${API_URL}/file/AniImgFile/${Anidata.photo}`}
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
       />

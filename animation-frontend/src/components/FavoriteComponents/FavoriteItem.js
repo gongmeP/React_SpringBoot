@@ -15,7 +15,7 @@ function FavoriteItem({ FavoriteList }) {
     <Card className="anicard" key={FavoriteList.id} style={{ float: 'left' }}>
       <Card.Img
         variant="top"
-        src={`${API_URL}/File/AniImgFile/${FavoriteList.photo}`}
+        src={`${API_URL}/file/AniImgFile/${FavoriteList.photo}`}
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
       />
