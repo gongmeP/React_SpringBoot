@@ -6,8 +6,10 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosAPI, { API_URL } from '../../axiosAPI';
+import LoadingSpinner from '../MainComponents/LodingSpinner';
 
 function DailyItem({ day }) {
+  const [loading, setLoading] = useState(true);
   const [Ani, setDailyAni] = useState([]);
   const navigate = useNavigate();
   const Detailgo = (id) => {
@@ -24,8 +26,10 @@ function DailyItem({ day }) {
           },
         });
         setDailyAni(res.data);
+        setLoading(false);
       } catch (error) {
         console.log('AniMainDaily AxiosError');
+        setLoading(true);
       }
     };
     fetchData123();
@@ -44,26 +48,33 @@ function DailyItem({ day }) {
         >
           {day}요일
         </div>
-        {Ani.map((Ani) => (
-          <Card className="anicard2" key={Ani.id}>
-            <Card.Img
-              variant="top"
-              src={`${API_URL}/file/AniImgFile/${Ani.photo}`}
-              onClick={() => Detailgo(Ani.id)}
-              style={{ cursor: 'pointer' }}
-            />
-            <Card.Body className="p-0">
-              <Card.Title
-                className={`mb-0 CardTitle2 ${
-                  day === reDate ? 'DailyitemCol2' : ''
-                }`}
-                style={{ fontSize: '0.9rem' }}
-              >
-                {Ani.title}
-              </Card.Title>
-            </Card.Body>
-          </Card>
-        ))}
+
+        {loading ? (
+          <LoadingSpinner></LoadingSpinner>
+        ) : (
+          <>
+            {Ani.map((Ani) => (
+              <Card className="anicard2" key={Ani.id}>
+                <Card.Img
+                  variant="top"
+                  src={`${API_URL}/file/AniImgFile/${Ani.photo}`}
+                  onClick={() => Detailgo(Ani.id)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <Card.Body className="p-0">
+                  <Card.Title
+                    className={`mb-0 CardTitle2 ${
+                      day === reDate ? 'DailyitemCol2' : ''
+                    }`}
+                    style={{ fontSize: '0.9rem' }}
+                  >
+                    {Ani.title}
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            ))}
+          </>
+        )}
       </Col>
     </>
   );
