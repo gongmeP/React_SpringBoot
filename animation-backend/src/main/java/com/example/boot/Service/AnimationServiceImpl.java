@@ -43,7 +43,7 @@ public class AnimationServiceImpl implements AnimationService {
     @Transactional
     public List<Animation> getDayOfWeek(String day_of_week) {
         String uploaded = "y";
-        return animationRepository.findByDayOfWeekAndUploaded(day_of_week,uploaded);
+        return animationRepository.findByDayOfWeekAndUploadedAndAnidelete(day_of_week,uploaded,"n");
     }
 
     @Transactional

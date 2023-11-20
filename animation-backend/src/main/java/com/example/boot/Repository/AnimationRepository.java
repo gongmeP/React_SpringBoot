@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
-    List<Animation> findByDayOfWeekAndUploaded(String dayOfWeek, String uploaded);
+    List<Animation> findByDayOfWeekAndUploadedAndAnidelete(String dayOfWeek, String uploaded,String n);
 
     List<Animation> searchByTitleContainingAndAnidelete(String Title , String string);
 
