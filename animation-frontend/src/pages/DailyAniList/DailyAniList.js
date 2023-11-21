@@ -18,7 +18,6 @@ function DailyAniList() {
   });
   const rereDate = dayOfWeek.replace(/요일/, '');
   store.dispatch(setToday(rereDate));
-
   const [Daily, setDaily] = useState([
     '월',
     '화',

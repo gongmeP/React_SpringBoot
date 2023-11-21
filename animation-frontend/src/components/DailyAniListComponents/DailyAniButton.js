@@ -8,25 +8,35 @@ import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { API_URL } from '../../axiosAPI';
 
 function DailyAniButton({ setDay, Daily }) {
+  const reDate = new Date();
+  const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+  });
+  const rereDate = dayOfWeek.replace(/요일/, '');
+
   const DayChange = (day) => {
     setDay(day);
+    setButtonActive(day);
+    console.log(day);
   };
   const navigate = useNavigate();
   const AniDetailGo = (id) => {
     navigate('/Ani/' + id);
   };
-  const reDate = useSelector((state) => state.DailyState.today);
+  const [ButtonActive, setButtonActive] = useState(`${rereDate}`);
   const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
+
   return (
     <>
       <Row className="d-block d-lg-none">
         <Col className="DailyCol">
           {Daily.map((day) => (
             <Button
+              key={day}
               variant="secondary"
               className={`dailyButton1 ${
-                day === reDate ? 'DailyitemCol2' : ''
-              }`}
+                day === rereDate ? 'DailyitemCol2' : ''
+              } ${ButtonActive === day ? 'ButtonActive' : ''}`}
               onClick={() => DayChange(`${day}`)}
             >
               {day}

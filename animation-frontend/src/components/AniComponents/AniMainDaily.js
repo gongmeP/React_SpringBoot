@@ -11,10 +11,16 @@ import { AniImg, HomeAniImg } from '../../styledcomponents/AniDetail.styled';
 import { setToday } from '../../Redux/DailyAction';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 function AniMainDaily() {
+  const reDate = new Date();
+  const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+  });
+  const rereDate = dayOfWeek.replace(/요일/, '');
+  store.dispatch(setToday(rereDate));
   const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
 
-  const [Day, setDay] = useState('월');
-  const [ButtonActive, setButtonActive] = useState('월');
+  const [Day, setDay] = useState(`${rereDate}`);
+  const [ButtonActive, setButtonActive] = useState(`${rereDate}`);
   const DayChange = (day) => {
     setDay(day);
     setActiveItemIndex(0);
@@ -86,13 +92,6 @@ function AniMainDaily() {
     '토',
     '일',
   ]);
-
-  const reDate = new Date();
-  const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
-    weekday: 'long',
-  });
-  const rereDate = dayOfWeek.replace(/요일/, '');
-  store.dispatch(setToday(rereDate));
 
   return (
     <>

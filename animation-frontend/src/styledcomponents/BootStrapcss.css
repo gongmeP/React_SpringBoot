@@ -59,11 +59,6 @@
     color: #F0EDFF !important;
   }
 
-  .ButtonActive {
-    background-color:#816BFF !important; 
-    border-color: #816BFF  !important; 
-    color: #F0EDFF !important;
-  }
 
   .dailyButton1 {
     margin: 0px;
@@ -78,6 +73,8 @@
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #D0D0D0 !important;
     border-color: #D0D0D0 !important;
+    transition: background-color 0.3s, border-color 0.3s;
+
     @media (min-width: 768px) and (max-width: 991px) {
       width: 3.5rem !important; 
       height: 3.5rem !important; 
@@ -85,13 +82,20 @@
       font-size: 1.2rem !important;
 
     }
-    transition: background-color 0.3s, border-color 0.3s;
+    
   }
   .dailyButton1:hover {
     background-color:#816BFF !important; 
     border-color: #816BFF  !important; 
     color: #F0EDFF !important;
   }
+
+  .ButtonActive {
+    background-color:#816BFF !important; 
+    border-color: #816BFF  !important; 
+    color: #F0EDFF !important;
+  }
+
 
   .carousel-indicators [data-bs-target]{
     height: 4px !important;
