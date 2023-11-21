@@ -151,7 +151,9 @@ public class AnimationServiceImpl implements AnimationService {
         try{
             LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
             List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateOrderByViewCountDesc(today);
-            List<Animation> getanimation = animations.stream().map(AnimationViewCount::getAnimation)
+            List<Animation> getanimation = animations.stream()
+                    .filter(upload-> !"n".equals(upload.getAnimation().getUploaded()))
+                    .map(AnimationViewCount::getAnimation)
                     .collect(Collectors.toList());
 
             return getanimation;
@@ -168,7 +170,9 @@ public class AnimationServiceImpl implements AnimationService {
             LocalDateTime Week= LocalDateTime.now().minusDays(7).withHour(0).withMinute(0).withSecond(0).withNano(0);
 
             List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateBetweenOrderByViewCountDesc(Week,today);
-            List<Animation> getanimation = animations.stream().map(AnimationViewCount::getAnimation)
+            List<Animation> getanimation = animations.stream()
+                    .filter(upload-> !"n".equals(upload.getAnimation().getUploaded()))
+                    .map(AnimationViewCount::getAnimation)
                     .collect(Collectors.toList());
 
             return getanimation;

@@ -72,12 +72,11 @@ public class ViewListServiceImpl implements  ViewListService{
 
                 List<ViewList> viewList = viewListRepository.findByMemberId(useridcheck.get().getId(),pageable);
 
-
                 animations = viewList.stream()
+                        //업로드 상태가 n인 경우 제외필터
+                        .filter(upload -> !"n".equals(upload.getAnimation().getUploaded()))
                         .map(ViewList::getAnimation)
                         .collect(Collectors.toList());
-
-
 
             }
             return animations;
@@ -87,7 +86,5 @@ public class ViewListServiceImpl implements  ViewListService{
             System.out.println("FavoriteService FavoriteList 오류");
             return null;
         }
-
-
     }
 }
