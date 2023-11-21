@@ -12,7 +12,7 @@ function FavoriteItem({ FavoriteList }) {
   };
 
   return (
-    <Card className="anicard" key={FavoriteList.id} style={{ float: 'left' }}>
+    <Card className="anicard" key={FavoriteList.id}>
       <Card.Img
         variant="top"
         src={`${API_URL}/file/AniImgFile/${FavoriteList.photo}`}

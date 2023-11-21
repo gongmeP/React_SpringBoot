@@ -13,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -140,14 +139,43 @@ public class AnimationServiceImpl implements AnimationService {
         try{
              List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByOrderByViewCountDesc();
 
-            List<Animation> getanimation = animations.stream()
-                    .filter(upload-> !"n".equals(upload.getAnimation().getUploaded()))
-                    .map(AnimationViewCount::getAnimation)
+            //뷰 카운터 합산
+            Map<String,Long> animationsViewSum = new HashMap<>();
+
+            for(AnimationViewCount animationViewCount : animations){
+                Animation animation = animationViewCount.getAnimation();
+
+                //업로드 n인건 거르기
+                if(!"n".equals(animation.getUploaded())){
+                    String animationTitle = animation.getTitle();
+                    Long aniviewCount = animationViewCount.getViewCount();
+                    animationsViewSum.merge(animationTitle,aniviewCount,Long::sum);
+                }
+
+            }
+            //합산한 애니데이터 다시 생성 후 리턴
+            List<Animation> reAni = animationsViewSum.entrySet().stream()
+                    .map(entry->{
+
+                        //합산한 애니메이션과 기존 애니메이션 의 이름이 같은거 다시 거르기
+                        Animation getanimation = animations.stream()
+                                .filter(eqlus-> eqlus.getAnimation().getTitle().equals(entry.getKey()))
+                                .findFirst()
+                                .map(AnimationViewCount::getAnimation)
+                                .orElse(null);
+
+                        if (getanimation != null) {
+                            getanimation.setViewCount(entry.getValue());
+                        }
+
+                        return getanimation;
+                    }).filter(Objects::nonNull)
+                    .sorted(Comparator.comparingLong(Animation::getViewCount).reversed()) // 뷰 카운터 내림차순 정렬
                     .collect(Collectors.toList());
 
-            return getanimation;
+            return reAni;
         }catch (Exception e){
-            System.out.println("AniService ViewALLRanking 에러");
+            System.out.println("AniService AniWeekRanking 에러");
             return null;
         }
     }
@@ -156,7 +184,9 @@ public class AnimationServiceImpl implements AnimationService {
     public List<Animation> AniOneDayRanking() {
         try{
             LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+
             List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateOrderByViewCountDesc(today);
+            System.out.println(animations);
             List<Animation> getanimation = animations.stream()
                     .filter(upload-> !"n".equals(upload.getAnimation().getUploaded()))
                     .map(AnimationViewCount::getAnimation)
@@ -176,12 +206,42 @@ public class AnimationServiceImpl implements AnimationService {
             LocalDateTime Week= LocalDateTime.now().minusDays(7).withHour(0).withMinute(0).withSecond(0).withNano(0);
 
             List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateBetweenOrderByViewCountDesc(Week,today);
-            List<Animation> getanimation = animations.stream()
-                    .filter(upload-> !"n".equals(upload.getAnimation().getUploaded()))
-                    .map(AnimationViewCount::getAnimation)
+
+            //뷰 카운터 합산
+            Map<String,Long> animationsViewSum = new HashMap<>();
+
+            for(AnimationViewCount animationViewCount : animations){
+                Animation animation = animationViewCount.getAnimation();
+
+                //업로드 n인건 거르기
+                if(!"n".equals(animation.getUploaded())){
+                    String animationTitle = animation.getTitle();
+                    Long aniviewCount = animationViewCount.getViewCount();
+                    animationsViewSum.merge(animationTitle,aniviewCount,Long::sum);
+                }
+
+            }
+            //합산한 애니데이터 다시 생성 후 리턴
+            List<Animation> reAni = animationsViewSum.entrySet().stream()
+                    .map(entry->{
+
+                        //합산한 애니메이션과 기존 애니메이션 의 이름이 같은거 다시 거르기
+                        Animation getanimation = animations.stream()
+                                .filter(eqlus-> eqlus.getAnimation().getTitle().equals(entry.getKey()))
+                                .findFirst()
+                                .map(AnimationViewCount::getAnimation)
+                                .orElse(null);
+                        
+                        if (getanimation != null) {
+                            getanimation.setViewCount(entry.getValue());
+                        }
+
+                        return getanimation;
+                    }).filter(Objects::nonNull)
+                    .sorted(Comparator.comparingLong(Animation::getViewCount).reversed()) // 뷰 카운터 내림차순 정렬
                     .collect(Collectors.toList());
 
-            return getanimation;
+            return reAni;
         }catch (Exception e){
             System.out.println("AniService AniWeekRanking 에러");
             return null;

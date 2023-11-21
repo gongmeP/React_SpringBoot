@@ -23,6 +23,7 @@ function AniRanking() {
         res = await axiosAPI.get(`/Ani/AniAllRanking`);
       }
       setAllRank(res.data);
+      console.log(res.data);
     };
     AniAllRanking();
   }, [ButtonActive]);

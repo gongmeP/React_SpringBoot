@@ -133,46 +133,12 @@
       margin-left: 1%;
       margin-right: 1%;
     }
-
-    @media (min-width: 768px) and (max-width: 991px) {
-      width: 31% !important;
-      margin-left: 1%;
-      margin-right: 1%;
-    }
     
 
   }
   .anicardCol{
     display: flex;
     flex-wrap: wrap;
-  }
-
-  .anicard-container::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-  .anicardimg{
-
-
-    /* height: 140px; 
-    @media (min-width: 1200px) and (max-width: 1399px) {
-      height: 120px;
-    }
-    @media (min-width: 767px) and (max-width: 1199px) {
-      height: 101px;
-     
-    }
-    @media (min-width: 576px) and (max-width: 766px) {
-      height: 116px;
-     
-    } 
-    @media (min-width: 400px) and (max-width: 576px){
-      height: 125px;
-    } 
-    @media (max-width: 400px){
-      height: 100px;
-    }  */
   }
 
 
