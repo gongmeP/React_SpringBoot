@@ -11,6 +11,7 @@ import {
 } from '../../styledcomponents/FreeBoard.styled';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axiosAPI from '../../axiosAPI';
 
 function Board() {
   const freeBoards = useSelector((state) => state.BoardState.freeBoards);
@@ -26,13 +27,10 @@ function Board() {
   const navigate = useNavigate();
 
   const formData = useSelector((state) => state.BoardState.formData);
-  const DetailFreeBoardGo = (fbNum) => {
-    fetch(`/FreeBoard/ReadCountUp/${fbNum}`)
-      .then((res) => res)
-      .then((res) => {
-        window.scrollTo(0, 0);
-        navigate(`/detailFreeBoard/${fbNum}`);
-      });
+  const DetailFreeBoardGo = async (fbNum) => {
+    const res = await axiosAPI.get(`/FreeBoard/ReadCountUp/${fbNum}`);
+    window.scrollTo(0, 0);
+    navigate(`/detailFreeBoard/${fbNum}`);
   };
 
   return (

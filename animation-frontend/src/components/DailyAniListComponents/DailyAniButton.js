@@ -29,7 +29,7 @@ function DailyAniButton({ setDay, Daily }) {
   return (
     <>
       <Row className="d-block d-lg-none">
-        <Col className="DailyCol">
+        <Col className="DailyCol2">
           {Daily.map((day) => (
             <Button
               key={day}
