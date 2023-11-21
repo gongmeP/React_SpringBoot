@@ -20,40 +20,35 @@ function SaveForm(props) {
   });
 
   const navigate = useNavigate();
-
   const changeValue = (e) => {
     setAniInsert({ ...AniInsert, [e.target.name]: e.target.value });
   };
-
   const genre = (e) => {
     const genre = e.target.value;
     setAniInsert({ ...AniInsert, genre: genre });
   };
-
   const dayOfWeek = (e) => {
     const dayOfWeek = e.target.value;
     setAniInsert({ ...AniInsert, dayOfWeek: dayOfWeek });
   };
 
+  // 영상 업로드 지정 부분
   const uploaded = (e) => {
     let uploaded = e.target.value;
-
     if (uploaded === '예') {
       uploaded = 'y';
     } else {
       uploaded = 'n';
     }
     console.log(uploaded);
-
     setAniInsert({ ...AniInsert, uploaded: uploaded });
   };
 
+  //이미지 업로드 부분
   const Imgname = async (e) => {
     const Imgfile = e.target.files[0];
-
     const formData = new FormData();
     formData.append('file', Imgfile);
-
     try {
       const res = await axiosAPI.post('/Ani/PhotoSave', formData);
       setAniInsert({ ...AniInsert, photo: res.data[0] });
@@ -63,10 +58,35 @@ function SaveForm(props) {
     }
   };
 
+  //애니메이션 데이터 업로드 부분
   const submitAnisave = async (e) => {
     e.preventDefault();
 
     if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
+      if (AniInsert.title === '') {
+        alert('애니메이션 제목을 입력하세요.');
+        return;
+      }
+      if (AniInsert.content === '') {
+        alert('애니메이션 줄거리를 입력하세요.');
+        return;
+      }
+      if (AniInsert.photo === '') {
+        alert('애니메이션 썸네일 이미지를 첨부하세요.');
+        return;
+      }
+      if (AniInsert.genre === '') {
+        alert('장르를 선택하세요.');
+        return;
+      }
+      if (AniInsert.dayOfWeek === '') {
+        alert('방영요일 을 선택하거나 완결 선택을 해주세요.');
+        return;
+      }
+      if (AniInsert.uploaded === '') {
+        alert('영상 목록에 즉시 업로드 할건지 여부를 선택하세요.');
+        return;
+      }
       try {
         const res = await axiosAPI.post('/Ani', AniInsert, {});
 
@@ -132,7 +152,7 @@ function SaveForm(props) {
             <option>일</option>
           </Form.Select>
           <Form.Label className="mt-3">
-            영상 목록에 바로 업로드 하시나요?
+            애니메이션 목록에 즉시 업로드 하시나요?
           </Form.Label>
           <div>
             <Form.Check

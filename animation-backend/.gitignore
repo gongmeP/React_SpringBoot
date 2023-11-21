@@ -40,3 +40,5 @@ build/
 *.webp
 *.jar
 /target
+
+animation-backend/out/artifacts/animation_backend_jar/animation-backend.jar
