@@ -133,8 +133,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public String iddeleteY(Long id) {
         try{
-            Member member = MemberRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("회원 정보없음"));
+
+                Member member = MemberRepository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("회원 정보없음"));
 
             member.setMdelete("y");
             MemberRepository.save(member);

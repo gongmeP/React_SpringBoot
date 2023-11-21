@@ -13,7 +13,7 @@ import {
   StarImg,
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
-import axiosAPI from '../../axiosAPI';
+import axiosAPI, { API_URL } from '../../axiosAPI';
 
 function Detail(props) {
   const userid = sessionStorage.getItem('loginID');
@@ -29,6 +29,19 @@ function Detail(props) {
     };
     fetch();
   }, []);
+
+  const deletAni = async () => {
+    if (window.confirm('애니메이션 데이터를 삭제할까요?')) {
+      const res = await axiosAPI.put(`/Ani/DeleteY/${id}`);
+      if (res.data === '삭제완료') {
+        alert('삭제되었습니다');
+        navigate('/allList');
+      } else {
+        alert('삭제오류');
+      }
+    } else {
+    }
+  };
 
   return (
     <>
@@ -54,7 +67,7 @@ function Detail(props) {
           </Col>
           <Col md={5} className="aniimgs">
             <AniImg
-              src={`/file/AniImgFile/${detailAni.photo}`}
+              src={`${API_URL}/file/AniImgFile/${detailAni.photo}`}
               alt="애니 포스터"
               fluid
             />
@@ -69,12 +82,12 @@ function Detail(props) {
         </Row>
       </Container>
 
-      <Link to={`/updateForm/${id}`}>
+      <Link to={`/updateForm/${id}`} style={{ marginRight: '15px' }}>
         <a className="btn btn-warning">수정</a>
       </Link>
-      {/* <Button variant="danger" onClick={deletAni}>
+      <Button variant="danger" onClick={deletAni}>
         삭제
-      </Button> */}
+      </Button>
     </>
   );
 }

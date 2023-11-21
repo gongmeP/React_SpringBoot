@@ -43,6 +43,10 @@ function UserList() {
 
   const selectDelete = async () => {
     if (window.confirm('! 선택된 회원을 삭제 할꺼에요? 정말로? !')) {
+      if (SelectMemberArray.length <= 0) {
+        alert('삭제할 회원을 선택해주세요.');
+        return;
+      }
       const res = await axiosAPI.put(
         `/Memberlist/DeleteUpdateSelect/${SelectMemberArray}`,
       );

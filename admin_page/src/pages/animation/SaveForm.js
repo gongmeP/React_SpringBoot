@@ -71,7 +71,7 @@ function SaveForm(props) {
         const res = await axiosAPI.post('/Ani', AniInsert, {});
 
         alert('업로드 완료되었습니다.');
-        navigate('/');
+        navigate('/allList');
       } catch (error) {
         console.log('SaveForm Error');
       }

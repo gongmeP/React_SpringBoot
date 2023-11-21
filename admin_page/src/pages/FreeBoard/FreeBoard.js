@@ -9,7 +9,6 @@ import {
 import Board from '../../components/BoardComponents/Board';
 import Page from '../../components/BoardComponents/Page';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import BoradSerch from '../../components/BoardComponents/BoardSerch';
 import { Button } from 'react-bootstrap';
 import axiosAPI from '../../axiosAPI';
@@ -17,7 +16,6 @@ import axiosAPI from '../../axiosAPI';
 function FreeBoard() {
   const Pages = useSelector((state) => state.BoardState.pages);
   const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
-  const searchTF = useSelector((state) => state.BoardState.searchTF);
   const SelectBoardArray = useSelector(
     (state) => state.BoardState.SelectBoardArray,
   );
@@ -47,6 +45,10 @@ function FreeBoard() {
 
   const selectBoardDelete = async () => {
     if (window.confirm('선택된 게시글을 전체 삭제합니다.')) {
+      if (SelectBoardArray <= 0) {
+        alert('삭제할 게시글을 선택해주세요.');
+        return;
+      }
       const res = await axiosAPI.put(
         `/FreeBoardList/SelectDelete/${SelectBoardArray}`,
       );
