@@ -12,12 +12,13 @@ function AniItem({ Anidata }) {
   };
 
   return (
-    <Card className="anicard" key={Anidata.id} style={{ float: 'left' }}>
+    <Card className="anicard" key={Anidata.id}>
       <Card.Img
         variant="top"
         src={`${API_URL}/file/AniImgFile/${Anidata.photo}`}
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
+        className="anicardimg"
       />
       <Card.Body className="p-0">
         <Card.Title className="mb-0 CardTitle" style={{ fontSize: '0.95rem' }}>

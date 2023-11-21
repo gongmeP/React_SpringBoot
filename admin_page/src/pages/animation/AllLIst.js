@@ -69,7 +69,7 @@ function AllList() {
         {loading ? (
           <LoadingSpinner></LoadingSpinner>
         ) : (
-          <Col md={10} sm={10} xs={12}>
+          <Col md={10} sm={10} xs={12} className="p-0 anicardCol">
             {Anidata.length <= 0 ? (
               <H2styled>검색하신 결과가 없어요.</H2styled>
             ) : (

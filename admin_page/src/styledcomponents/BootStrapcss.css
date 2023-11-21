@@ -85,6 +85,10 @@
       margin-right: 1%;
     }
   }
+  .anicardCol{
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   html {
     font-size: 16px;

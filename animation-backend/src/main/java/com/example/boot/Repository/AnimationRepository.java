@@ -14,11 +14,11 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> findByDayOfWeekAndUploadedAndAnidelete(String dayOfWeek, String uploaded,String n);
 
-    List<Animation> searchByTitleContainingAndAnidelete(String Title , String string);
+    List<Animation> searchByTitleContainingAndAnideleteOrderByIdDesc(String Title , String string);
 
     List<Animation> findByGenreIn(List<String> genres);
 
-    List<Animation> findByAnidelete(String string);
+    List<Animation> findByAnideleteOrderByIdDesc(String string);
 
 
     List<Animation> findTop10ByOrderByViewCountDesc();
