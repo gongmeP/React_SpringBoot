@@ -64,8 +64,8 @@
     margin: 0px;
     margin-right: 15px ;
     padding: 0px !important;
-    width: 2.625rem !important; 
-    height: 2.625rem !important; 
+    width: 2.7rem !important; 
+    height: 2.7rem !important; 
     border-radius: 1.3125rem !important;
      text-align: center !important;
      line-height: 2.625rem;
@@ -76,11 +76,19 @@
     transition: background-color 0.3s, border-color 0.3s;
 
     @media (min-width: 768px) and (max-width: 991px) {
+      width: 4.5rem !important; 
+      height: 4.5rem !important; 
+      border-radius: 2.5rem !important;
+      font-size: 1.5rem !important;
+
+    }
+
+    @media (min-width: 575px) and (max-width: 767px) {
       width: 3.5rem !important; 
       height: 3.5rem !important; 
       border-radius: 1.75rem !important;
-      font-size: 1.2rem !important;
-
+      border-radius: 2rem !important;
+      font-size: 1.3rem !important;
     }
     
   }
@@ -140,6 +148,7 @@
     
 
   }
+
   .anicardCol{
     display: flex;
     flex-wrap: wrap;
@@ -202,6 +211,7 @@
   margin-bottom: 10px !important;
   width: 100%;
   height: auto;
+  text-align: center;
 }
 
 

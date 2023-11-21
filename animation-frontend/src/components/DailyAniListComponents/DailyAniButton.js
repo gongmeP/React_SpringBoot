@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -44,19 +44,28 @@ function DailyAniButton({ setDay, Daily }) {
           ))}
         </Col>
       </Row>
-      <Row className="d-block d-lg-none d-flex">
-        {AniALLArray.map((AniALLArray) => (
-          <Col key={AniALLArray.id} className="p-1" md={3} sm={4} xs={4}>
-            <AniImg
-              onClick={() => AniDetailGo(AniALLArray.id)}
-              src={`${API_URL}/file/AniImgFile/${AniALLArray.photo}`}
-              alt={AniALLArray.photo}
-            ></AniImg>
-            <div className="CardTitle" style={{ fontSize: '0.95rem' }}>
-              {AniALLArray.title}
-            </div>
-          </Col>
-        ))}
+      <Row className="d-block d-lg-none">
+        <Col className="p-1 anicardCol">
+          {AniALLArray.map((AniALLArray) => (
+            <Card key={AniALLArray.id} className="anicard">
+              <Card.Img
+                variant="top"
+                src={`${API_URL}/file/AniImgFile/${AniALLArray.photo}`}
+                onClick={AniDetailGo}
+                style={{ cursor: 'pointer' }}
+                className="anicardimg"
+              />
+              <Card.Body className="p-0">
+                <Card.Title
+                  className="mb-0 CardTitle"
+                  style={{ fontSize: '0.95rem' }}
+                >
+                  {AniALLArray.title}
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          ))}
+        </Col>
       </Row>
     </>
   );
