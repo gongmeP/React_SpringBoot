@@ -23,4 +23,5 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> findTop10ByOrderByViewCountDesc();
 
+
 }

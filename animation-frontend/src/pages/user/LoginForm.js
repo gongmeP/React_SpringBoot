@@ -7,8 +7,8 @@ import axios from 'axios';
 import axiosAPI from '../../axiosAPI';
 
 const Login = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, setId] = useState('test1');
+  const [password, setPassword] = useState('testtest1');
 
   const Logingo = async (e) => {
     e.preventDefault();

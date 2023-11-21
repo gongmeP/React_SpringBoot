@@ -6,8 +6,8 @@ import axios from 'axios';
 import axiosAPI from '../../axiosAPI';
 
 const Login = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, setId] = useState('Alladmin');
+  const [password, setPassword] = useState('Alladmin');
 
   const Logingo = async (e) => {
     e.preventDefault();

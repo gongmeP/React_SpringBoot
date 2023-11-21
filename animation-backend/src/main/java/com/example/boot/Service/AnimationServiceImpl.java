@@ -138,8 +138,14 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public List<Animation> AllViewRanking() {
         try{
-             List<Animation> animations =  animationRepository.findTop10ByOrderByViewCountDesc();
-            return animations;
+             List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByOrderByViewCountDesc();
+
+            List<Animation> getanimation = animations.stream()
+                    .filter(upload-> !"n".equals(upload.getAnimation().getUploaded()))
+                    .map(AnimationViewCount::getAnimation)
+                    .collect(Collectors.toList());
+
+            return getanimation;
         }catch (Exception e){
             System.out.println("AniService ViewALLRanking 에러");
             return null;
