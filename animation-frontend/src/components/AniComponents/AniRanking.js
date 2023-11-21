@@ -65,6 +65,7 @@ function AniRanking() {
   }, []);
 
   const RangkingDataOn = (day) => {
+    setActiveItemIndex(0);
     setButtonActive(day);
   };
 
