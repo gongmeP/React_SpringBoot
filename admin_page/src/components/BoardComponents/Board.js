@@ -49,7 +49,6 @@ function Board() {
         SetSelectBoardArray(SelectBoardArray.filter((id) => id !== fbNum)),
       );
     }
-    console.log(SelectBoardArray);
   };
 
   const AllSelectBoard = (e) => {
@@ -57,7 +56,6 @@ function Board() {
       SetAllCheck(e.target.checked);
       const allfbNum = freeBoards.map((data) => data.fbNum);
       store.dispatch(SetSelectBoardArray(allfbNum));
-      console.log(allfbNum);
     } else if (!e.target.checked) {
       SetAllCheck(e.target.checked);
       store.dispatch(SetSelectBoardArray([]));

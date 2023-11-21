@@ -28,7 +28,6 @@ function Page({ EA, Pages }) {
     const slicedPageArray = LimitPage(totalPage, limit);
     setTotalPageArray(slicedPageArray);
     setCurrentPageArray(slicedPageArray[0]);
-    console.log(slicedPageArray);
   }, [totalPage]);
 
   const LimitPage = (totalPage, limit) => {

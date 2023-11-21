@@ -53,7 +53,6 @@ function UserListItem({ SetReuseEffect, reuseEffect }) {
         ),
       );
     }
-    console.log(SelectMemberArray);
   };
 
   return (

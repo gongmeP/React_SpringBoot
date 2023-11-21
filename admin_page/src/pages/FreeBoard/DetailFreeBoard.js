@@ -83,7 +83,6 @@ function DetailFreeBoard() {
     const fetchdata = async () => {
       const res = await axiosAPI.get(`/FreeBoard/Detail/${fbNum}`);
       store.dispatch(setFormData(res.data[0]));
-      console.log(res.data);
     };
     fetchdata();
   }, [fbNum]);

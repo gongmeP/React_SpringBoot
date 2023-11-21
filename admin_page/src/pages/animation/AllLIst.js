@@ -9,16 +9,23 @@ import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';
 import axiosAPI from '../../axiosAPI';
+import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
 
 function AllList() {
   const Anidata = useSelector((state) => state.AniState.Ani);
+  const [loading, setLoading] = useState(true);
 
   const [reEffect, setReEffect] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axiosAPI.get(`/Ani/ALL`);
-      store.dispatch(setAni(res.data));
+      try {
+        const res = await axiosAPI.get(`/Ani/ALL`);
+        store.dispatch(setAni(res.data));
+        setLoading(false);
+      } catch (error) {
+        setLoading(true);
+      }
     };
     fetchData();
   }, [reEffect]);
@@ -59,20 +66,24 @@ function AllList() {
         <Col md={2} sm={2} className="d-none d-sm-block">
           <Genrefilter></Genrefilter> {/*필터 컴포넌트 여기 */}
         </Col>
-        <Col md={10} sm={10} xs={12}>
-          {Anidata.length <= 0 ? (
-            <H2styled>검색하신 결과가 없어요.</H2styled>
-          ) : (
-            Anidata.map((ani) => (
-              <AniItem
-                key={ani.id}
-                Anidata={ani}
-                reEffect={reEffect}
-                setReEffect={setReEffect}
-              />
-            ))
-          )}
-        </Col>
+        {loading ? (
+          <LoadingSpinner></LoadingSpinner>
+        ) : (
+          <Col md={10} sm={10} xs={12}>
+            {Anidata.length <= 0 ? (
+              <H2styled>검색하신 결과가 없어요.</H2styled>
+            ) : (
+              Anidata.map((ani) => (
+                <AniItem
+                  key={ani.id}
+                  Anidata={ani}
+                  reEffect={reEffect}
+                  setReEffect={setReEffect}
+                />
+              ))
+            )}
+          </Col>
+        )}
       </Row>
     </>
   );

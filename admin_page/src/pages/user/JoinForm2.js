@@ -25,12 +25,11 @@ function JoinForm2() {
 
   const datain = (e) => {
     setAdminMember({ ...Adminmember, [e.target.name]: e.target.value });
-    console.log(Adminmember);
   };
 
   const adminrank = (e) => {
     const value = e.target.value;
-    console.log(value);
+
     setAdminMember({
       ...Adminmember,
       adminrank: value,
@@ -74,7 +73,6 @@ function JoinForm2() {
 
     const res = await axiosAPI.post('/addAdmin', Adminmember);
 
-    console.log(res.data);
     setShowCompleteModal(true);
   };
 

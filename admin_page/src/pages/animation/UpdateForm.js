@@ -26,7 +26,6 @@ function UpdateForm(props) {
     const fetchdata = async () => {
       const res = await axiosAPI.get(`/Ani/${id}`);
       setAniInsert(res.data);
-      console.log(res.data);
     };
     fetchdata();
   }, []);
@@ -34,7 +33,6 @@ function UpdateForm(props) {
   const submitBook = async (e) => {
     e.preventDefault();
     const res = await axiosAPI.put(`/Ani/${id}`, AniInsert);
-    console.log(res.data);
   };
 
   const navigate = useNavigate();
@@ -61,7 +59,6 @@ function UpdateForm(props) {
     } else {
       uploaded = 'n';
     }
-    console.log(uploaded);
 
     setAniInsert({ ...AniInsert, uploaded: uploaded });
   };

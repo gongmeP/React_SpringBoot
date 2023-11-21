@@ -11,8 +11,6 @@ function Header() {
     window.location.href = '/';
   };
 
-  console.log(sessionID);
-
   return (
     <>
       <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">

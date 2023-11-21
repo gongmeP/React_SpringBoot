@@ -6,7 +6,6 @@ import UserViewList from '../../components/AniComponents/UserViewList';
 
 function Home() {
   const userid = window.sessionStorage.getItem('loginID');
-  console.log(userid);
   return (
     <>
       <Row>

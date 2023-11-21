@@ -40,7 +40,7 @@ function SaveForm(props) {
     } else {
       uploaded = 'n';
     }
-    console.log(uploaded);
+
     setAniInsert({ ...AniInsert, uploaded: uploaded });
   };
 

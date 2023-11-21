@@ -31,7 +31,6 @@ function UserPage() {
     const slicedPageArray = LimitPage(totalPage, limit);
     setTotalPageArray(slicedPageArray);
     setCurrentPageArray(slicedPageArray[0]);
-    console.log(slicedPageArray);
   }, [totalPage]);
 
   const LimitPage = (totalPage, limit) => {
@@ -66,8 +65,6 @@ function UserPage() {
       store.dispatch(SetUserSearchPage(lastpage));
     }
   };
-
-  console.log(currentPageArray);
 
   return (
     <div className="d-flex justify-content-center mt-0">
