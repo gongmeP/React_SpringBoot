@@ -178,4 +178,35 @@ public class MemberServiceImpl implements MemberService {
             return "삭제실패";
         }
     }
+
+    @Override
+    public String PasswordCheck(Member member) {
+        try {
+            Member Remember = MemberRepository.findByMid(member.getMid())
+                    .orElseThrow(() -> new RuntimeException("회원 정보없음"));
+
+            if(passwordEncoder.matches(member.getMpass(),Remember.getMpass())){
+                return "현재 비번 일치";
+            }else{
+                return "현재 비번 불일치";
+            }
+        }catch (Exception e){
+            return "MemberService PasswordCheck 에러";
+        }
+
+    }
+
+    @Override
+    public String PasswordChange(Member member) {
+        try{
+            Member Remember = MemberRepository.findByMid(member.getMid())
+                    .orElseThrow(() -> new RuntimeException("회원 정보없음"));
+            Remember.setMpass(passwordEncoder.encode(member.getMpass()));
+            MemberRepository.save(Remember);
+            return "비밀번호 변경 성공";
+        }catch (Exception e){
+            return "MemberService PasswordChange 에러";
+        }
+    }
+
 }

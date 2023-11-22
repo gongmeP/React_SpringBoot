@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Headers />
-      <Container style={{ margin: '3px' }}>
+      <Container style={{ margin: '0 auto' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Ani/:id" element={<Detail />} />

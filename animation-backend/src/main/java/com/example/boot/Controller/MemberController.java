@@ -169,10 +169,29 @@ public class MemberController {
 
             return ResponseEntity.ok("/Memberlist/DeleteUpdateSelect 오류");
         }
-
-
     }
 
+    @PostMapping("/Member/PasswordCheck")
+    @CrossOrigin
+    public ResponseEntity<?> PasswordCheck(@RequestBody Member member){
+        try {
 
+           String messge = memberService.PasswordCheck(member);
+            return ResponseEntity.ok(messge);
+        }catch (Exception e){
+            return ResponseEntity.ok("/Memberlist/PasswordCheck 오류");
+        }
+    }
+
+    @PostMapping("/Member/PasswordChange")
+    @CrossOrigin
+    public ResponseEntity<?> PasswordChange(@RequestBody Member member){
+        try {
+            String messge = memberService.PasswordChange(member);
+            return ResponseEntity.ok(messge);
+        }catch (Exception e){
+            return ResponseEntity.ok("/Memberlist/PasswordCheck 오류");
+        }
+    }
 
 }

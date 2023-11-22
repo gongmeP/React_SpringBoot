@@ -10,6 +10,7 @@ import {
   UserColStyled,
   UserRowStyled,
 } from '../../styledcomponents/UserUpdateForm.styled';
+import UserPasswordChange from '../../components/MyPageComponents/UserPasswordChange';
 
 function UserUpdateForm() {
   const [zipcode, setZipcode] = useState('');
@@ -114,6 +115,12 @@ function UserUpdateForm() {
     const res = await axiosAPI.post('/addMember', member);
   };
 
+  const [show, setShow] = useState(false);
+
+  const PasswordChange = () => {
+    setShow(true);
+  };
+
   return (
     <AgreeMainStyled>
       <Agree_check>
@@ -151,7 +158,7 @@ function UserUpdateForm() {
               </Col>
               <Col>
                 <Button
-                  onClick={Postgo}
+                  onClick={PasswordChange}
                   variant="secondary"
                   className="mb-0 PupleColorButton1"
                   style={{
@@ -161,6 +168,10 @@ function UserUpdateForm() {
                 >
                   비밀번호 변경
                 </Button>
+                <UserPasswordChange
+                  show={show}
+                  setShow={setShow}
+                ></UserPasswordChange>
               </Col>
             </UserRowStyled>
 
@@ -204,8 +215,8 @@ function UserUpdateForm() {
             </UserRowStyled>
 
             <UserRowStyled>
-              <UserColStyled md={2} sm={3} xs={4}>
-                휴대폰 번호
+              <UserColStyled md={2} sm={3} xs={3}>
+                전화번호
               </UserColStyled>
               <Col>
                 <Form.Control

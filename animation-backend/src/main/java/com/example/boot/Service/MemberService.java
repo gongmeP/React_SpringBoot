@@ -34,6 +34,10 @@ public interface MemberService {
 
     String selectiddeleteY(List<Long> SelectMemberArray);
 
+    String PasswordCheck(Member member);
+
+    String PasswordChange(Member member);
+
 
 
 }
