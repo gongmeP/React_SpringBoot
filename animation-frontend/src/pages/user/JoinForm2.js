@@ -7,7 +7,6 @@ import {
 } from '../../styledcomponents/JoinForm.styled';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import axiosAPI from '../../axiosAPI';
 
 function JoinForm2() {
@@ -24,7 +23,7 @@ function JoinForm2() {
   const [lastaddes, setLastaddes] = useState('');
   const setLastaddes1 = (e) => {
     const value = e.target.value;
-    const fullAddress = `${address} ${value}`;
+    const fullAddress = `${zipcode}/${address}/${value}`;
     setLastaddes(fullAddress);
 
     setMember({

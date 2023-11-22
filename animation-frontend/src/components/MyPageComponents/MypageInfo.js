@@ -9,9 +9,14 @@ import {
   MainInfoDivStyeld,
   MyNameDivStyled,
 } from '../../styledcomponents/Favorite.styled';
+import { useNavigate } from 'react-router-dom';
 
 function MypageInfo() {
   const Myname = window.sessionStorage.getItem('loginUsername');
+  const navigate = useNavigate();
+  const Userupdate = () => {
+    navigate('/userupdateForm');
+  };
   return (
     <>
       <Col md={3}>
@@ -38,6 +43,7 @@ function MypageInfo() {
             type="submit"
             style={{ width: '120px', marginBottom: '30px' }}
             className="PupleColorButton1"
+            onClick={Userupdate}
           >
             회원정보 수정
           </Button>
