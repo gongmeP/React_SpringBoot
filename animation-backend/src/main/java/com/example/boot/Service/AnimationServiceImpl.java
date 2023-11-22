@@ -137,7 +137,7 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public List<Animation> AllViewRanking() {
         try{
-             List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByOrderByViewCountDesc();
+             List<AnimationViewCount> animations =  animationViewCounterRepository.findByOrderByViewCountDesc();
 
             //뷰 카운터 합산
             Map<String,Long> animationsViewSum = new HashMap<>();
@@ -173,9 +173,14 @@ public class AnimationServiceImpl implements AnimationService {
                     .sorted(Comparator.comparingLong(Animation::getViewCount).reversed()) // 뷰 카운터 내림차순 정렬
                     .collect(Collectors.toList());
 
-            return reAni;
+            List<Animation> top10 = reAni.stream()
+                    .sorted(Comparator.comparingLong(Animation::getViewCount).reversed())
+                    .limit(10)
+                    .collect(Collectors.toList());
+
+            return top10;
         }catch (Exception e){
-            System.out.println("AniService AniWeekRanking 에러");
+            System.out.println("AniService AllViewRanking 에러");
             return null;
         }
     }
@@ -205,7 +210,7 @@ public class AnimationServiceImpl implements AnimationService {
             LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
             LocalDateTime Week= LocalDateTime.now().minusDays(7).withHour(0).withMinute(0).withSecond(0).withNano(0);
 
-            List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateBetweenOrderByViewCountDesc(Week,today);
+            List<AnimationViewCount> animations =  animationViewCounterRepository.findByDateBetweenOrderByViewCountDesc(Week,today);
 
             //뷰 카운터 합산
             Map<String,Long> animationsViewSum = new HashMap<>();
@@ -241,7 +246,12 @@ public class AnimationServiceImpl implements AnimationService {
                     .sorted(Comparator.comparingLong(Animation::getViewCount).reversed()) // 뷰 카운터 내림차순 정렬
                     .collect(Collectors.toList());
 
-            return reAni;
+            List<Animation> top10 = reAni.stream()
+                    .sorted(Comparator.comparingLong(Animation::getViewCount).reversed())
+                    .limit(10)
+                    .collect(Collectors.toList());
+
+            return top10;
         }catch (Exception e){
             System.out.println("AniService AniWeekRanking 에러");
             return null;
