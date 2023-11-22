@@ -130,6 +130,7 @@ function UserUpdateForm() {
                   onChange={datain}
                   name="mid"
                   placeholder="아이디"
+                  readOnly
                 />
               </Col>
             </UserRowStyled>
@@ -138,14 +139,28 @@ function UserUpdateForm() {
               <UserColStyled md={2} sm={3} xs={3}>
                 비밀번호
               </UserColStyled>
-              <Col>
+              <Col md={6} sm={5} xs={4}>
                 <Form.Control
                   placeholder="비밀번호"
                   type="password"
                   value={member.mpass}
                   onChange={datain}
                   name="mpass"
+                  readOnly
                 />
+              </Col>
+              <Col>
+                <Button
+                  onClick={Postgo}
+                  variant="secondary"
+                  className="mb-0 PupleColorButton1"
+                  style={{
+                    fontSize: '14px',
+                    verticalAlign: '6px',
+                  }}
+                >
+                  비밀번호 변경
+                </Button>
               </Col>
             </UserRowStyled>
 

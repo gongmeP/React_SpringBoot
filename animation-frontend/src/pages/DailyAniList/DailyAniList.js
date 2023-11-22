@@ -46,7 +46,7 @@ function DailyAniList() {
 
   return (
     <>
-      <Row style={{ margin: '0 auto', margin: '10px' }}>
+      <Row style={{ margin: '0 auto' }}>
         {Daily.map((day) => (
           <DailyItem day={day}></DailyItem>
         ))}

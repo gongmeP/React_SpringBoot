@@ -76,9 +76,9 @@ function UserViewList() {
             infiniteLoop={true} // 루프 해줌
             numberOfCards={AniCardEA}
             enableSwipe={true} // 스와이프 활성화 모바일에서 쓰일거임
-            gutter={12} // 슬라이드 사이의 간격
-            showSlither={false} // 슬라이더 경계 부분을 표시할지 여부
-            firstAndLastGutter={false} // 첫 번째 및 마지막 슬라이드 사이의 간격을 표시할지 여부
+            gutter={9} // 슬라이드 사이의 간격
+            showSlither={true} // 슬라이더 경계 부분을 표시할지 여부
+            firstAndLastGutter={true} // 첫 번째 및 마지막 슬라이드 사이의 간격을 표시할지 여부
             freeScrolling={true} // 무한 스크롤 사용 여부
             requestToChangeActive={(value) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
             activeItemIndex={activeItemIndex} // 활성 슬라이드 인덱스
