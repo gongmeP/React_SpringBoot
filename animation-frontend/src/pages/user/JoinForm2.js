@@ -159,7 +159,7 @@ function JoinForm2() {
         <Container className="panel" style={{ marginTop: '10px' }}>
           <Form>
             <Row className="justify-content-center">
-              <Col sm={7}>
+              <Col md={7} sm={7} xs={7} className="mb-3">
                 <Form.Control
                   placeholder="아이디"
                   value={member.mid}
@@ -168,93 +168,82 @@ function JoinForm2() {
                   readOnly={idcheckok}
                 />
               </Col>
-              <Col>
+              <Col style={{ position: 'relative' }}>
                 <Button
                   variant="secondary"
                   className="mb-0 PupleColorButton1"
-                  style={{ verticalAlign: '15px' }}
+                  style={{ top: '0px', position: 'absolute' }}
                   onClick={() => idcheck(member.mid)}
                 >
                   중복체크
                 </Button>
               </Col>
             </Row>
-            <Form.Group className="mb-3" controlId="formPlaintextPassword">
-              <Col>
-                <Form.Control
-                  type="password"
-                  placeholder="비밀번호"
-                  value={member.mpass}
-                  onChange={datain}
-                  name="mpass"
-                />
-              </Col>
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="formPlaintextPasswordConfirm"
+
+            <Col className="mb-3">
+              <Form.Control
+                type="password"
+                placeholder="비밀번호"
+                value={member.mpass}
+                onChange={datain}
+                name="mpass"
+              />
+            </Col>
+
+            <Col className="mb-3">
+              <Form.Control type="password" placeholder="비밀번호 확인" />
+            </Col>
+
+            <Col className="mb-3">
+              <Form.Control
+                placeholder="이름"
+                value={member.mname}
+                onChange={datain}
+                name="mname"
+              />
+            </Col>
+
+            <Col
+              className="mb-3 d-flex align-items-center"
+              controlId="formPlaintextemail"
             >
-              <Col>
-                <Form.Control type="password" placeholder="비밀번호 확인" />
-              </Col>
-            </Form.Group>
+              <Form.Control
+                style={{ marginRight: '10px' }}
+                placeholder="이메일"
+                value={member.memail}
+                onChange={EmailChange}
+                name="memail"
+              />
 
-            <Form.Group className="mb-3">
-              <Col>
-                <Form.Control
-                  placeholder="이름"
-                  value={member.mname}
-                  onChange={datain}
-                  name="mname"
-                />
-              </Col>
-            </Form.Group>
+              <Form.Select onChange={thisEmail} style={{ width: '50%' }}>
+                <option>직접입력</option>
+                <option>google.com</option>
+                <option>naver.com</option>
+                <option>daum.net</option>
+                <option>nate.com</option>
+                <option>hanmail.net</option>
+              </Form.Select>
+            </Col>
 
-            <Row>
-              <Col
-                className="mb-3 d-flex align-items-center"
-                controlId="formPlaintextemail"
-              >
-                <Form.Control
-                  style={{ marginRight: '10px' }}
-                  placeholder="이메일"
-                  value={member.memail}
-                  onChange={EmailChange}
-                  name="memail"
-                />
-
-                <Form.Select onChange={thisEmail} style={{ width: '50%' }}>
-                  <option>직접입력</option>
-                  <option>google.com</option>
-                  <option>naver.com</option>
-                  <option>daum.net</option>
-                  <option>nate.com</option>
-                  <option>hanmail.net</option>
-                </Form.Select>
-              </Col>
-            </Row>
-
-            <Form.Group className="mb-3">
-              <Col>
-                <Form.Control
-                  placeholder="휴대폰 번호"
-                  value={member.mnumber}
-                  onChange={datain}
-                  name="mnumber"
-                />
-              </Col>
-            </Form.Group>
+            <Col className="mb-3">
+              <Form.Control
+                placeholder="휴대폰 번호"
+                value={member.mnumber}
+                onChange={datain}
+                name="mnumber"
+              />
+            </Col>
 
             <Row className="justify-content-center">
-              <Col sm={7}>
+              <Col md={7} sm={7} xs={7} className="mb-3">
                 <Form.Control placeholder="우편번호" value={zipcode} readOnly />
               </Col>
-              <Col sm={5}>
+              <Col style={{ position: 'relative' }}>
                 <Button
                   onClick={Postgo}
                   variant="secondary"
                   className="mb-0 PupleColorButton1"
-                  style={{ verticalAlign: '15px', fontSize: '14px' }}
+                  style={{ fontSize: '14px', top: '0px', position: 'absolute' }}
                 >
                   우편번호 찾기
                 </Button>
@@ -279,59 +268,67 @@ function JoinForm2() {
                   />
                 </Col>
               </Form.Group>
+              <Col style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  onClick={() => setShowadd(true)}
+                  style={{
+                    width: '30%',
+                    marginTop: '20px',
+                    marginRight: '10px',
+                  }}
+                  variant="primary"
+                  className="PupleColorButton1"
+                >
+                  회원가입
+                </Button>
+
+                <Button
+                  onClick={() => setShownoadd(true)}
+                  style={{ width: '30%', marginTop: '20px' }}
+                  variant="warning"
+                >
+                  취소
+                </Button>
+
+                <Modal show={showadd} onHide={setShowadd}>
+                  <Modal.Body>
+                    입력하신 정보로 회원가입 하시겠습니까?
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="primary" onClick={memberadd1}>
+                      네
+                    </Button>
+                    <Button variant="secondary" onClick={memberadd2}>
+                      아니오
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+
+                <Modal
+                  show={showCompleteModal}
+                  onHide={handleCloseCompleteModal}
+                >
+                  <Modal.Body>가입이 완료되셨습니다</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="primary" onClick={gohome}>
+                      확인
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+
+                <Modal show={shownoadd} onHide={setShownoadd}>
+                  <Modal.Body>회원가입 을 취소하시겠습니까?</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="primary" onClick={noadd1}>
+                      네
+                    </Button>
+                    <Button variant="secondary" onClick={noadd2}>
+                      아니오
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              </Col>
             </Row>
-
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button
-                onClick={() => setShowadd(true)}
-                style={{ width: '30%', marginTop: '20px', marginRight: '10px' }}
-                variant="primary"
-                className="PupleColorButton1"
-              >
-                회원가입
-              </Button>
-
-              <Button
-                onClick={() => setShownoadd(true)}
-                style={{ width: '30%', marginTop: '20px' }}
-                variant="warning"
-              >
-                취소
-              </Button>
-
-              <Modal show={showadd} onHide={setShowadd}>
-                <Modal.Body>입력하신 정보로 회원가입 하시겠습니까?</Modal.Body>
-                <Modal.Footer>
-                  <Button variant="primary" onClick={memberadd1}>
-                    네
-                  </Button>
-                  <Button variant="secondary" onClick={memberadd2}>
-                    아니오
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-
-              <Modal show={showCompleteModal} onHide={handleCloseCompleteModal}>
-                <Modal.Body>가입이 완료되셨습니다</Modal.Body>
-                <Modal.Footer>
-                  <Button variant="primary" onClick={gohome}>
-                    확인
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-
-              <Modal show={shownoadd} onHide={setShownoadd}>
-                <Modal.Body>회원가입 을 취소하시겠습니까?</Modal.Body>
-                <Modal.Footer>
-                  <Button variant="primary" onClick={noadd1}>
-                    네
-                  </Button>
-                  <Button variant="secondary" onClick={noadd2}>
-                    아니오
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-            </div>
           </Form>
         </Container>
       </Agree_check>

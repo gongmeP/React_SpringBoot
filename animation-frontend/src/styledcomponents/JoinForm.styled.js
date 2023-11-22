@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const AgreeMainStyled = styled.div`
   width: 100%;
-  height: 600px;
+  height: 680px;
   position: relative;
   margin: 0 auto;
   font-family: 'Noto Sans KR', sans-serif;
