@@ -190,7 +190,18 @@ public class MemberController {
             String messge = memberService.PasswordChange(member);
             return ResponseEntity.ok(messge);
         }catch (Exception e){
-            return ResponseEntity.ok("/Memberlist/PasswordCheck 오류");
+            return ResponseEntity.ok("/Memberlist/PasswordChange 오류");
+        }
+    }
+
+    @PostMapping("/Member/Update")
+    @CrossOrigin
+    public ResponseEntity<?> MemberUpdate(@RequestBody Member member){
+        try {
+            String messge = memberService.MemberUpdate(member);
+            return ResponseEntity.ok(messge);
+        }catch (Exception e){
+            return ResponseEntity.ok("/Member/Update 오류");
         }
     }
 

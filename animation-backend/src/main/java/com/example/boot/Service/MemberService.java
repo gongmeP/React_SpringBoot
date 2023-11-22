@@ -37,7 +37,7 @@ public interface MemberService {
     String PasswordCheck(Member member);
 
     String PasswordChange(Member member);
-
+    String MemberUpdate(Member member);
 
 
 }

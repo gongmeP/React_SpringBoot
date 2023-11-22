@@ -209,4 +209,19 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    @Override
+    public String MemberUpdate(Member member) {
+        try{
+            Member Remember = MemberRepository.findByMid(member.getMid())
+                    .orElseThrow(() -> new RuntimeException("회원 정보없음"));
+            Remember.setMaddress(member.getMaddress());
+            Remember.setMname(member.getMname());
+            Remember.setMnumber(member.getMnumber());
+            Remember.setMemail(member.getMemail());
+            MemberRepository.save(Remember);
+            return "회원수정 완료";
+        }catch (Exception e){
+            return "MemberService MemberUpdate 에러";
+        }
+    }
 }

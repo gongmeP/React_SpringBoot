@@ -23,8 +23,6 @@ function UserPasswordChange({ show, setShow, password }) {
     newpass: '',
     newpass2: '',
   });
-  console.log(RePassword.newpass);
-  console.log(RePassword.newpass2);
 
   const passin = (e) => {
     setRePassword({ ...RePassword, [e.target.name]: e.target.value });
@@ -56,7 +54,7 @@ function UserPasswordChange({ show, setShow, password }) {
       mid: mid,
       mpass: RePassword.newpass,
     });
-    console.log(res2.data);
+
     if (res2.data === '비밀번호 변경 성공') {
       alert('비밀번호가 변경되었습니다.');
       setShow(false);

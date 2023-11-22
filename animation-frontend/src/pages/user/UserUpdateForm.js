@@ -11,6 +11,7 @@ import {
   UserRowStyled,
 } from '../../styledcomponents/UserUpdateForm.styled';
 import UserPasswordChange from '../../components/MyPageComponents/UserPasswordChange';
+import { useNavigate } from 'react-router-dom';
 
 function UserUpdateForm() {
   const [zipcode, setZipcode] = useState('');
@@ -18,7 +19,7 @@ function UserUpdateForm() {
   const [lastaddress, setLastaddress] = useState('');
   const [Relastaddes, setReLastaddes] = useState('');
   const loginID = window.sessionStorage.getItem('loginID');
-  console.log(loginID);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const UserData = async () => {
@@ -83,18 +84,8 @@ function UserUpdateForm() {
     }).open();
   };
 
-  console.log(member);
-
-  const memberadd = async () => {
-    if (member.mid === '') {
-      alert('아이디를 입력해주세요.');
-      return;
-    }
-
-    if (member.mpass === '') {
-      alert('패스워드를 입력해주세요.');
-      return;
-    }
+  const UpdateMember = async (e) => {
+    e.preventDefault();
     if (member.mname === '') {
       alert('이름을 입력해주세요.');
       return;
@@ -108,11 +99,16 @@ function UserUpdateForm() {
       return;
     }
     if (member.maddress === '') {
-      alert('주소를 입력해주세요.');
+      alert('상세 주소를 입력해주세요.');
       return;
     }
 
-    const res = await axiosAPI.post('/addMember', member);
+    const res = await axiosAPI.post('/Member/Update', member);
+    if (res.data === '회원수정 완료') {
+      alert('회원 정보가 수정되었습니다.');
+      window.sessionStorage.setItem('loginUsername', member.mname);
+      navigate('/mypage');
+    }
   };
 
   const [show, setShow] = useState(false);
@@ -126,7 +122,7 @@ function UserUpdateForm() {
       <Agree_check>
         <AgreeCheckSpan1>회원 정보 수정</AgreeCheckSpan1>
         <Container className="panel" style={{ marginTop: '10px' }}>
-          <Form>
+          <Form onSubmit={UpdateMember}>
             <UserRowStyled>
               <UserColStyled md={2} sm={3} xs={3}>
                 아이디
@@ -268,6 +264,8 @@ function UserUpdateForm() {
             </UserRowStyled>
             <Col style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
+                onClick={UpdateMember}
+                type="submit"
                 style={{
                   width: '30%',
                   marginTop: '20px',
