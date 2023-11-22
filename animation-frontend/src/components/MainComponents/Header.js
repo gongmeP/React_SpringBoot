@@ -44,8 +44,12 @@ function Header() {
             <Nav className="">
               {sessionID ? (
                 <>
-                  <Link className="nav-link" style={{ font: '12px' }}>
-                    {sessionUsername} 님
+                  <Link
+                    to="/mypage"
+                    className="nav-link"
+                    style={{ font: '12px' }}
+                  >
+                    마이페이지
                   </Link>
                 </>
               ) : (
@@ -74,9 +78,6 @@ function Header() {
                   로그인
                 </Link>
               )}
-              <Link to="/favoritelist" className="nav-link">
-                보관함
-              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

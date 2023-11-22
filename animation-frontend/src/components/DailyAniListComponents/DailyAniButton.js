@@ -17,7 +17,6 @@ function DailyAniButton({ setDay, Daily }) {
   const DayChange = (day) => {
     setDay(day);
     setButtonActive(day);
-    console.log(day);
   };
   const navigate = useNavigate();
   const AniDetailGo = (id) => {

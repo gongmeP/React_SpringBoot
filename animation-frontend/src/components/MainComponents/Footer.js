@@ -21,7 +21,7 @@ const Footer = () => {
       >
         <Col className="d-flex align-items-center p-0 text-dark">
           <span className="ms-4 h5 mb-0 font-weight-bold">
-            Park Jae Kyun Poartfolio
+            Park Jae Kyun Portfolio
           </span>
         </Col>
         <Col className="d-flex justify-content-end">
@@ -36,7 +36,7 @@ const Footer = () => {
           </Button>
         </Col>
         <small className="ms-4">
-          &copy; Footer, 2023. All rights reserved.
+          &copy; Portfolio, 2023. All rights reserved.
         </small>
       </Row>
     </Container>
