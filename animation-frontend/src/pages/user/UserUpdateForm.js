@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AgreeCheckSpan1,
   AgreeMainStyled,
@@ -14,19 +14,34 @@ import {
 function UserUpdateForm() {
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
+  const [lastaddress, setLastaddress] = useState('');
   const [Relastaddes, setReLastaddes] = useState('');
-  const [member, setReMember] = useState({
-    mid: '',
-    mpass: '',
-    mname: '',
-    memail: '',
-    mnumber: '',
-    maddress: '',
-  });
+  const loginID = window.sessionStorage.getItem('loginID');
+  console.log(loginID);
+
+  useEffect(() => {
+    const UserData = async () => {
+      const res = await axiosAPI.post('/getMemberData', loginID, {
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
+      setReMember(res.data[0]);
+      //주소 다시 분할
+      const address333 = res.data[0].maddress.split('/');
+      setZipcode(address333[0]);
+      setAddress(address333[1]);
+      setLastaddress(address333[2]);
+    };
+    UserData();
+  }, [loginID]);
+
+  const [member, setReMember] = useState({});
 
   const setLastaddes1 = (e) => {
     const value = e.target.value;
-    const fullAddress = `${address} ${value}`;
+    setLastaddress(value);
+    const fullAddress = `${zipcode}/${address}/${value}`;
     setReLastaddes(fullAddress);
 
     setReMember({
@@ -66,6 +81,8 @@ function UserUpdateForm() {
       },
     }).open();
   };
+
+  console.log(member);
 
   const memberadd = async () => {
     if (member.mid === '') {
@@ -219,6 +236,7 @@ function UserUpdateForm() {
                   placeholder="상세주소"
                   onChange={setLastaddes1}
                   name="maddress"
+                  value={lastaddress}
                 />
               </Col>
             </UserRowStyled>

@@ -36,9 +36,20 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+
     @Override
-    public Member getMemberId(Long id) {
-        return MemberRepository.findById(id).orElseThrow(()->new IllegalArgumentException("ID 를 확인해주세요"));
+    public List<Member> getMemberData(String loginId) {
+        System.out.println(loginId);
+        try{
+           List<Member> getMember = MemberRepository.findAllByMid(loginId);
+          
+            return getMember;
+        }catch (Exception e){
+
+            System.out.println("MemberService getMemberData 에러");
+            return null;
+        }
+
     }
 
     @Override

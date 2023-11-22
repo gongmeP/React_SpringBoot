@@ -27,9 +27,14 @@ public class MemberController {
     @CrossOrigin
     public ResponseEntity<?> save(@RequestBody Member member){
 
-        System.out.println(member.toString());
-
         return new ResponseEntity<>(memberService.saveMember(member), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/getMemberData")
+    @CrossOrigin
+    public ResponseEntity<?> getMemberData(@RequestBody String loginId){
+
+        return new ResponseEntity<>(memberService.getMemberData(loginId), HttpStatus.CREATED);
     }
 
     @PostMapping("/Member/idcheck")

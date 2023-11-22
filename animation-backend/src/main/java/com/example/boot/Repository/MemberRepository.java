@@ -16,6 +16,8 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member,Long> {
     Optional<Member> findByMid(String mid);
 
+    List<Member> findAllByMid (String mid);
+
     Optional<Member> findByMidAndMdelete(String mid, String string);
 
     Page<Member> findByMdelete(String mdelete, Pageable pageable);

@@ -12,7 +12,7 @@ public interface MemberService {
 
     Member saveMember(Member member);
 
-    Member getMemberId(Long id);
+    List<Member> getMemberData(String loginId);
 
     List<Member> getAllMemberData();
 
