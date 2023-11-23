@@ -3,6 +3,8 @@ package com.example.boot.Controller;
 import com.example.boot.Entity.Animation;
 import com.example.boot.Service.AnimationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +25,7 @@ import java.util.UUID;
 public class AnimationController {
 
     private final AnimationService animationService;
+    private final ResourceLoader resourceLoader;
 
     @PostMapping("/Ani")
     @CrossOrigin
@@ -38,20 +43,18 @@ public class AnimationController {
         List<String> fileNamespath = new ArrayList<>();
 
         try {
-            String Path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\AniImgFile";
-
+            String path = "classpath:/static/file/AniImgFile";
             UUID uuid = UUID.randomUUID();
-
             String fileName = uuid + "_" + file.getOriginalFilename();
 
-            File saveFile = new File(Path,fileName);
+            Resource resource = resourceLoader.getResource(path);
+            Path basePath = Paths.get(resource.getURI());
+
+            File saveFile = new File(basePath.toFile(),fileName);
 
             file.transferTo(saveFile);
-
             fileNamespath.add(fileName);
-
             return fileNamespath;
-
 
         }catch (Exception e){
             System.out.println(e);

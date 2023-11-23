@@ -5,6 +5,8 @@ import com.example.boot.Entity.FreeBoard;
 import com.example.boot.Entity.Member;
 import com.example.boot.Service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,10 +24,15 @@ import java.util.UUID;
 public class FreeBoardController {
 
 
+
+    private final ResourceLoader resourceLoader;
     private final FreeBoardService freeBoardService;
+
+
    @Autowired
-    public FreeBoardController(FreeBoardService freeBoardService) {
+    public FreeBoardController(FreeBoardService freeBoardService,ResourceLoader resourceLoader) {
         this.freeBoardService = freeBoardService;
+        this.resourceLoader = resourceLoader;
     }
 
     @GetMapping("/FreeBoard")
@@ -87,21 +96,19 @@ public class FreeBoardController {
         List<String> fileNamespath = new ArrayList<>();
 
         try {
-            String Path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file";
+            String path = "classpath:/static/file/";
 
             UUID uuid = UUID.randomUUID();
-
             String fileName = uuid + "_" + file.getOriginalFilename();
 
-            File saveFile = new File(Path,fileName);
+            Resource resource = resourceLoader.getResource(path);
+            Path basePath = Paths.get(resource.getURI());
+
+            File saveFile = new File(basePath.toFile(),fileName);
 
             file.transferTo(saveFile);
-
             fileNamespath.add(fileName);
-
             return fileNamespath;
-
-
         }catch (Exception e){
             System.out.println(e);
             return fileNamespath;

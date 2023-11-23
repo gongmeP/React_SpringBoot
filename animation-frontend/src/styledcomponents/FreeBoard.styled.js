@@ -19,7 +19,7 @@ export const Tr1 = styled.th`
   font-size: 16px;
   font-family: 'Noto Sans KR', sans-serif;
   @media (max-width: 767px) {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   @media (min-width: 768px) and (max-width: 991px) {
@@ -43,7 +43,6 @@ export const Tr2 = styled.th`
   display: flex;
   border-top: none;
   font-size: 13px;
-  font-family: 'Noto Sans KR', sans-serif;
   @media (max-width: 767px) {
     font-size: 11px;
   }
@@ -62,7 +61,7 @@ export const Th1 = styled.th`
 `;
 
 export const Th2 = styled.th`
-  width: 60%;
+  width: 57%;
 `;
 
 export const Th3 = styled.th`
@@ -70,9 +69,9 @@ export const Th3 = styled.th`
 `;
 
 export const Th4 = styled.th`
-  width: 20%;
+  width: 18%;
 `;
 
 export const Th5 = styled.th`
-  width: 10%;
+  width: 13%;
 `;
