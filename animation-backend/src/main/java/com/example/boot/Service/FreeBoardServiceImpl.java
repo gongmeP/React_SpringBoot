@@ -58,13 +58,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     @Override
     public List<FreeBoard> UpdatefreeBoardSave(FreeBoard freeBoard) {
         try{
-
             LocalDateTime currentTime =  LocalDateTime.now();
             freeBoard.setFbDate(currentTime);
+            return freeBoardMapper.UpdatefreeBoardSave(freeBoard);
         }catch (Exception e){
             System.out.println("FreeBoardService 오류 UpdatefreeBoardSave");
+            return null;
         }
-        return freeBoardMapper.UpdatefreeBoardSave(freeBoard);
+
     }
 
     @Override

@@ -29,8 +29,8 @@ function UpdateFreeBoard() {
     image.src = `/file/${formData.photo}`;
     image.onload = () => {
       setImageDimensions({
-        width: image.naturalWidth / 10,
-        height: image.naturalHeight / 10,
+        width: image.naturalWidth / 5,
+        height: image.naturalHeight / 5,
       });
     };
   }, [formData.photo]);
