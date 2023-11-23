@@ -46,4 +46,8 @@
     <select id="SearchTotalPage" resultType="int">
         select count(*) from fBoard where fbtitle LIKE '%' #{fbtitle} '%'
     </select>
+
+    <select id="getMemberBoardEA" resultType="Long">
+        select count(*) from fBoard where userid = #{userid};
+    </select>
 </mapper>

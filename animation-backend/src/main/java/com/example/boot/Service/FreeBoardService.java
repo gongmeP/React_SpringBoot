@@ -2,6 +2,7 @@ package com.example.boot.Service;
 
 import com.example.boot.Dto.FreeBoardDTO;
 import com.example.boot.Entity.FreeBoard;
+import com.example.boot.Entity.Member;
 
 import java.util.List;
 
@@ -27,5 +28,6 @@ public interface FreeBoardService {
     FreeBoardDTO BoardSearch (String fbtitle, int pageSize, int offset);
 
     String selectiddeleteY(List<Long> SelectBoardArray);
+    Long getMemberBoardEA(Member member);
 
 }

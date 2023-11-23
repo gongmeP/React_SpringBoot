@@ -104,11 +104,17 @@ function UserUpdateForm() {
     }
 
     const res = await axiosAPI.post('/Member/Update', member);
-    if (res.data === '회원수정 완료') {
-      alert('회원 정보가 수정되었습니다.');
-      window.sessionStorage.setItem('loginUsername', member.mname);
-      navigate('/mypage');
+    if (window.confirm('입력하신 회원정보를 수정하시겠습니까?')) {
+      if (res.data === '회원수정 완료') {
+        alert('회원 정보가 수정되었습니다.');
+        window.sessionStorage.setItem('loginUsername', member.mname);
+        navigate('/mypage');
+      }
+    } else {
     }
+  };
+  const backback = () => {
+    navigate('/mypage');
   };
 
   const [show, setShow] = useState(false);
@@ -279,6 +285,7 @@ function UserUpdateForm() {
               <Button
                 style={{ width: '30%', marginTop: '20px' }}
                 variant="warning"
+                onClick={backback}
               >
                 취소
               </Button>

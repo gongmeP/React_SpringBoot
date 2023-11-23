@@ -2,6 +2,7 @@ package com.example.boot.Controller;
 
 import com.example.boot.Dto.FreeBoardDTO;
 import com.example.boot.Entity.FreeBoard;
+import com.example.boot.Entity.Member;
 import com.example.boot.Service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -206,11 +207,23 @@ public class FreeBoardController {
             return ResponseEntity.ok(messge);
         }catch (Exception e){
 
-            return ResponseEntity.ok("/Memberlist/DeleteUpdateSelect 오류");
+            return ResponseEntity.ok("/FreeBoardList/SelectDelete/{SelectBoardArray} 오류");
         }
-
-
     }
+
+    @PostMapping("/FreeBoard/MemberBoardEA")
+    @CrossOrigin
+    public ResponseEntity<?> MemberBoardEA(@RequestBody Member member){
+
+        try {
+          Long EA = freeBoardService.getMemberBoardEA(member);
+            return ResponseEntity.ok(EA);
+        }catch (Exception e){
+
+            return ResponseEntity.ok("/FreeBoard/UserBoardEA 오류");
+        }
+    }
+
 
 
 

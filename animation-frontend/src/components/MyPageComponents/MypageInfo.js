@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col } from 'react-bootstrap';
 import {
   BoardEaLiStyled,
@@ -10,13 +10,27 @@ import {
   MyNameDivStyled,
 } from '../../styledcomponents/Favorite.styled';
 import { useNavigate } from 'react-router-dom';
+import axiosAPI from '../../axiosAPI';
 
 function MypageInfo() {
-  const Myname = window.sessionStorage.getItem('loginUsername');
+  const [MemberBoardEALong, setMemberBoardEA] = useState(0);
+  const Username = window.sessionStorage.getItem('loginUsername');
+  const UserId = window.sessionStorage.getItem('loginID');
   const navigate = useNavigate();
   const Userupdate = () => {
     navigate('/userupdateForm');
   };
+
+  useEffect(() => {
+    const MemberBoardEA = async () => {
+      const res = await axiosAPI.post('/FreeBoard/MemberBoardEA', {
+        mid: UserId,
+      });
+      setMemberBoardEA(res.data);
+    };
+    MemberBoardEA();
+  }, []);
+
   return (
     <>
       <Col md={3}>
@@ -25,15 +39,15 @@ function MypageInfo() {
           <InfoImgStyled src="./projectimg/myinfo/myinfo.png"></InfoImgStyled>
         </InfoDivStyled>
         <InfoDivStyled>
-          <MyNameDivStyled>{Myname}</MyNameDivStyled>
+          <MyNameDivStyled>{Username}</MyNameDivStyled>
         </InfoDivStyled>
         <InfoDivStyled>
           <BoardEaUlStyled>
-            <BoardEaLiStyled2>0</BoardEaLiStyled2>
+            <BoardEaLiStyled2>{MemberBoardEALong}</BoardEaLiStyled2>
             <BoardEaLiStyled>게시글</BoardEaLiStyled>
           </BoardEaUlStyled>
           <BoardEaUlStyled>
-            <BoardEaLiStyled2>0</BoardEaLiStyled2>
+            <BoardEaLiStyled2>개발X</BoardEaLiStyled2>
             <BoardEaLiStyled>리뷰</BoardEaLiStyled>
           </BoardEaUlStyled>
         </InfoDivStyled>

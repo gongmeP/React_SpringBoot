@@ -28,6 +28,7 @@ public interface FreeBoardMapper {
 
     int SearchTotalPage(String fbtitle);
 
+    Long getMemberBoardEA(String mid);
 
 
 }

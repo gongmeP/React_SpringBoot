@@ -93,10 +93,26 @@ public class FreeBoardServiceImpl implements FreeBoardService {
             return "삭제완료";
         }catch (Exception e){
             System.out.println(e);
-            System.out.println("MemberService selectiddeleteY 에러");
+            System.out.println("FreeBoardService selectiddeleteY 에러");
             return "삭제실패";
         }
 
+    }
+
+    @Override
+    public Long getMemberBoardEA(Member member) {
+        try{
+
+          Long EA = freeBoardMapper.getMemberBoardEA(member.getMid());
+          
+          return  EA;
+
+        }catch (Exception e){
+
+            System.out.println("FreeBoardService getMemberBoardEA 오류");
+            return null;
+
+        }
     }
 }
 
