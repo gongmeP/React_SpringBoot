@@ -92,8 +92,8 @@ function DetailFreeBoard() {
     image.src = `${API_URL}/file/${formData.photo}`;
     image.onload = () => {
       setImageDimensions({
-        width: image.naturalWidth / 5,
-        height: image.naturalHeight / 5,
+        width: image.naturalWidth / 2,
+        height: image.naturalHeight / 2,
       });
     };
   }, [formData.photo]);

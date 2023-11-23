@@ -5,6 +5,8 @@ import com.example.boot.Entity.FreeBoard;
 import com.example.boot.Entity.Member;
 import com.example.boot.Service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -88,7 +91,8 @@ public class FreeBoardController {
 
         return freeBoardSave;
     }
-
+    @Value("${upload.dir}")
+    private String uploadDir;
     @PostMapping("/FreeBoard/ImgSave")
     @CrossOrigin
     @ResponseBody
@@ -96,15 +100,11 @@ public class FreeBoardController {
         List<String> fileNamespath = new ArrayList<>();
 
         try {
-            String path = "classpath:/static/file/";
-
+            String path = uploadDir;
             UUID uuid = UUID.randomUUID();
             String fileName = uuid + "_" + file.getOriginalFilename();
 
-            Resource resource = resourceLoader.getResource(path);
-            Path basePath = Paths.get(resource.getURI());
-
-            File saveFile = new File(basePath.toFile(),fileName);
+            File saveFile = new File(path,fileName);
 
             file.transferTo(saveFile);
             fileNamespath.add(fileName);

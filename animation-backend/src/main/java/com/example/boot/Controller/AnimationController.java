@@ -3,7 +3,8 @@ package com.example.boot.Controller;
 import com.example.boot.Entity.Animation;
 import com.example.boot.Service.AnimationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,7 +36,8 @@ public class AnimationController {
         return new ResponseEntity<>(animationService.saveAni(animation),HttpStatus.CREATED);
     }
 
-
+    @Value("${upload.Anidir}")
+    private String Anidir;
     @PostMapping("/Ani/PhotoSave")
     @CrossOrigin
     @ResponseBody
@@ -43,19 +45,15 @@ public class AnimationController {
         List<String> fileNamespath = new ArrayList<>();
 
         try {
-            String path = "classpath:/static/file/AniImgFile";
+            String path = Anidir;
             UUID uuid = UUID.randomUUID();
             String fileName = uuid + "_" + file.getOriginalFilename();
 
-            Resource resource = resourceLoader.getResource(path);
-            Path basePath = Paths.get(resource.getURI());
-
-            File saveFile = new File(basePath.toFile(),fileName);
+            File saveFile = new File(path,fileName);
 
             file.transferTo(saveFile);
             fileNamespath.add(fileName);
             return fileNamespath;
-
         }catch (Exception e){
             System.out.println(e);
             return fileNamespath;
