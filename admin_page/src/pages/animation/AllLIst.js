@@ -4,7 +4,6 @@ import AniItem from '../../components/AniComponents/AniItem';
 import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
-import axios from 'axios';
 import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';

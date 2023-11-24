@@ -21,6 +21,7 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
     List<Animation> findByAnideleteOrderByIdDesc(String string);
 
 
+
     List<Animation> findTop10ByOrderByViewCountDesc();
 
 

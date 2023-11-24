@@ -98,14 +98,11 @@ public class FreeBoardController {
     @ResponseBody
     public List<String>  imgSava(MultipartFile file) throws Exception{
         List<String> fileNamespath = new ArrayList<>();
-
         try {
             String path = uploadDir;
             UUID uuid = UUID.randomUUID();
             String fileName = uuid + "_" + file.getOriginalFilename();
-
             File saveFile = new File(path,fileName);
-
             file.transferTo(saveFile);
             fileNamespath.add(fileName);
             return fileNamespath;
