@@ -166,7 +166,7 @@ function Detail(props) {
             )}
           </Col>
         </Row>
-        <AniReview></AniReview>
+        <AniReview Ani_Id={detailAni.id}></AniReview>
       </Container>
     </>
   );

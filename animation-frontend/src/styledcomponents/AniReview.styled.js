@@ -27,6 +27,9 @@ export const ReviewText = styled.textarea`
   height: 80px;
   width: 100%;
   resize: none;
+  border-color: lightgray;
+  padding: 5px;
+  font-size: 0.9rem;
 `;
 
 export const ReviewTextBoxDiv = styled.div`

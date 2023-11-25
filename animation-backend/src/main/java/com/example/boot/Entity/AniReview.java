@@ -1,6 +1,7 @@
 package com.example.boot.Entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name="ani_review")
+@Builder
 public class AniReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
