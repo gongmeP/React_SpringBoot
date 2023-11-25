@@ -4,8 +4,6 @@ import com.example.boot.Entity.Animation;
 import com.example.boot.Service.AnimationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,8 +22,6 @@ import java.util.UUID;
 public class AnimationController {
 
     private final AnimationService animationService;
-    private final ResourceLoader resourceLoader;
-
     @PostMapping("/Ani")
     @CrossOrigin
     public ResponseEntity<?> save(@RequestBody Animation animation){

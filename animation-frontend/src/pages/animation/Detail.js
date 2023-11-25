@@ -14,6 +14,7 @@ import {
   StrongStyled,
 } from '../../styledcomponents/AniDetail.styled';
 import axiosAPI, { API_URL } from '../../axiosAPI';
+import AniReview from '../../components/AniComponents/AniReview';
 
 function Detail(props) {
   const userid = sessionStorage.getItem('loginID');
@@ -165,6 +166,7 @@ function Detail(props) {
             )}
           </Col>
         </Row>
+        <AniReview></AniReview>
       </Container>
     </>
   );
