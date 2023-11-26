@@ -26,5 +26,12 @@ public class AniReviewController {
         return new ResponseEntity<>(aniReviewService.getMystarRating(aniReviewDTO), HttpStatus.OK);
     }
 
+    @PostMapping("/Ani/ReviewTextAdd")
+    @CrossOrigin
+    public ResponseEntity<?> ReviewTextAdd(@RequestBody AniReviewDTO aniReviewDTO){
+
+        return new ResponseEntity<>(aniReviewService.ReviewTextAdd(aniReviewDTO), HttpStatus.OK);
+    }
+
 
 }

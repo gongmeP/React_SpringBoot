@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -78,5 +79,37 @@ public class AniReviewServiceImpl implements  AniReviewService {
 
             return null;
         }
+    }
+
+    @Override
+    public String ReviewTextAdd(AniReviewDTO aniReviewDTO) {
+        try{
+            Optional<Member> members = memberRepository.findByMid(aniReviewDTO.getMember_mid());
+            Member member = members.orElseThrow(() -> new NotFoundException("미존재 맴버에요 " + aniReviewDTO.getMember_mid()));
+            Animation animation = animationRepository.findById(aniReviewDTO.getAni_id())
+                    .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
+            AniReview aniReview = aniReviewRepository.findByMemberAndAnimation(member,animation);
+
+            if(!aniReview.getReviewText().isEmpty()){
+
+                return "기존 리뷰 존재";
+
+            }else{
+
+                aniReview.setReviewText(aniReviewDTO.getReviewText());
+                aniReview.setLikes(0L);
+                aniReview.setReviewDelete("n");
+                aniReview.setReviewDate(LocalDateTime.now());
+                aniReviewRepository.save(aniReview);
+
+                return "리뷰 저장됨";
+            }
+
+        }catch (Exception e){
+            System.out.println("AniReviewService ReviewTextAdd 에러");
+
+            return null;
+        }
+
     }
 }

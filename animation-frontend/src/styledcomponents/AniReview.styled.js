@@ -44,6 +44,7 @@ export const ReviewTextButton = styled(Button)`
   width: 80px;
   margin-left: 10px;
   background-color: #816bff !important;
+  border-color: #816bff !important;
 `;
 
 export const AniStarReview = styled.div`

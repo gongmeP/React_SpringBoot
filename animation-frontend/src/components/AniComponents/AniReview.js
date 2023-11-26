@@ -75,6 +75,34 @@ function AniReview({ Ani_Id }) {
     }
   };
 
+  const [reviewText, setReviewText] = useState('');
+
+  const ReviewTextIn = (e) => {
+    setReviewText(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const ReviewTextAdd = async () => {
+    if (reviewText === '') {
+      alert('등록하실 리뷰를 작성해주세요.');
+      return;
+    }
+    const res = await axiosAPI.post(`/Ani/ReviewTextAdd`, {
+      member_mid: loginID,
+      Ani_id: Ani_Id,
+      reviewText: reviewText,
+    });
+    if (res.data === '리뷰 저장됨') {
+      alert('소중한 리뷰가 등록되었습니다!');
+      setReviewText('');
+    } else if ((res.data = '기존 리뷰 존재')) {
+      alert('리뷰는 하나씩만 등록 가능해요!');
+      setReviewText('');
+    } else {
+      console.log('리뷰 등록 에러');
+    }
+  };
+
   return (
     <>
       {!Loading ? (
@@ -101,8 +129,11 @@ function AniReview({ Ani_Id }) {
           <Col md={7} style={{ marginTop: '10px' }}>
             <Pstyled>리뷰 작성</Pstyled>
             <ReviewTextBoxDiv>
-              <ReviewText></ReviewText>
-              <ReviewTextButton>등록</ReviewTextButton>
+              <ReviewText
+                onChange={ReviewTextIn}
+                value={reviewText}
+              ></ReviewText>
+              <ReviewTextButton onClick={ReviewTextAdd}>등록</ReviewTextButton>
             </ReviewTextBoxDiv>
           </Col>
         </Row>
