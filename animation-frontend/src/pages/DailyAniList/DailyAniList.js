@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-
 import { useState } from 'react';
-import axios from 'axios';
 import { useEffect } from 'react';
 import DailyItem from '../../components/DailyAniListComponents/DailyItem';
 import store from '../../Redux/store';
@@ -12,6 +10,7 @@ import { setToday } from '../../Redux/DailyAction';
 import axiosAPI from '../../axiosAPI';
 
 function DailyAniList() {
+  const [Loading, setLoading] = useState(true);
   const reDate = new Date();
   const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
@@ -39,6 +38,8 @@ function DailyAniList() {
         store.dispatch(setAniALLArray(res.data));
       } catch (error) {
         console.log('AniMainDaily AxiosError');
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -46,12 +47,20 @@ function DailyAniList() {
 
   return (
     <>
-      <Row style={{ margin: '0 auto' }}>
-        {Daily.map((day) => (
-          <DailyItem day={day}></DailyItem>
-        ))}
-      </Row>
-      <DailyAniButton Day={Day} setDay={setDay} Daily={Daily}></DailyAniButton>
+      {!Loading && Daily.length > 0 ? (
+        <>
+          <Row style={{ margin: '0 auto' }}>
+            {Daily.map((day) => (
+              <DailyItem day={day} key={day.id}></DailyItem>
+            ))}
+          </Row>
+          <DailyAniButton
+            Day={Day}
+            setDay={setDay}
+            Daily={Daily}
+          ></DailyAniButton>
+        </>
+      ) : null}
     </>
   );
 }

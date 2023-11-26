@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const AniReviewH3styled = styled.h3`
   text-align: center;
+  margin: 0px;
 `;
 
 export const Pstyled = styled.p`
@@ -24,7 +25,7 @@ export const AniStarImg = styled.img`
 `;
 
 export const ReviewText = styled.textarea`
-  height: 80px;
+  height: 90px;
   width: 100%;
   resize: none;
   border-color: lightgray;
@@ -43,4 +44,9 @@ export const ReviewTextButton = styled(Button)`
   width: 80px;
   margin-left: 10px;
   background-color: #816bff !important;
+`;
+
+export const AniStarReview = styled.div`
+  text-align: center;
+  color: gray;
 `;

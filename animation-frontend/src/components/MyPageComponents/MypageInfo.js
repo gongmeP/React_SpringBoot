@@ -47,8 +47,12 @@ function MypageInfo() {
             <BoardEaLiStyled>게시글</BoardEaLiStyled>
           </BoardEaUlStyled>
           <BoardEaUlStyled>
-            <BoardEaLiStyled2>개발X</BoardEaLiStyled2>
+            <BoardEaLiStyled2>개발중</BoardEaLiStyled2>
             <BoardEaLiStyled>리뷰</BoardEaLiStyled>
+          </BoardEaUlStyled>
+          <BoardEaUlStyled>
+            <BoardEaLiStyled2>개발중</BoardEaLiStyled2>
+            <BoardEaLiStyled>별점</BoardEaLiStyled>
           </BoardEaUlStyled>
         </InfoDivStyled>
         <InfoDivStyled>

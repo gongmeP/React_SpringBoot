@@ -58,16 +58,19 @@ public class AniReviewServiceImpl implements  AniReviewService {
     public Double getMystarRating(AniReviewDTO aniReviewDTO) {
         System.out.println(aniReviewDTO.getAni_id());
         try{
+            if(aniReviewDTO.getMember_mid() == null || aniReviewDTO.getAni_id() ==null ){
+                return 0D;
+            }
             Optional<Member> members = memberRepository.findByMid(aniReviewDTO.getMember_mid());
             Member member = members.orElseThrow(() -> new NotFoundException("미존재 맴버에요 " + aniReviewDTO.getMember_mid()));
             Animation animation = animationRepository.findById(aniReviewDTO.getAni_id())
                     .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
             AniReview aniReview = aniReviewRepository.findByMemberAndAnimation(member,animation);
-            System.out.println(aniReview);
+
             if(aniReview != null){
                 return aniReview.getRating();
             }else{
-                return null;
+                return 0D;
             }
         }catch (Exception e){
 

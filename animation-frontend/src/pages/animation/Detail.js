@@ -17,6 +17,7 @@ import axiosAPI, { API_URL } from '../../axiosAPI';
 import AniReview from '../../components/AniComponents/AniReview';
 
 function Detail(props) {
+  const [Loading, setLoading] = useState(true);
   const userid = sessionStorage.getItem('loginID');
   const propsParam = useParams();
   const id = propsParam.id;
@@ -35,11 +36,15 @@ function Detail(props) {
   useEffect(() => {
     const fetch2 = async () => {
       if (detailAni.id !== undefined) {
-        const res2 = await axiosAPI.post(`/Favorite/Check`, {
-          Ani_id: detailAni.id,
-          member_mid: userid,
-        });
-        setFavoriteOK(res2.data);
+        try {
+          const res2 = await axiosAPI.post(`/Favorite/Check`, {
+            Ani_id: detailAni.id,
+            member_mid: userid,
+          });
+          setFavoriteOK(res2.data);
+        } finally {
+          setLoading(false);
+        }
       }
     };
     fetch2();
@@ -106,68 +111,72 @@ function Detail(props) {
 
   return (
     <>
-      <Container className="mb-4">
-        <Row>
-          <Col md={7}>
-            <h1>{detailAni.title}</h1>
-            <P_Styled2>
-              {detailAni.dayOfWeek === '완결'
-                ? `${detailAni.genre} / ${detailAni.dayOfWeek}`
-                : `${detailAni.genre} / 방영중`}
-            </P_Styled2>
-            <h3>줄거리</h3>
-            <P_Styled2>{detailAni.content}</P_Styled2>
-            <P_Styled>
-              <StrongStyled>평점 </StrongStyled>
-              {detailAni.averageRating}
-              <StarImg
-                src="../projectimg/star/free-star.jpg"
-                alt="별점"
-              ></StarImg>
-            </P_Styled>
-          </Col>
-          <Col md={5} className="aniimgs">
-            <DetailAniImg
-              src={`${API_URL}/file/AniImgFile/${detailAni.photo}`}
-              alt="애니 포스터"
-              fluid
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col
-            md={9}
-            style={{ height: '60px', display: 'flex' }}
-            className="mt-2"
-          >
-            <PlayImg_Styled
-              src="../projectimg/button/play.png"
-              onClick={Playvideo}
-            />
-            <PlayDiv_Styled onClick={Playvideo}>재생하기</PlayDiv_Styled>
-            {favoriteOK === '보관함 있음' ? (
-              <>
-                <PlayImg_Styled
-                  src="../projectimg/button/minus.png"
-                  onClick={favoriteDelete}
-                />
-                <PlayDiv_Styled onClick={favoriteDelete}>
-                  보관함 제거
-                </PlayDiv_Styled>
-              </>
-            ) : (
-              <>
-                <PlayImg_Styled
-                  src="../projectimg/button/plus.png"
-                  onClick={favorite}
-                />
-                <PlayDiv_Styled onClick={favorite}>보관함 추가</PlayDiv_Styled>
-              </>
-            )}
-          </Col>
-        </Row>
-        <AniReview Ani_Id={detailAni.id}></AniReview>
-      </Container>
+      {!Loading ? (
+        <Container className="mb-4">
+          <Row>
+            <Col md={7}>
+              <h1>{detailAni.title}</h1>
+              <P_Styled2>
+                {detailAni.dayOfWeek === '완결'
+                  ? `${detailAni.genre} / ${detailAni.dayOfWeek}`
+                  : `${detailAni.genre} / 방영중`}
+              </P_Styled2>
+              <h3>줄거리</h3>
+              <P_Styled2>{detailAni.content}</P_Styled2>
+              <P_Styled>
+                <StrongStyled>평점 </StrongStyled>
+                {detailAni.averageRating}
+                <StarImg
+                  src="../projectimg/star/free-star.jpg"
+                  alt="별점"
+                ></StarImg>
+              </P_Styled>
+            </Col>
+            <Col md={5} className="aniimgs">
+              <DetailAniImg
+                src={`${API_URL}/file/AniImgFile/${detailAni.photo}`}
+                alt="애니 포스터"
+                fluid
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              md={9}
+              style={{ height: '60px', display: 'flex' }}
+              className="mt-2"
+            >
+              <PlayImg_Styled
+                src="../projectimg/button/play.png"
+                onClick={Playvideo}
+              />
+              <PlayDiv_Styled onClick={Playvideo}>재생하기</PlayDiv_Styled>
+              {favoriteOK === '보관함 있음' ? (
+                <>
+                  <PlayImg_Styled
+                    src="../projectimg/button/minus.png"
+                    onClick={favoriteDelete}
+                  />
+                  <PlayDiv_Styled onClick={favoriteDelete}>
+                    보관함 제거
+                  </PlayDiv_Styled>
+                </>
+              ) : (
+                <>
+                  <PlayImg_Styled
+                    src="../projectimg/button/plus.png"
+                    onClick={favorite}
+                  />
+                  <PlayDiv_Styled onClick={favorite}>
+                    보관함 추가
+                  </PlayDiv_Styled>
+                </>
+              )}
+            </Col>
+          </Row>
+          <AniReview Ani_Id={detailAni.id}></AniReview>
+        </Container>
+      ) : null}
     </>
   );
 }
