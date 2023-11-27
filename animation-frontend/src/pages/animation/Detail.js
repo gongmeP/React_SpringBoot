@@ -125,12 +125,9 @@ function Detail(props) {
               <h3>줄거리</h3>
               <P_Styled2>{detailAni.content}</P_Styled2>
               <P_Styled>
-                <StrongStyled>평점 </StrongStyled>
-                {detailAni.averageRating}
-                <StarImg
-                  src="../projectimg/star/free-star.jpg"
-                  alt="별점"
-                ></StarImg>
+                <StrongStyled>별점 {detailAni.averageRating}</StrongStyled>
+
+                <StarImg src="/projectimg/star/star2.png" alt="별점"></StarImg>
               </P_Styled>
             </Col>
             <Col md={5} className="aniimgs">

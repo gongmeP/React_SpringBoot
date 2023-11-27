@@ -37,9 +37,10 @@ export const DetailAniImg = styled.img`
 `;
 
 export const StarImg = styled.img`
-  width: 1.5625rem;
-  height: 1.5625rem;
+  width: 1rem;
+  height: 1rem;
   margin-bottom: 0.25rem;
+  margin-left: 3px;
 `;
 
 export const StrongStyled = styled.strong`

@@ -19,7 +19,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axiosAPI from '../../axiosAPI';
 import { useSelector } from 'react-redux';
-import store from '../../Redux/store';
 
 function AniReviewList({ Ani_Id }) {
   function DateTime(reviewDate) {
@@ -49,6 +48,8 @@ function AniReviewList({ Ani_Id }) {
       ReviewList();
     }
   }, [ReuseEffect]);
+
+  const LikeUp = () => {};
 
   return (
     <>
@@ -92,8 +93,10 @@ function AniReviewList({ Ani_Id }) {
                   </AniReviewListUsername>
                 </AniReviewListDivBox>
                 <AniReviewListDiv>{data.reviewText}</AniReviewListDiv>
-                <LlikeImg src="/projectimg/likes/free-icon2.png"></LlikeImg>
-                <AniReviewEm2> {data.likes}</AniReviewEm2>
+                <div onClick={LikeUp}>
+                  <LlikeImg src="/projectimg/likes/free-icon2.png"></LlikeImg>
+                  <AniReviewEm2> {data.likes} 개발중</AniReviewEm2>
+                </div>
               </AniRreiewListCol>
             </Row>
           ))}

@@ -15,4 +15,6 @@ public interface AniReviewRepository extends JpaRepository<AniReview,Long> {
     List<AniReview> findByAnimationAndReviewDelete(Animation animation, String n);
     Long countByMemberMid(String mid);
     Long countByMemberMidAndReviewTextIsNotNull(String mid);
+
+    Long countByAnimationTitle(String animation);
 }

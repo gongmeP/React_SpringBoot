@@ -36,9 +36,41 @@ public class AniReviewServiceImpl implements  AniReviewService {
 
             AniReview aniReview = aniReviewRepository.findByMemberAndAnimation(member,animation);
             if(aniReview != null){
-               aniReview.setRating(aniReviewDTO.getRating());
+
+                //기존 별점에 현재 별점 평균값 계산
+                double oldRating = aniReview.getRating();
+                double newRating = aniReviewDTO.getRating();
+                double totalRating = animation.getAverageRating();
+                Long ReviewEA = aniReviewRepository.countByAnimationTitle(animation.getTitle());
+                double newAverageRating ;
+                if(oldRating-newRating==0){
+                     newAverageRating = (totalRating);
+                }else{
+                    newAverageRating = ((totalRating * ReviewEA - oldRating) + newRating) / ReviewEA;
+                }
+
+                //계산 해서 애니메이션 레이팅에 세이브
+                animation.setAverageRating(newAverageRating);
+
+                //지금 온 별점 저장
+                aniReview.setRating(aniReviewDTO.getRating());
                 aniReviewRepository.save(aniReview);
             }else{
+
+
+                //기존 별점이 없을경우 .
+                double newRating = aniReviewDTO.getRating();
+                double totalRating = animation.getAverageRating();
+                Long ReviewEA = aniReviewRepository.countByAnimationTitle(animation.getTitle());
+                double newAverageRating;
+                if (ReviewEA == 0) {
+                    newAverageRating = newRating;
+                } else {
+                    newAverageRating = (totalRating * ReviewEA + newRating) / (ReviewEA + 1);
+                }
+
+                animation.setAverageRating(newAverageRating);
+
                 aniReview = AniReview.builder()
                         .member(member)
                         .animation(animation)
@@ -47,6 +79,7 @@ public class AniReviewServiceImpl implements  AniReviewService {
                         .rating(aniReviewDTO.getRating())
                         .build();
                 aniReviewRepository.save(aniReview);
+
             }
             
             return "별점 저장 완료";
@@ -71,6 +104,7 @@ public class AniReviewServiceImpl implements  AniReviewService {
             AniReview aniReview = aniReviewRepository.findByMemberAndAnimation(member,animation);
 
             if(aniReview != null){
+
                 return aniReview.getRating();
             }else{
                 return 0D;
@@ -91,8 +125,6 @@ public class AniReviewServiceImpl implements  AniReviewService {
             Animation animation = animationRepository.findById(aniReviewDTO.getAni_id())
                     .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
             AniReview aniReview = aniReviewRepository.findByMemberAndAnimation(member,animation);
-
-            System.out.println(aniReview);
 
             if (aniReview == null){
 
