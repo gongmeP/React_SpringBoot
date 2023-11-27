@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,28 +20,48 @@ public class LikesServiceImpl implements LikesService {
 
     @Override
     public String ReviewLikeUp(AniReview aniReview) {
-        AniReview ReAniReview = aniReviewRepository.findByReviewId(aniReview.getReviewId());
-        Likes likes = likesRepository.findByAniReview(ReAniReview);
+        try {
+            AniReview ReAniReview = aniReviewRepository.findByReviewId(aniReview.getReviewId());
+            Likes likes = likesRepository.findByAniReviewAndMemberMid(ReAniReview,aniReview.getMemberMid());
 
-        Long oldLike = ReAniReview.getLikes();
+            Long oldLike = ReAniReview.getLikes();
 
+            if (likes != null) {
+                likesRepository.delete(likes);
+                ReAniReview.setLikes(oldLike - 1);
+                aniReviewRepository.save(ReAniReview);
+                return "좋아요 취소";
+            } else {
+                likes = Likes.builder()
+                        .aniReview(ReAniReview)
+                        .memberMid(aniReview.getMemberMid())
+                        .likeTime(LocalDateTime.now())
+                        .build();
+
+                likesRepository.save(likes);
+
+                ReAniReview.setLikes(oldLike + 1);
+                aniReviewRepository.save(ReAniReview);
+                return "좋아요 성공";
+            }
+
+
+        }catch (Exception e) {
+            System.out.println("LikesService ReviewLikeUp 에러");
+            return "좋아요 에러";
+        }
+
+    }
+
+    @Override
+    public List<Likes> ReviewLikeCheck(AniReview aniReview) {
+
+        List<Likes> likes = likesRepository.findByMemberMid(aniReview.getMemberMid());
         if(likes != null){
-            likesRepository.delete(likes);
-            ReAniReview.setLikes(oldLike-1);
-            aniReviewRepository.save(ReAniReview);
-            return "좋아요 취소";
+
+            return likes;
         }else{
-            likes = Likes.builder()
-                    .aniReview(ReAniReview)
-                    .memberMid(ReAniReview.getMemberMid())
-                    .likeTime(LocalDateTime.now())
-                    .build();
-
-            likesRepository.save(likes);
-
-            ReAniReview.setLikes(oldLike+1);
-            aniReviewRepository.save(ReAniReview);
-            return "좋아요 성공";
+            return null;
         }
 
     }

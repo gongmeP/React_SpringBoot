@@ -34,16 +34,22 @@ function AniReviewList({ Ani_Id }) {
   }
   const [Loading, setLoading] = useState(true);
   const [ReViewData, setReviewData] = useState([]);
+  const [LikeList, setLikeList] = useState([]);
   const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
+  const loginID = window.sessionStorage.getItem('loginID');
   useEffect(() => {
     if (Ani_Id !== null) {
       const ReviewList = async () => {
         try {
           const res = await axiosAPI.post(`/Ani/ReviewListGetData`, {
             Ani_id: Ani_Id,
+            memberMid: loginID,
+          });
+          const res2 = await axiosAPI.post(`/Ani/ReviewLikeCheck`, {
+            memberMid: loginID,
           });
           setReviewData(res.data);
-          console.log(res.data);
+          setLikeList(res2.data.map((data) => data?.aniReview?.reviewId));
         } finally {
           setLoading(false);
         }
@@ -53,8 +59,13 @@ function AniReviewList({ Ani_Id }) {
   }, [ReuseEffect]);
 
   const LikeUp = async (reviewId) => {
+    if (loginID === null) {
+      alert('로그인 하셔야 좋아요를 보낼수있어요!');
+      return;
+    }
     const res = await axiosAPI.post(`/Ani/ReviewLikeUp`, {
       reviewId: reviewId,
+      memberMid: loginID,
     });
     store.dispatch(setReuseEffect(ReuseEffect + 1));
   };
@@ -107,8 +118,13 @@ function AniReviewList({ Ani_Id }) {
                   }}
                   style={{ cursor: 'pointer', width: '40px' }}
                 >
-                  <LlikeImg src="/projectimg/likes/free-icon1.png"></LlikeImg>
-                  <AniReviewEm2> {data.likes}</AniReviewEm2>
+                  {LikeList.includes(data.reviewId) ? (
+                    <LlikeImg src="/projectimg/likes/free-icon1.png"></LlikeImg>
+                  ) : (
+                    <LlikeImg src="/projectimg/likes/free-icon2.png"></LlikeImg>
+                  )}
+
+                  <AniReviewEm2>{data.likes}</AniReviewEm2>
                 </div>
               </AniRreiewListCol>
             </Row>

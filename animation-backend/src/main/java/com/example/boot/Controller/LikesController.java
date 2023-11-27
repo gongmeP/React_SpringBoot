@@ -20,10 +20,17 @@ public class LikesController {
    @CrossOrigin
    public ResponseEntity<?> ReviewLikeUp(@RequestBody AniReview aniReview) {
 
-       System.out.println(aniReview.getReviewId());
+       System.out.println(aniReview);
 
        return new ResponseEntity<>(likesService.ReviewLikeUp(aniReview), HttpStatus.OK);
    }
+
+    @PostMapping("/Ani/ReviewLikeCheck")
+    @CrossOrigin
+    public ResponseEntity<?> ReviewLikeCheck(@RequestBody AniReview aniReview) {
+
+        return new ResponseEntity<>(likesService.ReviewLikeCheck(aniReview), HttpStatus.OK);
+    }
 
 
 
