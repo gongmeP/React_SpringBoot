@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
 export const AniReviewH3styled = styled.h3`
@@ -11,6 +11,21 @@ export const Pstyled = styled.p`
   font-size: 1.2rem;
   font-weight: 500;
   height: 30px;
+`;
+
+export const Pstyled2 = styled.p`
+  margin: 0px;
+  font-size: 1rem;
+  font-weight: 400;
+  height: 30px;
+`;
+
+export const Pstyled3 = styled.p`
+  margin: 0px;
+  font-size: 1rem;
+  font-weight: 400;
+  height: 30px;
+  text-align: right;
 `;
 
 export const AniStarDiv = styled.div`
@@ -50,4 +65,68 @@ export const ReviewTextButton = styled(Button)`
 export const AniStarReview = styled.div`
   text-align: center;
   color: gray;
+`;
+
+export const AniRreiewListCol = styled(Col)`
+  padding-top: 10px;
+  padding-bottom: 10px;
+`;
+
+export const AniReviewListDivBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const AniReviewListUl = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+`;
+export const AniReviewListLi = styled.li`
+  height: 30px;
+  line-height: 30px;
+`;
+
+export const AniReviewListLi2 = styled.li`
+  height: 20px;
+  line-height: 20px;
+  color: gray;
+`;
+
+export const AniStarImgList = styled.img`
+  width: 18px;
+  height: 18px;
+  margin-left: 3px;
+  margin-right: 3px;
+  vertical-align: -2px;
+`;
+
+export const AniReviewListUsername = styled.div`
+  font-size: 0.9;
+`;
+
+export const AniReviewListDiv = styled.div`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: gray;
+  font-size: 1rem;
+`;
+
+export const LlikeImg = styled.img`
+  width: 16px;
+  height: 16px;
+  vertical-align: -2px;
+`;
+
+export const AniReviewEm = styled.em`
+  font-style: normal;
+  font-weight: 600;
+  margin-left: 10px;
+  font-size: 1.2rem;
+`;
+
+export const AniReviewEm2 = styled.em`
+  font-style: normal;
+  margin-left: 5px;
+  font-size: 0.9rem;
 `;

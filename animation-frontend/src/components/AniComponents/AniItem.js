@@ -19,6 +19,7 @@ function AniItem({ Anidata }) {
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
         className="anicardimg"
+        loading="lazy"
       />
       <Card.Body className="p-0">
         <Card.Title className="mb-0 CardTitle" style={{ fontSize: '0.95rem' }}>

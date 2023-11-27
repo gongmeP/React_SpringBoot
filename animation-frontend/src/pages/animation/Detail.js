@@ -15,6 +15,7 @@ import {
 } from '../../styledcomponents/AniDetail.styled';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import AniReview from '../../components/AniComponents/AniReview';
+import AniReviewList from '../../components/AniComponents/AniReviewList';
 
 function Detail(props) {
   const [Loading, setLoading] = useState(true);
@@ -174,7 +175,9 @@ function Detail(props) {
               )}
             </Col>
           </Row>
+          {/* 별점 리뷰 작성하는 컴포넌트 */}
           <AniReview Ani_Id={detailAni.id}></AniReview>
+          <AniReviewList></AniReviewList>
         </Container>
       ) : null}
     </>
