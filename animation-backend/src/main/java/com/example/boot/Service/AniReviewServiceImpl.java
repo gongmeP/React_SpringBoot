@@ -12,6 +12,8 @@ import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -90,26 +92,50 @@ public class AniReviewServiceImpl implements  AniReviewService {
                     .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
             AniReview aniReview = aniReviewRepository.findByMemberAndAnimation(member,animation);
 
-            if(!aniReview.getReviewText().isEmpty()){
+            System.out.println(aniReview);
 
-                return "기존 리뷰 존재";
+            if (aniReview == null){
+
+                return "별점 먼저 체크";
 
             }else{
 
-                aniReview.setReviewText(aniReviewDTO.getReviewText());
-                aniReview.setLikes(0L);
-                aniReview.setReviewDelete("n");
-                aniReview.setReviewDate(LocalDateTime.now());
-                aniReviewRepository.save(aniReview);
+                if(aniReview.getReviewText()!=null){
 
-                return "리뷰 저장됨";
+                    return "기존 리뷰 존재";
+
+                }else{
+
+                    aniReview.setReviewText(aniReviewDTO.getReviewText());
+                    aniReview.setLikes(0L);
+                    aniReview.setReviewDelete("n");
+                    aniReview.setReviewDate(LocalDateTime.now());
+                    aniReviewRepository.save(aniReview);
+
+                    return "리뷰 저장됨";
+                }
+
             }
-
         }catch (Exception e){
             System.out.println("AniReviewService ReviewTextAdd 에러");
 
             return null;
         }
 
+    }
+
+    @Override
+    public List<AniReview> ReviewListGetData(AniReviewDTO aniReviewDTO) {
+        try{
+            Animation animation = animationRepository.findById(aniReviewDTO.getAni_id())
+                    .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
+            List<AniReview> aniReview = aniReviewRepository.findByAnimationAndReviewDelete(animation,"n");
+
+            return aniReview;
+        }catch (Exception e){
+            System.out.println("AniReviewService ReviewListGetData 에러");
+
+            return null;
+        }
     }
 }

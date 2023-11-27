@@ -25,3 +25,8 @@ export const setURL = (url) => ({
   type: 'setURL',
   payload: url,
 });
+
+export const setReuseEffect = (ReuseEffect) => ({
+  type: 'setReuseEffect',
+  payload: ReuseEffect,
+});

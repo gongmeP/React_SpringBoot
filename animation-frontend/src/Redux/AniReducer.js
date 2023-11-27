@@ -18,6 +18,7 @@ const initstate = {
     ],
   },
   url: 'http://localhost:8080',
+  ReuseEffect: 0,
 };
 
 const AniReducer = (state = initstate, action) => {
@@ -34,6 +35,8 @@ const AniReducer = (state = initstate, action) => {
       return { ...state, genreArray: action.payload };
     case 'setURL':
       return { ...state, url: action.payload };
+    case 'setReuseEffect':
+      return { ...state, ReuseEffect: action.payload };
     default:
       return state;
   }

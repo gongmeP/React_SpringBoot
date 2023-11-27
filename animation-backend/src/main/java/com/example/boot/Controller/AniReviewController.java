@@ -33,5 +33,10 @@ public class AniReviewController {
         return new ResponseEntity<>(aniReviewService.ReviewTextAdd(aniReviewDTO), HttpStatus.OK);
     }
 
+    @PostMapping("/Ani/ReviewListGetData")
+    @CrossOrigin
+    public ResponseEntity<?> ReviewListGetData(@RequestBody AniReviewDTO aniReviewDTO){
 
+        return new ResponseEntity<>(aniReviewService.ReviewListGetData(aniReviewDTO), HttpStatus.OK);
+    }
 }

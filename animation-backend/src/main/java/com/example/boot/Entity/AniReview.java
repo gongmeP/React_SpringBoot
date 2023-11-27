@@ -1,5 +1,6 @@
 package com.example.boot.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,10 +22,12 @@ public class AniReview {
 
     @ManyToOne
     @JoinColumn(name = "animation_id", referencedColumnName = "id")
+    @JsonIgnore
     private Animation animation;
 
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "id")
+    @JsonIgnore
     private Member member;
 
     private String memberMid;

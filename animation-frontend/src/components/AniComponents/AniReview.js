@@ -12,12 +12,16 @@ import {
   ReviewTextButton,
 } from '../../styledcomponents/AniReview.styled';
 import axiosAPI from '../../axiosAPI';
+import { setReuseEffect } from '../../Redux/AniAction';
+import store from '../../Redux/store';
+import { useSelector } from 'react-redux';
 
 function AniReview({ Ani_Id }) {
   const [Rating, setRating] = useState(0);
   const [clickRating, setClickRating] = useState(0);
   const loginID = window.sessionStorage.getItem('loginID');
   const [Loading, setLoading] = useState(true);
+  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
 
   const [starReviews, setStarReviews] = useState([
     '별점을 추가해보세요!',
@@ -69,6 +73,7 @@ function AniReview({ Ani_Id }) {
       if (res.data === '별점 저장 완료') {
         alert('별점이 저장되었어요.');
         setClickRating(Rating);
+        store.dispatch(setReuseEffect(ReuseEffect + 1));
       } else {
         console.log('별점 저장 실패');
       }
@@ -95,9 +100,12 @@ function AniReview({ Ani_Id }) {
     if (res.data === '리뷰 저장됨') {
       alert('소중한 리뷰가 등록되었습니다!');
       setReviewText('');
-    } else if ((res.data = '기존 리뷰 존재')) {
+      store.dispatch(setReuseEffect(ReuseEffect + 1));
+    } else if (res.data === '기존 리뷰 존재') {
       alert('리뷰는 하나씩만 등록 가능해요!');
       setReviewText('');
+    } else if (res.data === '별점 먼저 체크') {
+      alert('별점 추가 후 리뷰 작성이 가능해요!');
     } else {
       console.log('리뷰 등록 에러');
     }

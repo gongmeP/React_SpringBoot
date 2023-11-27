@@ -91,6 +91,7 @@ export const AniReviewListLi2 = styled.li`
   height: 20px;
   line-height: 20px;
   color: gray;
+  margin-left: 3px;
 `;
 
 export const AniStarImgList = styled.img`

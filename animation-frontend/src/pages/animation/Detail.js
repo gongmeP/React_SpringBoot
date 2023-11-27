@@ -177,7 +177,7 @@ function Detail(props) {
           </Row>
           {/* 별점 리뷰 작성하는 컴포넌트 */}
           <AniReview Ani_Id={detailAni.id}></AniReview>
-          <AniReviewList></AniReviewList>
+          <AniReviewList Ani_Id={detailAni.id}></AniReviewList>
         </Container>
       ) : null}
     </>
