@@ -16,6 +16,7 @@ import {
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import AniReview from '../../components/AniComponents/AniReview';
 import AniReviewList from '../../components/AniComponents/AniReviewList';
+import { useSelector } from 'react-redux';
 
 function Detail(props) {
   const [Loading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ function Detail(props) {
   const propsParam = useParams();
   const id = propsParam.id;
   const navigate = useNavigate();
+  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
 
   const [detailAni, setDetailAni] = useState({});
   useEffect(() => {
@@ -31,7 +33,7 @@ function Detail(props) {
       setDetailAni(res.data);
     };
     fetch();
-  }, []);
+  }, [ReuseEffect]);
 
   const [favoriteOK, setFavoriteOK] = useState({});
   useEffect(() => {

@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class ViewListController {
 
-    private  final ViewListService viewListService;
+    private final ViewListService viewListService;
 
     @PostMapping("/ViewList")
     @CrossOrigin

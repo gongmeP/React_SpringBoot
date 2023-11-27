@@ -18,7 +18,8 @@ import java.time.LocalDateTime;
 public class AniReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long review_id;
+    @Column(name= "review_id")
+    private Long reviewId;
 
     @ManyToOne
     @JoinColumn(name = "animation_id", referencedColumnName = "id")

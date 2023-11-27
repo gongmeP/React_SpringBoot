@@ -37,6 +37,7 @@ export const AniStarImg = styled.img`
   width: 30px;
   height: 30px;
   margin: 3px;
+  cursor: pointer;
 `;
 
 export const ReviewText = styled.textarea`
