@@ -13,5 +13,7 @@ public interface AniReviewService {
     String  ReviewTextAdd(AniReviewDTO aniReviewDTO);
 
     List<AniReview> ReviewListGetData(AniReviewDTO aniReviewDTO);
+    Long MemberReviewEA(AniReview aniReview);
 
+    Long MemberReviewStarEA(AniReview aniReview);
 }

@@ -1,5 +1,6 @@
 package com.example.boot.Controller;
 import com.example.boot.Dto.AniReviewDTO;
+import com.example.boot.Entity.AniReview;
 import com.example.boot.Service.AniReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,5 +39,19 @@ public class AniReviewController {
     public ResponseEntity<?> ReviewListGetData(@RequestBody AniReviewDTO aniReviewDTO){
 
         return new ResponseEntity<>(aniReviewService.ReviewListGetData(aniReviewDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/Ani/MemberReviewEA")
+    @CrossOrigin
+    public ResponseEntity<?> MemberReviewEA(@RequestBody AniReview aniReview){
+
+        return new ResponseEntity<>(aniReviewService.MemberReviewEA(aniReview), HttpStatus.OK);
+    }
+
+    @PostMapping("/Ani/MemberReviewStarEA")
+    @CrossOrigin
+    public ResponseEntity<?> MemberReviewStarEA(@RequestBody AniReview aniReview){
+
+        return new ResponseEntity<>(aniReviewService.MemberReviewStarEA(aniReview), HttpStatus.OK);
     }
 }

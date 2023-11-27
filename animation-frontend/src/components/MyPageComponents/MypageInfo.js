@@ -14,6 +14,8 @@ import axiosAPI from '../../axiosAPI';
 
 function MypageInfo() {
   const [MemberBoardEALong, setMemberBoardEA] = useState(0);
+  const [MemberReviewEALong, setMemberReviewEA] = useState(0);
+  const [MemberReviewStarEA, setMemberReviewStarEA] = useState(0);
   const Username = window.sessionStorage.getItem('loginUsername');
   const UserId = window.sessionStorage.getItem('loginID');
   const navigate = useNavigate();
@@ -26,7 +28,15 @@ function MypageInfo() {
       const res = await axiosAPI.post('/FreeBoard/MemberBoardEA', {
         mid: UserId,
       });
+      const res2 = await axiosAPI.post('/Ani/MemberReviewEA', {
+        memberMid: UserId,
+      });
+      const res3 = await axiosAPI.post('/Ani/MemberReviewStarEA', {
+        memberMid: UserId,
+      });
       setMemberBoardEA(res.data);
+      setMemberReviewEA(res2.data);
+      setMemberReviewStarEA(res3.data);
     };
     MemberBoardEA();
   }, []);
@@ -47,11 +57,11 @@ function MypageInfo() {
             <BoardEaLiStyled>게시글</BoardEaLiStyled>
           </BoardEaUlStyled>
           <BoardEaUlStyled>
-            <BoardEaLiStyled2>개발중</BoardEaLiStyled2>
+            <BoardEaLiStyled2>{MemberReviewEALong}</BoardEaLiStyled2>
             <BoardEaLiStyled>리뷰</BoardEaLiStyled>
           </BoardEaUlStyled>
           <BoardEaUlStyled>
-            <BoardEaLiStyled2>개발중</BoardEaLiStyled2>
+            <BoardEaLiStyled2>{MemberReviewStarEA}</BoardEaLiStyled2>
             <BoardEaLiStyled>별점</BoardEaLiStyled>
           </BoardEaUlStyled>
         </InfoDivStyled>

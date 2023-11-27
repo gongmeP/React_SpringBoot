@@ -138,4 +138,27 @@ public class AniReviewServiceImpl implements  AniReviewService {
             return null;
         }
     }
+
+    @Override
+    public Long MemberReviewEA(AniReview aniReview) {
+        try{
+            Long MemberReviewEA = aniReviewRepository.countByMemberMidAndReviewTextIsNotNull(aniReview.getMemberMid());
+
+          return MemberReviewEA;
+        }catch (Exception e){
+            System.out.println("AniReviewService MemberReviewEA 에러");
+            return null;
+        }
+    }
+
+    @Override
+    public Long MemberReviewStarEA(AniReview aniReview) {
+        try{
+            Long MemberReviewEA = aniReviewRepository.countByMemberMid(aniReview.getMemberMid());
+            return MemberReviewEA;
+        }catch (Exception e){
+            System.out.println("AniReviewService MemberReviewStarEA 에러");
+            return null;
+        }
+    }
 }
