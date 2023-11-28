@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
-
-import { setAni } from '../../Redux/AniAction';
-import { useSelector } from 'react-redux';
-import store from '../../Redux/store';
 import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';
@@ -12,11 +8,15 @@ import axiosAPI from '../../axiosAPI';
 import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
 import { NewAndRankingDiv } from '../../styledcomponents/AniList.styled';
 import { AniOderBy } from '../../styledcomponents/AniReview.styled';
+import store from '../../Redux/store';
+import { setAni } from '../../Redux/AniAction';
+import { useSelector } from 'react-redux';
 
 function AllList() {
   const [loading, setLoading] = useState(true);
   const [Anidata, setAnidata] = useState([]);
   const [OderByAniCounter, setOderByAniCounter] = useState(true);
+  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +34,7 @@ function AllList() {
       }
     };
     fetchData();
-  }, [OderByAniCounter]);
+  }, [OderByAniCounter, ReuseEffect]);
 
   const [showMenu, setShowMenu] = useState(false);
   const handleMenuToggle = () => {
@@ -84,14 +84,16 @@ function AllList() {
               <Offcanvas.Title>태그 필터</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Genrefilter></Genrefilter> {/*필터 컴포넌트 여기 */}
+              <Genrefilter setAnidata={setAnidata}></Genrefilter>{' '}
+              {/*필터 컴포넌트 여기 */}
             </Offcanvas.Body>
           </Offcanvas>
         </Col>
       </Row>
       <Row style={{ margin: '0 auto', margin: '10px' }}>
         <Col md={2} sm={2} className="d-none d-sm-block">
-          <Genrefilter></Genrefilter> {/*필터 컴포넌트 여기 */}
+          <Genrefilter setAnidata={setAnidata}></Genrefilter>{' '}
+          {/*필터 컴포넌트 여기 */}
         </Col>
 
         {loading ? (

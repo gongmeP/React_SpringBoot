@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import store from '../../Redux/store';
-import axios from 'axios';
-import { setAni } from '../../Redux/AniAction';
+import { setAni, setReuseEffect } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import ResetButton from './ResetButton';
 import axiosAPI from '../../axiosAPI';
 
-function Genrefilter() {
+function Genrefilter({ setAnidata }) {
   const genreArray = useSelector((state) => state.AniState.genreArray);
+  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
 
   const [checkfilter, setCheckFiler] = useState([]);
   useEffect(() => {
@@ -16,16 +16,12 @@ function Genrefilter() {
       if (checkfilter.length !== 0) {
         try {
           const res = await axiosAPI.post(`/Ani/GenreFilter`, checkfilter);
-          store.dispatch(setAni(res.data));
+          setAnidata(res.data);
         } catch (error) {
           console.error('Genre axios Error');
         }
       } else if (checkfilter.length === 0) {
-        const fetchData = async () => {
-          const res = await axiosAPI.get(`/Ani/ALL`);
-          store.dispatch(setAni(res.data));
-        };
-        fetchData();
+        store.dispatch(setReuseEffect(ReuseEffect + 1));
       }
     };
     Genre();
