@@ -133,3 +133,9 @@ export const AniReviewEm2 = styled.em`
   margin-left: 5px;
   font-size: 0.9rem;
 `;
+
+export const AniOderBy = styled.img`
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+`;

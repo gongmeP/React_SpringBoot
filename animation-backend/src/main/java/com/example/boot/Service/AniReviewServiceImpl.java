@@ -92,7 +92,7 @@ public class AniReviewServiceImpl implements  AniReviewService {
 
     @Override
     public Double getMystarRating(AniReviewDTO aniReviewDTO) {
-        System.out.println(aniReviewDTO.getAni_id());
+
         try{
             if(aniReviewDTO.getMember_mid() == null || aniReviewDTO.getAni_id() ==null ){
                 return 0D;
@@ -154,14 +154,16 @@ public class AniReviewServiceImpl implements  AniReviewService {
             return null;
         }
 
+
     }
+
 
     @Override
     public List<AniReview> ReviewListGetDataNew(AniReviewDTO aniReviewDTO) {
         try{
             Animation animation = animationRepository.findById(aniReviewDTO.getAni_id())
                     .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
-            List<AniReview> aniReview = aniReviewRepository.findByAnimationAndReviewDelete(animation,"n");
+            List<AniReview> aniReview = aniReviewRepository.findByAnimationAndReviewDeleteOrderByReviewDateDesc(animation,"n");
 
             return aniReview;
         }catch (Exception e){

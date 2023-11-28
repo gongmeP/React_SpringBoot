@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> getMemberData(String loginId) {
-        System.out.println(loginId);
+
         try{
            List<Member> getMember = MemberRepository.findAllByMid(loginId);
           
@@ -96,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
             if(passwordEncoder.matches(member.getMpass(),memberEntity.getMpass())){
                 memberEntity.setLogintime(LocalDateTime.now());
                 MemberRepository.save(memberEntity);
-                System.out.println(memberEntity);
+
             return memberEntity;
 
             }else {

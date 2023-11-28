@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import {
+  AniOderBy,
   AniReviewEm,
   AniReviewEm2,
   AniReviewListDiv,
@@ -10,6 +11,7 @@ import {
   AniReviewListUl,
   AniReviewListUsername,
   AniRreiewListCol,
+  AniStarImg,
   AniStarImgList,
   LlikeImg,
   Pstyled2,
@@ -92,9 +94,15 @@ function AniReviewList({ Ani_Id }) {
             </Col>
             <Col>
               {OderByLike ? (
-                <Pstyled3 onClick={OderByLikeClick}>좋아요순</Pstyled3>
+                <Pstyled3 onClick={OderByLikeClick}>
+                  좋아요순
+                  <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
+                </Pstyled3>
               ) : (
-                <Pstyled3 onClick={OderByLikeClick}>최신순</Pstyled3>
+                <Pstyled3 onClick={OderByLikeClick}>
+                  최신순
+                  <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
+                </Pstyled3>
               )}
             </Col>
           </Row>

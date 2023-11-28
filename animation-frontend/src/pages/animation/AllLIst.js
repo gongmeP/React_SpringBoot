@@ -11,6 +11,7 @@ import AniItem from '../../components/AniComponents/AniItem';
 import axiosAPI from '../../axiosAPI';
 import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
 import { NewAndRankingDiv } from '../../styledcomponents/AniList.styled';
+import { AniOderBy } from '../../styledcomponents/AniReview.styled';
 
 function AllList() {
   const [loading, setLoading] = useState(true);
@@ -51,6 +52,7 @@ function AllList() {
             }
           >
             최신순
+            <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
           </NewAndRankingDiv>
         ) : (
           <NewAndRankingDiv
@@ -59,6 +61,7 @@ function AllList() {
             }
           >
             인기순
+            <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
           </NewAndRankingDiv>
         )}
       </div>

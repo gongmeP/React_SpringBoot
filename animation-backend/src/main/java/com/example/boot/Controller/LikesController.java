@@ -20,8 +20,6 @@ public class LikesController {
    @CrossOrigin
    public ResponseEntity<?> ReviewLikeUp(@RequestBody AniReview aniReview) {
 
-       System.out.println(aniReview);
-
        return new ResponseEntity<>(likesService.ReviewLikeUp(aniReview), HttpStatus.OK);
    }
 
