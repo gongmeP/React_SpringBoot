@@ -8,8 +8,6 @@ import axiosAPI from '../../axiosAPI';
 import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
 import { NewAndRankingDiv } from '../../styledcomponents/AniList.styled';
 import { AniOderBy } from '../../styledcomponents/AniReview.styled';
-import store from '../../Redux/store';
-import { setAni } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 
 function AllList() {

@@ -42,3 +42,6 @@ build/
 /target
 
 animation-backend/out/artifacts/animation_backend_jar/animation-backend.jar
+application.properties
+application-dev.properties
+application-prod.properties
