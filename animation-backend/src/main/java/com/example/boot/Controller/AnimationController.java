@@ -68,6 +68,12 @@ public class AnimationController {
     }
 
     @CrossOrigin
+    @GetMapping("/Ani/ALLOderByConter")
+    public ResponseEntity<?> ALLOderByConter(){
+        return new ResponseEntity<>(animationService.ALLOderByConter(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @PostMapping("/Ani/DayOfWeek")
     public ResponseEntity<?> AniDayOfWeek(@RequestBody String day_of_week){
 

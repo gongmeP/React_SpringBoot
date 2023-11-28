@@ -35,5 +35,7 @@ public interface AnimationService {
 
     List<Animation> AniWeekRanking();
 
+    List<Animation> ALLOderByConter();
+
 
 }

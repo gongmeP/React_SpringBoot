@@ -11,6 +11,8 @@ import java.util.List;
 public interface AnimationViewCounterRepository extends JpaRepository<AnimationViewCount,Long> {
     AnimationViewCount findByAnimationIdAndDate(Long animationId, LocalDateTime date);
 
+    List<AnimationViewCount> findByAnimationId(Long animationId);
+
     List<AnimationViewCount> findByOrderByViewCountDesc();
 
     List<AnimationViewCount> findTop10ByDateOrderByViewCountDesc(LocalDateTime date);

@@ -102,18 +102,12 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public String ViewCounterupdate(Long id) {
         try{
-            //총 뷰수 업데이트
+
             Animation animation = animationRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("ID 없음"));
-            Long viewcount = animation.getViewCount();
-            viewcount = viewcount + 1;
-            animation.setViewCount(viewcount);
-            animation.setViewedTime(LocalDateTime.now());
-            animationRepository.save(animation);
 
             //New 테이블 설계한거 업데이트 하는곳
             LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
             AnimationViewCount NewViewCount = animationViewCounterRepository.findByAnimationIdAndDate(id, today);
-
             if(NewViewCount == null){
                 NewViewCount = new AnimationViewCount();
                 NewViewCount.setAnimation(animation);
@@ -121,11 +115,22 @@ public class AnimationServiceImpl implements AnimationService {
                 NewViewCount.setViewCount(1L);
                 animationViewCounterRepository.save(NewViewCount);
             }else{
-               Long reviewCount = NewViewCount.getViewCount();
+                Long reviewCount = NewViewCount.getViewCount();
                 reviewCount = reviewCount + 1;
                 NewViewCount.setViewCount(reviewCount);
                 animationViewCounterRepository.save(NewViewCount);
             }
+
+            //총 뷰수 업데이트
+            List<AnimationViewCount> viewcountList = animationViewCounterRepository.findByAnimationId(id);
+            Long totalViewCount = 0L;
+            for(AnimationViewCount viewcount :  viewcountList){
+                totalViewCount += viewcount.getViewCount();
+            }
+            animation.setViewCount(totalViewCount);
+            animation.setViewedTime(LocalDateTime.now());
+            animationRepository.save(animation);
+
 
             return "ViewCount 업데이트 성공";
         }catch (Exception e){
@@ -186,11 +191,23 @@ public class AnimationServiceImpl implements AnimationService {
     }
 
     @Override
+    public List<Animation> ALLOderByConter() {
+        try{
+            List<Animation> animations =  animationRepository.findByAnideleteOrderByViewCountDesc("n");
+
+            return animations;
+        }catch (Exception e){
+            System.out.println("AniService ALLOderByConter 에러");
+            return null;
+        }
+    }
+
+    @Override
     public List<Animation> AniOneDayRanking() {
         try{
             LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
 
-            List<AnimationViewCount> animations =  animationViewCounterRepository.findTop10ByDateOrderByViewCountDesc(today);
+            List<AnimationViewCount> animations = animationViewCounterRepository.findTop10ByDateOrderByViewCountDesc(today);
             System.out.println(animations);
             List<Animation> getanimation = animations.stream()
                     .filter(upload-> !"n".equals(upload.getAnimation().getUploaded()))

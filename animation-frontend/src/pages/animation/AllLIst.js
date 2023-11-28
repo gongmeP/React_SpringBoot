@@ -10,23 +10,30 @@ import styled from 'styled-components';
 import AniItem from '../../components/AniComponents/AniItem';
 import axiosAPI from '../../axiosAPI';
 import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
+import { NewAndRankingDiv } from '../../styledcomponents/AniList.styled';
 
 function AllList() {
   const [loading, setLoading] = useState(true);
-  const Anidata = useSelector((state) => state.AniState.Ani);
+  const [Anidata, setAnidata] = useState([]);
+  const [OderByAniCounter, setOderByAniCounter] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosAPI.get(`/Ani/ALL`);
-        store.dispatch(setAni(res.data));
+        let res;
+        console.log(OderByAniCounter);
+        if (OderByAniCounter) {
+          res = await axiosAPI.get(`/Ani/ALLOderByConter`);
+        } else {
+          res = await axiosAPI.get(`/Ani/ALL`);
+        }
+        setAnidata(res.data);
+      } finally {
         setLoading(false);
-      } catch (error) {
-        setLoading(true);
       }
     };
     fetchData();
-  }, []);
+  }, [OderByAniCounter]);
 
   const [showMenu, setShowMenu] = useState(false);
   const handleMenuToggle = () => {
@@ -36,12 +43,31 @@ function AllList() {
   return (
     <>
       <Search></Search> {/*검색 컴포넌트 여기 */}
+      <div style={{ display: 'flex', justifyContent: 'right' }}>
+        {!OderByAniCounter ? (
+          <NewAndRankingDiv
+            onClick={() =>
+              setOderByAniCounter((OderByAniCounter) => !OderByAniCounter)
+            }
+          >
+            최신순
+          </NewAndRankingDiv>
+        ) : (
+          <NewAndRankingDiv
+            onClick={() =>
+              setOderByAniCounter((OderByAniCounter) => !OderByAniCounter)
+            }
+          >
+            인기순
+          </NewAndRankingDiv>
+        )}
+      </div>
       <Row>
-        <Col xs={11} className="d-block d-sm-none">
+        <Col xs={12} className="d-block d-sm-none">
           <Button
             variant="outline-secondary"
             onClick={handleMenuToggle}
-            style={{ float: 'right' }}
+            style={{ float: 'right', marginRight: '20px' }}
           >
             태그 필터
           </Button>
