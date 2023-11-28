@@ -34,11 +34,18 @@ public class AniReviewController {
         return new ResponseEntity<>(aniReviewService.ReviewTextAdd(aniReviewDTO), HttpStatus.OK);
     }
 
-    @PostMapping("/Ani/ReviewListGetData")
+    @PostMapping("/Ani/ReviewListGetDataNew")
     @CrossOrigin
     public ResponseEntity<?> ReviewListGetData(@RequestBody AniReviewDTO aniReviewDTO){
 
-        return new ResponseEntity<>(aniReviewService.ReviewListGetData(aniReviewDTO), HttpStatus.OK);
+        return new ResponseEntity<>(aniReviewService.ReviewListGetDataNew(aniReviewDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/Ani/ReviewListGetDataOrderByLike")
+    @CrossOrigin
+    public ResponseEntity<?> ReviewListGetDataOrderByLike(@RequestBody AniReviewDTO aniReviewDTO){
+
+        return new ResponseEntity<>(aniReviewService.ReviewListGetDataOderByLike(aniReviewDTO), HttpStatus.OK);
     }
 
     @PostMapping("/Ani/MemberReviewEA")

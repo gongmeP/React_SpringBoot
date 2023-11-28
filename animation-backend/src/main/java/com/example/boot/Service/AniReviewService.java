@@ -12,7 +12,9 @@ public interface AniReviewService {
     Double getMystarRating(AniReviewDTO aniReviewDTO);
     String  ReviewTextAdd(AniReviewDTO aniReviewDTO);
 
-    List<AniReview> ReviewListGetData(AniReviewDTO aniReviewDTO);
+    List<AniReview> ReviewListGetDataNew(AniReviewDTO aniReviewDTO);
+
+    List<AniReview> ReviewListGetDataOderByLike(AniReviewDTO aniReviewDTO);
     Long MemberReviewEA(AniReview aniReview);
 
     Long MemberReviewStarEA(AniReview aniReview);

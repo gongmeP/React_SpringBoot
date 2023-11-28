@@ -12,6 +12,8 @@ import java.util.List;
 public interface AniReviewRepository extends JpaRepository<AniReview,Long> {
 
     AniReview findByMemberAndAnimation(Member member, Animation animation);
+    List<AniReview> findByAnimationAndReviewDeleteOrderByLikesDesc(Animation animation, String n);
+
     List<AniReview> findByAnimationAndReviewDelete(Animation animation, String n);
     Long countByMemberMid(String mid);
     Long countByMemberMidAndReviewTextIsNotNull(String mid);

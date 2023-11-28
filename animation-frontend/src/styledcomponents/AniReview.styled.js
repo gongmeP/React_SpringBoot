@@ -26,6 +26,7 @@ export const Pstyled3 = styled.p`
   font-weight: 400;
   height: 30px;
   text-align: right;
+  cursor: pointer;
 `;
 
 export const AniStarDiv = styled.div`

@@ -37,14 +37,23 @@ function AniReviewList({ Ani_Id }) {
   const [LikeList, setLikeList] = useState([]);
   const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
   const loginID = window.sessionStorage.getItem('loginID');
+  const [OderByLike, SetOderByLike] = useState(true);
   useEffect(() => {
     if (Ani_Id !== null) {
       const ReviewList = async () => {
         try {
-          const res = await axiosAPI.post(`/Ani/ReviewListGetData`, {
-            Ani_id: Ani_Id,
-            memberMid: loginID,
-          });
+          let res;
+          if (OderByLike) {
+            res = await axiosAPI.post(`/Ani/ReviewListGetDataOrderByLike`, {
+              Ani_id: Ani_Id,
+              memberMid: loginID,
+            });
+          } else {
+            res = await axiosAPI.post(`/Ani/ReviewListGetDataNew`, {
+              Ani_id: Ani_Id,
+              memberMid: loginID,
+            });
+          }
           const res2 = await axiosAPI.post(`/Ani/ReviewLikeCheck`, {
             memberMid: loginID,
           });
@@ -56,7 +65,7 @@ function AniReviewList({ Ani_Id }) {
       };
       ReviewList();
     }
-  }, [ReuseEffect]);
+  }, [ReuseEffect, OderByLike]);
 
   const LikeUp = async (reviewId) => {
     if (loginID === null) {
@@ -69,6 +78,9 @@ function AniReviewList({ Ani_Id }) {
     });
     store.dispatch(setReuseEffect(ReuseEffect + 1));
   };
+  const OderByLikeClick = () => {
+    SetOderByLike((OderByLike) => !OderByLike);
+  };
 
   return (
     <>
@@ -79,7 +91,11 @@ function AniReviewList({ Ani_Id }) {
               <Pstyled2>리뷰({ReViewData.length})</Pstyled2>
             </Col>
             <Col>
-              <Pstyled3>좋아요순</Pstyled3>
+              {OderByLike ? (
+                <Pstyled3 onClick={OderByLikeClick}>좋아요순</Pstyled3>
+              ) : (
+                <Pstyled3 onClick={OderByLikeClick}>최신순</Pstyled3>
+              )}
             </Col>
           </Row>
           {ReViewData.map((data) => (

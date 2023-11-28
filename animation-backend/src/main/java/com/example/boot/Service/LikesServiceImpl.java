@@ -44,8 +44,6 @@ public class LikesServiceImpl implements LikesService {
                 aniReviewRepository.save(ReAniReview);
                 return "좋아요 성공";
             }
-
-
         }catch (Exception e) {
             System.out.println("LikesService ReviewLikeUp 에러");
             return "좋아요 에러";
@@ -55,14 +53,16 @@ public class LikesServiceImpl implements LikesService {
 
     @Override
     public List<Likes> ReviewLikeCheck(AniReview aniReview) {
-
-        List<Likes> likes = likesRepository.findByMemberMid(aniReview.getMemberMid());
-        if(likes != null){
-
-            return likes;
-        }else{
+        try{
+            List<Likes> likes = likesRepository.findByMemberMid(aniReview.getMemberMid());
+            if(likes != null){
+                return likes;
+            }else{
+                return null;
+            }
+        }catch (Exception e){
+            System.out.println("LikesService ReviewLikeCheck 에러");
             return null;
         }
-
     }
 }

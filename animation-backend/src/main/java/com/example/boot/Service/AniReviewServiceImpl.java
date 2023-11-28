@@ -157,7 +157,7 @@ public class AniReviewServiceImpl implements  AniReviewService {
     }
 
     @Override
-    public List<AniReview> ReviewListGetData(AniReviewDTO aniReviewDTO) {
+    public List<AniReview> ReviewListGetDataNew(AniReviewDTO aniReviewDTO) {
         try{
             Animation animation = animationRepository.findById(aniReviewDTO.getAni_id())
                     .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
@@ -170,6 +170,21 @@ public class AniReviewServiceImpl implements  AniReviewService {
             return null;
         }
     }
+    @Override
+    public List<AniReview> ReviewListGetDataOderByLike(AniReviewDTO aniReviewDTO) {
+        try{
+            Animation animation = animationRepository.findById(aniReviewDTO.getAni_id())
+                    .orElseThrow(() -> new NotFoundException("미존재 애니메이션 이에요" + aniReviewDTO.getAni_id()));
+            List<AniReview> aniReview = aniReviewRepository.findByAnimationAndReviewDeleteOrderByLikesDesc(animation,"n");
+
+            return aniReview;
+        }catch (Exception e){
+            System.out.println("AniReviewService ReviewListGetData 에러");
+
+            return null;
+        }
+    }
+
 
     @Override
     public Long MemberReviewEA(AniReview aniReview) {
