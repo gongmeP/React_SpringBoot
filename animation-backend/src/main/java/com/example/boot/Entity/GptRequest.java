@@ -8,6 +8,6 @@ import lombok.*;
 public class GptRequest{
     private String prompt;
     private String model;
-    private int temperature;
+    private double temperature;
     private int max_tokens;
 }

@@ -47,7 +47,7 @@ public class GptServiceImpl implements GptService {
 
     private GptRequest getGptRequest(String prompt) {
         GptRequest gptRequest = new GptRequest();
-        gptRequest.setPrompt(prompt+"과 비슷한 장르의 애니메이션 3개 추천해주세요.");
+        gptRequest.setPrompt("추천해주세요 "+prompt+" 장르의 애니메이션 3개. 간략한 내용과 함께");
         gptRequest.setTemperature(gptConfig.getTemperature());
         gptRequest.setMax_tokens(gptConfig.getMaxTokens());
         gptRequest.setModel(gptConfig.getModel());

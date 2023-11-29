@@ -32,7 +32,7 @@ function AniRecommend() {
         {
           prompt: data,
         },
-        { timeout: 10000 },
+        { timeout: 20000 },
       );
       setGptGetText(res.data.body.choices[0].text);
       // console.log(res.data.body.choices[0].text);

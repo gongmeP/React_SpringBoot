@@ -19,5 +19,5 @@ public class GptConfig {
     private int maxTokens;
 
     @Value("${gpt.temperature}")
-    private int temperature;
+    private double temperature;
 }
