@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { API_URL } from '../../axiosAPI';
 
 function DailyAniButton({ setDay, Daily }) {

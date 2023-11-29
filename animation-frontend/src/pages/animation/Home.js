@@ -3,6 +3,7 @@ import AniMainDaily from '../../components/AniComponents/AniMainDaily';
 import AniRanking from '../../components/AniComponents/AniRanking';
 import Banner from '../../components/AniComponents/Banner';
 import UserViewList from '../../components/AniComponents/UserViewList';
+import AniRecommend from '../../components/GptComponents/AniRecommend';
 
 function Home() {
   const userid = window.sessionStorage.getItem('loginID');
@@ -13,6 +14,7 @@ function Home() {
         {userid !== null ? <UserViewList></UserViewList> : null}
         <AniMainDaily></AniMainDaily>
         <AniRanking></AniRanking>
+        <AniRecommend></AniRecommend>
       </Row>
     </>
   );
