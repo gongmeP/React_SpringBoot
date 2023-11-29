@@ -19,6 +19,7 @@ const initstate = {
   },
   url: 'http://localhost:8080',
   ReuseEffect: 0,
+  UserViewTatle: [],
 };
 
 const AniReducer = (state = initstate, action) => {
@@ -37,9 +38,10 @@ const AniReducer = (state = initstate, action) => {
       return { ...state, url: action.payload };
     case 'setReuseEffect':
       return { ...state, ReuseEffect: action.payload };
+    case 'setUserViewTatle':
+      return { ...state, UserViewTatle: action.payload };
     default:
       return state;
   }
 };
-
 export default AniReducer;

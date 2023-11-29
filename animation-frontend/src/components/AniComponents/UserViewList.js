@@ -7,6 +7,8 @@ import { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { useSelector } from 'react-redux';
+import store from '../../Redux/store';
+import { setUserViewTatle } from '../../Redux/AniAction';
 
 function UserViewList() {
   const userid = window.sessionStorage.getItem('loginID');
@@ -22,6 +24,7 @@ function UserViewList() {
           setAllRank([]);
         } else {
           setAllRank(res.data);
+          store.dispatch(setUserViewTatle(res.data.map((data) => data?.title)));
         }
       };
       UserViewList();

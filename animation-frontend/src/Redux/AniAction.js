@@ -30,3 +30,8 @@ export const setReuseEffect = (ReuseEffect) => ({
   type: 'setReuseEffect',
   payload: ReuseEffect,
 });
+
+export const setUserViewTatle = (UserViewTatle) => ({
+  type: 'setUserViewTatle',
+  payload: UserViewTatle,
+});
