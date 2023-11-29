@@ -15,7 +15,7 @@ public interface AnimationService {
 
     Page<Animation> getAllAniData(Pageable pageable);
 
-    List<Animation> getAllAniDataALL();
+    List<Animation> getAllAniDataALL(Pageable pageable);
 
     Animation Aniupdate(Long id, Animation animation);
 
@@ -35,7 +35,7 @@ public interface AnimationService {
 
     List<Animation> AniWeekRanking();
 
-    List<Animation> ALLOderByConter();
+    List<Animation> ALLOderByConter(Pageable pageable);
 
 
 }

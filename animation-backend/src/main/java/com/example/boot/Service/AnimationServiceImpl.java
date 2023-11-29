@@ -53,9 +53,9 @@ public class AnimationServiceImpl implements AnimationService {
 
     @Transactional
     @Override
-    public List<Animation> getAllAniDataALL() {
+    public List<Animation> getAllAniDataALL(Pageable pageable) {
 
-        return animationRepository.findByAnideleteOrderByIdDesc("n");
+        return animationRepository.findByAnideleteOrderByIdDesc("n",pageable);
 
     }
 
@@ -191,9 +191,9 @@ public class AnimationServiceImpl implements AnimationService {
     }
 
     @Override
-    public List<Animation> ALLOderByConter() {
+    public List<Animation> ALLOderByConter(Pageable pageable) {
         try{
-            List<Animation> animations =  animationRepository.findByAnideleteOrderByViewCountDesc("n");
+            List<Animation> animations =  animationRepository.findByAnideleteOrderByViewCountDesc("n",pageable);
 
             return animations;
         }catch (Exception e){

@@ -25,6 +25,14 @@ export const ReComButton2 = styled(Button)`
 
 export const RecomButtonBox = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   flex-wrap: wrap;
+`;
+
+export const GptNoDiv = styled.div`
+  font-size: 1.4rem;
+  text-align: center;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 50px;
 `;

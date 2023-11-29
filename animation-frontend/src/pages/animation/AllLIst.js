@@ -15,17 +15,21 @@ function AllList() {
   const [Anidata, setAnidata] = useState([]);
   const [OderByAniCounter, setOderByAniCounter] = useState(true);
   const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
+  const [AniPage, setPage] = useState(0);
+  const [AniMore, setAniMore] = useState(true);
+  const [filterTF, setfilterTF] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let res;
-        console.log(OderByAniCounter);
+
         if (OderByAniCounter) {
-          res = await axiosAPI.get(`/Ani/ALLOderByConter`);
+          res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
         } else {
-          res = await axiosAPI.get(`/Ani/ALL`);
+          res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}`);
         }
+        console.log(res.data);
         setAnidata(res.data);
       } finally {
         setLoading(false);
@@ -39,6 +43,54 @@ function AllList() {
     setShowMenu((prevShowMenu) => !prevShowMenu);
   };
 
+  useEffect(() => {
+    function ScrollBottom() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+
+      console.log(windowHeight);
+      console.log(documentHeight);
+      console.log(scrollTop);
+      // 화면 맨 아래에 도달했는지 여부 확인
+      if (windowHeight + scrollTop === documentHeight) {
+        setAniMore(true);
+        if (AniMore && !filterTF) {
+        }
+        setPage((AniPage) => AniPage + 1);
+      } else {
+        setAniMore(false);
+      }
+    }
+
+    window.addEventListener('scroll', ScrollBottom);
+
+    return () => {
+      window.removeEventListener('scroll', ScrollBottom);
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res;
+
+        if (OderByAniCounter) {
+          res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
+        } else {
+          res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}`);
+        }
+        console.log(res.data);
+        setAnidata((Anidata) => [...Anidata, ...res.data]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [AniPage]);
+
+  console.log(AniMore);
+
   return (
     <>
       <Search></Search> {/*검색 컴포넌트 여기 */}
@@ -46,7 +98,10 @@ function AllList() {
         {!OderByAniCounter ? (
           <NewAndRankingDiv
             onClick={() =>
-              setOderByAniCounter((OderByAniCounter) => !OderByAniCounter)
+              setOderByAniCounter(
+                (OderByAniCounter) => !OderByAniCounter,
+                setPage(0),
+              )
             }
           >
             최신순
@@ -55,7 +110,10 @@ function AllList() {
         ) : (
           <NewAndRankingDiv
             onClick={() =>
-              setOderByAniCounter((OderByAniCounter) => !OderByAniCounter)
+              setOderByAniCounter(
+                (OderByAniCounter) => !OderByAniCounter,
+                setPage(0),
+              )
             }
           >
             인기순

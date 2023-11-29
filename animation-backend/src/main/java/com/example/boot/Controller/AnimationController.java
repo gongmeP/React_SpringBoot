@@ -54,23 +54,19 @@ public class AnimationController {
         }
     }
 
-    @CrossOrigin
-    @GetMapping("/Ani")
-    public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 15,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
-
-        return new ResponseEntity<>(animationService.getAllAniData(pageable),HttpStatus.OK);
-    }
 
     @CrossOrigin
     @GetMapping("/Ani/ALL")
-    public ResponseEntity<?> findAll(){
-        return new ResponseEntity<>(animationService.getAllAniDataALL(), HttpStatus.OK);
+    public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 20)Pageable pageable){
+
+        return new ResponseEntity<>(animationService.getAllAniDataALL(pageable), HttpStatus.OK);
     }
 
     @CrossOrigin
     @GetMapping("/Ani/ALLOderByConter")
-    public ResponseEntity<?> ALLOderByConter(){
-        return new ResponseEntity<>(animationService.ALLOderByConter(), HttpStatus.OK);
+    public ResponseEntity<?> ALLOderByConter(@PageableDefault(page=0,size=20)Pageable pageable){
+
+        return new ResponseEntity<>(animationService.ALLOderByConter(pageable), HttpStatus.OK);
     }
 
     @CrossOrigin

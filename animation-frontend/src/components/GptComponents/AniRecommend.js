@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axiosAPI from '../../axiosAPI';
 import { Col, Row } from 'react-bootstrap';
 import {
+  GptNoDiv,
   ReComButton,
   ReComButton2,
   RecomButtonBox,
@@ -37,7 +38,7 @@ function AniRecommend() {
       setGptGetText(res.data.body.choices[0].text);
       // console.log(res.data.body.choices[0].text);
     } catch (error) {
-      console.log('잠시 후 다시 이용해주세요.');
+      alert('잠시 후 다시 이용해주세요.');
     } finally {
       setLoding(false);
     }
@@ -47,7 +48,7 @@ function AniRecommend() {
     <>
       <h3 style={{ marginTop: '20px' }}>오늘 뭐봄? 애니추천 받기!</h3>
       <Row>
-        <Col md={6}>
+        <Col md={5}>
           <RecomDiv>추천받고 싶은 애니 장르를 선택해보세요!</RecomDiv>
           <RecomButtonBox>
             {genreArray.genre.map((data, index) => (
@@ -58,7 +59,7 @@ function AniRecommend() {
             <ReComButton2 onClick={UserTextIn}>직접 입력</ReComButton2>
           </RecomButtonBox>
         </Col>
-        <Col md={6}>
+        <Col md={7}>
           <RecomDiv>선택한 장르의 추천은 ? 이거 !</RecomDiv>
           {loding ? (
             <div
@@ -73,7 +74,14 @@ function AniRecommend() {
             </div>
           ) : (
             <RecomButtonBox style={{ whiteSpace: 'pre-line' }}>
-              <div>{GptGetText.trim()}</div>
+              {GptGetText === '' ? (
+                <GptNoDiv>
+                  현재 추천받은 애니메이션이 없어요..
+                  <br></br> 애니메이션 추천을 받아보세요!
+                </GptNoDiv>
+              ) : (
+                <div>{GptGetText.trim()}</div>
+              )}
             </RecomButtonBox>
           )}
         </Col>
