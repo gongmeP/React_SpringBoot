@@ -1,12 +1,16 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-function ResetButton({ genreArray, checkfilter, setCheckFiler }) {
+import store from '../../Redux/store';
+import { setFilterTF } from '../../Redux/AniAction';
+function ResetButton({ genreArray, checkfilter, setCheckFiler, setPage }) {
   const ResetButton = () => {
     setCheckFiler([]);
     genreArray.genre.forEach((genre) => {
       const checkbox = document.getElementById(genre);
       checkbox.checked = false;
     });
+    setPage(0);
+    store.dispatch(setFilterTF(false));
   };
   return (
     <>

@@ -35,3 +35,11 @@ export const setUserViewTatle = (UserViewTatle) => ({
   type: 'setUserViewTatle',
   payload: UserViewTatle,
 });
+export const setFilterTF = (filterTF) => ({
+  type: 'setFilterTF',
+  payload: filterTF,
+});
+export const setAniPage = (AniPage) => ({
+  type: 'setAniPage',
+  payload: AniPage,
+});

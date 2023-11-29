@@ -20,6 +20,8 @@ const initstate = {
   url: 'http://localhost:8080',
   ReuseEffect: 0,
   UserViewTatle: [],
+  filterTF: false,
+  AniPage: 0,
 };
 
 const AniReducer = (state = initstate, action) => {
@@ -40,6 +42,10 @@ const AniReducer = (state = initstate, action) => {
       return { ...state, ReuseEffect: action.payload };
     case 'setUserViewTatle':
       return { ...state, UserViewTatle: action.payload };
+    case 'setFilterTF':
+      return { ...state, filterTF: action.payload };
+    case 'setAniPage':
+      return { ...state, AniPage: action.payload };
     default:
       return state;
   }
