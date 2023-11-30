@@ -167,16 +167,18 @@ function AniReviewList({ Ani_Id }) {
 
                     <AniReviewEm2>{data.likes}</AniReviewEm2>
                   </div>
-                  <AniReviewListFooter>
-                    <FooterUD
-                      onClick={() =>
-                        ReviewUpdate(data.reviewId, data.reviewText)
-                      }
-                    >
-                      수정
-                    </FooterUD>
-                    <FooterUD onClick={ReviewDelete}>삭제</FooterUD>
-                  </AniReviewListFooter>
+                  {loginID === data.memberMid && (
+                    <AniReviewListFooter>
+                      <FooterUD
+                        onClick={() =>
+                          ReviewUpdate(data.reviewId, data.reviewText)
+                        }
+                      >
+                        수정
+                      </FooterUD>
+                      <FooterUD onClick={ReviewDelete}>삭제</FooterUD>
+                    </AniReviewListFooter>
+                  )}
                 </AniReviewListFooter>
               </AniRreiewListCol>
             </Row>
