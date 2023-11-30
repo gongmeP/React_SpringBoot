@@ -229,4 +229,22 @@ public class AniReviewServiceImpl implements  AniReviewService {
             return "리뷰업데이트 실패";
         }
     }
+
+    @Override
+    public String ReviewDelete(AniReview aniReview) {
+        try{
+            AniReview ReviewUpdate = aniReviewRepository.findByReviewId(aniReview.getReviewId());
+
+            if(ReviewUpdate != null){
+                ReviewUpdate.setReviewDelete("y");
+                aniReviewRepository.save(ReviewUpdate);
+                return "리뷰삭제 완료";
+            }else{
+                return "review데이터 없음";
+            }
+        }catch (Exception e){
+            System.out.println("AniReviewService ReviewDelete 에러");
+            return "리뷰삭제 실패";
+        }
+    }
 }

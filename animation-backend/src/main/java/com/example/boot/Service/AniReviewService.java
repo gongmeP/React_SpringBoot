@@ -19,4 +19,6 @@ public interface AniReviewService {
 
     Long MemberReviewStarEA(AniReview aniReview);
     String ReviewUpdate(AniReview aniReview);
+
+    String ReviewDelete(AniReview aniReview);
 }

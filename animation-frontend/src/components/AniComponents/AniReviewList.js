@@ -98,7 +98,19 @@ function AniReviewList({ Ani_Id }) {
       setReviewUpdateModeIdAndText(ReviewUpdateModeId, ReviewUpdateModeText),
     );
   };
-  const ReviewDelete = () => {};
+  const ReviewDelete = async (ReviewDeleteId) => {
+    if (window.confirm('리뷰를 삭제할까요?')) {
+      const res2 = await axiosAPI.post(`/Ani/ReviewDelete`, {
+        reviewId: ReviewDeleteId,
+      });
+      if (res2.data === '리뷰삭제 완료') {
+        alert('리뷰가 삭제 되었습니다');
+        store.dispatch(setReuseEffect(ReuseEffect + 1));
+      } else {
+        alert('리뷰 삭제 실패');
+      }
+    }
+  };
 
   return (
     <>
@@ -176,7 +188,9 @@ function AniReviewList({ Ani_Id }) {
                       >
                         수정
                       </FooterUD>
-                      <FooterUD onClick={ReviewDelete}>삭제</FooterUD>
+                      <FooterUD onClick={() => ReviewDelete(data.reviewId)}>
+                        삭제
+                      </FooterUD>
                     </AniReviewListFooter>
                   )}
                 </AniReviewListFooter>

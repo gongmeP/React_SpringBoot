@@ -68,4 +68,11 @@ public class AniReviewController {
 
         return new ResponseEntity<>(aniReviewService.ReviewUpdate(aniReview), HttpStatus.OK);
     }
+
+    @PostMapping("/Ani/ReviewDelete")
+    @CrossOrigin
+    public ResponseEntity<?> ReviewDelete(@RequestBody AniReview aniReview){
+
+        return new ResponseEntity<>(aniReviewService.ReviewDelete(aniReview), HttpStatus.OK);
+    }
 }
