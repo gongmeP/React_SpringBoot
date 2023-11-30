@@ -22,6 +22,9 @@ const initstate = {
   UserViewTatle: [],
   filterTF: false,
   AniPage: 0,
+  ReviewUpdateMode: false,
+  ReviewUpdateModeId: 0,
+  ReviewUpdateModeText: '',
 };
 
 const AniReducer = (state = initstate, action) => {
@@ -46,6 +49,14 @@ const AniReducer = (state = initstate, action) => {
       return { ...state, filterTF: action.payload };
     case 'setAniPage':
       return { ...state, AniPage: action.payload };
+    case 'setReviewUpdateMode':
+      return { ...state, ReviewUpdateMode: action.payload };
+    case 'setReviewUpdateModeIdAndText':
+      return {
+        ...state,
+        ReviewUpdateModeId: action.payload.Id,
+        ReviewUpdateModeText: action.payload.Text,
+      };
     default:
       return state;
   }

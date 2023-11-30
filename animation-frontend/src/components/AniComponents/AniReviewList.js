@@ -6,6 +6,7 @@ import {
   AniReviewEm2,
   AniReviewListDiv,
   AniReviewListDivBox,
+  AniReviewListFooter,
   AniReviewListLi,
   AniReviewListLi2,
   AniReviewListUl,
@@ -13,6 +14,7 @@ import {
   AniRreiewListCol,
   AniStarImg,
   AniStarImgList,
+  FooterUD,
   LlikeImg,
   Pstyled2,
   Pstyled3,
@@ -21,7 +23,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axiosAPI from '../../axiosAPI';
 import { useSelector } from 'react-redux';
-import { setReuseEffect } from '../../Redux/AniAction';
+import {
+  setReuseEffect,
+  setReviewUpdateMode,
+  setReviewUpdateModeId,
+  setReviewUpdateModeIdAndText,
+  setReviewUpdateModeText,
+} from '../../Redux/AniAction';
 import store from '../../Redux/store';
 
 function AniReviewList({ Ani_Id }) {
@@ -84,6 +92,14 @@ function AniReviewList({ Ani_Id }) {
     SetOderByLike((OderByLike) => !OderByLike);
   };
 
+  const ReviewUpdate = (ReviewUpdateModeId, ReviewUpdateModeText) => {
+    store.dispatch(setReviewUpdateMode(true));
+    store.dispatch(
+      setReviewUpdateModeIdAndText(ReviewUpdateModeId, ReviewUpdateModeText),
+    );
+  };
+  const ReviewDelete = () => {};
+
   return (
     <>
       {!Loading ? (
@@ -136,20 +152,32 @@ function AniReviewList({ Ani_Id }) {
                   </AniReviewListUsername>
                 </AniReviewListDivBox>
                 <AniReviewListDiv>{data.reviewText}</AniReviewListDiv>
-                <div
-                  onClick={() => {
-                    LikeUp(data.reviewId);
-                  }}
-                  style={{ cursor: 'pointer', width: '40px' }}
-                >
-                  {LikeList.includes(data.reviewId) ? (
-                    <LlikeImg src="/projectimg/likes/free-icon1.png"></LlikeImg>
-                  ) : (
-                    <LlikeImg src="/projectimg/likes/free-icon2.png"></LlikeImg>
-                  )}
+                <AniReviewListFooter>
+                  <div
+                    onClick={() => {
+                      LikeUp(data.reviewId);
+                    }}
+                    style={{ cursor: 'pointer', width: '40px' }}
+                  >
+                    {LikeList.includes(data.reviewId) ? (
+                      <LlikeImg src="/projectimg/likes/free-icon1.png"></LlikeImg>
+                    ) : (
+                      <LlikeImg src="/projectimg/likes/free-icon2.png"></LlikeImg>
+                    )}
 
-                  <AniReviewEm2>{data.likes}</AniReviewEm2>
-                </div>
+                    <AniReviewEm2>{data.likes}</AniReviewEm2>
+                  </div>
+                  <AniReviewListFooter>
+                    <FooterUD
+                      onClick={() =>
+                        ReviewUpdate(data.reviewId, data.reviewText)
+                      }
+                    >
+                      수정
+                    </FooterUD>
+                    <FooterUD onClick={ReviewDelete}>삭제</FooterUD>
+                  </AniReviewListFooter>
+                </AniReviewListFooter>
               </AniRreiewListCol>
             </Row>
           ))}

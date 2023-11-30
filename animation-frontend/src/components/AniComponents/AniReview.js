@@ -12,7 +12,10 @@ import {
   ReviewTextButton,
 } from '../../styledcomponents/AniReview.styled';
 import axiosAPI from '../../axiosAPI';
-import { setReuseEffect } from '../../Redux/AniAction';
+import {
+  setReuseEffect,
+  setReviewUpdateModeIdAndText,
+} from '../../Redux/AniAction';
 import store from '../../Redux/store';
 import { useSelector } from 'react-redux';
 
@@ -22,6 +25,15 @@ function AniReview({ Ani_Id }) {
   const loginID = window.sessionStorage.getItem('loginID');
   const [Loading, setLoading] = useState(true);
   const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
+  const ReviewUpdateMode = useSelector(
+    (state) => state.AniState.ReviewUpdateMode,
+  );
+  const ReviewUpdateModeId = useSelector(
+    (state) => state.AniState.ReviewUpdateModeId,
+  );
+  const ReviewUpdateModeText = useSelector(
+    (state) => state.AniState.ReviewUpdateModeText,
+  );
 
   const [starReviews, setStarReviews] = useState([
     '별점을 추가해보세요!',
@@ -84,7 +96,6 @@ function AniReview({ Ani_Id }) {
 
   const ReviewTextIn = (e) => {
     setReviewText(e.target.value);
-    console.log(e.target.value);
   };
 
   const ReviewTextAdd = async () => {
@@ -111,6 +122,27 @@ function AniReview({ Ani_Id }) {
     }
   };
 
+  const ReviewUpdateTextIn = (e) => {
+    store.dispatch(
+      setReviewUpdateModeIdAndText(ReviewUpdateModeId, e.target.value),
+    );
+  };
+
+  const ReviewUpdateClick = async () => {
+    if (ReviewUpdateMode) {
+      const res2 = await axiosAPI.post(`/Ani/ReviewUpdate`, {
+        reviewId: ReviewUpdateModeId,
+        reviewText: ReviewUpdateModeText,
+      });
+      if (res2.data === '리뷰업데이트 완료') {
+        alert('리뷰가 수정되었습니다.');
+        store.dispatch(setReuseEffect(ReuseEffect + 1));
+      } else {
+        alert('리뷰 수정실패');
+      }
+    }
+  };
+
   return (
     <>
       {!Loading ? (
@@ -134,16 +166,33 @@ function AniReview({ Ani_Id }) {
               ))}
             </AniStarDiv>
           </Col>
-          <Col md={7} style={{ marginTop: '10px' }}>
-            <Pstyled>리뷰 작성</Pstyled>
-            <ReviewTextBoxDiv>
-              <ReviewText
-                onChange={ReviewTextIn}
-                value={reviewText}
-              ></ReviewText>
-              <ReviewTextButton onClick={ReviewTextAdd}>등록</ReviewTextButton>
-            </ReviewTextBoxDiv>
-          </Col>
+          {ReviewUpdateMode ? (
+            <Col md={7} style={{ marginTop: '10px' }}>
+              <Pstyled>리뷰 수정</Pstyled>
+              <ReviewTextBoxDiv>
+                <ReviewText
+                  onChange={ReviewUpdateTextIn}
+                  value={ReviewUpdateModeText}
+                ></ReviewText>
+                <ReviewTextButton onClick={ReviewUpdateClick}>
+                  수정
+                </ReviewTextButton>
+              </ReviewTextBoxDiv>
+            </Col>
+          ) : (
+            <Col md={7} style={{ marginTop: '10px' }}>
+              <Pstyled>리뷰 작성</Pstyled>
+              <ReviewTextBoxDiv>
+                <ReviewText
+                  onChange={ReviewTextIn}
+                  value={reviewText}
+                ></ReviewText>
+                <ReviewTextButton onClick={ReviewTextAdd}>
+                  등록
+                </ReviewTextButton>
+              </ReviewTextBoxDiv>
+            </Col>
+          )}
         </Row>
       ) : null}
     </>

@@ -139,3 +139,15 @@ export const AniOderBy = styled.img`
   height: 19px;
   cursor: pointer;
 `;
+
+export const AniReviewListFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const FooterUD = styled.div`
+  margin-left: 10px;
+  font-size: 0.8rem;
+  line-height: 24px;
+  cursor: pointer;
+`;

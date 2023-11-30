@@ -18,4 +18,5 @@ public interface AniReviewService {
     Long MemberReviewEA(AniReview aniReview);
 
     Long MemberReviewStarEA(AniReview aniReview);
+    String ReviewUpdate(AniReview aniReview);
 }

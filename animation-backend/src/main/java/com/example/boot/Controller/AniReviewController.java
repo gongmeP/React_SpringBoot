@@ -61,4 +61,11 @@ public class AniReviewController {
 
         return new ResponseEntity<>(aniReviewService.MemberReviewStarEA(aniReview), HttpStatus.OK);
     }
+
+    @PostMapping("/Ani/ReviewUpdate")
+    @CrossOrigin
+    public ResponseEntity<?> ReviewUpdate(@RequestBody AniReview aniReview){
+
+        return new ResponseEntity<>(aniReviewService.ReviewUpdate(aniReview), HttpStatus.OK);
+    }
 }

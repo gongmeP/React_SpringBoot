@@ -210,4 +210,23 @@ public class AniReviewServiceImpl implements  AniReviewService {
             return null;
         }
     }
+
+    @Override
+    public String  ReviewUpdate(AniReview aniReview) {
+        try{
+            
+            AniReview ReviewUpdate = aniReviewRepository.findByReviewId(aniReview.getReviewId());
+            System.out.println(aniReview.getReviewText());
+            if(ReviewUpdate != null){
+                ReviewUpdate.setReviewText(aniReview.getReviewText());
+                aniReviewRepository.save(ReviewUpdate);
+                return "리뷰업데이트 완료";
+            }else{
+                return "review데이터 없음";
+            }
+        }catch (Exception e){
+            System.out.println("AniReviewService ReviewUpdate 에러");
+            return "리뷰업데이트 실패";
+        }
+    }
 }
