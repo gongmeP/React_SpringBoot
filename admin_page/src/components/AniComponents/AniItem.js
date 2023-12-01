@@ -1,15 +1,16 @@
-import axios from 'axios';
 import React from 'react';
-import { Button, Card, Form, Row } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import axiosAPI, { API_URL } from '../../axiosAPI';
+import { Uploaded } from '../../styledcomponents/AniDetail.styled';
 import { useSelector } from 'react-redux';
+import store from '../../Redux/store';
+import { setReuseEffect } from '../../Redux/AniAction';
 
-function AniItem({ Anidata, reEffect, setReEffect }) {
+function AniItem({ Anidata }) {
+  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
   const { id, title } = Anidata;
   const navigate = useNavigate();
-
   const Detailgo = () => {
     navigate('/Ani/' + id);
   };
@@ -22,21 +23,23 @@ function AniItem({ Anidata, reEffect, setReEffect }) {
       } else {
         alert('삭제오류');
       }
-      setReEffect(reEffect + 1);
+      store.dispatch(setReuseEffect(ReuseEffect + 1));
     } else {
     }
   };
 
   return (
-    <Card className="anicard" key={Anidata.id} style={{ float: 'left' }}>
+    <Card className="anicard" key={Anidata.id}>
       <Card.Img
         variant="top"
         src={`${API_URL}/file/AniImgFile/${Anidata.photo}`}
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
+        className="anicardimg"
+        loading="lazy"
       />
       <Card.Body className="p-0">
-        <Card.Title className="mb-0 CardTitle" style={{ fontSize: '1rem' }}>
+        <Card.Title className="mb-0 CardTitle" style={{ fontSize: '0.95rem' }}>
           {title}
         </Card.Title>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -59,8 +62,5 @@ function AniItem({ Anidata, reEffect, setReEffect }) {
     </Card>
   );
 }
-const Uploaded = styled.div`
-  text-align: center;
-`;
 
 export default AniItem;

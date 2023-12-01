@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../axiosAPI';
 

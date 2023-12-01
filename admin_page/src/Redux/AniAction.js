@@ -25,3 +25,34 @@ export const setURL = (url) => ({
   type: 'setURL',
   payload: url,
 });
+
+export const setReuseEffect = (ReuseEffect) => ({
+  type: 'setReuseEffect',
+  payload: ReuseEffect,
+});
+
+export const setUserViewTatle = (UserViewTatle) => ({
+  type: 'setUserViewTatle',
+  payload: UserViewTatle,
+});
+export const setFilterTF = (filterTF) => ({
+  type: 'setFilterTF',
+  payload: filterTF,
+});
+
+export const setAniPage = (AniPage) => ({
+  type: 'setAniPage',
+  payload: AniPage,
+});
+
+export const setReviewUpdateMode = (ReviewUpdateMode) => ({
+  type: 'setReviewUpdateMode',
+  payload: ReviewUpdateMode,
+});
+export const setReviewUpdateModeIdAndText = (
+  ReviewUpdateModeId,
+  ReviewUpdateModeText,
+) => ({
+  type: 'setReviewUpdateModeIdAndText',
+  payload: { Id: ReviewUpdateModeId, Text: ReviewUpdateModeText },
+});

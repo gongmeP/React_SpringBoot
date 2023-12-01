@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Headers />
-      <Container style={{ padding: '0' }}>
+      <Container style={{ margin: '0 auto' }}>
         <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route path="/savaForm" element={<SaveForm />} />

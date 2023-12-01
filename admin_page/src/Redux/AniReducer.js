@@ -18,6 +18,13 @@ const initstate = {
     ],
   },
   url: 'http://localhost:8080',
+  ReuseEffect: 0,
+  UserViewTatle: [],
+  filterTF: false,
+  AniPage: 0,
+  ReviewUpdateMode: false,
+  ReviewUpdateModeId: 0,
+  ReviewUpdateModeText: '',
 };
 
 const AniReducer = (state = initstate, action) => {
@@ -34,9 +41,24 @@ const AniReducer = (state = initstate, action) => {
       return { ...state, genreArray: action.payload };
     case 'setURL':
       return { ...state, url: action.payload };
+    case 'setReuseEffect':
+      return { ...state, ReuseEffect: action.payload };
+    case 'setUserViewTatle':
+      return { ...state, UserViewTatle: action.payload };
+    case 'setFilterTF':
+      return { ...state, filterTF: action.payload };
+    case 'setAniPage':
+      return { ...state, AniPage: action.payload };
+    case 'setReviewUpdateMode':
+      return { ...state, ReviewUpdateMode: action.payload };
+    case 'setReviewUpdateModeIdAndText':
+      return {
+        ...state,
+        ReviewUpdateModeId: action.payload.Id,
+        ReviewUpdateModeText: action.payload.Text,
+      };
     default:
       return state;
   }
 };
-
 export default AniReducer;

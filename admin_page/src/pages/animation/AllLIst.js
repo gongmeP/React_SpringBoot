@@ -1,48 +1,128 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
-import AniItem from '../../components/AniComponents/AniItem';
-import { setAni } from '../../Redux/AniAction';
-import { useSelector } from 'react-redux';
-import store from '../../Redux/store';
 import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
 import styled from 'styled-components';
+import AniItem from '../../components/AniComponents/AniItem';
 import axiosAPI from '../../axiosAPI';
 import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
+import { NewAndRankingDiv } from '../../styledcomponents/AniList.styled';
+import { AniOderBy } from '../../styledcomponents/AniReview.styled';
+import { useSelector } from 'react-redux';
+import '../../styledcomponents/BootStrapcss.css';
 
 function AllList() {
-  const Anidata = useSelector((state) => state.AniState.Ani);
   const [loading, setLoading] = useState(true);
-
-  const [reEffect, setReEffect] = useState(0);
+  const [Anidata, setAnidata] = useState([]);
+  const [OderByAniCounter, setOderByAniCounter] = useState(true);
+  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
+  const [AniPage, setPage] = useState(0);
+  const [AniMore, setAniMore] = useState(true);
+  const filterTF = useSelector((state) => state.AniState.filterTF);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosAPI.get(`/Ani/ALL`);
-        store.dispatch(setAni(res.data));
+        let res;
+
+        if (OderByAniCounter) {
+          res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
+        } else {
+          res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}`);
+        }
+
+        setAnidata(res.data);
+      } finally {
         setLoading(false);
-      } catch (error) {
-        setLoading(true);
       }
     };
     fetchData();
-  }, [reEffect]);
+  }, [OderByAniCounter, ReuseEffect]);
 
   const [showMenu, setShowMenu] = useState(false);
   const handleMenuToggle = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
   };
 
+  useEffect(() => {
+    function ScrollBottom() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+
+      // 화면 맨 아래에 도달했는지 여부 확인
+      if (windowHeight + scrollTop === documentHeight) {
+        setAniMore(true);
+        if (AniMore && !filterTF) {
+          setPage((AniPage) => AniPage + 1);
+        }
+      } else {
+        setAniMore(false);
+      }
+    }
+    window.addEventListener('scroll', ScrollBottom);
+    return () => {
+      window.removeEventListener('scroll', ScrollBottom);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (AniPage > 0 && !filterTF) {
+      const fetchData = async () => {
+        try {
+          let res;
+          if (OderByAniCounter) {
+            res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
+          } else {
+            res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}`);
+          }
+
+          setAnidata((Anidata) => [...Anidata, ...res.data]);
+        } catch (error) {
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [AniPage]);
+
   return (
     <>
-      <Search></Search> {/*검색 컴포넌트 여기 */}
+      <Search setAnidata={setAnidata}></Search> {/*검색 컴포넌트 여기 */}
+      <div style={{ display: 'flex', justifyContent: 'right' }}>
+        {!OderByAniCounter ? (
+          <NewAndRankingDiv
+            onClick={() =>
+              setOderByAniCounter(
+                (OderByAniCounter) => !OderByAniCounter,
+                setPage(0),
+              )
+            }
+          >
+            최신순
+            <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
+          </NewAndRankingDiv>
+        ) : (
+          <NewAndRankingDiv
+            onClick={() =>
+              setOderByAniCounter(
+                (OderByAniCounter) => !OderByAniCounter,
+                setPage(0),
+              )
+            }
+          >
+            인기순
+            <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
+          </NewAndRankingDiv>
+        )}
+      </div>
       <Row>
-        <Col xs={11} className="d-block d-sm-none">
+        <Col xs={12} className="d-block d-sm-none">
           <Button
             variant="outline-secondary"
             onClick={handleMenuToggle}
-            style={{ float: 'right' }}
+            style={{ float: 'right', marginRight: '20px' }}
           >
             태그 필터
           </Button>
@@ -56,15 +136,21 @@ function AllList() {
               <Offcanvas.Title>태그 필터</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Genrefilter></Genrefilter> {/*필터 컴포넌트 여기 */}
+              <Genrefilter
+                setAnidata={setAnidata}
+                setPage={setPage}
+              ></Genrefilter>{' '}
+              {/*필터 컴포넌트 여기 */}
             </Offcanvas.Body>
           </Offcanvas>
         </Col>
       </Row>
       <Row style={{ margin: '0 auto', margin: '10px' }}>
         <Col md={2} sm={2} className="d-none d-sm-block">
-          <Genrefilter></Genrefilter> {/*필터 컴포넌트 여기 */}
+          <Genrefilter setAnidata={setAnidata} setPage={setPage}></Genrefilter>{' '}
+          {/*필터 컴포넌트 여기 */}
         </Col>
+
         {loading ? (
           <LoadingSpinner></LoadingSpinner>
         ) : (
@@ -72,14 +158,7 @@ function AllList() {
             {Anidata.length <= 0 ? (
               <H2styled>검색하신 결과가 없어요.</H2styled>
             ) : (
-              Anidata.map((ani) => (
-                <AniItem
-                  key={ani.id}
-                  Anidata={ani}
-                  reEffect={reEffect}
-                  setReEffect={setReEffect}
-                />
-              ))
+              Anidata.map((ani, index) => <AniItem key={index} Anidata={ani} />)
             )}
           </Col>
         )}

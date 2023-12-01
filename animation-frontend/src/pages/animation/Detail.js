@@ -1,10 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {
-  AniImg,
   DetailAniImg,
   P_Styled,
   P_Styled2,
