@@ -3,25 +3,29 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import ItemsCarousel from 'react-items-carousel';
 import '../../styledcomponents/BootStrapcss.css';
 import { useSelector } from 'react-redux';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { setAniALLArray } from '../../Redux/AniAction';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AniImg, HomeAniImg } from '../../styledcomponents/AniDetail.styled';
+import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { setToday } from '../../Redux/DailyAction';
 import axiosAPI, { API_URL } from '../../axiosAPI';
-function AniMainDaily() {
+import { AnidataTs } from 'src/model/Animation';
+import { AniState } from 'src/Redux/AniReducer';
+const AniMainDaily: React.FC = () => {
   const reDate = new Date();
   const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
   });
   const rereDate = dayOfWeek.replace(/요일/, '');
   store.dispatch(setToday(rereDate));
-  const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
+  const AniALLArray: AnidataTs[] = useSelector(
+    (state: RootState) => state.AniState.AniALLArray,
+  );
 
   const [Day, setDay] = useState(`${rereDate}`);
   const [ButtonActive, setButtonActive] = useState(`${rereDate}`);
-  const DayChange = (day) => {
+  const DayChange = (day: string) => {
     setDay(day);
     setActiveItemIndex(0);
     setButtonActive(day);
@@ -35,7 +39,7 @@ function AniMainDaily() {
             'Content-Type': 'text/plain',
           },
         });
-        store.dispatch(setAniALLArray(res.data));
+        store.dispatch(setAniALLArray(res.data as AnidataTs));
       } catch (error) {
         console.log('AniMainDaily AxiosError');
       }
@@ -46,7 +50,7 @@ function AniMainDaily() {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
 
   const navigate = useNavigate();
-  const AniDetailGo = (id) => {
+  const AniDetailGo = (id: number) => {
     navigate('/Ani/' + id);
   };
 
@@ -120,7 +124,7 @@ function AniMainDaily() {
         showSlither={true} // 슬라이더 경계 부분을 표시할지 여부
         firstAndLastGutter={true} // 첫 번째 및 마지막 슬라이드 사이의 간격을 표시할지 여부
         freeScrolling={true} // 무한 스크롤 사용 여부
-        requestToChangeActive={(value) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
+        requestToChangeActive={(value: number) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
         activeItemIndex={activeItemIndex} // 활성 슬라이드 인덱스
         slidesToScroll={2}
         rightChevron={
@@ -178,6 +182,6 @@ function AniMainDaily() {
       </ItemsCarousel>
     </>
   );
-}
+};
 
 export default AniMainDaily;

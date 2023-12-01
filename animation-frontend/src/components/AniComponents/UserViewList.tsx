@@ -7,11 +7,12 @@ import ItemsCarousel from 'react-items-carousel';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import store from '../../Redux/store';
 import { setUserViewTatle } from '../../Redux/AniAction';
+import { AnidataTs, UserViewAnidataTs } from 'src/model/Animation';
 
-function UserViewList() {
+const UserViewList: React.FC = () => {
   const userid = window.sessionStorage.getItem('loginID');
+  const [AllRank, setAllRank] = useState<UserViewAnidataTs[]>([]);
 
-  const [AllRank, setAllRank] = useState([]);
   useEffect(() => {
     if (userid !== null) {
       const UserViewList = async () => {
@@ -22,7 +23,12 @@ function UserViewList() {
           setAllRank([]);
         } else {
           setAllRank(res.data);
-          store.dispatch(setUserViewTatle(res.data.map((data) => data?.title)));
+          console.log(res.data);
+          store.dispatch(
+            setUserViewTatle(
+              (res.data as UserViewAnidataTs[]).map((data) => data.title),
+            ),
+          );
         }
       };
       UserViewList();
@@ -38,7 +44,7 @@ function UserViewList() {
     setActiveItemIndex(activeItemIndex + 2);
   };
   const navigate = useNavigate();
-  const AniDetailGo = (id) => {
+  const AniDetailGo = (id: number) => {
     navigate('/Ani/' + id);
   };
 
@@ -81,7 +87,7 @@ function UserViewList() {
             showSlither={true} // 슬라이더 경계 부분을 표시할지 여부
             firstAndLastGutter={true} // 첫 번째 및 마지막 슬라이드 사이의 간격을 표시할지 여부
             freeScrolling={true} // 무한 스크롤 사용 여부
-            requestToChangeActive={(value) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
+            requestToChangeActive={(value: number) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
             activeItemIndex={activeItemIndex} // 활성 슬라이드 인덱스
             slidesToScroll={2}
             rightChevron={
@@ -124,15 +130,15 @@ function UserViewList() {
             }
             outsideChevron={false}
           >
-            {AllRank.map((AllRank) => (
-              <div key={AllRank.id} className="p-0">
+            {AllRank.map((anime) => (
+              <div key={anime.id} className="p-0">
                 <AniImg
-                  onClick={() => AniDetailGo(AllRank.id)}
-                  src={`${API_URL}/file/AniImgFile/${AllRank.photo}`}
-                  alt={AllRank.photo}
+                  onClick={() => AniDetailGo(anime.id)}
+                  src={`${API_URL}/file/AniImgFile/${anime.photo}`}
+                  alt={anime.photo}
                 ></AniImg>
                 <div className="CardTitle" style={{ fontSize: '0.95rem' }}>
-                  {AllRank.title}
+                  {anime.title}
                 </div>
               </div>
             ))}
@@ -141,6 +147,6 @@ function UserViewList() {
       ) : null}
     </>
   );
-}
+};
 
 export default UserViewList;

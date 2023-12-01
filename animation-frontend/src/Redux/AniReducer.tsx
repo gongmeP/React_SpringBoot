@@ -1,4 +1,24 @@
-const initstate = {
+import { AnidataTs } from 'src/model/Animation';
+
+export interface AniState {
+  Ani: AnidataTs[];
+  SearchAni: AnidataTs[];
+  AniEA: number;
+  AniALLArray: AnidataTs[];
+  genreArray: {
+    genre: string[];
+  };
+  url: string;
+  ReuseEffect: number;
+  UserViewTatle: AnidataTs[];
+  filterTF: boolean;
+  AniPage: number;
+  ReviewUpdateMode: boolean;
+  ReviewUpdateModeId: number;
+  ReviewUpdateModeText: string;
+}
+
+const initstate: AniState = {
   Ani: [],
   SearchAni: [],
   AniEA: 1,
@@ -27,7 +47,7 @@ const initstate = {
   ReviewUpdateModeText: '',
 };
 
-const AniReducer = (state = initstate, action) => {
+const AniReducer = (state: AniState = initstate, action: any) => {
   switch (action.type) {
     case 'setAni':
       return { ...state, Ani: action.payload };

@@ -17,5 +17,5 @@
     "types": ["react", "react-dom", "react-router-dom", "node"],
     "baseUrl": "."
   },
-  "include": ["src"]
+  "include": ["src", "src/**/*.ts", "src/**/*.d.ts"]
 }
