@@ -17,7 +17,7 @@ import DailyAniList from './pages/DailyAniList/DailyAniList';
 import Mypage from './pages/MyPage/Mypage';
 import UserUpdateForm from './pages/user/UserUpdateForm';
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <Headers />
@@ -41,6 +41,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

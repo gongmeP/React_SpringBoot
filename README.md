@@ -19,6 +19,7 @@
 - npm install @ckeditor/ckeditor5-build-classic
 - npm install axios
 - npm install react-items-carousel
+- npm install typescript
 
 ### AWS Server
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +5,6 @@ import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
 import axiosAPI, { API_URL } from '../../axiosAPI';
-import { useSelector } from 'react-redux';
 import store from '../../Redux/store';
 import { setUserViewTatle } from '../../Redux/AniAction';
 
