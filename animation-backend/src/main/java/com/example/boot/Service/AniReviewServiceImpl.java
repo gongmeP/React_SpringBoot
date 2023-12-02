@@ -236,7 +236,11 @@ public class AniReviewServiceImpl implements  AniReviewService {
             AniReview ReviewUpdate = aniReviewRepository.findByReviewId(aniReview.getReviewId());
 
             if(ReviewUpdate != null){
-                ReviewUpdate.setReviewDelete("y");
+//                ReviewUpdate.setReviewDelete("y");
+                ReviewUpdate.setReviewDate(null);
+                ReviewUpdate.setReviewDelete(null);
+                ReviewUpdate.setReviewText(null);
+                ReviewUpdate.setLikes(null);
                 aniReviewRepository.save(ReviewUpdate);
                 return "리뷰삭제 완료";
             }else{
