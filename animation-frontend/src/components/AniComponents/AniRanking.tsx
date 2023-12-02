@@ -8,10 +8,11 @@ import ItemsCarousel from 'react-items-carousel';
 import { Button } from 'react-bootstrap';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { useSelector } from 'react-redux';
+import { AnidataTs } from 'src/model/Animation';
 
-function AniRanking() {
-  const [AllRank, setAllRank] = useState([]);
-  const [ButtonActive, setButtonActive] = useState('today');
+const AniRanking: React.FC = () => {
+  const [AllRank, setAllRank] = useState<AnidataTs[]>([]);
+  const [ButtonActive, setButtonActive] = useState<string>('today');
   useEffect(() => {
     const AniAllRanking = async () => {
       let res;
@@ -27,7 +28,7 @@ function AniRanking() {
     AniAllRanking();
   }, [ButtonActive]);
 
-  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [activeItemIndex, setActiveItemIndex] = useState<number>(0);
   const prevPage = () => {
     setActiveItemIndex(activeItemIndex - 2);
   };
@@ -36,7 +37,7 @@ function AniRanking() {
     setActiveItemIndex(activeItemIndex + 2);
   };
   const navigate = useNavigate();
-  const AniDetailGo = (id) => {
+  const AniDetailGo = (id: number) => {
     navigate('/Ani/' + id);
   };
 
@@ -64,7 +65,7 @@ function AniRanking() {
     };
   }, []);
 
-  const RangkingDataOn = (day) => {
+  const RangkingDataOn = (day: string) => {
     setActiveItemIndex(0);
     setButtonActive(day);
   };
@@ -113,7 +114,7 @@ function AniRanking() {
             showSlither={true} // 슬라이더 경계 부분을 표시할지 여부
             firstAndLastGutter={true} // 첫 번째 및 마지막 슬라이드 사이의 간격을 표시할지 여부
             freeScrolling={true} // 무한 스크롤 사용 여부
-            requestToChangeActive={(value) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
+            requestToChangeActive={(value: number) => setActiveItemIndex(value)} // 슬라이드 변경 요청 핸들러
             activeItemIndex={activeItemIndex} // 활성 슬라이드 인덱스
             slidesToScroll={2}
             rightChevron={
@@ -176,6 +177,6 @@ function AniRanking() {
       )}
     </>
   );
-}
+};
 
 export default AniRanking;

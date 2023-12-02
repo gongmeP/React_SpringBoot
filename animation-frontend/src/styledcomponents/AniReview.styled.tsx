@@ -1,5 +1,7 @@
-import { Button, Col } from 'react-bootstrap';
+import { Button, ButtonProps, Col, ColProps } from 'react-bootstrap';
 import styled from 'styled-components';
+interface StyledButtonProps extends ButtonProps {}
+interface StyledColProps extends ColProps {}
 
 export const AniReviewH3styled = styled.h3`
   text-align: center;
@@ -55,7 +57,7 @@ export const ReviewTextBoxDiv = styled.div`
   align-items: center;
 `;
 
-export const ReviewTextButton = styled(Button)`
+export const ReviewTextButton = styled(Button)<StyledButtonProps>`
   height: 40px;
   line-height: 40px;
   width: 80px;
@@ -69,7 +71,7 @@ export const AniStarReview = styled.div`
   color: gray;
 `;
 
-export const AniRreiewListCol = styled(Col)`
+export const AniRreiewListCol = styled(Col)<StyledColProps>`
   padding-top: 10px;
   padding-bottom: 10px;
 `;

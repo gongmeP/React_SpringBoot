@@ -11,21 +11,23 @@ import {
 } from '../../styledcomponents/AniRecommend.styled';
 import { useSelector } from 'react-redux';
 import LoadingSpinner2 from '../MainComponents/LodingSpinner2';
+import { RootState } from 'src/Redux/store';
+import { GenreArray } from 'src/model/Animation';
 
-function AniRecommend() {
-  const genreArray = useSelector((state) => state.AniState.genreArray);
-  const [loding, setLoding] = useState();
-
+const AniRecommend: React.FC = () => {
+  const genreArray: GenreArray = useSelector(
+    (state: RootState) => state.AniState.genreArray,
+  );
+  const [loding, setLoding] = useState<boolean>();
   const [GptText, setGptText] = useState('');
-  const GptTextIn = (e) => {
-    setGptText(e.target.value);
-  };
-
-  const [GptGetText, setGptGetText] = useState('');
+  // const GptTextIn = (e) => {
+  //   setGptText(e.target.value);
+  // };
+  const [GptGetText, setGptGetText] = useState<string>('');
 
   const UserTextIn = () => {};
 
-  const GptRecommend = async (data) => {
+  const GptRecommend = async (data: string) => {
     setLoding(true);
     try {
       const res = await axiosAPI.post(
@@ -36,7 +38,6 @@ function AniRecommend() {
         { timeout: 20000 },
       );
       setGptGetText(res.data.body.choices[0].text);
-      // console.log(res.data.body.choices[0].text);
     } catch (error) {
       alert('잠시 후 다시 이용해주세요.');
     } finally {
@@ -88,6 +89,6 @@ function AniRecommend() {
       </Row>
     </>
   );
-}
+};
 
 export default AniRecommend;

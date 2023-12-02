@@ -7,9 +7,14 @@ export type AnidataTs = {
   dayOfWeek: string;
   genre: string;
   viewCount: number;
+  averageRating: number;
 };
 
 export type UserViewAnidataTs = Omit<
   AnidataTs,
   'content' | 'genre' | 'date' | 'dayOfWeek' | 'viewCount'
 >;
+
+export type GenreArray = {
+  genre: string[];
+};

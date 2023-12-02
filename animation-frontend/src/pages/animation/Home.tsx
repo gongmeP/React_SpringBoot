@@ -4,8 +4,9 @@ import AniRanking from '../../components/AniComponents/AniRanking';
 import Banner from '../../components/AniComponents/Banner';
 import UserViewList from '../../components/AniComponents/UserViewList';
 import AniRecommend from '../../components/GptComponents/AniRecommend';
+import React from 'react';
 
-function Home() {
+const Home: React.FC = () => {
   const userid = window.sessionStorage.getItem('loginID');
   return (
     <>
@@ -18,6 +19,6 @@ function Home() {
       </Row>
     </>
   );
-}
+};
 
 export default Home;

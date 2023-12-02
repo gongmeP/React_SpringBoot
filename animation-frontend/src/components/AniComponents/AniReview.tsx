@@ -16,23 +16,30 @@ import {
   setReuseEffect,
   setReviewUpdateModeIdAndText,
 } from '../../Redux/AniAction';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { useSelector } from 'react-redux';
+import { AnidataTs } from 'src/model/Animation';
 
-function AniReview({ Ani_Id }) {
+interface OwnProps {
+  Ani_Id: number;
+}
+
+const AniReview: React.FC<OwnProps> = ({ Ani_Id }) => {
   const [Rating, setRating] = useState(0);
   const [clickRating, setClickRating] = useState(0);
   const loginID = window.sessionStorage.getItem('loginID');
   const [Loading, setLoading] = useState(true);
-  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
+  const ReuseEffect = useSelector(
+    (state: RootState) => state.AniState.ReuseEffect,
+  );
   const ReviewUpdateMode = useSelector(
-    (state) => state.AniState.ReviewUpdateMode,
+    (state: RootState) => state.AniState.ReviewUpdateMode,
   );
   const ReviewUpdateModeId = useSelector(
-    (state) => state.AniState.ReviewUpdateModeId,
+    (state: RootState) => state.AniState.ReviewUpdateModeId,
   );
   const ReviewUpdateModeText = useSelector(
-    (state) => state.AniState.ReviewUpdateModeText,
+    (state: RootState) => state.AniState.ReviewUpdateModeText,
   );
 
   const [starReviews, setStarReviews] = useState([
@@ -62,7 +69,7 @@ function AniReview({ Ani_Id }) {
     }
   }, [Ani_Id, loginID]);
 
-  const StarChange = (index) => {
+  const StarChange = (index: number) => {
     setRating(index + 1);
   };
   const StarOut = () => {
@@ -94,7 +101,7 @@ function AniReview({ Ani_Id }) {
 
   const [reviewText, setReviewText] = useState('');
 
-  const ReviewTextIn = (e) => {
+  const ReviewTextIn = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReviewText(e.target.value);
   };
 
@@ -122,7 +129,7 @@ function AniReview({ Ani_Id }) {
     }
   };
 
-  const ReviewUpdateTextIn = (e) => {
+  const ReviewUpdateTextIn = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     store.dispatch(
       setReviewUpdateModeIdAndText(ReviewUpdateModeId, e.target.value),
     );
@@ -161,7 +168,7 @@ function AniReview({ Ani_Id }) {
                       : '/projectimg/star/star1.png'
                   }
                   onMouseOver={() => StarChange(index)}
-                  onClick={() => StarRatingIn(index)}
+                  onClick={() => StarRatingIn()}
                 ></AniStarImg>
               ))}
             </AniStarDiv>
@@ -197,6 +204,6 @@ function AniReview({ Ani_Id }) {
       ) : null}
     </>
   );
-}
+};
 
 export default AniReview;

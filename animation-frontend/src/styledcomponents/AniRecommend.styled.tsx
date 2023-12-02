@@ -1,5 +1,9 @@
-import { Button } from 'react-bootstrap';
+import { Button, ButtonProps, ColProps, RowProps } from 'react-bootstrap';
 import styled from 'styled-components';
+
+interface StyledButtonProps extends ButtonProps {}
+interface StyledColProps extends ColProps {}
+interface StyledRowProps extends RowProps {}
 
 export const RecomDiv = styled.div`
   text-align: center;
@@ -7,7 +11,7 @@ export const RecomDiv = styled.div`
   margin-top: 10px;
 `;
 
-export const ReComButton = styled(Button)`
+export const ReComButton = styled(Button)<StyledButtonProps>`
   background-color: #816bff !important;
   border-color: #816bff !important;
   color: #f0edff !important;
@@ -15,7 +19,7 @@ export const ReComButton = styled(Button)`
   margin: 10px;
 `;
 
-export const ReComButton2 = styled(Button)`
+export const ReComButton2 = styled(Button)<StyledButtonProps>`
   background-color: lightcoral !important;
   border-color: lightcoral !important;
   color: #f0edff !important;
