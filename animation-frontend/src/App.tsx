@@ -16,7 +16,6 @@ import AllList from './pages/animation/AllLIst';
 import DailyAniList from './pages/DailyAniList/DailyAniList';
 import Mypage from './pages/MyPage/Mypage';
 import UserUpdateForm from './pages/user/UserUpdateForm';
-import { Provider } from 'react-redux';
 
 const App: React.FC = () => {
   return (

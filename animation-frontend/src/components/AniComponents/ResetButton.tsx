@@ -2,12 +2,21 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import store from '../../Redux/store';
 import { setFilterTF } from '../../Redux/AniAction';
-function ResetButton({ genreArray, checkfilter, setCheckFiler, setPage }) {
+import { AnidataTs, GenreArray } from 'src/model/Animation';
+
+interface Ownprop {
+  genreArray: GenreArray;
+  setCheckFiler: (CheckFiler: string[]) => void;
+  setPage: (Page: number) => void;
+}
+const ResetButton = ({ genreArray, setCheckFiler, setPage }: Ownprop) => {
   const ResetButton = () => {
     setCheckFiler([]);
     genreArray.genre.forEach((genre) => {
-      const checkbox = document.getElementById(genre);
-      checkbox.checked = false;
+      const checkbox = document.querySelector<HTMLInputElement>(`#${genre}`);
+      if (checkbox) {
+        checkbox.checked = false;
+      }
     });
     setPage(0);
     store.dispatch(setFilterTF(false));
@@ -23,6 +32,6 @@ function ResetButton({ genreArray, checkfilter, setCheckFiler, setPage }) {
       </Button>
     </>
   );
-}
+};
 
 export default ResetButton;

@@ -8,16 +8,18 @@ import { setAniALLArray } from '../../Redux/AniAction';
 import DailyAniButton from '../../components/DailyAniListComponents/DailyAniButton';
 import { setToday } from '../../Redux/DailyAction';
 import axiosAPI from '../../axiosAPI';
+import { AxiosResponse } from 'axios';
+import { AnidataTs } from 'src/model/Animation';
 
 function DailyAniList() {
-  const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState<boolean>(true);
   const reDate = new Date();
   const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
   });
-  const rereDate = dayOfWeek.replace(/요일/, '');
+  const rereDate: string = dayOfWeek.replace(/요일/, '');
   store.dispatch(setToday(rereDate));
-  const [Daily, setDaily] = useState([
+  const [Daily, setDaily] = useState<string[]>([
     '월',
     '화',
     '수',
@@ -26,15 +28,19 @@ function DailyAniList() {
     '토',
     '일',
   ]);
-  const [Day, setDay] = useState(`${rereDate}`);
+  const [Day, setDay] = useState<string>(`${rereDate}`);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosAPI.post('/Ani/DayOfWeek', Day, {
-          headers: {
-            'Content-Type': 'text/plain',
+        const res: AxiosResponse<AnidataTs[]> = await axiosAPI.post(
+          '/Ani/DayOfWeek',
+          Day,
+          {
+            headers: {
+              'Content-Type': 'text/plain',
+            },
           },
-        });
+        );
         store.dispatch(setAniALLArray(res.data));
       } catch (error) {
         console.log('AniMainDaily AxiosError');
@@ -50,15 +56,11 @@ function DailyAniList() {
       {!Loading && Daily.length > 0 ? (
         <>
           <Row style={{ margin: '0 auto' }}>
-            {Daily.map((day) => (
-              <DailyItem day={day} key={day.id}></DailyItem>
+            {Daily.map((day, index) => (
+              <DailyItem day={day} key={index}></DailyItem>
             ))}
           </Row>
-          <DailyAniButton
-            Day={Day}
-            setDay={setDay}
-            Daily={Daily}
-          ></DailyAniButton>
+          <DailyAniButton setDay={setDay} Daily={Daily}></DailyAniButton>
         </>
       ) : null}
     </>

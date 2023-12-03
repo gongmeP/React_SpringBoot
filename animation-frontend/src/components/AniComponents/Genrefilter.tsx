@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import store from '../../Redux/store';
-import {
-  setAni,
-  setFilterTF,
-  setReuseEffect,
-  setfilterTF,
-} from '../../Redux/AniAction';
+import store, { RootState } from '../../Redux/store';
+import { setAni, setFilterTF, setReuseEffect } from '../../Redux/AniAction';
 import { useSelector } from 'react-redux';
 import ResetButton from './ResetButton';
 import axiosAPI from '../../axiosAPI';
+import { AnidataTs, GenreArray } from 'src/model/Animation';
 
-function Genrefilter({ setAnidata, setPage }) {
-  const genreArray = useSelector((state) => state.AniState.genreArray);
-  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
-  const filterTF = useSelector((state) => state.AniState.filterTF);
+interface Ownprop {
+  setAnidata: (Anidata: AnidataTs[]) => void;
+  setPage: (page: number) => void;
+}
 
-  const [checkfilter, setCheckFiler] = useState([]);
+const Genrefilter = ({ setAnidata, setPage }: Ownprop) => {
+  const genreArray: GenreArray = useSelector(
+    (state: RootState) => state.AniState.genreArray,
+  );
+  const ReuseEffect = useSelector(
+    (state: RootState) => state.AniState.ReuseEffect,
+  );
+
+  const [checkfilter, setCheckFiler] = useState<string[]>([]);
   useEffect(() => {
     const Genre = async () => {
       if (checkfilter.length !== 0) {
@@ -34,7 +38,7 @@ function Genrefilter({ setAnidata, setPage }) {
   }, [checkfilter]);
 
   //체크될때 장르데이터 배열화 시키는 부분
-  const Filter = async (e) => {
+  const Filter = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked === true) {
       store.dispatch(setFilterTF(true));
       setPage(0);
@@ -58,7 +62,6 @@ function Genrefilter({ setAnidata, setPage }) {
       {/* 리셋시키는 버튼 컴포넌트*/}
       <ResetButton
         genreArray={genreArray}
-        checkfilter={checkfilter}
         setCheckFiler={setCheckFiler}
         setPage={setPage}
       ></ResetButton>
@@ -74,6 +77,6 @@ function Genrefilter({ setAnidata, setPage }) {
       ))}
     </>
   );
-}
+};
 
 export default Genrefilter;

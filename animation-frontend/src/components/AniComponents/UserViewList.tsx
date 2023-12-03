@@ -9,8 +9,8 @@ import store from '../../Redux/store';
 import { setUserViewTatle } from '../../Redux/AniAction';
 import { AnidataTs, UserViewAnidataTs } from 'src/model/Animation';
 
-const UserViewList: React.FC = () => {
-  const userid = window.sessionStorage.getItem('loginID');
+const UserViewList = () => {
+  const userid: string | null = window.sessionStorage.getItem('loginID');
   const [AllRank, setAllRank] = useState<UserViewAnidataTs[]>([]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const UserViewList: React.FC = () => {
           console.log(res.data);
           store.dispatch(
             setUserViewTatle(
-              (res.data as UserViewAnidataTs[]).map((data) => data.title),
+              res.data.map((data: UserViewAnidataTs) => data.title),
             ),
           );
         }

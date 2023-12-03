@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,10 +6,9 @@ import { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
 import { Button } from 'react-bootstrap';
 import axiosAPI, { API_URL } from '../../axiosAPI';
-import { useSelector } from 'react-redux';
 import { AnidataTs } from 'src/model/Animation';
 
-const AniRanking: React.FC = () => {
+const AniRanking = () => {
   const [AllRank, setAllRank] = useState<AnidataTs[]>([]);
   const [ButtonActive, setButtonActive] = useState<string>('today');
   useEffect(() => {

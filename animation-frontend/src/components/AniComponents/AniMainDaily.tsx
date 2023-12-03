@@ -12,7 +12,7 @@ import { setToday } from '../../Redux/DailyAction';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { AnidataTs } from 'src/model/Animation';
 import { AniState } from 'src/Redux/AniReducer';
-const AniMainDaily: React.FC = () => {
+const AniMainDaily = () => {
   const reDate = new Date();
   const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
@@ -39,7 +39,7 @@ const AniMainDaily: React.FC = () => {
             'Content-Type': 'text/plain',
           },
         });
-        store.dispatch(setAniALLArray(res.data as AnidataTs));
+        store.dispatch(setAniALLArray(res.data));
       } catch (error) {
         console.log('AniMainDaily AxiosError');
       }

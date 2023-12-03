@@ -12,7 +12,7 @@ const instago = () => {
 const kakaogo = () => {
   window.location.href = 'https://open.kakao.com/o/sGCtfITf';
 };
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <Container fluid className="shadow" style={{ marginTop: '40px' }}>
       <Row
@@ -29,7 +29,7 @@ const Footer = () => {
             <i className="fab fa-github" onClick={gitgo}></i>
           </Button>
           <Button variant="light" className="mx-3 p-2">
-            <i class="fa-solid fa-comments" onClick={kakaogo}></i>
+            <i className="fa-solid fa-comments" onClick={kakaogo}></i>
           </Button>
           <Button variant="light" className="p-2">
             <i className="fab fa-instagram" onClick={instago}></i>

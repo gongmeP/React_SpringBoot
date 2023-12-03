@@ -10,10 +10,15 @@ import {
   Row,
 } from 'react-bootstrap';
 import axiosAPI from '../../axiosAPI';
+import { AnidataTs } from 'src/model/Animation';
 
-function Search({ setAnidata }) {
+interface ownProp {
+  setAnidata: (Anidata: AnidataTs[]) => void;
+}
+
+const Search = ({ setAnidata }: ownProp) => {
   const [searchText, setSearchText] = useState('');
-  const Search = async (e) => {
+  const Search = async (e: React.FormEvent) => {
     e.preventDefault();
     const res2 = await axiosAPI.get(`/Ani/search?title=${searchText}`);
     setAnidata(res2.data);
@@ -41,6 +46,6 @@ function Search({ setAnidata }) {
       </Row>
     </>
   );
-}
+};
 
 export default Search;

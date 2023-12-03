@@ -2,9 +2,8 @@ import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function Header() {
-  const sessionID = window.sessionStorage.getItem('loginID');
-  const sessionUsername = window.sessionStorage.getItem('loginUsername');
+const Header: React.FC = () => {
+  const sessionID: string | null = window.sessionStorage.getItem('loginID');
 
   const logoutgo = () => {
     sessionStorage.clear();
@@ -54,13 +53,13 @@ function Header() {
                 </Link>
               )}
               {sessionID ? (
-                <Link
+                <div
                   onClick={logoutgo}
                   className="nav-link"
-                  style={{ font: '12px' }}
+                  style={{ font: '12px', cursor: 'pointer' }}
                 >
                   로그아웃
-                </Link>
+                </div>
               ) : (
                 <Link
                   to="/loginForm"
@@ -77,6 +76,6 @@ function Header() {
       <br />
     </>
   );
-}
+};
 
 export default Header;

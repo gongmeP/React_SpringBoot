@@ -18,17 +18,16 @@ import {
 } from '../../Redux/AniAction';
 import store, { RootState } from '../../Redux/store';
 import { useSelector } from 'react-redux';
-import { AnidataTs } from 'src/model/Animation';
 
 interface OwnProps {
   Ani_Id: number;
 }
 
-const AniReview: React.FC<OwnProps> = ({ Ani_Id }) => {
-  const [Rating, setRating] = useState(0);
-  const [clickRating, setClickRating] = useState(0);
-  const loginID = window.sessionStorage.getItem('loginID');
-  const [Loading, setLoading] = useState(true);
+const AniReview = ({ Ani_Id }: OwnProps) => {
+  const [Rating, setRating] = useState<number>(0);
+  const [clickRating, setClickRating] = useState<number>(0);
+  const loginID: string | null = window.sessionStorage.getItem('loginID');
+  const [Loading, setLoading] = useState<boolean>(true);
   const ReuseEffect = useSelector(
     (state: RootState) => state.AniState.ReuseEffect,
   );
@@ -42,7 +41,7 @@ const AniReview: React.FC<OwnProps> = ({ Ani_Id }) => {
     (state: RootState) => state.AniState.ReviewUpdateModeText,
   );
 
-  const [starReviews, setStarReviews] = useState([
+  const [starReviews, setStarReviews] = useState<string[]>([
     '별점을 추가해보세요!',
     '아잇.. 노잼이네요',
     '아쉬워요..',

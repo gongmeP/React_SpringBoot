@@ -18,3 +18,17 @@ export type UserViewAnidataTs = Omit<
 export type GenreArray = {
   genre: string[];
 };
+
+export type AniReviewLikeTs = {
+  like_id: number;
+  aniReview: AniReviewTs;
+};
+export type AniReviewTs = {
+  reviewId: number;
+  memberMid: string;
+  animationTitle: string;
+  rating: number;
+  reviewDate: Date;
+  likes: number;
+  reviewText: string;
+};

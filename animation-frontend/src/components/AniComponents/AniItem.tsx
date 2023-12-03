@@ -2,8 +2,13 @@ import React from 'react';
 import { Card, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../axiosAPI';
+import { AnidataTs } from 'src/model/Animation';
 
-function AniItem({ Anidata }) {
+interface AniItemProps {
+  Anidata: AnidataTs;
+}
+
+const AniItem = ({ Anidata }: AniItemProps) => {
   const { id, title } = Anidata;
   const navigate = useNavigate();
   const Detailgo = () => {
@@ -27,6 +32,6 @@ function AniItem({ Anidata }) {
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default AniItem;

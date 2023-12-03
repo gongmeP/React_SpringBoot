@@ -8,10 +8,10 @@ import {
 } from '../../styledcomponents/banner.styled';
 import { useNavigate } from 'react-router-dom';
 
-function Banner() {
+const Banner = () => {
   const navigate = useNavigate();
 
-  const SeleteAniGo = (AniId) => {
+  const SeleteAniGo = (AniId: string) => {
     navigate(`/Ani/${AniId}`);
   };
   return (
@@ -45,6 +45,6 @@ function Banner() {
       </Carousel.Item>
     </Carousel>
   );
-}
+};
 
 export default Banner;

@@ -9,27 +9,30 @@ import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
 import { NewAndRankingDiv } from '../../styledcomponents/AniList.styled';
 import { AniOderBy } from '../../styledcomponents/AniReview.styled';
 import { useSelector } from 'react-redux';
+import { RootState } from 'src/Redux/store';
+import { AnidataTs } from 'src/model/Animation';
+import { AxiosResponse } from 'axios';
 
 function AllList() {
-  const [loading, setLoading] = useState(true);
-  const [Anidata, setAnidata] = useState([]);
-  const [OderByAniCounter, setOderByAniCounter] = useState(true);
-  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
-  const [AniPage, setPage] = useState(0);
-  const [AniMore, setAniMore] = useState(true);
-  const filterTF = useSelector((state) => state.AniState.filterTF);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [Anidata, setAnidata] = useState<AnidataTs[]>([]);
+  const [OderByAniCounter, setOderByAniCounter] = useState<boolean>(true);
+  const ReuseEffect: number = useSelector(
+    (state: RootState) => state.AniState.ReuseEffect,
+  );
+  const [AniPage, setPage] = useState<number>(0);
+  const [AniMore, setAniMore] = useState<boolean>(true);
+  const filterTF = useSelector((state: RootState) => state.AniState.filterTF);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res;
-
+        let res: AxiosResponse<AnidataTs[]>;
         if (OderByAniCounter) {
           res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
         } else {
           res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}`);
         }
-
         setAnidata(res.data);
       } finally {
         setLoading(false);
@@ -69,7 +72,7 @@ function AllList() {
     if (AniPage > 0 && !filterTF) {
       const fetchData = async () => {
         try {
-          let res;
+          let res: AxiosResponse<AnidataTs[]>;
           if (OderByAniCounter) {
             res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
           } else {
@@ -93,10 +96,10 @@ function AllList() {
         {!OderByAniCounter ? (
           <NewAndRankingDiv
             onClick={() =>
-              setOderByAniCounter(
-                (OderByAniCounter) => !OderByAniCounter,
-                setPage(0),
-              )
+              setOderByAniCounter((OderByAniCounter) => {
+                setPage(0);
+                return !OderByAniCounter;
+              })
             }
           >
             최신순
@@ -105,10 +108,10 @@ function AllList() {
         ) : (
           <NewAndRankingDiv
             onClick={() =>
-              setOderByAniCounter(
-                (OderByAniCounter) => !OderByAniCounter,
-                setPage(0),
-              )
+              setOderByAniCounter((OderByAniCounter) => {
+                setPage(0);
+                return !OderByAniCounter;
+              })
             }
           >
             인기순
@@ -144,7 +147,7 @@ function AllList() {
           </Offcanvas>
         </Col>
       </Row>
-      <Row style={{ margin: '0 auto', margin: '10px' }}>
+      <Row style={{ margin: '10px auto' }}>
         <Col md={2} sm={2} className="d-none d-sm-block">
           <Genrefilter setAnidata={setAnidata} setPage={setPage}></Genrefilter>{' '}
           {/*필터 컴포넌트 여기 */}
