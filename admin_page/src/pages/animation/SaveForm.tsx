@@ -1,11 +1,11 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
+import { AnidataTs, SaveAnidataTs } from 'src/model/Animation';
 
-function SaveForm(props) {
-  const [AniInsert, setAniInsert] = useState({
+function SaveForm() {
+  const [AniInsert, setAniInsert] = useState<SaveAnidataTs>({
     title: '',
     content: '',
     photo: '',
@@ -15,25 +15,25 @@ function SaveForm(props) {
     uploaded: 'n',
     viewCount: 0,
     viewed: 'n',
-    viewedTime: null,
+    viewedTime: new Date(),
     favorite: 'n',
   });
 
   const navigate = useNavigate();
-  const changeValue = (e) => {
+  const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAniInsert({ ...AniInsert, [e.target.name]: e.target.value });
   };
-  const genre = (e) => {
+  const genre = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const genre = e.target.value;
     setAniInsert({ ...AniInsert, genre: genre });
   };
-  const dayOfWeek = (e) => {
+  const dayOfWeek = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const dayOfWeek = e.target.value;
     setAniInsert({ ...AniInsert, dayOfWeek: dayOfWeek });
   };
 
   // 영상 업로드 지정 부분
-  const uploaded = (e) => {
+  const uploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
     let uploaded = e.target.value;
     if (uploaded === '예') {
       uploaded = 'y';
@@ -45,21 +45,23 @@ function SaveForm(props) {
   };
 
   //이미지 업로드 부분
-  const Imgname = async (e) => {
-    const Imgfile = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', Imgfile);
-    try {
-      const res = await axiosAPI.post('/Ani/PhotoSave', formData);
-      setAniInsert({ ...AniInsert, photo: res.data[0] });
-      console.log(res.data[0]);
-    } catch (error) {
-      console.error('SaveFormAxiosError:', error);
+  const Imgname = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      const Imgfile = e.target.files[0];
+      const formData = new FormData();
+      formData.append('file', Imgfile);
+      try {
+        const res = await axiosAPI.post('/Ani/PhotoSave', formData);
+        setAniInsert({ ...AniInsert, photo: res.data[0] });
+        console.log(res.data[0]);
+      } catch (error) {
+        console.error('SaveFormAxiosError:', error);
+      }
     }
   };
 
   //애니메이션 데이터 업로드 부분
-  const submitAnisave = async (e) => {
+  const submitAnisave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
@@ -159,14 +161,14 @@ function SaveForm(props) {
               type="radio"
               label="예"
               value="예"
-              onClick={uploaded}
+              onChange={uploaded}
               name="optionGroup"
             />
             <Form.Check
               type="radio"
               label="아니오"
               value="아니오"
-              onClick={uploaded}
+              onChange={uploaded}
               name="optionGroup"
             />
           </div>

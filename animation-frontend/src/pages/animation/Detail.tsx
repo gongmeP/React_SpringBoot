@@ -19,7 +19,7 @@ import { RootState } from 'src/Redux/store';
 import { AnidataTs } from 'src/model/Animation';
 import LoadingSpinner from 'src/components/MainComponents/LodingSpinner';
 
-const Detail: React.FC = () => {
+const Detail = () => {
   const [Loading, setLoading] = useState(true);
   const userid = sessionStorage.getItem('loginID');
   const propsParam = useParams();

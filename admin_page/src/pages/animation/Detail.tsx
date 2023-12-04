@@ -15,16 +15,21 @@ import axiosAPI, { API_URL } from '../../axiosAPI';
 import AniReview from '../../components/AniComponents/AniReview';
 import AniReviewList from '../../components/AniComponents/AniReviewList';
 import { useSelector } from 'react-redux';
+import { RootState } from 'src/Redux/store';
+import { AnidataTs } from 'src/model/Animation';
 
-function Detail(props) {
+function Detail() {
   const [Loading, setLoading] = useState(true);
   const userid = sessionStorage.getItem('loginID');
   const propsParam = useParams();
   const id = propsParam.id;
   const navigate = useNavigate();
-  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
+  const ReuseEffect = useSelector(
+    (state: RootState) => state.AniState.ReuseEffect,
+  );
 
-  const [detailAni, setDetailAni] = useState({});
+  const [detailAni, setDetailAni] = useState<AnidataTs | null>(null);
+
   useEffect(() => {
     const fetch = async () => {
       const res = await axiosAPI.get(`/Ani/${id}`);
@@ -36,7 +41,7 @@ function Detail(props) {
   const [favoriteOK, setFavoriteOK] = useState({});
   useEffect(() => {
     const fetch2 = async () => {
-      if (detailAni.id !== undefined) {
+      if (detailAni && detailAni.id !== undefined) {
         try {
           const res2 = await axiosAPI.post(`/Favorite/Check`, {
             Ani_id: detailAni.id,
@@ -49,64 +54,70 @@ function Detail(props) {
       }
     };
     fetch2();
-  }, [detailAni.id, userid]);
+  }, [detailAni?.id, userid]);
 
   const favorite = async () => {
-    if (!window.sessionStorage.getItem('loginID')) {
-      alert('로그인 후 보관함 사용이 가능해요.');
-      navigate('/loginForm');
-      return;
-    }
-    try {
-      const res = await axiosAPI.post(`/Favorite`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
+    if (detailAni !== null) {
+      if (!window.sessionStorage.getItem('loginID')) {
+        alert('로그인 후 보관함 사용이 가능해요.');
+        navigate('/loginForm');
+        return;
+      }
+      try {
+        const res = await axiosAPI.post(`/Favorite`, {
+          Ani_id: detailAni.id,
+          member_mid: userid,
+        });
 
-      const res2 = await axiosAPI.post(`/Favorite/Check`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
-      setFavoriteOK(res2.data);
-      alert('보관함에 추가되었어요!!');
-    } catch (error) {
-      console.error('Detail axios Error');
+        const res2 = await axiosAPI.post(`/Favorite/Check`, {
+          Ani_id: detailAni.id,
+          member_mid: userid,
+        });
+        setFavoriteOK(res2.data);
+        alert('보관함에 추가되었어요!!');
+      } catch (error) {
+        console.error('Detail axios Error');
+      }
     }
   };
 
   const favoriteDelete = async () => {
-    try {
-      const res = await axiosAPI.post(`/Favorite/Delete`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
+    if (detailAni !== null) {
+      try {
+        const res = await axiosAPI.post(`/Favorite/Delete`, {
+          Ani_id: detailAni.id,
+          member_mid: userid,
+        });
 
-      const res2 = await axiosAPI.post(`/Favorite/Check`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
-      setFavoriteOK(res2.data);
-      alert('보관함에서 제거되었습니다.');
-    } catch (error) {
-      console.error('Detail axios Error');
+        const res2 = await axiosAPI.post(`/Favorite/Check`, {
+          Ani_id: detailAni.id,
+          member_mid: userid,
+        });
+        setFavoriteOK(res2.data);
+        alert('보관함에서 제거되었습니다.');
+      } catch (error) {
+        console.error('Detail axios Error');
+      }
     }
   };
 
   const Playvideo = async () => {
-    if (!window.sessionStorage.getItem('loginID')) {
-      alert('로그인 후 서비스 이용이 가능해요.');
-      navigate('/loginForm');
-      return;
-    }
-    try {
-      const res = await axiosAPI.put(`/Ani/ViewCounter/${id}`);
-      const res2 = await axiosAPI.post(`/ViewList`, {
-        Ani_id: detailAni.id,
-        member_mid: userid,
-      });
-      window.open('https://laftel.net/', '_blank');
-    } catch (error) {
-      console.error('ViewCounter axios Error');
+    if (detailAni !== null) {
+      if (!window.sessionStorage.getItem('loginID')) {
+        alert('로그인 후 서비스 이용이 가능해요.');
+        navigate('/loginForm');
+        return;
+      }
+      try {
+        const res = await axiosAPI.put(`/Ani/ViewCounter/${id}`);
+        const res2 = await axiosAPI.post(`/ViewList`, {
+          Ani_id: detailAni.id,
+          member_mid: userid,
+        });
+        window.open('https://laftel.net/', '_blank');
+      } catch (error) {
+        console.error('ViewCounter axios Error');
+      }
     }
   };
 
@@ -125,7 +136,7 @@ function Detail(props) {
 
   return (
     <>
-      {!Loading ? (
+      {!Loading && detailAni !== null ? (
         <>
           <Container className="mb-4">
             <Row>
@@ -151,7 +162,6 @@ function Detail(props) {
                 <DetailAniImg
                   src={`${API_URL}/file/AniImgFile/${detailAni.photo}`}
                   alt="애니 포스터"
-                  fluid
                 />
               </Col>
             </Row>

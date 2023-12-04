@@ -11,20 +11,21 @@ import {
 } from '../../styledcomponents/FreeBoard.styled';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { SetSelectBoardArray } from '../../Redux/BoardAction';
 import { useState } from 'react';
 import axiosAPI from '../../axiosAPI';
+import { BoardTs } from 'src/model/Board';
 
-function Board() {
-  const freeBoards = useSelector((state) => state.BoardState.freeBoards);
-  const Pages = useSelector((state) => state.BoardState.pages);
-  const freeBoardsEA = useSelector((state) => state.BoardState.freeBoardsEA);
-  const SelectBoardArray = useSelector(
-    (state) => state.BoardState.SelectBoardArray,
+const Board = () => {
+  const freeBoards: BoardTs[] = useSelector(
+    (state: RootState) => state.BoardState.freeBoards,
+  );
+  const SelectBoardArray: number[] = useSelector(
+    (state: RootState) => state.BoardState.SelectBoardArray,
   );
   const [allCheck, SetAllCheck] = useState(false);
-  function DateTime(fbDate) {
+  function DateTime(fbDate: Date) {
     const date = new Date(fbDate);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
@@ -35,13 +36,16 @@ function Board() {
 
   const navigate = useNavigate();
 
-  const DetailFreeBoardGo = async (fbNum) => {
+  const DetailFreeBoardGo = async (fbNum: number) => {
     const res = await axiosAPI.get(`/FreeBoard/ReadCountUp/${fbNum}`);
     window.scrollTo(0, 0);
     navigate(`/detailFreeBoard/${fbNum}`);
   };
 
-  const SelectBoard = (e, fbNum) => {
+  const SelectBoard = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    fbNum: number,
+  ) => {
     if (e.target.checked) {
       store.dispatch(SetSelectBoardArray([...SelectBoardArray, fbNum]));
     } else if (!e.target.checked) {
@@ -51,7 +55,7 @@ function Board() {
     }
   };
 
-  const AllSelectBoard = (e) => {
+  const AllSelectBoard = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       SetAllCheck(e.target.checked);
       const allfbNum = freeBoards.map((data) => data.fbNum);
@@ -71,7 +75,7 @@ function Board() {
               style={{ marginRight: '5px' }}
               type="checkbox"
               id={'ALL'}
-              onClick={AllSelectBoard}
+              onChange={AllSelectBoard}
               checked={allCheck}
             ></input>
           </Th1>
@@ -89,8 +93,8 @@ function Board() {
               <input
                 style={{ marginRight: '5px' }}
                 type="checkbox"
-                id={data.fbNum}
-                onClick={(e) => SelectBoard(e, data.fbNum)}
+                id={`${data.fbNum}`}
+                onChange={(e) => SelectBoard(e, data.fbNum)}
                 checked={SelectBoardArray.includes(data.fbNum)}
               ></input>
             </Th1>
@@ -109,6 +113,6 @@ function Board() {
       </tbody>
     </CustomTable>
   );
-}
+};
 
 export default Board;

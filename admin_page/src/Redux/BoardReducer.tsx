@@ -1,4 +1,15 @@
-const initstate = {
+import { BoardTs } from 'src/model/Board';
+
+export interface BoardState {
+  pages: number;
+  freeBoards: BoardTs[];
+  freeBoardsEA: number;
+  formData: BoardTs[];
+  SearchTF: string;
+  SearchPages: number;
+  SelectBoardArray: number[];
+}
+const initstate: BoardState = {
   pages: 0,
   freeBoards: [],
   freeBoardsEA: 1,
@@ -8,7 +19,7 @@ const initstate = {
   SelectBoardArray: [],
 };
 
-const BoardReducer = (state = initstate, action) => {
+const BoardReducer = (state: BoardState = initstate, action: any) => {
   switch (action.type) {
     case 'SET_PAGES':
       return { ...state, pages: action.payload };

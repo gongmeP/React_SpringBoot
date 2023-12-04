@@ -3,12 +3,17 @@ export type AnidataTs = {
   title: string;
   photo: string;
   content: string;
-  date: Date;
+  viewedTime: Date;
   dayOfWeek: string;
   genre: string;
   viewCount: number;
   averageRating: number;
   uploaded: string;
+  favorite: string;
+};
+
+export type SaveAnidataTs = Omit<AnidataTs, 'id'> & {
+  viewed: string;
 };
 
 export type UserViewAnidataTs = Omit<

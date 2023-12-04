@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
+import { SaveAnidataTs } from 'src/model/Animation';
 
-function UpdateForm(props) {
+function UpdateForm() {
   const propsParam = useParams();
   const id = propsParam.id;
 
-  const [AniInsert, setAniInsert] = useState({
+  const [AniInsert, setAniInsert] = useState<SaveAnidataTs>({
     title: '',
     content: '',
     photo: '',
@@ -18,7 +19,7 @@ function UpdateForm(props) {
     uploaded: 'n',
     viewCount: 0,
     viewed: 'n',
-    viewedTime: null,
+    viewedTime: new Date(),
     favorite: 'n',
   });
 
@@ -30,28 +31,28 @@ function UpdateForm(props) {
     fetchdata();
   }, []);
 
-  const submitBook = async (e) => {
+  const submitBook = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await axiosAPI.put(`/Ani/${id}`, AniInsert);
   };
 
   const navigate = useNavigate();
 
-  const changeValue = (e) => {
+  const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAniInsert({ ...AniInsert, [e.target.name]: e.target.value });
   };
 
-  const genre = (e) => {
+  const genre = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const genre = e.target.value;
     setAniInsert({ ...AniInsert, genre: genre });
   };
 
-  const dayOfWeek = (e) => {
+  const dayOfWeek = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const dayOfWeek = e.target.value;
     setAniInsert({ ...AniInsert, dayOfWeek: dayOfWeek });
   };
 
-  const uploaded = (e) => {
+  const uploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
     let uploaded = e.target.value;
 
     if (uploaded === '예') {
@@ -63,28 +64,30 @@ function UpdateForm(props) {
     setAniInsert({ ...AniInsert, uploaded: uploaded });
   };
 
-  const Imgname = async (e) => {
-    const Imgname = e.target.files[0].name;
-    const Imgfile = e.target.files[0];
+  const Imgname = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      const Imgname = e.target.files[0].name;
+      const Imgfile = e.target.files[0];
 
-    const formData = new FormData();
-    formData.append('file', Imgfile);
+      const formData = new FormData();
+      formData.append('file', Imgfile);
 
-    try {
-      const res = await axiosAPI.post('/Ani/PhotoSave', formData);
-      setAniInsert({ ...AniInsert, photo: res.data[0] });
-    } catch (error) {
-      console.log('SaveFormAxiosError');
+      try {
+        const res = await axiosAPI.post('/Ani/PhotoSave', formData);
+        setAniInsert({ ...AniInsert, photo: res.data[0] });
+      } catch (error) {
+        console.log('SaveFormAxiosError');
+      }
     }
   };
 
-  const submitAnisave = async (e) => {
+  const submitAnisave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
       try {
         const formData = new FormData();
-        formData.append('file', AniInsert.photoFile);
+        formData.append('file', AniInsert.photo);
 
         const res = await axiosAPI.post('/Ani', AniInsert, {
           headers: {
@@ -175,14 +178,14 @@ function UpdateForm(props) {
               type="radio"
               label="예"
               value="예"
-              onClick={uploaded}
+              onChange={uploaded}
               name="optionGroup"
             />
             <Form.Check
               type="radio"
               label="아니오"
               value="아니오"
-              onClick={uploaded}
+              onChange={uploaded}
               name="optionGroup"
             />
           </div>

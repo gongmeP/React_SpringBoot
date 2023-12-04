@@ -23,7 +23,6 @@ const UserViewList = () => {
           setAllRank([]);
         } else {
           setAllRank(res.data);
-          console.log(res.data);
           store.dispatch(
             setUserViewTatle(
               res.data.map((data: UserViewAnidataTs) => data.title),

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function Header() {
+const Header = () => {
   const sessionID = window.sessionStorage.getItem('loginID');
 
   const logoutgo = () => {
@@ -47,13 +47,13 @@ function Header() {
                 관리자 신청
               </Link>
               {sessionID ? (
-                <Link
+                <div
                   onClick={logoutgo}
                   className="nav-link"
-                  style={{ font: '12px' }}
+                  style={{ font: '12px', cursor: 'pointer' }}
                 >
                   로그아웃
-                </Link>
+                </div>
               ) : null}
             </Nav>
           </Navbar.Collapse>
@@ -62,6 +62,6 @@ function Header() {
       <br />
     </>
   );
-}
+};
 
 export default Header;

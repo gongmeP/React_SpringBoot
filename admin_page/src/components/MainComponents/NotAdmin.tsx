@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function NotAdmin() {
+const NotAdmin = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const LoginGo = async () => {
@@ -12,6 +12,6 @@ function NotAdmin() {
     LoginGo();
   }, []);
   return <></>;
-}
+};
 
 export default NotAdmin;

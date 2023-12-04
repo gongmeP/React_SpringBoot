@@ -1,14 +1,11 @@
-export type UserdataTs = {
-  mid: string;
-  mpass: string;
-  mname: string;
-  memail: string;
-  mnumber: string;
-  maddress: string;
-};
-
-export type RePassTs = {
-  mpass: string;
-  newpass: string;
-  newpass2: string;
+export type AdmindataTs = {
+  adminid: string;
+  adminpass: string;
+  adminname: string;
+  adminemail: string;
+  adminnumber: string;
+  admindepartment: string;
+  adminrank: string;
+  approval: string;
+  iddelete: string;
 };

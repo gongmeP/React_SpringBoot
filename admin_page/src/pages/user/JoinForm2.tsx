@@ -7,11 +7,11 @@ import {
 } from '../../styledcomponents/JoinForm.styled';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import axiosAPI from '../../axiosAPI';
+import { AdmindataTs } from 'src/model/User';
 
-function JoinForm2() {
-  const [Adminmember, setAdminMember] = useState({
+const JoinForm2 = () => {
+  const [Adminmember, setAdminMember] = useState<AdmindataTs>({
     adminid: '',
     adminpass: '',
     adminname: '',
@@ -23,11 +23,11 @@ function JoinForm2() {
     iddelete: 'n',
   });
 
-  const datain = (e) => {
+  const datain = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAdminMember({ ...Adminmember, [e.target.name]: e.target.value });
   };
 
-  const adminrank = (e) => {
+  const adminrank = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
 
     setAdminMember({
@@ -78,9 +78,9 @@ function JoinForm2() {
 
   const navigate = useNavigate();
 
-  const [showadd, setShowadd] = useState(false);
-  const [shownoadd, setShownoadd] = useState(false);
-  const [showCompleteModal, setShowCompleteModal] = useState(false);
+  const [showadd, setShowadd] = useState<boolean>(false);
+  const [shownoadd, setShownoadd] = useState<boolean>(false);
+  const [showCompleteModal, setShowCompleteModal] = useState<boolean>(false);
 
   const handleCloseCompleteModal = () => {
     setShowCompleteModal(false);
@@ -106,7 +106,7 @@ function JoinForm2() {
     navigate('/');
   };
   const [idcheckok, setIdcheckok] = useState(false);
-  const idcheck = async (adminid) => {
+  const idcheck = async (adminid: string) => {
     if (adminid === '') {
       alert('아이디를 입력해주세요');
       return;
@@ -249,7 +249,7 @@ function JoinForm2() {
                 취소
               </Button>
 
-              <Modal show={showadd} onHide={setShowadd}>
+              <Modal show={showadd} onHide={() => setShowadd(false)}>
                 <Modal.Body>
                   입력하신 정보로 관리자 신청 하시겠습니까?
                 </Modal.Body>
@@ -272,7 +272,7 @@ function JoinForm2() {
                 </Modal.Footer>
               </Modal>
 
-              <Modal show={shownoadd} onHide={setShownoadd}>
+              <Modal show={shownoadd} onHide={() => setShowadd(false)}>
                 <Modal.Body>관리자 신청 을 취소하시겠습니까?</Modal.Body>
                 <Modal.Footer>
                   <Button variant="primary" onClick={noadd1}>
@@ -289,6 +289,6 @@ function JoinForm2() {
       </Agree_check>
     </AgreeMainStyled>
   );
-}
+};
 
 export default JoinForm2;
