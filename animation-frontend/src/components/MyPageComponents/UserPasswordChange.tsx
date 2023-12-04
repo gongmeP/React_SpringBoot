@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Form, Modal } from 'react-bootstrap';
 import {
   UserColStyled,
   UserRowStyled,
 } from '../../styledcomponents/UserUpdateForm.styled';
 import axiosAPI from '../../axiosAPI';
+import { RePassTs } from 'src/model/User';
 
-function UserPasswordChange({ show, setShow, password }) {
+interface UserPasswordChangeProp {
+  show: boolean;
+  setShow: (show: boolean) => void;
+}
+
+const UserPasswordChange = ({ show, setShow }: UserPasswordChangeProp) => {
   const mid = window.sessionStorage.getItem('loginID');
+
+  const [RePassword, setRePassword] = useState<RePassTs>({
+    mpass: '',
+    newpass: '',
+    newpass2: '',
+  });
+
   const Close = () => {
     alert('비밀번호 변경을 취소하셨습니다.');
     setShow(false);
@@ -18,30 +31,25 @@ function UserPasswordChange({ show, setShow, password }) {
     });
   };
   const Show = () => setShow(true);
-  const [RePassword, setRePassword] = useState({
-    mpass: '',
-    newpass: '',
-    newpass2: '',
-  });
 
-  const passin = (e) => {
+  const passin = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRePassword({ ...RePassword, [e.target.name]: e.target.value });
   };
 
-  const Changego = async (e) => {
+  const Changego = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await axiosAPI.post('/Member/PasswordCheck', {
-      mid: mid,
-      mpass: RePassword.mpass,
-    });
     if (
       RePassword.mpass === '' ||
       RePassword.newpass === '' ||
       RePassword.newpass2 === ''
     ) {
       alert('현재 비밀번호 혹은 새 비밀번호를 입력해주세요.');
-      return;
+      return null;
     }
+    const res = await axiosAPI.post('/Member/PasswordCheck', {
+      mid: mid,
+      mpass: RePassword.mpass,
+    });
 
     if (res.data === '현재 비번 불일치') {
       alert('현재 비밀번호가 일치 하지 않습니다.');
@@ -100,12 +108,7 @@ function UserPasswordChange({ show, setShow, password }) {
             </UserRowStyled>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              className="btn_close"
-              variant="secondary"
-              onClick={Changego}
-              type="submit"
-            >
+            <Button className="btn_close" variant="secondary" type="submit">
               확인
             </Button>
             <Button className="btn_close" variant="secondary" onClick={Close}>
@@ -116,6 +119,6 @@ function UserPasswordChange({ show, setShow, password }) {
       </Modal>
     </>
   );
-}
+};
 
 export default UserPasswordChange;

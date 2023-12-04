@@ -1,4 +1,4 @@
-export const loginSuccess = (loginID, loginUsername) => {
+export const loginSuccess = (loginID: string, loginUsername: string) => {
   return {
     type: 'loginSuccess',
     loginID,

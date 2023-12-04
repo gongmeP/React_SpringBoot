@@ -12,10 +12,14 @@ import {
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
+import { RootState } from 'src/Redux/store';
+import { BoardTs } from 'src/model/Board';
 
-function Board() {
-  const freeBoards = useSelector((state) => state.BoardState.freeBoards);
-  function DateTime(fbDate) {
+const Board = () => {
+  const freeBoards: BoardTs[] = useSelector(
+    (state: RootState) => state.BoardState.freeBoards,
+  );
+  function DateTime(fbDate: Date) {
     const date = new Date(fbDate);
     const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -27,8 +31,8 @@ function Board() {
 
   const navigate = useNavigate();
 
-  const formData = useSelector((state) => state.BoardState.formData);
-  const DetailFreeBoardGo = async (fbNum) => {
+  const formData = useSelector((state: RootState) => state.BoardState.formData);
+  const DetailFreeBoardGo = async (fbNum: number) => {
     const res = await axiosAPI.get(`/FreeBoard/ReadCountUp/${fbNum}`);
     window.scrollTo(0, 0);
     navigate(`/detailFreeBoard/${fbNum}`);
@@ -63,6 +67,6 @@ function Board() {
       </tbody>
     </CustomTable>
   );
-}
+};
 
 export default Board;

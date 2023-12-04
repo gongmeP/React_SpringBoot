@@ -7,15 +7,13 @@ import axios from 'axios';
 import axiosAPI from '../../axiosAPI';
 
 const Login = () => {
-  const [id, setId] = useState('test1');
-  const [password, setPassword] = useState('testtest1');
+  const [id, setId] = useState<string>('test1');
+  const [password, setPassword] = useState<string>('testtest1');
 
-  const Logingo = async (e) => {
+  const Logingo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = { mid: id, mpass: password };
-
     const res = await axiosAPI.post('/Member/login', data);
-
     if (res.data.loginID != null) {
       store.dispatch(loginSuccess(res.data.loginID, res.data.loginUsername));
       window.sessionStorage.setItem('loginID', res.data.loginID);

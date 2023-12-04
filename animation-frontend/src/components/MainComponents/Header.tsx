@@ -16,7 +16,7 @@ const Header: React.FC = () => {
       <Navbar expand="md" className="MainNavber" data-bs-theme="dark">
         <Container>
           <Link to="/" className="navbar-brand">
-            홈
+            메인
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

@@ -1,10 +1,16 @@
-const initstate = {
+export interface LoginState {
+  Login_TF: boolean;
+  loginID: string;
+  loginUsername: string;
+}
+
+const initstate: LoginState = {
   Login_TF: false,
   loginID: '',
   loginUsername: '',
 };
 
-const LoginReducer = (state = initstate, action) => {
+const LoginReducer = (state: LoginState = initstate, action: any) => {
   switch (action.type) {
     case 'loginSuccess':
       return {

@@ -1,5 +1,6 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import {
   setFreeBoards,
   setFreeBoardsEA,
@@ -10,22 +11,23 @@ import Board from '../../components/BoardComponents/Board';
 import Page from '../../components/BoardComponents/Page';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import BoardSearch from '../../components/BoardComponents/BoardSearch';
 import axiosAPI from '../../axiosAPI';
 
-function FreeBoard() {
-  const Pages = useSelector((state) => state.BoardState.pages);
-  const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
-  const searchTF = useSelector((state) => state.BoardState.searchTF);
-
+const FreeBoard = () => {
+  const Pages = useSelector((state: RootState) => state.BoardState.pages);
+  const freeBoardsEA = useSelector(
+    (stage: RootState) => stage.BoardState.freeBoardsEA,
+  );
+  const searchTF = useSelector((state: RootState) => state.BoardState.SearchTF);
   const navigate = useNavigate();
 
   useEffect(() => {
     const PagesFetch = async () => {
       const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
       store.dispatch(setFreeBoards(res.data));
+      console.log(res.data);
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
     PagesFetch();
@@ -76,6 +78,6 @@ function FreeBoard() {
       <BoardSearch></BoardSearch>
     </>
   );
-}
+};
 
 export default FreeBoard;

@@ -156,7 +156,7 @@ const AniRanking = () => {
             outsideChevron={false}
           >
             {AllRank.map((AllRank, index) => (
-              <div key={AllRank.id} className="p-0">
+              <div key={index} className="p-0">
                 <AniImg
                   onClick={() => AniDetailGo(AllRank.id)}
                   src={`${API_URL}/file/AniImgFile/${AllRank.photo}`}

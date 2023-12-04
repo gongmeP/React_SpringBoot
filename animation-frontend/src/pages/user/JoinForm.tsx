@@ -11,13 +11,12 @@ import {
   Agtext,
 } from '../../styledcomponents/JoinForm.styled';
 import { Button } from 'react-bootstrap';
-function JoinForm() {
-  const [agreementText1, setAgreementText1] = useState('');
-  const [agreementText2, setAgreementText2] = useState('');
-  const [isAgreed, setIsAgreed] = useState(false);
+const JoinForm = () => {
+  const [agreementText1, setAgreementText1] = useState<string>('');
+  const [agreementText2, setAgreementText2] = useState<string>('');
 
   useEffect(() => {
-    async function fetchAgreementText(url) {
+    async function fetchAgreementText(url: string) {
       try {
         const response = await fetch(url);
         if (response.ok) {
@@ -40,17 +39,22 @@ function JoinForm() {
     );
   }, []);
 
-  const agg_allck = (isChecked) => {
-    setIsAgreed(isChecked);
-    document.getElementById('ag_ck1').checked = isChecked;
-    document.getElementById('ag_ck2').checked = isChecked;
+  const agg_allck = (isChecked: boolean) => {
+    const agCk1 = document.querySelector<HTMLInputElement>('#ag_ck1');
+    const agCk2 = document.querySelector<HTMLInputElement>('#ag_ck2');
+    if (agCk1) {
+      agCk1.checked = isChecked;
+    }
+
+    if (agCk2) {
+      agCk2.checked = isChecked;
+    }
   };
 
   function agg_btn1() {
-    if (
-      !document.getElementById('ag_ck1').checked ||
-      !document.getElementById('ag_ck2').checked
-    ) {
+    const agCk1 = document.querySelector<HTMLInputElement>('#ag_ck1');
+    const agCk2 = document.querySelector<HTMLInputElement>('#ag_ck2');
+    if (!agCk1?.checked || !agCk2?.checked) {
       alert('이용약관 및 개인정보 수집에 동의해야만 회원가입이 가능합니다.');
     } else {
       window.location.href = '/Joinform2';
@@ -59,7 +63,6 @@ function JoinForm() {
   return (
     <AgreeMainStyled>
       <AgreeStyled>회원가입</AgreeStyled>
-
       <Agree_check>
         <AgreeCheckSpan1>약관동의</AgreeCheckSpan1>
         <AgreeChecklabel1>
@@ -94,6 +97,6 @@ function JoinForm() {
       </Agree_check>
     </AgreeMainStyled>
   );
-}
+};
 
 export default JoinForm;

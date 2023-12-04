@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { setPages, setSearchPages } from '../../Redux/BoardAction';
 import { useSelector } from 'react-redux';
-function Page({ EA, Pages }) {
-  const SearchTF = useSelector((state) => state.BoardState.SearchTF);
-  const totalPage = Math.ceil(EA / 15);
-  const SearchPages = useSelector((state) => state.BoardState.SearchPages);
-  const limit = 5;
+interface PageProp {
+  EA: number;
+  Pages: number;
+}
+const Page = ({ EA, Pages }: PageProp) => {
+  const SearchTF: string = useSelector(
+    (state: RootState) => state.BoardState.SearchTF,
+  );
+  const totalPage: number = Math.ceil(EA / 15);
+  const SearchPages = useSelector(
+    (state: RootState) => state.BoardState.SearchPages,
+  );
+  const limit: number = 5;
   //검색일때 데이터갯수 검색데이터 갯수로 업데이트
   if (SearchTF === 'Search') {
     Pages = SearchPages;
   }
 
-  const [totalPageArray, setTotalPageArray] = useState([]);
-  const [currentPageArray, setCurrentPageArray] = useState([]);
+  const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
+  const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
 
   useEffect(() => {
     if (Pages % limit === 0) {
@@ -30,16 +38,16 @@ function Page({ EA, Pages }) {
     setCurrentPageArray(slicedPageArray[0]);
   }, [totalPage]);
 
-  const LimitPage = (totalPage, limit) => {
+  const LimitPage = (totalPage: number, limit: number) => {
     const totalPageArray = Array(totalPage)
-      .fill()
+      .fill(0)
       .map((_, i) => i);
     return Array(Math.ceil(totalPage / limit))
-      .fill()
+      .fill(0)
       .map(() => totalPageArray.splice(0, limit));
   };
 
-  const PageClick = (last, lastpage) => {
+  const PageClick = (last: string, lastpage: number) => {
     if (last === 'last') {
       setCurrentPageArray(totalPageArray[totalPageArray.length - 1]);
     }
@@ -90,6 +98,6 @@ function Page({ EA, Pages }) {
       </Pagination>
     </div>
   );
-}
+};
 
 export default Page;

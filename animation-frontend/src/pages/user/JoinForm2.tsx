@@ -8,11 +8,12 @@ import {
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
+import { UserdataTs } from 'src/model/User';
 
-function JoinForm2() {
-  const [zipcode, setZipcode] = useState('');
-  const [address, setAddress] = useState('');
-  const [member, setMember] = useState({
+const JoinForm2 = () => {
+  const [zipcode, setZipcode] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [member, setMember] = useState<UserdataTs>({
     mid: '',
     mpass: '',
     mname: '',
@@ -20,8 +21,8 @@ function JoinForm2() {
     mnumber: '',
     maddress: '',
   });
-  const [lastaddes, setLastaddes] = useState('');
-  const setLastaddes1 = (e) => {
+  const [lastaddes, setLastaddes] = useState<string>('');
+  const setLastaddes1 = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const fullAddress = `${zipcode}/${address}/${value}`;
     setLastaddes(fullAddress);
@@ -31,11 +32,11 @@ function JoinForm2() {
       maddress: fullAddress,
     });
   };
-  const datain = (e) => {
+  const datain = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMember({ ...member, [e.target.name]: e.target.value });
   };
 
-  const EmailChange = (e) => {
+  const EmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMember({
       ...member,
@@ -43,7 +44,7 @@ function JoinForm2() {
     });
   };
 
-  const thisEmail = (e) => {
+  const thisEmail = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const emailvalue = e.target.value;
     setMember({
       ...member,
@@ -52,16 +53,19 @@ function JoinForm2() {
   };
 
   const Postgo = () => {
-    new window.daum.Postcode({
-      oncomplete: function (data) {
-        setZipcode(data.zonecode);
-        setAddress(data.address);
-        setMember({
-          ...member,
-          maddress: `${data.zonecode} ${data.address}`,
-        });
-      },
-    }).open();
+    if (member !== null) {
+      //@ts-ignore
+      new window.daum.Postcode({
+        oncomplete: function (data: { zonecode: string; address: string }) {
+          setZipcode(data.zonecode);
+          setAddress(data.address);
+          setMember({
+            ...member,
+            maddress: `${data.zonecode} ${data.address}`,
+          });
+        },
+      }).open();
+    }
   };
 
   const memberadd = async () => {
@@ -100,9 +104,9 @@ function JoinForm2() {
 
   const navigate = useNavigate();
 
-  const [showadd, setShowadd] = useState(false);
-  const [shownoadd, setShownoadd] = useState(false);
-  const [showCompleteModal, setShowCompleteModal] = useState(false);
+  const [showadd, setShowadd] = useState<boolean>(false);
+  const [shownoadd, setShownoadd] = useState<boolean>(false);
+  const [showCompleteModal, setShowCompleteModal] = useState<boolean>(false);
 
   const handleCloseCompleteModal = () => {
     setShowCompleteModal(false);
@@ -128,7 +132,7 @@ function JoinForm2() {
     navigate('/');
   };
   const [idcheckok, setIdcheckok] = useState(false);
-  const idcheck = async (mid) => {
+  const idcheck = async (mid: string) => {
     if (mid === '') {
       alert('아이디를 입력해주세요');
       return;
@@ -289,7 +293,7 @@ function JoinForm2() {
                   취소
                 </Button>
 
-                <Modal show={showadd} onHide={setShowadd}>
+                <Modal show={showadd} onHide={() => setShowadd(false)}>
                   <Modal.Body>
                     입력하신 정보로 회원가입 하시겠습니까?
                   </Modal.Body>
@@ -315,7 +319,7 @@ function JoinForm2() {
                   </Modal.Footer>
                 </Modal>
 
-                <Modal show={shownoadd} onHide={setShownoadd}>
+                <Modal show={shownoadd} onHide={() => setShowadd(false)}>
                   <Modal.Body>회원가입 을 취소하시겠습니까?</Modal.Body>
                   <Modal.Footer>
                     <Button variant="primary" onClick={noadd1}>
@@ -333,6 +337,6 @@ function JoinForm2() {
       </Agree_check>
     </AgreeMainStyled>
   );
-}
+};
 
 export default JoinForm2;

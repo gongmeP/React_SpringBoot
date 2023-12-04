@@ -1,10 +1,14 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../axiosAPI';
+import { AnidataTs } from 'src/model/Animation';
 
-function FavoriteItem({ FavoriteList }) {
+interface FavoriteItemProp {
+  FavoriteList: AnidataTs;
+}
+
+const FavoriteItem = ({ FavoriteList }: FavoriteItemProp) => {
   const { id, title } = FavoriteList;
   const navigate = useNavigate();
   const Detailgo = () => {
@@ -26,6 +30,6 @@ function FavoriteItem({ FavoriteList }) {
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default FavoriteItem;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row, Tab, Tabs } from 'react-bootstrap';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { setFavoriteList } from '../../Redux/FavoriteAction';
 import FavoriteItem from '../../components/MyPageComponents/FavoriteItem';
 import { useSelector } from 'react-redux';
@@ -8,11 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
 import { H2styled } from '../../styledcomponents/Favorite.styled';
 import MypageInfo from '../../components/MyPageComponents/MypageInfo';
+import { AnidataTs } from 'src/model/Animation';
+import { AxiosResponse } from 'axios';
 
-function Mypage() {
+const Mypage = () => {
   const navigate = useNavigate();
-  const userid = sessionStorage.getItem('loginID');
-  const FavoriteList = useSelector((state) => state.FavoriteState.FavoriteList);
+  const userid: string | null = sessionStorage.getItem('loginID');
+  const FavoriteList: AnidataTs[] = useSelector(
+    (state: RootState) => state.FavoriteState.FavoriteList,
+  );
   useEffect(() => {
     const checkLogin = async () => {
       if (!userid) {
@@ -23,11 +27,11 @@ function Mypage() {
     checkLogin();
   }, [userid, navigate]);
 
-  const [AllRank, setAllRank] = useState([]);
+  const [AllRank, setAllRank] = useState<AnidataTs[]>([]);
   useEffect(() => {
     if (userid !== null) {
       const UserViewList = async () => {
-        const res = await axiosAPI.get(
+        const res: AxiosResponse<AnidataTs[]> = await axiosAPI.get(
           `/ViewList/UserViewList?userid=${userid}`,
         );
         setAllRank(res.data);
@@ -38,7 +42,9 @@ function Mypage() {
 
   useEffect(() => {
     const FavoriteData = async () => {
-      const res = await axiosAPI.get(`/FavoriteList?userid=${userid}`);
+      const res: AxiosResponse<AnidataTs> = await axiosAPI.get(
+        `/FavoriteList?userid=${userid}`,
+      );
       store.dispatch(setFavoriteList(res.data));
     };
     FavoriteData();
@@ -87,6 +93,6 @@ function Mypage() {
       </Row>
     </>
   );
-}
+};
 
 export default Mypage;

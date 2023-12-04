@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -7,15 +6,21 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import LoadingSpinner from '../MainComponents/LodingSpinner';
+import { RootState } from 'src/Redux/store';
+import { AnidataTs } from 'src/model/Animation';
 
-function DailyItem({ day }) {
-  const [loading, setLoading] = useState(true);
-  const [Ani, setDailyAni] = useState([]);
+interface DailyitemProp {
+  day: string;
+}
+
+const DailyItem = ({ day }: DailyitemProp) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [Ani, setDailyAni] = useState<AnidataTs[]>([]);
   const navigate = useNavigate();
-  const Detailgo = (id) => {
+  const Detailgo = (id: number) => {
     navigate('/Ani/' + id);
   };
-  const reDate = useSelector((state) => state.DailyState.today);
+  const reDate = useSelector((state: RootState) => state.DailyState.today);
 
   useEffect(() => {
     const fetchData123 = async () => {
@@ -78,6 +83,6 @@ function DailyItem({ day }) {
       </Col>
     </>
   );
-}
+};
 
 export default DailyItem;

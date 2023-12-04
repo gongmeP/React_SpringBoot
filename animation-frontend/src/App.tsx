@@ -17,7 +17,7 @@ import DailyAniList from './pages/DailyAniList/DailyAniList';
 import Mypage from './pages/MyPage/Mypage';
 import UserUpdateForm from './pages/user/UserUpdateForm';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <>
       <Headers />

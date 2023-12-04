@@ -4,24 +4,33 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../axiosAPI';
+import { RootState } from 'src/Redux/store';
+import { AnidataTs } from 'src/model/Animation';
 
-function DailyAniButton({ setDay, Daily }) {
-  const reDate = new Date();
+interface DailyAniButtonProp {
+  setDay: (Day: string) => void;
+  Daily: string[];
+}
+
+const DailyAniButton = ({ setDay, Daily }: DailyAniButtonProp) => {
+  const reDate: Date = new Date();
   const dayOfWeek = reDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
   });
   const rereDate = dayOfWeek.replace(/요일/, '');
 
-  const DayChange = (day) => {
+  const DayChange = (day: string) => {
     setDay(day);
     setButtonActive(day);
   };
   const navigate = useNavigate();
-  const AniDetailGo = (id) => {
+  const AniDetailGo = (id: number) => {
     navigate('/Ani/' + id);
   };
   const [ButtonActive, setButtonActive] = useState(`${rereDate}`);
-  const AniALLArray = useSelector((state) => state.AniState.AniALLArray);
+  const AniALLArray: AnidataTs[] = useSelector(
+    (state: RootState) => state.AniState.AniALLArray,
+  );
 
   return (
     <>
@@ -48,7 +57,7 @@ function DailyAniButton({ setDay, Daily }) {
               <Card.Img
                 variant="top"
                 src={`${API_URL}/file/AniImgFile/${AniALLArray.photo}`}
-                onClick={AniDetailGo}
+                onClick={() => AniDetailGo(AniALLArray.id)}
                 style={{ cursor: 'pointer' }}
                 className="anicardimg"
               />
@@ -66,6 +75,6 @@ function DailyAniButton({ setDay, Daily }) {
       </Row>
     </>
   );
-}
+};
 
 export default DailyAniButton;
