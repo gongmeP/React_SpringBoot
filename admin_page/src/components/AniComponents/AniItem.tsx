@@ -4,11 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { Uploaded } from '../../styledcomponents/AniDetail.styled';
 import { useSelector } from 'react-redux';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { setReuseEffect } from '../../Redux/AniAction';
+import { AnidataTs } from '../../model/Animation';
 
-function AniItem({ Anidata }) {
-  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
+interface AniItemProps {
+  Anidata: AnidataTs;
+}
+
+const AniItem = ({ Anidata }: AniItemProps) => {
+  const ReuseEffect = useSelector(
+    (state: RootState) => state.AniState.ReuseEffect,
+  );
   const { id, title } = Anidata;
   const navigate = useNavigate();
   const Detailgo = () => {
@@ -61,6 +68,6 @@ function AniItem({ Anidata }) {
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default AniItem;

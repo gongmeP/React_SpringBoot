@@ -1,8 +1,9 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import UserReducer from './UserReducer';
 import LoginReducer from './LoginReducer';
 import AniReducer from './AniReducer';
 import BoardReducer from './BoardReducer';
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   loginState: LoginReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   userState: UserReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
+export type RootState = ReturnType<typeof rootReducer>;

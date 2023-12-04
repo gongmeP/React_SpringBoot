@@ -12,7 +12,6 @@ import {
   AniReviewListUl,
   AniReviewListUsername,
   AniRreiewListCol,
-  AniStarImg,
   AniStarImgList,
   FooterUD,
   LlikeImg,
@@ -26,14 +25,17 @@ import { useSelector } from 'react-redux';
 import {
   setReuseEffect,
   setReviewUpdateMode,
-  setReviewUpdateModeId,
   setReviewUpdateModeIdAndText,
-  setReviewUpdateModeText,
 } from '../../Redux/AniAction';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
+import { AniReviewLikeTs, AniReviewTs } from 'src/model/Animation';
 
-function AniReviewList({ Ani_Id }) {
-  function DateTime(reviewDate) {
+interface OwnProps {
+  Ani_Id: number;
+}
+
+const AniReviewList = ({ Ani_Id }: OwnProps) => {
+  function DateTime(reviewDate: Date) {
     const date = new Date(reviewDate);
     const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -42,11 +44,13 @@ function AniReviewList({ Ani_Id }) {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${year}/${month}/${day} ${hours}:${minutes}`;
   }
-  const [Loading, setLoading] = useState(true);
-  const [ReViewData, setReviewData] = useState([]);
-  const [LikeList, setLikeList] = useState([]);
-  const ReuseEffect = useSelector((state) => state.AniState.ReuseEffect);
-  const loginID = window.sessionStorage.getItem('loginID');
+  const [Loading, setLoading] = useState<boolean>(true);
+  const [ReViewData, setReviewData] = useState<AniReviewTs[]>([]);
+  const [LikeList, setLikeList] = useState<number[]>([]);
+  const ReuseEffect = useSelector(
+    (state: RootState) => state.AniState.ReuseEffect,
+  );
+  const loginID: string | null = window.sessionStorage.getItem('loginID');
   const [OderByLike, SetOderByLike] = useState(true);
   useEffect(() => {
     if (Ani_Id !== null) {
@@ -68,7 +72,9 @@ function AniReviewList({ Ani_Id }) {
             memberMid: loginID,
           });
           setReviewData(res.data);
-          setLikeList(res2.data.map((data) => data?.aniReview?.reviewId));
+          setLikeList(
+            res2.data.map((data: AniReviewLikeTs) => data?.aniReview?.reviewId),
+          );
         } finally {
           setLoading(false);
         }
@@ -77,17 +83,35 @@ function AniReviewList({ Ani_Id }) {
     }
   }, [ReuseEffect, OderByLike]);
 
+  const LikeUp = async (reviewId: number, memberMid: string) => {
+    if (loginID === null) {
+      alert('로그인 하셔야 좋아요를 보낼수있어요!');
+      return;
+    }
+    if (loginID === memberMid) {
+      alert('자신의 리뷰에는 좋아요가 불가능해요!');
+      return;
+    }
+    const res = await axiosAPI.post(`/Ani/ReviewLikeUp`, {
+      reviewId: reviewId,
+      memberMid: loginID,
+    });
+    store.dispatch(setReuseEffect(ReuseEffect + 1));
+  };
   const OderByLikeClick = () => {
     SetOderByLike((OderByLike) => !OderByLike);
   };
 
-  const ReviewUpdate = (ReviewUpdateModeId, ReviewUpdateModeText) => {
+  const ReviewUpdate = (
+    ReviewUpdateModeId: number,
+    ReviewUpdateModeText: string,
+  ) => {
     store.dispatch(setReviewUpdateMode(true));
     store.dispatch(
       setReviewUpdateModeIdAndText(ReviewUpdateModeId, ReviewUpdateModeText),
     );
   };
-  const ReviewDelete = async (ReviewDeleteId) => {
+  const ReviewDelete = async (ReviewDeleteId: number) => {
     if (window.confirm('리뷰를 삭제할까요?')) {
       const res2 = await axiosAPI.post(`/Ani/ReviewDelete`, {
         reviewId: ReviewDeleteId,
@@ -125,7 +149,7 @@ function AniReviewList({ Ani_Id }) {
           </Row>
           {ReViewData.map((data) => (
             <Row
-              key={data.review_id}
+              key={data.reviewId}
               style={{ borderBottom: '1px solid lightgray' }}
             >
               <AniRreiewListCol>
@@ -154,7 +178,12 @@ function AniReviewList({ Ani_Id }) {
                 </AniReviewListDivBox>
                 <AniReviewListDiv>{data.reviewText}</AniReviewListDiv>
                 <AniReviewListFooter>
-                  <div style={{ cursor: 'pointer', width: '40px' }}>
+                  <div
+                    onClick={() => {
+                      LikeUp(data.reviewId, data.memberMid);
+                    }}
+                    style={{ cursor: 'pointer', width: '40px' }}
+                  >
                     {LikeList.includes(data.reviewId) ? (
                       <LlikeImg src="/projectimg/likes/free-icon1.png"></LlikeImg>
                     ) : (
@@ -163,6 +192,7 @@ function AniReviewList({ Ani_Id }) {
 
                     <AniReviewEm2>{data.likes}</AniReviewEm2>
                   </div>
+
                   <AniReviewListFooter>
                     <FooterUD
                       onClick={() =>
@@ -183,6 +213,6 @@ function AniReviewList({ Ani_Id }) {
       ) : null}
     </>
   );
-}
+};
 
 export default AniReviewList;

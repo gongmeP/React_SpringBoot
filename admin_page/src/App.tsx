@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import Headers from './components/MainComponents/Header';
-// import Home from './pages/animation/Home';
 import SaveForm from './pages/animation/SaveForm';
 import Detail from './pages/animation/Detail';
 import LoginForm from './pages/user/LoginForm';
@@ -19,7 +18,7 @@ import UserList from './pages/user/UserList';
 import { useState } from 'react';
 import NotAdmin from './components/MainComponents/NotAdmin';
 
-function App() {
+const App = () => {
   const navigate = useNavigate();
   const [adminLogin, setAdminLogin] = useState(
     window.sessionStorage.getItem('loginID'),
@@ -58,6 +57,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

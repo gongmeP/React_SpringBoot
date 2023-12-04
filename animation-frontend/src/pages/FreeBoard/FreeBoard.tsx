@@ -27,7 +27,7 @@ const FreeBoard = () => {
     const PagesFetch = async () => {
       const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
       store.dispatch(setFreeBoards(res.data));
-      console.log(res.data);
+
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
     PagesFetch();
