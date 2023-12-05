@@ -30,9 +30,11 @@ function AllList() {
       try {
         let res: AxiosResponse<AnidataTs[]>;
         if (OderByAniCounter) {
-          res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
+          res = await axiosAPI.get(
+            `/Ani/ALLOderByConter?page=${AniPage}&admin=admin`,
+          );
         } else {
-          res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}`);
+          res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}&admin=admin`);
         }
 
         setAnidata(res.data);
@@ -76,9 +78,11 @@ function AllList() {
         try {
           let res: AxiosResponse<AnidataTs[]>;
           if (OderByAniCounter) {
-            res = await axiosAPI.get(`/Ani/ALLOderByConter?page=${AniPage}`);
+            res = await axiosAPI.get(
+              `/Ani/ALLOderByConter?page=${AniPage}?admin=admin`,
+            );
           } else {
-            res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}`);
+            res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}?admin=admin`);
           }
 
           setAnidata((Anidata) => [...Anidata, ...res.data]);

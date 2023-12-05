@@ -18,11 +18,12 @@ public interface AnimationRepository extends JpaRepository<Animation,Long> {
 
     List<Animation> findByGenreIn(List<String> genres);
 
-    List<Animation> findByAnideleteOrderByIdDesc(String string,Pageable pageable);
+    List<Animation> findByAnideleteAndUploadedOrderByIdDesc(String n,String y,Pageable pageable);
+
+    List<Animation> findByAnideleteAndUploadedOrderByViewCountDesc(String n,String y,Pageable pageable);
 
 
-
-    List<Animation> findByAnideleteOrderByViewCountDesc(String n,Pageable pageable);
-
+    List<Animation> findByAnideleteOrderByIdDesc(String n,Pageable pageable);
+    List<Animation> findByAnideleteOrderByViewCountDesc(String n, Pageable pageable);
 
 }

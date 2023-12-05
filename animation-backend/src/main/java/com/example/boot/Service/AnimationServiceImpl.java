@@ -55,7 +55,7 @@ public class AnimationServiceImpl implements AnimationService {
     @Override
     public List<Animation> getAllAniDataALL(Pageable pageable) {
         try{
-            List<Animation> anilist =  animationRepository.findByAnideleteOrderByIdDesc("n",pageable);
+            List<Animation> anilist =  animationRepository.findByAnideleteAndUploadedOrderByIdDesc("n","y",pageable);
             if(anilist == null){
                 return null;
             }
@@ -198,9 +198,15 @@ public class AnimationServiceImpl implements AnimationService {
     }
 
     @Override
-    public List<Animation> ALLOderByConter(Pageable pageable) {
+    public List<Animation> ALLOderByConter(Pageable pageable,String admin) {
         try{
-            List<Animation> animations =  animationRepository.findByAnideleteOrderByViewCountDesc("n",pageable);
+            List<Animation> animations;
+            if(admin.equals("no")){
+              animations =  animationRepository.findByAnideleteAndUploadedOrderByViewCountDesc("n","y",pageable);
+
+            }else{
+              animations =  animationRepository.findByAnideleteOrderByViewCountDesc("n",pageable);
+            }
 
             if(animations==null){
                 return null;

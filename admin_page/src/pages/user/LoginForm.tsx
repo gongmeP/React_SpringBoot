@@ -5,8 +5,8 @@ import { loginSuccess } from '../../Redux/LoginAction';
 import axiosAPI from '../../axiosAPI';
 
 const Login = () => {
-  const [id, setId] = useState<string>('test1');
-  const [password, setPassword] = useState<string>('testtest1');
+  const [id, setId] = useState<string>('Alladmin');
+  const [password, setPassword] = useState<string>('Alladmin');
 
   const Logingo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -35,7 +35,7 @@ public interface AnimationService {
 
     List<Animation> AniWeekRanking();
 
-    List<Animation> ALLOderByConter(Pageable pageable);
+    List<Animation> ALLOderByConter(Pageable pageable,String admin);
 
 
 }

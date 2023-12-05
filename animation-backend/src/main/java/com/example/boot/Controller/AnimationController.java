@@ -64,9 +64,12 @@ public class AnimationController {
 
     @CrossOrigin
     @GetMapping("/Ani/ALLOderByConter")
-    public ResponseEntity<?> ALLOderByConter(@PageableDefault(page=0,size=20)Pageable pageable){
+    public ResponseEntity<?> ALLOderByConter(@PageableDefault(page=0,size=20)Pageable pageable, @RequestParam(name = "admin") String admin){
 
-        return new ResponseEntity<>(animationService.ALLOderByConter(pageable), HttpStatus.OK);
+        System.out.println(admin);
+
+            return new ResponseEntity<>(animationService.ALLOderByConter(pageable,admin), HttpStatus.OK);
+
     }
 
     @CrossOrigin
