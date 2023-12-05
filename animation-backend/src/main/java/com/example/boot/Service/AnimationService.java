@@ -15,7 +15,7 @@ public interface AnimationService {
 
     Page<Animation> getAllAniData(Pageable pageable);
 
-    List<Animation> getAllAniDataALL(Pageable pageable);
+    List<Animation> getAllAniDataALL(Pageable pageable,String admin);
 
     Animation Aniupdate(Long id, Animation animation);
 
@@ -23,9 +23,9 @@ public interface AnimationService {
 
     List<Animation> getDayOfWeek(String day_of_week);
 
-    List<Animation> SearchByTitle(String title);
+    List<Animation> SearchByTitle(String title,String admin);
 
-    List<Animation> GenreFilterByTitle(List<String> genre);
+    List<Animation> GenreFilterByTitle(List<String> genre,String admin);
 
     String ViewCounterupdate(Long id);
 

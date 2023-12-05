@@ -57,16 +57,14 @@ public class AnimationController {
 
     @CrossOrigin
     @GetMapping("/Ani/ALL")
-    public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 20)Pageable pageable){
+    public ResponseEntity<?> findAll(@PageableDefault(page = 0,size = 20)Pageable pageable,@RequestParam(name = "admin") String admin){
 
-        return new ResponseEntity<>(animationService.getAllAniDataALL(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(animationService.getAllAniDataALL(pageable,admin), HttpStatus.OK);
     }
 
     @CrossOrigin
     @GetMapping("/Ani/ALLOderByConter")
     public ResponseEntity<?> ALLOderByConter(@PageableDefault(page=0,size=20)Pageable pageable, @RequestParam(name = "admin") String admin){
-
-        System.out.println(admin);
 
             return new ResponseEntity<>(animationService.ALLOderByConter(pageable,admin), HttpStatus.OK);
 
@@ -103,17 +101,16 @@ public class AnimationController {
 
     @GetMapping("/Ani/search")
     @CrossOrigin
-    public ResponseEntity<?> SearchByTitle(String title){
+    public ResponseEntity<?> SearchByTitle(String title,String admin){
 
-
-        return new ResponseEntity<>(animationService.SearchByTitle(title),HttpStatus.CREATED);
+        return new ResponseEntity<>(animationService.SearchByTitle(title,admin),HttpStatus.CREATED);
     }
 
     @PostMapping("/Ani/GenreFilter")
     @CrossOrigin
-    public ResponseEntity<?> GenreFilterByTitle(@RequestBody List<String> genre){
+    public ResponseEntity<?> GenreFilterByTitle(@RequestBody List<String> genre, @RequestParam String admin){
 
-        List<Animation> animation = animationService.GenreFilterByTitle(genre);
+        List<Animation> animation = animationService.GenreFilterByTitle(genre,admin);
 
         return new ResponseEntity<>(animation,HttpStatus.CREATED);
     }

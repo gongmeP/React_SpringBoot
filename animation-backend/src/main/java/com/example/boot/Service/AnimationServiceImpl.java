@@ -53,9 +53,16 @@ public class AnimationServiceImpl implements AnimationService {
 
     @Transactional
     @Override
-    public List<Animation> getAllAniDataALL(Pageable pageable) {
+    public List<Animation> getAllAniDataALL(Pageable pageable, String admin) {
+
         try{
-            List<Animation> anilist =  animationRepository.findByAnideleteAndUploadedOrderByIdDesc("n","y",pageable);
+            List<Animation> anilist;
+            if(admin.equals("no")){
+             anilist =  animationRepository.findByAnideleteAndUploadedOrderByIdDesc("n","y",pageable);
+
+            }else{
+                anilist =  animationRepository.findByAnideleteOrderByIdDesc("n",pageable);
+            }
             if(anilist == null){
                 return null;
             }
@@ -92,18 +99,28 @@ public class AnimationServiceImpl implements AnimationService {
 
 
     @Override
-    public List<Animation> SearchByTitle(String Title) {
+    public List<Animation> SearchByTitle(String Title,String admin) {
 
-      return  animationRepository.searchByTitleContainingAndAnideleteOrderByIdDesc(Title,"n");
+        if(admin.equals("no")){
+            return  animationRepository.searchByTitleContainingAndAnideleteAndUploadedOrderByIdDesc(Title,"n","y");
+        }else{
+            return  animationRepository.searchByTitleContainingAndAnideleteOrderByIdDesc(Title,"n");
+        }
+
 
     }
 
 
     @Override
-    public List<Animation> GenreFilterByTitle(List<String> genre) {
+    public List<Animation> GenreFilterByTitle(List<String> genre,String admin) {
 
+        if(admin.equals("admin")){
+            return  animationRepository.findByGenreIn(genre);
 
-        return  animationRepository.findByGenreIn(genre);
+        }else{
+            return  animationRepository.findByGenreInAndUploaded(genre,"y");
+        }
+
     }
 
     @Override

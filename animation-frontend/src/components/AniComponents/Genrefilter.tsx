@@ -25,7 +25,10 @@ const Genrefilter = ({ setAnidata, setPage }: Ownprop) => {
     const Genre = async () => {
       if (checkfilter.length !== 0) {
         try {
-          const res = await axiosAPI.post(`/Ani/GenreFilter`, checkfilter);
+          const res = await axiosAPI.post(
+            `/Ani/GenreFilter?admin=no`,
+            checkfilter,
+          );
           setAnidata(res.data);
         } catch (error) {
           console.error('Genre axios Error');

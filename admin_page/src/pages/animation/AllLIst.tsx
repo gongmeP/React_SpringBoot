@@ -79,10 +79,10 @@ function AllList() {
           let res: AxiosResponse<AnidataTs[]>;
           if (OderByAniCounter) {
             res = await axiosAPI.get(
-              `/Ani/ALLOderByConter?page=${AniPage}?admin=admin`,
+              `/Ani/ALLOderByConter?page=${AniPage}&admin=admin`,
             );
           } else {
-            res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}?admin=admin`);
+            res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}&admin=admin`);
           }
 
           setAnidata((Anidata) => [...Anidata, ...res.data]);
