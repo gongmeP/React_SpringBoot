@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import store from '../../Redux/store';
 import { loginSuccess } from '../../Redux/LoginAction';
-import axios from 'axios';
 import axiosAPI from '../../axiosAPI';
 
 const Login = () => {
-  const [id, setId] = useState('Alladmin');
-  const [password, setPassword] = useState('Alladmin');
+  const [id, setId] = useState<string>('test1');
+  const [password, setPassword] = useState<string>('testtest1');
 
-  const Logingo = async (e) => {
+  const Logingo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = { adminid: id, adminpass: password };
 

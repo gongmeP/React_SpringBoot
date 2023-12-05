@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { useSelector } from 'react-redux';
 import { SetUserPage, SetUserSearchPage } from '../../Redux/UserAcrion';
-function UserPage() {
-  const SearchTF = useSelector((state) => state.userState.UserSearchTF);
-  const SearchPages = useSelector((state) => state.userState.UserSearchPage);
-  const PageSize = useSelector((state) => state.userState.UserPageSize);
-  let Pages = useSelector((state) => state.userState.UserPage);
-  const EA = useSelector((state) => state.userState.UserArrayEA);
-  const totalPage = Math.ceil(EA / PageSize);
-  const limit = 5;
+const UserPage = () => {
+  const SearchTF = useSelector(
+    (state: RootState) => state.userState.UserSearchTF,
+  );
+  const SearchPages = useSelector(
+    (state: RootState) => state.userState.UserSearchPage,
+  );
+  const PageSize = useSelector(
+    (state: RootState) => state.userState.UserPageSize,
+  );
+  let Pages = useSelector((state: RootState) => state.userState.UserPage);
+  const EA = useSelector((state: RootState) => state.userState.UserArrayEA);
+  const totalPage: number = Math.ceil(EA / PageSize);
+  const limit: number = 5;
   // 검색일때 데이터갯수 검색데이터 갯수로 업데이트
   if (SearchTF === 'Search') {
     Pages = SearchPages;
   }
 
-  const [totalPageArray, setTotalPageArray] = useState([]);
-  const [currentPageArray, setCurrentPageArray] = useState([]);
+  const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
+  const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
 
   useEffect(() => {
     if (Pages % limit === 0) {
@@ -33,16 +39,16 @@ function UserPage() {
     setCurrentPageArray(slicedPageArray[0]);
   }, [totalPage]);
 
-  const LimitPage = (totalPage, limit) => {
+  const LimitPage = (totalPage: number, limit: number) => {
     const totalPageArray = Array(totalPage)
-      .fill()
+      .fill(0)
       .map((_, i) => i);
     return Array(Math.ceil(totalPage / limit))
-      .fill()
+      .fill(0)
       .map(() => totalPageArray.splice(0, limit));
   };
 
-  const PageClick = (last, lastpage) => {
+  const PageClick = (last: string, lastpage: number) => {
     if (last === 'last') {
       setCurrentPageArray(totalPageArray[totalPageArray.length - 1]);
     }
@@ -87,7 +93,7 @@ function UserPage() {
         ))}
         {currentPageArray &&
         currentPageArray.length > 1 &&
-        currentPageArray.length == 5 ? (
+        currentPageArray.length === 5 ? (
           <Pagination.Ellipsis />
         ) : null}
         <Pagination.Next onClick={() => PageClick('next', Pages + 1)} />
@@ -95,6 +101,6 @@ function UserPage() {
       </Pagination>
     </div>
   );
-}
+};
 
 export default UserPage;

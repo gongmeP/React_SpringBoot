@@ -29,3 +29,8 @@ export const SetSelectBoardArray = (SelectBoardArray: number[]) => ({
   type: 'SetSelectBoardArray',
   payload: SelectBoardArray,
 });
+
+export const setSearchPages = (SearchPages: number) => ({
+  type: 'setSearchPages',
+  payload: SearchPages,
+});

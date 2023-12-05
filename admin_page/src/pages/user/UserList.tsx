@@ -4,8 +4,7 @@ import UserListItem from '../../components/UserComponents/UserListItem';
 import UserPage from '../../components/UserComponents/UserPage';
 import UserSearch from '../../components/UserComponents/UserSerch';
 import { Button } from 'react-bootstrap';
-import axios from 'axios';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import {
   SetUserArray,
   SetUserArrayEA,
@@ -16,12 +15,14 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import axiosAPI from '../../axiosAPI';
 
-function UserList() {
-  const PageSize = useSelector((state) => state.userState.UserPageSize);
-  const Pages = useSelector((state) => state.userState.UserPage);
+const UserList = () => {
+  const PageSize = useSelector(
+    (state: RootState) => state.userState.UserPageSize,
+  );
+  const Pages = useSelector((state: RootState) => state.userState.UserPage);
   const [reuseEffect, SetReuseEffect] = useState(0);
   const SelectMemberArray = useSelector(
-    (state) => state.userState.SelectMemberArray,
+    (state: RootState) => state.userState.SelectMemberArray,
   );
 
   const userListGo = () => {
@@ -50,7 +51,7 @@ function UserList() {
       const res = await axiosAPI.put(
         `/Memberlist/DeleteUpdateSelect/${SelectMemberArray}`,
       );
-      if (res.data == '삭제완료') {
+      if (res.data === '삭제완료') {
         alert('회원이 삭제되었습니다.');
         SetReuseEffect(reuseEffect + 1);
       } else {
@@ -87,6 +88,6 @@ function UserList() {
       <UserSearch></UserSearch>
     </>
   );
-}
+};
 
 export default UserList;

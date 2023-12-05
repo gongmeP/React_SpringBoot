@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect } from 'react';
 import { useState } from 'react';
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   InputGroup,
   Row,
 } from 'react-bootstrap';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 
 import { useSelector } from 'react-redux';
 import {
@@ -19,15 +19,21 @@ import {
 } from '../../Redux/UserAcrion';
 import axiosAPI from '../../axiosAPI';
 
-function UserSearch() {
-  const SearchPages = useSelector((state) => state.userState.UserSearchPage);
-  const PageSize = useSelector((state) => state.userState.UserPageSize);
-  const [searchText, setSearchText] = useState('');
-  const searchTF = useSelector((state) => state.userState.UserSearchTF);
-  const [render, setRender] = useState(false);
-  const [select, setSelect] = useState('아이디');
+const UserSearch = () => {
+  const SearchPages = useSelector(
+    (state: RootState) => state.userState.UserSearchPage,
+  );
+  const PageSize = useSelector(
+    (state: RootState) => state.userState.UserPageSize,
+  );
+  const [searchText, setSearchText] = useState<string>('');
+  const searchTF = useSelector(
+    (state: RootState) => state.userState.UserSearchTF,
+  );
+  const [render, setRender] = useState<boolean>(false);
+  const [select, setSelect] = useState<string>('아이디');
 
-  const SearchEnter = async (e) => {
+  const SearchEnter = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!searchText) {
@@ -50,9 +56,11 @@ function UserSearch() {
     } else {
       console.log('아이디 이름 셀렉트오류');
     }
-    store.dispatch(SetUserArray(res.data.member.content));
-    store.dispatch(SetUserArrayEA(res.data.totalPage));
-    store.dispatch(SetUserSearchTF('Search'));
+    if (res !== undefined) {
+      store.dispatch(SetUserArray(res.data.member.content));
+      store.dispatch(SetUserArrayEA(res.data.totalPage));
+      store.dispatch(SetUserSearchTF('Search'));
+    }
   };
 
   useEffect(() => {
@@ -74,14 +82,16 @@ function UserSearch() {
         console.log('아이디 이름 셀렉트오류');
       }
 
-      store.dispatch(SetUserArray(res.data.member.content));
-      store.dispatch(SetUserArrayEA(res.data.totalPage));
-      store.dispatch(SetUserSearchTF('Search'));
+      if (res !== undefined) {
+        store.dispatch(SetUserArray(res.data.member.content));
+        store.dispatch(SetUserArrayEA(res.data.totalPage));
+        store.dispatch(SetUserSearchTF('Search'));
+      }
     };
     SearchPage();
   }, [SearchPages]);
 
-  const IdAndName = (e) => {
+  const IdAndName = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelect(e.target.value);
   };
   return (
@@ -113,6 +123,6 @@ function UserSearch() {
       </Row>
     </>
   );
-}
+};
 
 export default UserSearch;

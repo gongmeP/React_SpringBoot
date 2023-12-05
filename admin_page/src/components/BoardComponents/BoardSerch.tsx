@@ -9,7 +9,7 @@ import {
   InputGroup,
   Row,
 } from 'react-bootstrap';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import {
   setFreeBoards,
   setFreeBoardsEA,
@@ -18,16 +18,16 @@ import {
 import { useSelector } from 'react-redux';
 import axiosAPI from '../../axiosAPI';
 
-function BoradSerch() {
-  const SearchPages = useSelector((state) => state.BoardState.SearchPages);
-  const [searchText, setSearchText] = useState('');
-  const searchTF = useSelector((state) => state.BoardState.searchTF);
-  const [render, setRender] = useState(false);
+const BoardSearch = () => {
+  const SearchPages = useSelector(
+    (state: RootState) => state.BoardState.SearchPages,
+  );
+  const [searchText, setSearchText] = useState<string>('');
+  const [render, setRender] = useState<boolean>(false);
 
-  const SearchEnter = async (e) => {
+  const SearchEnter = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!searchText) {
+    if (searchText === '') {
       alert('검색어를 입력하세요.');
       return;
     }
@@ -84,6 +84,6 @@ function BoradSerch() {
       </Row>
     </>
   );
-}
+};
 
-export default BoradSerch;
+export default BoardSearch;

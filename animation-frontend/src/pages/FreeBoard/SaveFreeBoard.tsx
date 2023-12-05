@@ -28,7 +28,6 @@ function SaveFreeBoard() {
     }
   };
 
-  const UPLOAD_ENDPOINT = 'FreeBoard/Save';
   const SaveFreeBoardGo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData.fbTitle === '') {

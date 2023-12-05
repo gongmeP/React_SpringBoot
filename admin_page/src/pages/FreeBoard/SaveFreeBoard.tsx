@@ -6,26 +6,31 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import axiosAPI, { API_URL } from '../../axiosAPI';
+import { BoardFormDataTs } from 'src/model/Board';
 
 function SaveFreeBoard() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState<BoardFormDataTs>({
     fbTitle: '',
     fbContent: '',
     photo: '',
-    userid: sessionStorage.getItem('loginID'),
+    userid: sessionStorage.getItem('loginID') || null,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
     if (type === 'file') {
-      setFormData({ ...formData, [name]: e.target.files[0] });
+      if (e.target.files !== null) {
+        setFormData({ ...formData, [name]: e.target.files[0] });
+      }
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  const SaveFreeBoardGo = async (e) => {
+  const SaveFreeBoardGo = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (formData.fbTitle === '') {
       alert('제목을 입력하세요');
       return;
@@ -36,13 +41,13 @@ function SaveFreeBoard() {
     }
 
     if (window.confirm('게시글을 등록 하시겠습니까?')) {
-      e.preventDefault();
-
       const body = new FormData();
-      body.append('fbTitle', formData.fbTitle);
-      body.append('fbContent', formData.fbContent);
-      body.append('photo', formData.photo);
-      body.append('userid', formData.userid);
+      if (formData.userid !== null && formData.fbContent !== null) {
+        body.append('fbTitle', formData.fbTitle);
+        body.append('fbContent', formData.fbContent);
+        body.append('photo', formData.photo);
+        body.append('userid', formData.userid);
+      }
 
       try {
         const res = await axiosAPI.post(`/FreeBoard/Save`, body);
@@ -61,12 +66,12 @@ function SaveFreeBoard() {
     }
   };
 
-  const customUploadAdapter = (loader) => {
+  const customUploadAdapter = (loader: any) => {
     return {
       upload() {
         return new Promise((resolve, reject) => {
           const body = new FormData();
-          loader.file.then((file) => {
+          loader.file.then((file: any) => {
             body.append('file', file);
 
             fetch(`${API_URL}/FreeBoard/ImgSave`, {
@@ -94,8 +99,10 @@ function SaveFreeBoard() {
     };
   };
 
-  function uploadPlugin(editor) {
-    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+  function uploadPlugin(editor: any) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (
+      loader: any,
+    ) => {
       return customUploadAdapter(loader);
     };
   }
@@ -120,7 +127,7 @@ function SaveFreeBoard() {
               placeholder: '내용을 입력하세요',
             }}
             data=""
-            onInit={(editor) => {}}
+            onReady={(editor) => {}}
             onChange={(event, editor) => {
               const data = editor.getData();
               const parser = new DOMParser();

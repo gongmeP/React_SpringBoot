@@ -7,19 +7,26 @@ import {
   Tr1,
   Tr2,
 } from '../../styledcomponents/Userlist.styled';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import { SetSelectMemberArray } from '../../Redux/UserAcrion';
 import axiosAPI from '../../axiosAPI';
+import { UserdataTs } from 'src/model/User';
 
-function UserListItem({ SetReuseEffect, reuseEffect }) {
-  const UserArray = useSelector((state) => state.userState.UserArray);
-  const SelectMemberArray = useSelector(
-    (state) => state.userState.SelectMemberArray,
+interface UserListItem {
+  SetReuseEffect: (reuseEffect: number) => void;
+  reuseEffect: number;
+}
+
+const UserListItem = ({ SetReuseEffect, reuseEffect }: UserListItem) => {
+  const UserArray: UserdataTs[] = useSelector(
+    (state: RootState) => state.userState.UserArray,
   );
-  function DateTime(fbDate) {
+  const SelectMemberArray: number[] = useSelector(
+    (state: RootState) => state.userState.SelectMemberArray,
+  );
+  function DateTime(fbDate: Date) {
     const date = new Date(fbDate);
     const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -29,9 +36,9 @@ function UserListItem({ SetReuseEffect, reuseEffect }) {
     return `${year}/${month}/${day} ${hours}:${minutes}`;
   }
 
-  const deletemember = async (e) => {
+  const deletemember = async (IDnum: number) => {
     if (window.confirm('! 회원을 삭제 할꺼에요? 정말로? !')) {
-      const res = await axiosAPI.put(`/Memberlist/DeleteUpdate/${e.target.id}`);
+      const res = await axiosAPI.put(`/Memberlist/DeleteUpdate/${IDnum}`);
       if (res.data == '삭제완료') {
         alert('회원이 삭제되었습니다.');
         SetReuseEffect(reuseEffect + 1);
@@ -43,14 +50,15 @@ function UserListItem({ SetReuseEffect, reuseEffect }) {
     }
   };
 
-  const SelectMember = (e) => {
+  const SelectMember = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    IDnum: number,
+  ) => {
     if (e.target.checked) {
-      store.dispatch(SetSelectMemberArray([...SelectMemberArray, e.target.id]));
+      store.dispatch(SetSelectMemberArray([...SelectMemberArray, IDnum]));
     } else if (!e.target.checked) {
       store.dispatch(
-        SetSelectMemberArray(
-          SelectMemberArray.filter((id) => id !== e.target.id),
-        ),
+        SetSelectMemberArray(SelectMemberArray.filter((id) => id !== IDnum)),
       );
     }
   };
@@ -74,8 +82,8 @@ function UserListItem({ SetReuseEffect, reuseEffect }) {
               <Th1>
                 <input
                   type="checkbox"
-                  id={UserArray.id}
-                  onClick={SelectMember}
+                  id={`${UserArray.id}`}
+                  onChange={(e) => SelectMember(e, UserArray.id)}
                 ></input>
               </Th1>
               <Th4>{UserArray.mid}</Th4>
@@ -87,8 +95,8 @@ function UserListItem({ SetReuseEffect, reuseEffect }) {
                   variant="danger"
                   size="sm"
                   className="mb-2"
-                  onClick={deletemember}
-                  id={UserArray.id}
+                  onClick={() => deletemember(UserArray.id)}
+                  id={`${UserArray.id}`}
                 >
                   회원 삭제
                 </Button>
@@ -99,6 +107,6 @@ function UserListItem({ SetReuseEffect, reuseEffect }) {
       </CustomTable>
     </>
   );
-}
+};
 
 export default UserListItem;

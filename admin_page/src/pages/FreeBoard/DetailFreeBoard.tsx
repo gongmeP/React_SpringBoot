@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Board from '../../components/BoardComponents/Board';
 import { useSelector } from 'react-redux';
 import Page from '../../components/BoardComponents/Page';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import {
   setFormData,
   setFreeBoards,
@@ -17,11 +17,13 @@ import {
 } from '../../Redux/BoardAction';
 import BoradSerch from '../../components/BoardComponents/BoardSerch';
 import axiosAPI, { API_URL } from '../../axiosAPI';
+import { BoardTs } from 'src/model/Board';
 
-function DetailFreeBoard() {
-  const Pages = useSelector((state) => state.BoardState.pages);
-  const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
-  const searchTF = useSelector((state) => state.BoardState.searchTF);
+const DetailFreeBoard = () => {
+  const Pages = useSelector((state: RootState) => state.BoardState.pages);
+  const freeBoardsEA = useSelector(
+    (stage: RootState) => stage.BoardState.freeBoardsEA,
+  );
   useEffect(() => {
     const PagesFetch = async () => {
       const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
@@ -61,7 +63,7 @@ function DetailFreeBoard() {
     }
   };
 
-  function DateTime(fbDate) {
+  function DateTime(fbDate: Date) {
     const date = new Date(fbDate);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -76,7 +78,9 @@ function DetailFreeBoard() {
     height: 0,
   });
 
-  const formData = useSelector((state) => state.BoardState.formData);
+  const formData: BoardTs = useSelector(
+    (state: RootState) => state.BoardState.formData,
+  );
 
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
@@ -179,7 +183,7 @@ function DetailFreeBoard() {
       <BoradSerch></BoradSerch>
     </div>
   );
-}
+};
 
 const PostContainer = styled.div`
   height: auto;

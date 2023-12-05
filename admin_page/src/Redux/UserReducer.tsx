@@ -1,4 +1,16 @@
-const initstate = {
+import { UserdataTs } from 'src/model/User';
+
+export interface UserState {
+  UserPageSize: number;
+  UserPage: number;
+  UserArray: UserdataTs[];
+  UserArrayEA: number;
+  UserSearchPage: number;
+  UserSearchTF: string;
+  SelectMemberArray: number[];
+}
+
+const initstate: UserState = {
   UserPageSize: 15,
   UserPage: 0,
   UserArray: [],
@@ -6,10 +18,9 @@ const initstate = {
   UserSearchPage: 0,
   UserSearchTF: 'NotSearch',
   SelectMemberArray: [],
-  SelectBoardArray: [],
 };
 
-const UserReducer = (userstate = initstate, action) => {
+const UserReducer = (userstate: UserState = initstate, action: any) => {
   switch (action.type) {
     case 'SetUserPageSize':
       return { ...userstate, UserPageSize: action.payload };

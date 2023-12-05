@@ -17,7 +17,6 @@ const UpdateFreeBoard = () => {
   const [TextContent, setTextContent] = useState<{ retextContent: string }>({
     retextContent: '',
   });
-
   useEffect(() => {
     const fetchdata = async () => {
       const res = await axiosAPI.get(`/FreeBoard/Detail/${fbNum}`);

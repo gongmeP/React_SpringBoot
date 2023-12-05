@@ -1,5 +1,6 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
-import store from '../../Redux/store';
+import store, { RootState } from '../../Redux/store';
 import {
   setFreeBoards,
   setFreeBoardsEA,
@@ -14,10 +15,12 @@ import { Button } from 'react-bootstrap';
 import axiosAPI from '../../axiosAPI';
 
 function FreeBoard() {
-  const Pages = useSelector((state) => state.BoardState.pages);
-  const freeBoardsEA = useSelector((stage) => stage.BoardState.freeBoardsEA);
+  const Pages = useSelector((state: RootState) => state.BoardState.pages);
+  const freeBoardsEA = useSelector(
+    (stage: RootState) => stage.BoardState.freeBoardsEA,
+  );
   const SelectBoardArray = useSelector(
-    (state) => state.BoardState.SelectBoardArray,
+    (state: RootState) => state.BoardState.SelectBoardArray,
   );
   const [reuseEffect, SetReuseEffect] = useState(0);
 

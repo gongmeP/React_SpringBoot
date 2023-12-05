@@ -9,3 +9,15 @@ export type AdmindataTs = {
   approval: string;
   iddelete: string;
 };
+
+export type UserdataTs = {
+  id: number;
+  mid: string;
+  mpass: string;
+  mname: string;
+  memail: string;
+  mnumber: string;
+  maddress: string;
+  logintime: Date;
+  mtime: Date;
+};
