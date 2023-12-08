@@ -38,20 +38,21 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 
     @Override
     public AdminMember login(AdminMember adminMember) {
-
-        Optional<AdminMember> byloginid = adminMemberRepository.findByAdminid(adminMember.getAdminid());
-
-        if(byloginid.isPresent()){
-            AdminMember adminMemberEntity = byloginid.get();
-            if(passwordEncoder.matches(adminMember.getAdminpass(),adminMemberEntity.getAdminpass())){
-
-                return adminMemberEntity;
-
+        try{
+            Optional<AdminMember> byloginid = adminMemberRepository.findByAdminid(adminMember.getAdminid());
+            if(byloginid.isPresent()){
+                AdminMember adminMemberEntity = byloginid.get();
+                if(passwordEncoder.matches(adminMember.getAdminpass(),adminMemberEntity.getAdminpass())){
+                    return adminMemberEntity;
+                }else {
+                    return null;
+                }
             }else {
                 return null;
             }
 
-        }else{
+        }catch (Exception e){
+            System.out.println("AdminMemberService Login error");
             return null;
         }
 

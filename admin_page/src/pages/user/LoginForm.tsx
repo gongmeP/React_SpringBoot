@@ -14,13 +14,15 @@ const Login = () => {
 
     const res = await axiosAPI.post('/Admin/login', data);
 
-    if (res.data.loginID != null) {
+    if (res.data.loginID != null && res.data.AdminApproval === 'n') {
       store.dispatch(loginSuccess(res.data.loginID, res.data.loginUsername));
       window.sessionStorage.setItem('loginID', res.data.loginID);
       window.sessionStorage.setItem('loginUsername', res.data.loginUsername);
 
       alert('로그인 되셨습니다');
       window.location.href = '/allList';
+    } else if (res.data.AdminApproval === 'y') {
+      alert('관리자 승인 대기 상태입니다. 승인 완료 후 다시 로그인해주세요.');
     } else {
       alert('아이디 및 패스워드 를 다시 확인해주세요');
     }

@@ -53,17 +53,14 @@ public class AdminMemberController {
     @PostMapping("/Admin/login")
     @CrossOrigin
     public ResponseEntity<?> login(@RequestBody AdminMember adminMember, HttpSession session) {
-        AdminMember loginResult = adminMemberService.login(adminMember);
-
-
         try{
-
+            AdminMember loginResult = adminMemberService.login(adminMember);
             if (loginResult != null) {
 
                 Map<String, String> responseData = new HashMap<>();
                 responseData.put("loginID", loginResult.getAdminid());
                 responseData.put("loginUsername", loginResult.getAdminname());
-
+                responseData.put("AdminApproval", loginResult.getApproval());
 
                 return new ResponseEntity<>(responseData, HttpStatus.OK);
 
