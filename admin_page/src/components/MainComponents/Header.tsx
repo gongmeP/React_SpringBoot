@@ -30,6 +30,12 @@ const Header = () => {
                 <Link to="/savaForm" className="nav-link">
                   애니메이션추가
                 </Link>
+                <Link to="/allList" className="nav-link">
+                  배너 관리
+                </Link>
+                <Link to="/savebanner" className="nav-link">
+                  배너 추가
+                </Link>
                 <Link to="/userlist" className="nav-link">
                   회원관리
                 </Link>

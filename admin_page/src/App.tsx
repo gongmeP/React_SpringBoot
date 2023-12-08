@@ -17,6 +17,7 @@ import AllList from './pages/animation/AllLIst';
 import UserList from './pages/user/UserList';
 import { useState } from 'react';
 import NotAdmin from './components/MainComponents/NotAdmin';
+import SaveBanner from './pages/Banner/SaveBanner';
 
 const App = () => {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ const App = () => {
               />
               <Route path="/allList" element={<AllList />} />
               <Route path="/userlist" element={<UserList />} />
+              <Route path="/savebanner" element={<SaveBanner />} />
             </>
           ) : (
             <Route path="/*" element={<NotAdmin />} />
