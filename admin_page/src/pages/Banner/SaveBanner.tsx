@@ -7,12 +7,12 @@ import { BannerTs } from 'src/model/Banner';
 function SaveBanner() {
   const [BannerInsert, setBannerInsert] = useState<BannerTs>({
     title: '',
-    mainimg_banner: '',
-    testimg_banner: '',
-    link_url: '',
-    start_date: new Date(''),
-    end_date: new Date(''),
-    created_time: new Date(''),
+    mainimgBanner: '',
+    textimgBanner: '',
+    linkUrl: '',
+    startDate: new Date(''),
+    endDate: new Date(''),
+    createdTime: new Date(''),
   });
 
   const navigate = useNavigate();
@@ -22,9 +22,10 @@ function SaveBanner() {
   };
 
   const changeValueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const Redate = new Date(`${e.target.value}T00:00:00`);
+    const Redate = new Date(`${e.target.value}`);
     setBannerInsert({ ...BannerInsert, [e.target.name]: Redate });
   };
+  console.log(BannerInsert);
 
   //이미지 업로드 부분
   const MainImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +34,8 @@ function SaveBanner() {
       const formData = new FormData();
       formData.append('file', Imgfile);
       try {
-        const res = await axiosAPI.post('/Ani/PhotoSave', formData);
-        setBannerInsert({ ...BannerInsert, mainimg_banner: res.data[0] });
+        const res = await axiosAPI.post('/Banner/PhotoSave', formData);
+        setBannerInsert({ ...BannerInsert, mainimgBanner: res.data[0] });
         console.log(res.data[0]);
       } catch (error) {
         console.log('Save BannerImg 에러');
@@ -48,8 +49,8 @@ function SaveBanner() {
       const formData = new FormData();
       formData.append('file', Imgfile);
       try {
-        const res = await axiosAPI.post('/Ani/PhotoSave', formData);
-        setBannerInsert({ ...BannerInsert, testimg_banner: res.data[0] });
+        const res = await axiosAPI.post('/Banner/PhotoSave', formData);
+        setBannerInsert({ ...BannerInsert, textimgBanner: res.data[0] });
         console.log(res.data[0]);
       } catch (error) {
         console.log('Save BannerImg 에러');
@@ -57,33 +58,45 @@ function SaveBanner() {
     }
   };
 
-  //애니메이션 데이터 업로드 부분
   const submitAnisave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (window.confirm('애니메이션 목록에 업로드 하겠습니까?')) {
-      if (BannerInsert.title === '') {
-        alert('애니메이션 제목을 입력하세요.');
-        return;
-      }
-
-      if (BannerInsert.mainimg_banner === '') {
-        alert('애니메이션 썸네일 이미지를 첨부하세요.');
-        return;
-      }
-
-      if (BannerInsert.link_url === '') {
-        alert('방영요일 을 선택하거나 완결 선택을 해주세요.');
-        return;
-      }
-
+    if (window.confirm('배너를 업로드 하시겠습니까?')) {
       try {
-        const res = await axiosAPI.post('/Ani', BannerInsert, {});
+        if (BannerInsert.title === '') {
+          alert('배너 제목을 입력하세요.');
+          return;
+        }
+        if (BannerInsert.linkUrl === '') {
+          alert('배너 클릭시 이동할 링크를 입력하세요.');
+          return;
+        }
+        if (BannerInsert.mainimgBanner === '') {
+          alert('배너 메인 이미지를 추가하세요.');
+          return;
+        }
+        if (isNaN(BannerInsert.startDate.getTime())) {
+          alert('배너 개시 시작일을 추가하세요.');
+          return;
+        }
+        if (isNaN(BannerInsert.endDate.getTime())) {
+          alert('배너 개시 종료일을 추가하세요.');
+          return;
+        }
+        if (BannerInsert.startDate.getTime() > BannerInsert.endDate.getTime()) {
+          alert('배너 종료일은 시작일보다 이후여야 합니다.');
+          return;
+        }
 
-        alert('업로드 완료되었습니다.');
-        navigate('/allList');
+        const res = await axiosAPI.post('/BannerAdd', BannerInsert);
+
+        if (res.data === 'Banner 추가 완료') {
+          alert('배너 업로드가 완료되었습니다.');
+        } else {
+          alert('배너 추가 실패');
+        }
       } catch (error) {
-        console.log('SaveForm Error');
+        console.log('Banner save Error');
       }
     } else {
     }
@@ -104,7 +117,7 @@ function SaveBanner() {
 
           <Form.Label>배너 URL</Form.Label>
           <Form.Control
-            name="link_url"
+            name="linkUrl"
             placeholder="배너 클릭시 이동될 URL 을 입력하세요"
             onChange={changeValue}
           />
@@ -117,7 +130,7 @@ function SaveBanner() {
               <br></br>
               <Form.Control
                 type="file"
-                name="mainimg_banner"
+                name="mainimgBanner"
                 onChange={MainImg}
               />
             </Col>
@@ -128,7 +141,7 @@ function SaveBanner() {
               <br></br>
               <Form.Control
                 type="file"
-                name="testimg_banner"
+                name="textimgBanner"
                 onChange={TextImg}
               />
             </Col>
@@ -141,7 +154,7 @@ function SaveBanner() {
                 onChange={changeValueDate}
                 style={{ width: '40%' }}
                 type="date"
-                name="start_date"
+                name="startDate"
               ></Form.Control>
             </Col>
             <Col md={6}>
@@ -150,7 +163,7 @@ function SaveBanner() {
                 onChange={changeValueDate}
                 style={{ width: '40%' }}
                 type="date"
-                name="end_date"
+                name="endDate"
               ></Form.Control>
             </Col>
           </Row>
