@@ -50,6 +50,13 @@ public class BannerController {
             return fileNamespath;
         }
     }
+
+    @GetMapping("/Banner/getBanner")
+    @CrossOrigin
+    public ResponseEntity<?> getBanner() {
+
+        return ResponseEntity.ok(bannerService.findAllBanner());
+    }
 }
 
 

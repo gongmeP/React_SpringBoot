@@ -32,14 +32,14 @@ export const BannerBox = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 export const BannerUpdateBox = styled.div`
   width: 400px;
   height: auto;
   margin-left: 50px;
-
-  font-size: 20px;
+  font-size: 19px;
 `;
 
 export const BannerUpdateText = styled.div`

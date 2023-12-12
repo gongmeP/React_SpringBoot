@@ -7,3 +7,7 @@ export type BannerTs = {
   endDate: Date;
   createdTime: Date;
 };
+
+export type getBannerTs = BannerTs & {
+  bannerId: number;
+};

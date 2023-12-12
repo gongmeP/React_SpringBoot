@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +25,16 @@ public class BannerServiceImpl implements  BannerService{
 
             System.out.println("BannerService SaveBanner 오류");
             return "Banner 추가 실패";
+        }
+    }
+    @Override
+    public List<Banner> findAllBanner() {
+        try{
+           List<Banner> banner = bannerRepository.findAll();
+            return banner;
+        }catch (Exception e){
+            System.out.println("BannerService findAllBanner 오류");
+            return null;
         }
 
     }
