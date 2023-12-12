@@ -30,7 +30,7 @@ const Header = () => {
                 <Link to="/savaForm" className="nav-link">
                   애니메이션추가
                 </Link>
-                <Link to="/allList" className="nav-link">
+                <Link to="/bannerlist" className="nav-link">
                   배너 관리
                 </Link>
                 <Link to="/savebanner" className="nav-link">
