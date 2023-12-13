@@ -19,6 +19,7 @@ import { useState } from 'react';
 import NotAdmin from './components/MainComponents/NotAdmin';
 import SaveBanner from './pages/Banner/SaveBanner';
 import BannerList from './pages/Banner/BannerList';
+import UpdateBanner from './pages/Banner/UpdateBanner';
 
 const App = () => {
   const navigate = useNavigate();
@@ -52,6 +53,10 @@ const App = () => {
               <Route path="/userlist" element={<UserList />} />
               <Route path="/savebanner" element={<SaveBanner />} />
               <Route path="/bannerlist" element={<BannerList />} />
+              <Route
+                path="/updatebanner/:bannerId"
+                element={<UpdateBanner />}
+              />
             </>
           ) : (
             <Route path="/*" element={<NotAdmin />} />

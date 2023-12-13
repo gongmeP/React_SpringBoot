@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
 import { API_URL } from 'src/axiosAPI';
 import { getBannerTs } from 'src/model/Banner';
 import {
@@ -46,11 +47,11 @@ const BannerItem = ({ bannerdata }: BannerItemProp) => {
             개시 종료일 : {DateTime(bannerdata.endDate)}
           </BannerUpdateText>
           <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            {/* <Link to={`/updateForm/${id}`}> */}
-            <Button variant="warning" className="mb-1 mt-1">
-              수정
-            </Button>
-            {/* </Link> */}
+            <Link to={`/updatebanner/${bannerdata.bannerId}`}>
+              <Button variant="warning" className="mb-1 mt-1">
+                수정
+              </Button>
+            </Link>
             <Button
               variant="danger"
               className="mb-1 mt-1"

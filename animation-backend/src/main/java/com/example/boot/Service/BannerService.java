@@ -8,4 +8,8 @@ public interface BannerService {
 
     String SaveBanner(Banner banner);
     List<Banner> findAllBanner();
+
+    Banner findByBannerId(Long id);
+
+    String BannerUpdate(Long BannerId , Banner banner);
 }

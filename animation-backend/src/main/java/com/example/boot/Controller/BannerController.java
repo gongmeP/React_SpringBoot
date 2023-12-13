@@ -57,6 +57,20 @@ public class BannerController {
 
         return ResponseEntity.ok(bannerService.findAllBanner());
     }
+    @GetMapping("/BannerUpdate/{BannerId}")
+    @CrossOrigin
+    public ResponseEntity<?> finByBannerId(@PathVariable Long BannerId){
+
+        return ResponseEntity.ok(bannerService.findByBannerId(BannerId));
+    }
+
+    @PostMapping("/BannerUpdate/{BannerId}")
+    @CrossOrigin
+    public ResponseEntity<?> BannerUpdate(@PathVariable Long BannerId,@RequestBody Banner banner){
+
+        return ResponseEntity.ok(bannerService.BannerUpdate(BannerId,banner));
+    }
+
 }
 
 

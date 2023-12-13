@@ -31,11 +31,6 @@ function UpdateForm() {
     fetchdata();
   }, []);
 
-  const submitBook = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const res = await axiosAPI.put(`/Ani/${id}`, AniInsert);
-  };
-
   const navigate = useNavigate();
 
   const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {

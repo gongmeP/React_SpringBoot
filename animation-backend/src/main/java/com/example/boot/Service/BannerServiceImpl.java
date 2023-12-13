@@ -38,4 +38,38 @@ public class BannerServiceImpl implements  BannerService{
         }
 
     }
+
+    @Override
+    public Banner findByBannerId(Long id) {
+        try{
+            Banner banner = bannerRepository.findByBannerId(id);
+            return banner;
+
+        }catch (Exception e){
+            System.out.println("BannerService findByBannerId 에러");
+            return null;
+
+        }
+    }
+
+    @Override
+    public String BannerUpdate(Long BannerId ,Banner banner) {
+        try{
+            Banner newBanner = bannerRepository.findByBannerId(BannerId);
+
+            newBanner.setTitle(banner.getTitle());
+            newBanner.setMainimgBanner(banner.getMainimgBanner());
+            newBanner.setTextimgBanner(banner.getTextimgBanner());
+            newBanner.setLinkUrl(banner.getLinkUrl());
+            newBanner.setEndDate(banner.getEndDate());
+            newBanner.setStartDate(banner.getStartDate());
+          
+            bannerRepository.save(newBanner);
+            return "Banner 수정 완료";
+        }catch (Exception e){
+
+            System.out.println("BannerService SaveBanner 오류");
+            return "Banner 수정 실패";
+        }
+    }
 }
