@@ -39,13 +39,10 @@ function UpdateBanner() {
     getbannerdata();
   }, []);
 
-  console.log(BannerUpdate);
-
   const navigate = useNavigate();
 
   const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBannerUpdate({ ...BannerUpdate, [e.target.name]: e.target.value });
-    console.log(BannerUpdate);
   };
 
   const changeValueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +59,6 @@ function UpdateBanner() {
       try {
         const res = await axiosAPI.post('/Banner/PhotoSave', formData);
         setBannerUpdate({ ...BannerUpdate, mainimgBanner: res.data[0] });
-        console.log(res.data[0]);
       } catch (error) {
         console.log('Save BannerImg 에러');
       }
@@ -77,7 +73,6 @@ function UpdateBanner() {
       try {
         const res = await axiosAPI.post('/Banner/PhotoSave', formData);
         setBannerUpdate({ ...BannerUpdate, textimgBanner: res.data[0] });
-        console.log(res.data[0]);
       } catch (error) {
         console.log('Save BannerImg 에러');
       }
@@ -118,8 +113,6 @@ function UpdateBanner() {
           `/BannerUpdate/${bannerId}`,
           BannerUpdate,
         );
-        console.log(res);
-        console.log(res.data);
 
         if (res.data === 'Banner 수정 완료') {
           alert('배너 수정이 완료되었습니다.');

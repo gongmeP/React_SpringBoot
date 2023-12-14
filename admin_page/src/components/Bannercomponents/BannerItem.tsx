@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import { API_URL } from 'src/axiosAPI';
+import { setReuseEffect } from 'src/Redux/AniAction';
+import store from 'src/Redux/store';
+import axiosAPI, { API_URL } from 'src/axiosAPI';
 import { getBannerTs } from 'src/model/Banner';
 import {
   BannerBox,
@@ -24,8 +26,22 @@ const BannerItem = ({ bannerdata }: BannerItemProp) => {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}/${month}/${day}`;
   }
+
   const SeleteAniGo = (linkUrl: string) => {
     window.location.href = `${linkUrl}`;
+  };
+
+  const deletBanner = async (bannerId: number) => {
+    if (window.confirm('배너를 삭제할까요 ?')) {
+      const res = await axiosAPI.get(`/BannerDelete/${bannerId}`);
+      if (res.data === '배너 삭제 완료') {
+        alert('배너가 삭제되었습니다.');
+        store.dispatch(setReuseEffect(+1));
+      } else {
+        alert('배너 삭제 실패 데이터를 확인하세요');
+      }
+    } else {
+    }
   };
   return (
     <>
@@ -55,7 +71,7 @@ const BannerItem = ({ bannerdata }: BannerItemProp) => {
             <Button
               variant="danger"
               className="mb-1 mt-1"
-              // onClick={deletAni}
+              onClick={() => deletBanner(bannerdata.bannerId)}
             >
               삭제
             </Button>

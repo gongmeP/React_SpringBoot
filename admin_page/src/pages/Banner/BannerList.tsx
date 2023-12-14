@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/Redux/store';
 import axiosAPI from 'src/axiosAPI';
 import BannerItem from 'src/components/Bannercomponents/BannerItem';
 import LoadingSpinner from 'src/components/MainComponents/LodingSpinner';
@@ -7,6 +9,9 @@ import { getBannerTs } from 'src/model/Banner';
 const BannerList = () => {
   const [BannerList, setBannerList] = useState<getBannerTs[]>();
   const [loding, setLoding] = useState<boolean>(true);
+  const ReuseEffect = useSelector(
+    (state: RootState) => state.AniState.ReuseEffect,
+  );
 
   useEffect(() => {
     const getbanner = async () => {
@@ -18,9 +23,7 @@ const BannerList = () => {
       }
     };
     getbanner();
-  }, []);
-
-  console.log(BannerList);
+  }, [ReuseEffect]);
 
   return (
     <>

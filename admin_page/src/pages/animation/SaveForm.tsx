@@ -53,7 +53,6 @@ function SaveForm() {
       try {
         const res = await axiosAPI.post('/Ani/PhotoSave', formData);
         setAniInsert({ ...AniInsert, photo: res.data[0] });
-        console.log(res.data[0]);
       } catch (error) {
         console.error('SaveFormAxiosError:', error);
       }

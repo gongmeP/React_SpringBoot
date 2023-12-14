@@ -68,8 +68,24 @@ public class BannerServiceImpl implements  BannerService{
             return "Banner 수정 완료";
         }catch (Exception e){
 
-            System.out.println("BannerService SaveBanner 오류");
+            System.out.println("BannerService Update 오류");
             return "Banner 수정 실패";
+        }
+    }
+
+    @Override
+    public String BannerDelete(Long BannerId) {
+        try{
+            Banner deletebanner = bannerRepository.findByBannerId(BannerId);
+            if(deletebanner!=null){
+                bannerRepository.delete(deletebanner);
+                return "배너 삭제 완료";
+            }else{
+                return "요청 배너 미존재";
+            }
+        }catch (Exception e){
+            System.out.println("BannerService Delete");
+            return null;
         }
     }
 }

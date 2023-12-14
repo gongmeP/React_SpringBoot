@@ -12,4 +12,6 @@ public interface BannerService {
     Banner findByBannerId(Long id);
 
     String BannerUpdate(Long BannerId , Banner banner);
+
+    String BannerDelete(Long BannerId);
 }

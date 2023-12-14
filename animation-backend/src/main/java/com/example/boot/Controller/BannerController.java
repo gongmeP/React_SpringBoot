@@ -71,6 +71,14 @@ public class BannerController {
         return ResponseEntity.ok(bannerService.BannerUpdate(BannerId,banner));
     }
 
+    @GetMapping("/BannerDelete/{BannerId}")
+    @CrossOrigin
+    public ResponseEntity<?> BannerDelete(@PathVariable Long BannerId){
+
+
+        return ResponseEntity.ok(bannerService.BannerDelete(BannerId));
+    }
+
 }
 
 

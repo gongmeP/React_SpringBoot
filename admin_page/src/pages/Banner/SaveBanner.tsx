@@ -18,14 +18,12 @@ function SaveBanner() {
   const navigate = useNavigate();
   const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBannerInsert({ ...BannerInsert, [e.target.name]: e.target.value });
-    console.log(BannerInsert);
   };
 
   const changeValueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const Redate = new Date(`${e.target.value}`);
     setBannerInsert({ ...BannerInsert, [e.target.name]: Redate });
   };
-  console.log(BannerInsert);
 
   //이미지 업로드 부분
   const MainImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +34,6 @@ function SaveBanner() {
       try {
         const res = await axiosAPI.post('/Banner/PhotoSave', formData);
         setBannerInsert({ ...BannerInsert, mainimgBanner: res.data[0] });
-        console.log(res.data[0]);
       } catch (error) {
         console.log('Save BannerImg 에러');
       }
@@ -51,7 +48,6 @@ function SaveBanner() {
       try {
         const res = await axiosAPI.post('/Banner/PhotoSave', formData);
         setBannerInsert({ ...BannerInsert, textimgBanner: res.data[0] });
-        console.log(res.data[0]);
       } catch (error) {
         console.log('Save BannerImg 에러');
       }
@@ -91,7 +87,8 @@ function SaveBanner() {
         const res = await axiosAPI.post('/BannerAdd', BannerInsert);
 
         if (res.data === 'Banner 추가 완료') {
-          alert('배너 업로드가 완료되었습니다.');
+          alert('배너가 추가되었습니다.');
+          navigate('/bannerlist');
         } else {
           alert('배너 추가 실패');
         }
