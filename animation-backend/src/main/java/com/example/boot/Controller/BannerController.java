@@ -57,6 +57,13 @@ public class BannerController {
 
         return ResponseEntity.ok(bannerService.findAllBanner());
     }
+
+    @GetMapping("/Banner/getdateBanner")
+    @CrossOrigin
+    public ResponseEntity<?> getdateBanner() {
+
+        return ResponseEntity.ok(bannerService.getdateBanner());
+    }
     @GetMapping("/BannerUpdate/{BannerId}")
     @CrossOrigin
     public ResponseEntity<?> finByBannerId(@PathVariable Long BannerId){

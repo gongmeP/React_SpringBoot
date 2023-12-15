@@ -1,48 +1,45 @@
 import Carousel from 'react-bootstrap/Carousel';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styledcomponents/BootStrapcss.css';
 import {
   ImgBox,
   ImgBoxMainImg,
   ImgBoxMainImgText,
 } from '../../styledcomponents/banner.styled';
-import { useNavigate } from 'react-router-dom';
+import axiosAPI, { API_URL } from 'src/axiosAPI';
+import { getBannerTs } from 'src/model/Banner';
 
 const Banner = () => {
-  const navigate = useNavigate();
+  const [BannerList, setBannerList] = useState<getBannerTs[]>();
 
-  const SeleteAniGo = (AniId: string) => {
-    navigate(`/Ani/${AniId}`);
+  const SeleteAniGo = (linkUrl: string) => {
+    window.location.href = `${linkUrl}`;
   };
+
+  useEffect(() => {
+    const getbanner = async () => {
+      const res = await axiosAPI.get(`/Banner/getdateBanner`);
+      console.log(res.data);
+      setBannerList(res.data);
+    };
+    getbanner();
+  }, []);
+
   return (
     <Carousel fade>
-      <Carousel.Item>
-        <ImgBox onClick={() => SeleteAniGo('81')}>
-          <ImgBoxMainImg
-            src="./projectimg/banners/newbanner1.jpg"
-            alt={'banner2'}
-          ></ImgBoxMainImg>
-          <ImgBoxMainImgText src="./projectimg/banners/newbanner1text.jpg"></ImgBoxMainImgText>
-        </ImgBox>
-      </Carousel.Item>
-      <Carousel.Item>
-        <ImgBox onClick={() => SeleteAniGo('108')}>
-          <ImgBoxMainImg
-            src="./projectimg/banners/newbanner2.jpg"
-            alt={'banner2'}
-          ></ImgBoxMainImg>
-          <ImgBoxMainImgText src="./projectimg/banners/newbanner2text.jpg"></ImgBoxMainImgText>
-        </ImgBox>
-      </Carousel.Item>
-      <Carousel.Item>
-        <ImgBox onClick={() => SeleteAniGo('66')}>
-          <ImgBoxMainImg
-            src="./projectimg/banners/newbanner3.jpg"
-            alt={'banner2'}
-          ></ImgBoxMainImg>
-          <ImgBoxMainImgText src="./projectimg/banners/newbanner3text.jpg"></ImgBoxMainImgText>
-        </ImgBox>
-      </Carousel.Item>
+      {BannerList?.map((bannerdata) => (
+        <Carousel.Item>
+          <ImgBox onClick={() => SeleteAniGo(bannerdata.linkUrl)}>
+            <ImgBoxMainImg
+              src={`${API_URL}/file/BannerFile/${bannerdata.mainimgBanner}`}
+              alt={`${bannerdata.bannerId}`}
+            ></ImgBoxMainImg>
+            <ImgBoxMainImgText
+              src={`${API_URL}/file/BannerFile/${bannerdata.textimgBanner}`}
+            ></ImgBoxMainImgText>
+          </ImgBox>
+        </Carousel.Item>
+      ))}
     </Carousel>
   );
 };

@@ -6,7 +6,9 @@ import com.example.boot.Repository.BannerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,6 +36,25 @@ public class BannerServiceImpl implements  BannerService{
             return banner;
         }catch (Exception e){
             System.out.println("BannerService findAllBanner 오류");
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<Banner> getdateBanner() {
+        try{
+            LocalDateTime Today = LocalDateTime.now();
+            System.out.println(Today);
+            List<Banner> banner = bannerRepository.findByStartDateBeforeAndEndDateAfter(Today,Today);
+
+            if (banner.isEmpty()) {
+                System.out.println("getdateBanner: 해당 범위의 배너가 없습니다.");
+            }
+            return banner;
+        }catch (Exception e){
+            System.out.println("BannerService getdateBanner 오류");
+            System.out.println(e);
             return null;
         }
 
