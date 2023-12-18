@@ -18,6 +18,7 @@ import {
 import BoardSearch from '../../components/BoardComponents/BoardSearch';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { BoardTs } from 'src/model/Board';
+import DateTime from 'src/components/DateTimeComponents/DateTime';
 
 const DetailFreeBoard = () => {
   const Pages = useSelector((state: RootState) => state.BoardState.pages);
@@ -63,16 +64,6 @@ const DetailFreeBoard = () => {
     } else {
     }
   };
-
-  function DateTime(fbDate: Date) {
-    const date = new Date(fbDate);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${year}/${month}/${day} ${hours}:${minutes}`;
-  }
 
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
@@ -124,7 +115,9 @@ const DetailFreeBoard = () => {
               <p className="mb-3">글쓴이 : {formData.userid}</p>
             </Col>
             <Col md={4}>
-              <p className="mb-3">작성일 : {DateTime(formData.fbDate)}</p>
+              <p className="mb-3">
+                작성일 : <DateTime DateData={formData.fbDate}></DateTime>
+              </p>
             </Col>
             <Col md={2}>
               <p className="mb-3">조회수 : {formData.fbReadCount}</p>

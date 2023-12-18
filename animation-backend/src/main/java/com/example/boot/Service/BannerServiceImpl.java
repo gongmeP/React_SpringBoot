@@ -45,7 +45,6 @@ public class BannerServiceImpl implements  BannerService{
     public List<Banner> getdateBanner() {
         try{
             LocalDateTime Today = LocalDateTime.now();
-            System.out.println(Today);
             List<Banner> banner = bannerRepository.findByStartDateBeforeAndEndDateAfter(Today,Today);
 
             if (banner.isEmpty()) {

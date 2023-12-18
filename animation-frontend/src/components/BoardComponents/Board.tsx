@@ -14,20 +14,12 @@ import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
 import { RootState } from 'src/Redux/store';
 import { BoardTs } from 'src/model/Board';
+import BoardDateTime from '../DateTimeComponents/BoardDateTime';
 
 const Board = () => {
   const freeBoards: BoardTs[] = useSelector(
     (state: RootState) => state.BoardState.freeBoards,
   );
-  function DateTime(fbDate: Date) {
-    const date = new Date(fbDate);
-    const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${month}/${day} ${hours}:${minutes}`;
-  }
 
   const navigate = useNavigate();
 
@@ -60,7 +52,9 @@ const Board = () => {
               {data.fbTitle}
             </Th2>
             <Th3>{data.userid}</Th3>
-            <Th4>{DateTime(data.fbDate)}</Th4>
+            <Th4>
+              <BoardDateTime fbDate={data.fbDate}></BoardDateTime>
+            </Th4>
             <Th5>{data.fbReadCount}</Th5>
           </Tr2>
         ))}

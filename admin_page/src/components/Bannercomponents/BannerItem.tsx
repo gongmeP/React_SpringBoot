@@ -51,7 +51,9 @@ const BannerItem = ({ bannerdata }: BannerItemProp) => {
             src={`${API_URL}/file/BannerFile/${bannerdata.mainimgBanner}`}
             alt={`${bannerdata.bannerId}`}
           ></ImgBoxMainImg>
-          <ImgBoxMainImgText src="./projectimg/banners/newbanner1text.jpg"></ImgBoxMainImgText>
+          <ImgBoxMainImgText
+            src={`${API_URL}/file/BannerFile/${bannerdata.textimgBanner}`}
+          ></ImgBoxMainImgText>
         </ImgBox>
         <BannerUpdateBox>
           <BannerUpdateText>배너 제목 : {bannerdata.title}</BannerUpdateText>

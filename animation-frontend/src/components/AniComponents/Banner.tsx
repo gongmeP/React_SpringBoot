@@ -19,7 +19,6 @@ const Banner = () => {
   useEffect(() => {
     const getbanner = async () => {
       const res = await axiosAPI.get(`/Banner/getdateBanner`);
-      console.log(res.data);
       setBannerList(res.data);
     };
     getbanner();

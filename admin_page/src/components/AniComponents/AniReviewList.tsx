@@ -29,21 +29,13 @@ import {
 } from '../../Redux/AniAction';
 import store, { RootState } from '../../Redux/store';
 import { AniReviewLikeTs, AniReviewTs } from 'src/model/Animation';
+import DateTime from '../DateTimeComponents/DateTime';
 
 interface OwnProps {
   Ani_Id: number;
 }
 
 const AniReviewList = ({ Ani_Id }: OwnProps) => {
-  function DateTime(reviewDate: Date) {
-    const date = new Date(reviewDate);
-    const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${year}/${month}/${day} ${hours}:${minutes}`;
-  }
   const [Loading, setLoading] = useState<boolean>(true);
   const [ReViewData, setReviewData] = useState<AniReviewTs[]>([]);
   const [LikeList, setLikeList] = useState<number[]>([]);
@@ -102,15 +94,6 @@ const AniReviewList = ({ Ani_Id }: OwnProps) => {
     SetOderByLike((OderByLike) => !OderByLike);
   };
 
-  const ReviewUpdate = (
-    ReviewUpdateModeId: number,
-    ReviewUpdateModeText: string,
-  ) => {
-    store.dispatch(setReviewUpdateMode(true));
-    store.dispatch(
-      setReviewUpdateModeIdAndText(ReviewUpdateModeId, ReviewUpdateModeText),
-    );
-  };
   const ReviewDelete = async (ReviewDeleteId: number) => {
     if (window.confirm('리뷰를 삭제할까요?')) {
       const res2 = await axiosAPI.post(`/Ani/ReviewDelete`, {
@@ -169,7 +152,7 @@ const AniReviewList = ({ Ani_Id }: OwnProps) => {
                       <AniReviewEm>{data.rating}점</AniReviewEm>
                     </AniReviewListLi>
                     <AniReviewListLi2>
-                      {DateTime(data.reviewDate)}
+                      <DateTime DateData={data.reviewDate} />
                     </AniReviewListLi2>
                   </AniReviewListUl>
                   <AniReviewListUsername>
@@ -194,13 +177,6 @@ const AniReviewList = ({ Ani_Id }: OwnProps) => {
                   </div>
 
                   <AniReviewListFooter>
-                    <FooterUD
-                      onClick={() =>
-                        ReviewUpdate(data.reviewId, data.reviewText)
-                      }
-                    >
-                      수정
-                    </FooterUD>
                     <FooterUD onClick={() => ReviewDelete(data.reviewId)}>
                       삭제
                     </FooterUD>
