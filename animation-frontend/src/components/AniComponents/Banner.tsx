@@ -26,8 +26,8 @@ const Banner = () => {
 
   return (
     <Carousel fade>
-      {BannerList?.map((bannerdata) => (
-        <Carousel.Item>
+      {BannerList?.map((bannerdata, index) => (
+        <Carousel.Item key={index}>
           <ImgBox onClick={() => SeleteAniGo(bannerdata.linkUrl)}>
             <ImgBoxMainImg
               src={`${API_URL}/file/BannerFile/${bannerdata.mainimgBanner}`}
