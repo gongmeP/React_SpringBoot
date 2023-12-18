@@ -52,12 +52,18 @@ function AllList() {
 
   useEffect(() => {
     function ScrollBottom() {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY;
+      const pixelRatio: number = +(window.devicePixelRatio || 1).toFixed(2);
+
+      const windowHeight = Math.round(window.innerHeight * pixelRatio);
+      const documentHeight = Math.round(
+        document.documentElement.scrollHeight * pixelRatio - 1,
+      );
+      const scrollTop = Math.round(
+        (window.scrollY || document.documentElement.scrollTop) * pixelRatio,
+      );
 
       // 화면 맨 아래에 도달했는지 여부 확인
-      if (windowHeight + scrollTop === documentHeight) {
+      if (windowHeight + scrollTop >= documentHeight) {
         setAniMore(true);
         if (AniMore && !filterTF) {
           setPage((AniPage) => AniPage + 1);
@@ -66,7 +72,9 @@ function AllList() {
         setAniMore(false);
       }
     }
+
     window.addEventListener('scroll', ScrollBottom);
+
     return () => {
       window.removeEventListener('scroll', ScrollBottom);
     };
