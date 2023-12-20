@@ -14,18 +14,42 @@ import LoadingSpinner2 from '../MainComponents/LodingSpinner2';
 import { RootState } from 'src/Redux/store';
 import { GenreArray } from 'src/model/Animation';
 
-const AniRecommend: React.FC = () => {
+const AniRecommend = () => {
   const genreArray: GenreArray = useSelector(
     (state: RootState) => state.AniState.genreArray,
   );
   const [loding, setLoding] = useState<boolean>();
-  const [GptText, setGptText] = useState('');
-  // const GptTextIn = (e) => {
-  //   setGptText(e.target.value);
-  // };
-  const [GptGetText, setGptGetText] = useState<string>('');
 
-  const UserTextIn = () => {};
+  const [GptGetText, setGptGetText] = useState<string>('');
+  const [UserText, setUsetText] = useState<string>('직접입력');
+  const [UserEditTF, setUserEditTF] = useState<boolean>(false);
+
+  const UserEdit = () => {
+    setUsetText('');
+    setUserEditTF(true);
+  };
+  const textgo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsetText(e.target.value);
+  };
+  const GptReCommendgo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setLoding(true);
+      try {
+        const res = await axiosAPI.post(
+          `/AniRecommend`,
+          {
+            prompt: UserText,
+          },
+          { timeout: 20000 },
+        );
+        setGptGetText(res.data.body.choices[0].text);
+      } catch (error) {
+        alert('잠시 후 다시 이용해주세요.');
+      } finally {
+        setLoding(false);
+      }
+    }
+  };
 
   const GptRecommend = async (data: string) => {
     setLoding(true);
@@ -57,7 +81,18 @@ const AniRecommend: React.FC = () => {
                 {data}
               </ReComButton>
             ))}
-            <ReComButton2 onClick={UserTextIn}>직접 입력</ReComButton2>
+            <ReComButton2 onClick={UserEdit}>
+              {UserEditTF ? (
+                <input
+                  type="text"
+                  defaultValue={UserText}
+                  onChange={textgo}
+                  onKeyDown={GptReCommendgo}
+                />
+              ) : (
+                <span>{UserText}</span>
+              )}
+            </ReComButton2>
           </RecomButtonBox>
         </Col>
         <Col md={7}>

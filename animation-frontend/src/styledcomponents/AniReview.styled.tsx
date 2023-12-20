@@ -59,7 +59,7 @@ export const ReviewTextBoxDiv = styled.div`
 
 export const ReviewTextButton = styled(Button)<StyledButtonProps>`
   height: 40px;
-  line-height: 40px;
+
   width: 80px;
   margin-left: 10px;
   background-color: #816bff !important;

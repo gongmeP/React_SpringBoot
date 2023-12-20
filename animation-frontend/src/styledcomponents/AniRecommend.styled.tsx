@@ -25,6 +25,15 @@ export const ReComButton2 = styled(Button)<StyledButtonProps>`
   color: #f0edff !important;
   border-radius: 20px !important;
   margin: 10px;
+  cursor: pointer;
+  input {
+    width: 100%;
+    background-color: lightcoral;
+    border: none;
+    color: #f0edff;
+    border-radius: 20px;
+    outline: none;
+  }
 `;
 
 export const RecomButtonBox = styled.div`
