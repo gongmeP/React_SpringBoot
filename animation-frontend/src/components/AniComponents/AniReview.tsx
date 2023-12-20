@@ -105,26 +105,31 @@ const AniReview = ({ Ani_Id }: OwnProps) => {
   };
 
   const ReviewTextAdd = async () => {
-    if (reviewText === '') {
-      alert('등록하실 리뷰를 작성해주세요.');
+    if (loginID === null) {
+      alert('로그인 후 리뷰를 작성 할수있어요!');
       return;
-    }
-    const res = await axiosAPI.post(`/Ani/ReviewTextAdd`, {
-      member_mid: loginID,
-      Ani_id: Ani_Id,
-      reviewText: reviewText,
-    });
-    if (res.data === '리뷰 저장됨') {
-      alert('소중한 리뷰가 등록되었습니다!');
-      setReviewText('');
-      store.dispatch(setReuseEffect(ReuseEffect + 1));
-    } else if (res.data === '기존 리뷰 존재') {
-      alert('리뷰는 하나씩만 등록 가능해요!');
-      setReviewText('');
-    } else if (res.data === '별점 먼저 체크') {
-      alert('별점 추가 후 리뷰 작성이 가능해요!');
     } else {
-      console.log('리뷰 등록 에러');
+      if (reviewText === '') {
+        alert('등록하실 리뷰를 작성해주세요.');
+        return;
+      }
+      const res = await axiosAPI.post(`/Ani/ReviewTextAdd`, {
+        member_mid: loginID,
+        Ani_id: Ani_Id,
+        reviewText: reviewText,
+      });
+      if (res.data === '리뷰 저장됨') {
+        alert('소중한 리뷰가 등록되었습니다!');
+        setReviewText('');
+        store.dispatch(setReuseEffect(ReuseEffect + 1));
+      } else if (res.data === '기존 리뷰 존재') {
+        alert('기존 리뷰가 존재합니다. 리뷰는 하나씩만 등록 가능해요!');
+        setReviewText('');
+      } else if (res.data === '별점 먼저 체크') {
+        alert('별점 추가 후 리뷰 작성이 가능해요!');
+      } else {
+        console.log('리뷰 등록 에러');
+      }
     }
   };
 
