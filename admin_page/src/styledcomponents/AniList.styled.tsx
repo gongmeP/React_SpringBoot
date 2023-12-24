@@ -9,3 +9,8 @@ export const NewAndRankingDiv = styled.div`
   font-weight: 500;
   font-size: 1rem;
 `;
+
+export const H2styled = styled.h2`
+  text-align: center;
+  margin-top: 50px;
+`;

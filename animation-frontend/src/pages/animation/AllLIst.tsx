@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Offcanvas, Row } from 'react-bootstrap';
 import Genrefilter from '../../components/AniComponents/Genrefilter';
 import Search from '../../components/AniComponents/Search';
-import styled from 'styled-components';
 import AniItem from '../../components/AniComponents/AniItem';
 import axiosAPI from '../../axiosAPI';
 import LoadingSpinner from '../../components/MainComponents/LodingSpinner';
-import { NewAndRankingDiv } from '../../styledcomponents/AniList.styled';
-import { AniOderBy } from '../../styledcomponents/AniReview.styled';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/Redux/store';
 import { AnidataTs } from 'src/model/Animation';
 import { AxiosResponse } from 'axios';
+import OrderBy from 'src/components/AniComponents/OrderBy';
+import Smallfillter from 'src/components/AniComponents/SmallFillter';
+import { H2styled } from 'src/styledcomponents/AniList.styled';
 
 function AllList() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,11 +43,7 @@ function AllList() {
     };
     fetchData();
   }, [OderByAniCounter, ReuseEffect]);
-
   const [showMenu, setShowMenu] = useState(false);
-  const handleMenuToggle = () => {
-    setShowMenu((prevShowMenu) => !prevShowMenu);
-  };
 
   useEffect(() => {
     function ScrollBottom() {
@@ -103,66 +99,25 @@ function AllList() {
 
   return (
     <>
-      <Search setAnidata={setAnidata}></Search> {/*검색 컴포넌트 여기 */}
-      <div style={{ display: 'flex', justifyContent: 'right' }}>
-        {!OderByAniCounter ? (
-          <NewAndRankingDiv
-            onClick={() =>
-              setOderByAniCounter((OderByAniCounter) => {
-                setPage(0);
-                return !OderByAniCounter;
-              })
-            }
-          >
-            최신순
-            <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
-          </NewAndRankingDiv>
-        ) : (
-          <NewAndRankingDiv
-            onClick={() =>
-              setOderByAniCounter((OderByAniCounter) => {
-                setPage(0);
-                return !OderByAniCounter;
-              })
-            }
-          >
-            인기순
-            <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
-          </NewAndRankingDiv>
-        )}
-      </div>
-      <Row>
-        <Col xs={12} className="d-block d-sm-none">
-          <Button
-            variant="outline-secondary"
-            onClick={handleMenuToggle}
-            style={{ float: 'right', marginRight: '20px' }}
-          >
-            태그 필터
-          </Button>
+      <Search setAnidata={setAnidata} />
+      {/*검색 컴포넌트 */}
+      <OrderBy
+        setOderByAniCounter={setOderByAniCounter}
+        setPage={setPage}
+        OderByAniCounter={OderByAniCounter}
+      />
+      {/*인기순 컴포넌트 */}
+      <Smallfillter
+        setShowMenu={setShowMenu}
+        showMenu={showMenu}
+        setAnidata={setAnidata}
+        setPage={setPage}
+      />
+      {/*모바일 디바이스 필터 컴포넌트 */}
 
-          <Offcanvas
-            show={showMenu}
-            onHide={() => setShowMenu(false)}
-            style={{ width: '200px' }}
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>태그 필터</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Genrefilter
-                setAnidata={setAnidata}
-                setPage={setPage}
-              ></Genrefilter>{' '}
-              {/*필터 컴포넌트 여기 */}
-            </Offcanvas.Body>
-          </Offcanvas>
-        </Col>
-      </Row>
       <Row style={{ margin: '10px auto' }}>
         <Col md={2} sm={2} className="d-none d-sm-block">
-          <Genrefilter setAnidata={setAnidata} setPage={setPage}></Genrefilter>{' '}
-          {/*필터 컴포넌트 여기 */}
+          <Genrefilter setAnidata={setAnidata} setPage={setPage}></Genrefilter>
         </Col>
 
         {loading ? (
@@ -180,10 +135,5 @@ function AllList() {
     </>
   );
 }
-
-const H2styled = styled.h2`
-  text-align: center;
-  margin-top: 50px;
-`;
 
 export default AllList;

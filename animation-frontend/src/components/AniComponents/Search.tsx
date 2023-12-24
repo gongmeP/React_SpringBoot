@@ -20,6 +20,10 @@ const Search = ({ setAnidata }: ownProp) => {
   const [searchText, setSearchText] = useState('');
   const Search = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (searchText === '') {
+      alert('검색어를 입력하세요.');
+      return;
+    }
     const res2 = await axiosAPI.get(`/Ani/search?title=${searchText}&admin=no`);
     setAnidata(res2.data);
   };
