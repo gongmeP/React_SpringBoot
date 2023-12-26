@@ -1,5 +1,6 @@
+import { Button, ButtonProps } from 'react-bootstrap';
 import styled from 'styled-components';
-
+interface StyledButtonProps extends ButtonProps {}
 export const CustomTable = styled.table`
   border-collapse: separate;
   width: 100%;
@@ -74,4 +75,37 @@ export const Th4 = styled.th`
 
 export const Th5 = styled.th`
   width: 13%;
+`;
+
+export const PostContainer = styled.div`
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(204, 204, 204, 0.6);
+  padding: 10px;
+  border-radius: 10px;
+`;
+
+export const DetailButtonDivBox = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 40px;
+  margin-bottom: 100px;
+  border-bottom: 2px dotted black;
+  padding-bottom: 40px;
+`;
+
+export const BoardButtonBox = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+export const BoardButtonWirte = styled(Button)<StyledButtonProps>`
+  display: flex;
+  justify-content: end;
+  background-color: #816bff !important;
+  color: #f0edff !important;
+  border: none !important;
+  margin-right: 20px;
+  margin-top: 10px;
 `;

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import styled from 'styled-components';
 import Board from '../../components/BoardComponents/Board';
 import { useSelector } from 'react-redux';
 import Page from '../../components/BoardComponents/Page';
@@ -17,23 +15,24 @@ import {
 } from '../../Redux/BoardAction';
 import BoardSearch from '../../components/BoardComponents/BoardSearch';
 import axiosAPI, { API_URL } from '../../axiosAPI';
-import { BoardTs } from 'src/model/Board';
 import DateTime from 'src/components/DateTimeComponents/DateTime';
+import { PostContainer } from 'src/styledcomponents/FreeBoard.styled';
+import BoardDetailButton from 'src/components/BoardComponents/BoardDetailButton';
 
 const DetailFreeBoard = () => {
-  const Pages = useSelector((state: RootState) => state.BoardState.pages);
-  const freeBoardsEA = useSelector(
-    (stage: RootState) => stage.BoardState.freeBoardsEA,
+  const { pages, freeBoardsEA, formData } = useSelector(
+    (state: RootState) => state.BoardState,
   );
 
   useEffect(() => {
     const PagesFetch = async () => {
-      const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
+      const res = await axiosAPI.post(`/FreeBoard/Page?page=${pages}`);
       store.dispatch(setFreeBoards(res.data));
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
     PagesFetch();
-  }, [Pages]);
+  }, [pages]);
+
   useEffect(() => {
     const TotalPage = async () => {
       const res = await axiosAPI.get(`/FreeBoard/TotalPage`);
@@ -44,27 +43,6 @@ const DetailFreeBoard = () => {
 
   const { fbNum } = useParams();
 
-  const navigate = useNavigate();
-
-  const freeBoardGo = () => {
-    navigate('/freeBoard');
-  };
-  const UpdatefreeBoardGo = () => {
-    navigate(`/updateFreeBoard/${fbNum}`);
-  };
-  const DeletefreeBoardGo = async () => {
-    if (window.confirm('게시글을 삭제 하시겠습니까?')) {
-      const res = await axiosAPI.get(`/FreeBoard/Delete/${fbNum}`);
-      if (res.data === 'DeleteOk') {
-        alert('게시글이 삭제 되었습니다.');
-        navigate('/freeBoard');
-      } else {
-        alert('게시글이 삭제 에러');
-      }
-    } else {
-    }
-  };
-
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
     height: number;
@@ -73,9 +51,6 @@ const DetailFreeBoard = () => {
     height: 0,
   });
 
-  const formData: BoardTs = useSelector(
-    (state: RootState) => state.BoardState.formData,
-  );
   // 디테일에서 밑에 게시판 클릭시 다시 재로드 시키는 부분임 !!
   useEffect(() => {
     const fetchdata = async () => {
@@ -96,10 +71,8 @@ const DetailFreeBoard = () => {
     };
   }, [formData.photo]);
 
-  const sessionID = window.sessionStorage.getItem('loginID');
   return (
     <div className="container">
-      <h2></h2>
       <Form>
         <Form.Group className="mb-3">
           <Form.Control
@@ -141,60 +114,23 @@ const DetailFreeBoard = () => {
             />
           ) : null}
         </PostContainer>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'end',
-            marginTop: '40px',
-            marginBottom: '100px',
-            borderBottom: '2px dotted black',
-            paddingBottom: '40px',
-          }}
-        >
-          <Button
-            variant="primary"
-            style={{ marginRight: '20px' }}
-            onClick={freeBoardGo}
-            className="PupleColorButton1"
-          >
-            게시글 목록보기
-          </Button>
-          {sessionID === formData.userid ? (
-            <>
-              <Button
-                variant="warning"
-                style={{ marginRight: '20px' }}
-                onClick={UpdatefreeBoardGo}
-              >
-                수정
-              </Button>
-              <Button
-                variant="danger"
-                style={{ marginRight: '20px' }}
-                onClick={DeletefreeBoardGo}
-              >
-                삭제
-              </Button>
-            </>
-          ) : null}
-        </div>
       </Form>
+
+      <BoardDetailButton
+        fbNum={fbNum}
+        userid={formData.userid}
+      ></BoardDetailButton>
+      {/* Board 버튼 컴포넌트 */}
+
       <Board></Board>
+      {/* BoardList 컴포넌트 */}
       <br></br>
-      <Page EA={freeBoardsEA} Pages={Pages}></Page>
+      <Page EA={freeBoardsEA} Pages={pages}></Page>
+      {/* pageing 컴포넌트 */}
       <BoardSearch></BoardSearch>
+      {/* 검색부분 컴포넌트 */}
     </div>
   );
 };
-
-const PostContainer = styled.div`
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(204, 204, 204, 0.6);
-  padding: 10px;
-  border-radius: 10px;
-`;
 
 export default DetailFreeBoard;

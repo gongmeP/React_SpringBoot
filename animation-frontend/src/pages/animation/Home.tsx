@@ -6,7 +6,7 @@ import UserViewList from '../../components/AniComponents/UserViewList';
 import AniRecommend from '../../components/GptComponents/AniRecommend';
 import React from 'react';
 
-const Home: React.FC = () => {
+const Home = () => {
   const userid = window.sessionStorage.getItem('loginID');
   return (
     <>

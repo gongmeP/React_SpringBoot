@@ -2,17 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import {
-  DetailAniImg,
-  P_Styled,
-  P_Styled2,
-  PlayDiv_Styled,
-  PlayImg_Styled,
-  StarImg,
-  StrongStyled,
-} from '../../styledcomponents/AniDetail.styled';
 import axiosAPI, { API_URL } from '../../axiosAPI';
-import AniReview from '../../components/AniComponents/AniReview';
 import AniReviewList from '../../components/AniComponents/AniReviewList';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/Redux/store';

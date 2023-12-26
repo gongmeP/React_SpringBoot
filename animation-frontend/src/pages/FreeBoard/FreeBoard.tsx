@@ -10,28 +10,24 @@ import {
 import Board from '../../components/BoardComponents/Board';
 import Page from '../../components/BoardComponents/Page';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import BoardSearch from '../../components/BoardComponents/BoardSearch';
 import axiosAPI from '../../axiosAPI';
+import BoardwriteButton from 'src/components/BoardComponents/BoardwriteButton';
 
 const FreeBoard = () => {
-  const Pages = useSelector((state: RootState) => state.BoardState.pages);
-  const freeBoardsEA = useSelector(
-    (stage: RootState) => stage.BoardState.freeBoardsEA,
+  const { pages, freeBoardsEA } = useSelector(
+    (state: RootState) => state.BoardState,
   );
-  const searchTF = useSelector((state: RootState) => state.BoardState.SearchTF);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const PagesFetch = async () => {
-      const res = await axiosAPI.post(`/FreeBoard/Page?page=${Pages}`);
+      const res = await axiosAPI.post(`/FreeBoard/Page?page=${pages}`);
       store.dispatch(setFreeBoards(res.data));
 
       store.dispatch(setSearchTF('NotSearch')); // 검색인지 구분
     };
     PagesFetch();
-  }, [Pages]);
+  }, [pages]);
 
   useEffect(() => {
     const TotalPage = async () => {
@@ -42,39 +38,12 @@ const FreeBoard = () => {
     TotalPage();
   }, []);
 
-  const boardlistgo = () => {
-    window.location.href = '/freeBoard';
-  };
-
-  const SaveFreeBoardGo = () => {
-    if (sessionStorage.getItem('loginID') === null) {
-      alert('로그인 후 게시글 작성이 가능해요.');
-      navigate('/loginForm');
-      return;
-    }
-    navigate('/saveFreeBoard');
-  };
-
   return (
     <>
       <Board></Board>
-      <div style={{ display: 'flex', justifyContent: 'end' }}>
-        <Button
-          onClick={boardlistgo}
-          className="btn-primary mb-1 PupleColorButton1"
-          style={{ marginRight: '20px', marginTop: '10px' }}
-        >
-          전체글
-        </Button>
-        <Button
-          onClick={SaveFreeBoardGo}
-          className="btn btn-primary mb-1 PupleColorButton1"
-          style={{ marginRight: '20px', marginTop: '10px' }}
-        >
-          글쓰기
-        </Button>
-      </div>
-      <Page EA={freeBoardsEA} Pages={Pages}></Page>
+      <BoardwriteButton></BoardwriteButton>
+      {/* 글쓰기 버튼 컴포넌트 */}
+      <Page EA={freeBoardsEA} Pages={pages}></Page>
       <BoardSearch></BoardSearch>
     </>
   );
