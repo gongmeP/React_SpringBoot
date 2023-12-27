@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Row, Tab, Tabs } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import store, { RootState } from '../../Redux/store';
 import { setFavoriteList } from '../../Redux/FavoriteAction';
-import FavoriteItem from '../../components/MyPageComponents/FavoriteItem';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
-import { H2styled } from '../../styledcomponents/Favorite.styled';
 import MypageInfo from '../../components/MyPageComponents/MypageInfo';
 import { AnidataTs } from 'src/model/Animation';
 import { AxiosResponse } from 'axios';
+import MyFavoriteTap from 'src/components/MyPageComponents/MyFavoriteTap';
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -53,42 +52,14 @@ const Mypage = () => {
   return (
     <>
       <Row>
-        <MypageInfo></MypageInfo> {/* 회원정보 출력하는곳 md={3} 설정*/}
+        <Col md={3}>
+          <MypageInfo></MypageInfo> {/* 회원정보 출력 컴포넌트 */}
+        </Col>
         <Col md={9}>
-          {AllRank ? (
-            <Tabs
-              defaultActiveKey="보관함"
-              id="fill-tab-example"
-              className="mb-3"
-              fill
-            >
-              <Tab eventKey="보관함" title="보관함 목록">
-                <Row className="anicardCol">
-                  {FavoriteList.length <= 0 ? (
-                    <H2styled>보관함이 텅 비었어요.</H2styled>
-                  ) : (
-                    FavoriteList.map((FavoriteList) => (
-                      <FavoriteItem
-                        key={FavoriteList.id}
-                        FavoriteList={FavoriteList}
-                      />
-                    ))
-                  )}
-                </Row>
-              </Tab>
-              <Tab eventKey="최근본 작품" title="최근본 작품">
-                <Row className="anicardCol">
-                  {AllRank.length <= 0 ? (
-                    <H2styled>최근본 작품이 없어요.</H2styled>
-                  ) : (
-                    AllRank.map((AllRank) => (
-                      <FavoriteItem key={AllRank.id} FavoriteList={AllRank} />
-                    ))
-                  )}
-                </Row>
-              </Tab>
-            </Tabs>
-          ) : null}
+          {AllRank && (
+            <MyFavoriteTap AllRank={AllRank} FavoriteList={FavoriteList} />
+          )}
+          {/* 회원 보관함 리스트 컴포넌트 */}
         </Col>
       </Row>
     </>

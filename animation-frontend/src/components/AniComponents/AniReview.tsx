@@ -28,18 +28,12 @@ const AniReview = ({ Ani_Id }: OwnProps) => {
   const [clickRating, setClickRating] = useState<number>(0);
   const loginID: string | null = window.sessionStorage.getItem('loginID');
   const [Loading, setLoading] = useState<boolean>(true);
-  const ReuseEffect = useSelector(
-    (state: RootState) => state.AniState.ReuseEffect,
-  );
-  const ReviewUpdateMode = useSelector(
-    (state: RootState) => state.AniState.ReviewUpdateMode,
-  );
-  const ReviewUpdateModeId = useSelector(
-    (state: RootState) => state.AniState.ReviewUpdateModeId,
-  );
-  const ReviewUpdateModeText = useSelector(
-    (state: RootState) => state.AniState.ReviewUpdateModeText,
-  );
+  const {
+    ReuseEffect,
+    ReviewUpdateMode,
+    ReviewUpdateModeId,
+    ReviewUpdateModeText,
+  } = useSelector((state: RootState) => state.AniState);
 
   const [starReviews, setStarReviews] = useState<string[]>([
     '별점을 추가해보세요!',

@@ -28,21 +28,29 @@ function AllList() {
     const fetchData = async () => {
       try {
         let res: AxiosResponse<AnidataTs[]>;
-        if (OderByAniCounter) {
+        if (AniPage > 0 && !filterTF) {
           res = await axiosAPI.get(
-            `/Ani/ALLOderByConter?page=${AniPage}&admin=no`,
+            `/Ani/${
+              OderByAniCounter ? 'ALLOderByConter' : 'ALL'
+            }?page=${AniPage}&admin=no`,
           );
+          setAnidata((prevData) => [...prevData, ...res.data]);
         } else {
-          res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}&admin=no`);
+          res = await axiosAPI.get(
+            `/Ani/${
+              OderByAniCounter ? 'ALLOderByConter' : 'ALL'
+            }?page=${AniPage}&admin=no`,
+          );
+          setAnidata(res.data);
         }
-
-        setAnidata(res.data);
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
-  }, [OderByAniCounter, ReuseEffect]);
+  }, [AniPage, OderByAniCounter, ReuseEffect, filterTF]);
+
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
@@ -75,28 +83,6 @@ function AllList() {
     };
   }, []);
 
-  useEffect(() => {
-    if (AniPage > 0 && !filterTF) {
-      const fetchData = async () => {
-        try {
-          let res: AxiosResponse<AnidataTs[]>;
-          if (OderByAniCounter) {
-            res = await axiosAPI.get(
-              `/Ani/ALLOderByConter?page=${AniPage}&admin=no`,
-            );
-          } else {
-            res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}&admin=no`);
-          }
-          // console.log(res.data);
-          setAnidata((Anidata) => [...Anidata, ...res.data]);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
-    }
-  }, [AniPage]);
-
   return (
     <>
       <Search setAnidata={setAnidata} />
@@ -118,6 +104,7 @@ function AllList() {
       <Row style={{ margin: '10px auto' }}>
         <Col md={2} sm={2} className="d-none d-sm-block">
           <Genrefilter setAnidata={setAnidata} setPage={setPage}></Genrefilter>
+          {/*필터 컴포넌트 */}
         </Col>
 
         {loading ? (

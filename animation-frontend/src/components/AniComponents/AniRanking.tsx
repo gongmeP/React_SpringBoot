@@ -1,13 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AniImg } from '../../styledcomponents/AniDetail.styled';
 import { useState } from 'react';
-import ItemsCarousel from 'react-items-carousel';
-import { Button } from 'react-bootstrap';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { AnidataTs } from 'src/model/Animation';
 import AniItemsCarousel from './AniItemsCarousel';
+import AniRankingButton from './AniRankingButton';
 
 const AniRanking = () => {
   const [AllRank, setAllRank] = useState<AnidataTs[]>([]);
@@ -28,11 +25,6 @@ const AniRanking = () => {
     AniAllRanking();
   }, [ButtonActive]);
 
-  const RangkingDataOn = (day: string) => {
-    setActiveItemIndex(0);
-    setButtonActive(day);
-  };
-
   return (
     <>
       {AllRank.length > 0 && (
@@ -40,35 +32,12 @@ const AniRanking = () => {
           <h3 style={{ marginTop: '10px', marginBottom: '20px' }}>
             인기 애니 TOP10
           </h3>
-          <div>
-            <Button
-              variant="secondary"
-              className={`mb-3 RankingButton ${
-                ButtonActive === 'today' ? 'ButtonActive' : ''
-              }`}
-              onClick={() => RangkingDataOn('today')}
-            >
-              일간
-            </Button>
-            <Button
-              variant="secondary"
-              className={`mb-3 RankingButton ${
-                ButtonActive === 'thisWeek' ? 'ButtonActive' : ''
-              }`}
-              onClick={() => RangkingDataOn('thisWeek')}
-            >
-              주간
-            </Button>
-            <Button
-              variant="secondary"
-              className={`mb-3 RankingButton ${
-                ButtonActive === 'allTime' ? 'ButtonActive' : ''
-              }`}
-              onClick={() => RangkingDataOn('allTime')}
-            >
-              역대
-            </Button>
-          </div>
+          <AniRankingButton
+            setActiveItemIndex={setActiveItemIndex}
+            setButtonActive={setButtonActive}
+            ButtonActive={ButtonActive}
+          ></AniRankingButton>
+          {/*애니 랭킹 버튼 컴포넌트*/}
 
           <AniItemsCarousel
             AllAniData={AllRank}
@@ -76,6 +45,7 @@ const AniRanking = () => {
             activeItemIndex={activeItemIndex}
             RankAniItem={true}
           ></AniItemsCarousel>
+          {/*애니 슬라이드 컴포넌트*/}
         </>
       )}
     </>

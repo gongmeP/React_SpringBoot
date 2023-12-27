@@ -22,11 +22,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axiosAPI from '../../axiosAPI';
 import { useSelector } from 'react-redux';
-import {
-  setReuseEffect,
-  setReviewUpdateMode,
-  setReviewUpdateModeIdAndText,
-} from '../../Redux/AniAction';
+import { setReuseEffect } from '../../Redux/AniAction';
 import store, { RootState } from '../../Redux/store';
 import { AniReviewLikeTs, AniReviewTs } from 'src/model/Animation';
 import DateTime from '../DateTimeComponents/DateTime';

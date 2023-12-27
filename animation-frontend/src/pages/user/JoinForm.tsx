@@ -18,13 +18,9 @@ const JoinForm = () => {
   useEffect(() => {
     async function fetchAgreementText(url: string) {
       try {
-        const response = await fetch(url);
-        if (response.ok) {
-          const text = await response.text();
-          return text;
-        } else {
-          throw new Error('Failed to fetch data.');
-        }
+        const res = await fetch(url);
+        const text = await res.text();
+        return text;
       } catch (error) {
         console.error(error);
         return '';
@@ -45,7 +41,6 @@ const JoinForm = () => {
     if (agCk1) {
       agCk1.checked = isChecked;
     }
-
     if (agCk2) {
       agCk2.checked = isChecked;
     }

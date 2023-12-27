@@ -69,3 +69,15 @@ export const AgreeCheckEm = styled.div`
   font-weight: bold;
   display: inline;
 `;
+
+export const LogingBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LogingButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

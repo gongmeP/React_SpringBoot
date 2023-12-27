@@ -34,26 +34,30 @@ function AllList() {
     const fetchData = async () => {
       try {
         let res: AxiosResponse<AnidataTs[]>;
-        if (OderByAniCounter) {
+        if (AniPage > 0 && !filterTF) {
           res = await axiosAPI.get(
-            `/Ani/ALLOderByConter?page=${AniPage}&admin=admin`,
+            `/Ani/${
+              OderByAniCounter ? 'ALLOderByConter' : 'ALL'
+            }?page=${AniPage}&admin=no`,
           );
+          setAnidata((prevData) => [...prevData, ...res.data]);
         } else {
-          res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}&admin=admin`);
+          res = await axiosAPI.get(
+            `/Ani/${
+              OderByAniCounter ? 'ALLOderByConter' : 'ALL'
+            }?page=${AniPage}&admin=no`,
+          );
+          setAnidata(res.data);
         }
-
-        setAnidata(res.data);
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
-  }, [OderByAniCounter, ReuseEffect]);
+  }, [AniPage, OderByAniCounter, ReuseEffect, filterTF]);
 
   const [showMenu, setShowMenu] = useState(false);
-  const handleMenuToggle = () => {
-    setShowMenu((prevShowMenu) => !prevShowMenu);
-  };
 
   useEffect(() => {
     function ScrollBottom() {
@@ -85,29 +89,6 @@ function AllList() {
     };
   }, []);
 
-  useEffect(() => {
-    if (AniPage > 0 && !filterTF) {
-      const fetchData = async () => {
-        try {
-          let res: AxiosResponse<AnidataTs[]>;
-          if (OderByAniCounter) {
-            res = await axiosAPI.get(
-              `/Ani/ALLOderByConter?page=${AniPage}&admin=admin`,
-            );
-          } else {
-            res = await axiosAPI.get(`/Ani/ALL?page=${AniPage}&admin=admin`);
-          }
-
-          setAnidata((Anidata) => [...Anidata, ...res.data]);
-        } catch (error) {
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
-    }
-  }, [AniPage]);
-
   return (
     <>
       <Search setAnidata={setAnidata}></Search> {/*검색 컴포넌트 여기 */}
@@ -127,7 +108,7 @@ function AllList() {
       <Row style={{ margin: '10px auto' }}>
         <Col md={2} sm={2} className="d-none d-sm-block">
           <Genrefilter setAnidata={setAnidata} setPage={setPage}></Genrefilter>{' '}
-          {/*필터 컴포넌트 여기 */}
+          {/*필터 컴포넌트 */}
         </Col>
 
         {loading ? (

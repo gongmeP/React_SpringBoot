@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import store from '../../Redux/store';
 import { loginSuccess } from '../../Redux/LoginAction';
-import axios from 'axios';
 import axiosAPI from '../../axiosAPI';
+import {
+  LogingBox,
+  LogingButtonBox,
+} from 'src/styledcomponents/JoinForm.styled';
 
 const Login = () => {
   const [id, setId] = useState<string>('test1');
@@ -28,7 +30,7 @@ const Login = () => {
 
   return (
     <Container>
-      <div className="d-flex justify-content-center align-items-center">
+      <LogingBox>
         <Form style={{ width: '80%' }} onSubmit={Logingo}>
           <h2 className="text-center mb-4">회원 로그인</h2>
           <Form.Group controlId="text" className="mb-4">
@@ -49,7 +51,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          <div className="d-flex justify-content-center">
+          <LogingButtonBox>
             <Button
               variant="primary"
               type="submit"
@@ -58,9 +60,9 @@ const Login = () => {
             >
               로그인
             </Button>
-          </div>
+          </LogingButtonBox>
         </Form>
-      </div>
+      </LogingBox>
     </Container>
   );
 };

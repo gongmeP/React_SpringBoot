@@ -50,7 +50,7 @@ const MypageInfo = () => {
   return (
     <>
       {Loding ? (
-        <Col md={3}>
+        <>
           <MainInfoDivStyeld>회원 정보</MainInfoDivStyeld>
           <InfoDivStyled>
             <InfoImgStyled src="./projectimg/myinfo/myinfo.png"></InfoImgStyled>
@@ -83,7 +83,7 @@ const MypageInfo = () => {
               회원정보 수정
             </Button>
           </InfoDivStyled>
-        </Col>
+        </>
       ) : null}
     </>
   );
