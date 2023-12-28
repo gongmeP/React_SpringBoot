@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import store from '../../Redux/store';
 import { loginSuccess } from '../../Redux/LoginAction';
 import axiosAPI from '../../axiosAPI';
-import LoginComponenets from 'src/components/UserComponents/LoginComponenets';
+import LoginComponenets from 'src/components/UserJoinComponents/LoginComponenets';
 
 const Login = () => {
   const [id, setId] = useState<string>('test1');

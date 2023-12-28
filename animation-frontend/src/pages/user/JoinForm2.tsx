@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI';
 import { UserdataTs } from 'src/model/User';
-import Join2Components from 'src/components/UserComponents/Join2Components';
+import Join2Components from 'src/components/UserJoinComponents/Join2Components';
 
 const JoinForm2 = () => {
   const [idcheckok, setIdcheckok] = useState(false);

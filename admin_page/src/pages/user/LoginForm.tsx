@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
 import store from '../../Redux/store';
 import { loginSuccess } from '../../Redux/LoginAction';
 import axiosAPI from '../../axiosAPI';
-import {
-  LogingBox,
-  LogingButtonBox,
-} from 'src/styledcomponents/JoinForm.styled';
+import LoginComponenets from 'src/components/UserJoinComponents/LoginComponenets';
 
 const Login = () => {
   const [id, setId] = useState<string>('Alladmin');
@@ -33,36 +29,13 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <LogingBox>
-        <Form style={{ width: '70%' }} onSubmit={Logingo}>
-          <h2 className="text-center mb-4">관리자 로그인</h2>
-          <Form.Group controlId="text" className="mb-4">
-            <Form.Label>아이디</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="아이디를 입력하세요"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="password" className="mb-5">
-            <Form.Label>비밀번호</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="비밀번호를 입력하세요"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Group>
-          <LogingButtonBox>
-            <Button variant="primary" type="submit" style={{ width: '70%' }}>
-              로그인
-            </Button>
-          </LogingButtonBox>
-        </Form>
-      </LogingBox>
-    </Container>
+    <LoginComponenets
+      id={id}
+      password={password}
+      setId={setId}
+      setPassword={setPassword}
+      Logingo={Logingo}
+    />
   );
 };
 

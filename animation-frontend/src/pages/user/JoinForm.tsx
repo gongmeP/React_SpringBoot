@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Join1Components from 'src/components/UserComponents/Join1Components';
+import Join1Components from 'src/components/UserJoinComponents/Join1Components';
 const JoinForm = () => {
   const [agreementText1, setAgreementText1] = useState<string>('');
   const [agreementText2, setAgreementText2] = useState<string>('');
