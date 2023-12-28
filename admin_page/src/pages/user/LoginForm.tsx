@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <Container>
       <LogingBox>
-        <Form style={{ width: '80%' }} onSubmit={Logingo}>
+        <Form style={{ width: '70%' }} onSubmit={Logingo}>
           <h2 className="text-center mb-4">관리자 로그인</h2>
           <Form.Group controlId="text" className="mb-4">
             <Form.Label>아이디</Form.Label>
@@ -56,7 +56,7 @@ const Login = () => {
             />
           </Form.Group>
           <LogingButtonBox>
-            <Button variant="primary" type="submit" style={{ width: '80%' }}>
+            <Button variant="primary" type="submit" style={{ width: '70%' }}>
               로그인
             </Button>
           </LogingButtonBox>
