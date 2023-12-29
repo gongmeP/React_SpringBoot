@@ -6,6 +6,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { BoardFormDataTs } from 'src/model/Board';
+import BoardSaveForm from 'src/components/BoardComponents/BoardSaveForm';
+import BoardUpdateForm from 'src/components/BoardComponents/BoardUpdateForm';
 
 const UpdateFreeBoard = () => {
   const { fbNum } = useParams();
@@ -132,58 +134,16 @@ const UpdateFreeBoard = () => {
     <>
       {formData !== null && (
         <>
-          <div className="container">
-            <Form onSubmit={Updategogos}>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  placeholder="제목을 입력하세요"
-                  type="text"
-                  name="fbTitle"
-                  value={formData.fbTitle}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3">
-                <CKEditor
-                  editor={ClassicEditor}
-                  config={{
-                    extraPlugins: [uploadPlugin],
-                    placeholder: '내용을 입력하세요',
-                  }}
-                  data={addtext}
-                  onReady={(editor) => {}}
-                  onChange={(event, editor) => {
-                    const data = editor.getData();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(data, 'text/html');
-                    const textContent = doc.body.textContent;
-
-                    setTextContent({
-                      ...TextContent,
-                      retextContent: textContent || '',
-                    });
-                  }}
-                  onBlur={(event, editor) => {
-                    // console.log('Blur.', editor);
-                  }}
-                  onFocus={(event, editor) => {
-                    // console.log('Focus.', editor);
-                  }}
-                />
-              </Form.Group>
-              <div style={{ display: 'flex', justifyContent: 'end' }}>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  style={{ marginRight: '20px' }}
-                  className="PupleColorButton1"
-                >
-                  수정 저장
-                </Button>
-              </div>
-            </Form>
-          </div>
+          <BoardUpdateForm
+            handelSubmit={Updategogos}
+            TextContent={TextContent}
+            setTextContent={setTextContent}
+            handleChange={handleChange}
+            uploadPlugin={uploadPlugin}
+            fbTitle={formData.fbTitle}
+            fbContent={formData.fbContent}
+            buttonText="게시글 수정"
+          ></BoardUpdateForm>
         </>
       )}
     </>

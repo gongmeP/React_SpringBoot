@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { BoardFormDataTs, BoardTs } from 'src/model/Board';
+import BoardSaveForm from 'src/components/BoardComponents/BoardSaveForm';
 
 function SaveFreeBoard() {
   const navigate = useNavigate();
@@ -107,54 +104,18 @@ function SaveFreeBoard() {
   }
 
   return (
-    <div className="container">
-      <Form onSubmit={SaveFreeBoardGo}>
-        <Form.Group className="mb-3">
-          <Form.Control
-            placeholder="제목을 입력하세요"
-            type="text"
-            name="fbTitle"
-            value={formData.fbTitle}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <CKEditor
-            editor={ClassicEditor}
-            config={{
-              extraPlugins: [uploadPlugin],
-              placeholder: '내용을 입력하세요',
-            }}
-            data=""
-            onReady={(editor) => {}}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(data, 'text/html');
-              const textContent = doc.body.textContent;
-
-              setFormData({ ...formData, fbContent: textContent });
-            }}
-            onBlur={(event, editor) => {
-              // console.log('Blur.', editor);
-            }}
-            onFocus={(event, editor) => {
-              // console.log('Focus.', editor);
-            }}
-          />
-        </Form.Group>
-        <div style={{ display: 'flex', justifyContent: 'end' }}>
-          <Button
-            className="PupleColorButton1"
-            variant="primary"
-            type="submit"
-            style={{ marginRight: '20px' }}
-          >
-            게시글 등록
-          </Button>
-        </div>
-      </Form>
-    </div>
+    <>
+      <BoardSaveForm
+        handelSubmit={SaveFreeBoardGo}
+        formData={formData}
+        handleChange={handleChange}
+        uploadPlugin={uploadPlugin}
+        setFormData={setFormData}
+        fbTitle=""
+        fbContent=""
+        buttonText="게시글 등록"
+      ></BoardSaveForm>
+    </>
   );
 }
 

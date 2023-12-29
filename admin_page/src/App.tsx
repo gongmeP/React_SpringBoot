@@ -9,7 +9,6 @@ import LoginForm from './pages/user/LoginForm';
 import UpdateForm from './pages/animation/UpdateForm';
 import JoinForm2 from './pages/user/JoinForm2';
 import Footer from './components/MainComponents/Footer';
-import SaveFreeBoard from './pages/FreeBoard/SaveFreeBoard';
 import FreeBoard from './pages/FreeBoard/FreeBoard';
 import DetailFreeBoard from './pages/FreeBoard/DetailFreeBoard';
 import UpdateFreeBoard from './pages/FreeBoard/UpdateFreeBoard';
@@ -40,7 +39,7 @@ const App = () => {
               <Route path="/loginForm" element={<LoginForm />} />
               <Route path="/updateForm/:id" element={<UpdateForm />} />
               <Route path="/freeBoard" element={<FreeBoard />} />
-              <Route path="/saveFreeBoard" element={<SaveFreeBoard />} />
+
               <Route
                 path="/detailFreeBoard/:fbNum"
                 element={<DetailFreeBoard />}
