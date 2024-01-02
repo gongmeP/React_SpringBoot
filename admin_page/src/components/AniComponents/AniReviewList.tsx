@@ -113,17 +113,10 @@ const AniReviewList = ({ Ani_Id }: OwnProps) => {
               <Pstyled2>리뷰({ReViewData.length})</Pstyled2>
             </Col>
             <Col>
-              {OderByLike ? (
-                <Pstyled3 onClick={OderByLikeClick}>
-                  좋아요순
-                  <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
-                </Pstyled3>
-              ) : (
-                <Pstyled3 onClick={OderByLikeClick}>
-                  최신순
-                  <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
-                </Pstyled3>
-              )}
+              <Pstyled3 onClick={OderByLikeClick}>
+                {OderByLike ? '좋아요순' : '최신순'}
+                <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
+              </Pstyled3>
             </Col>
           </Row>
           {ReViewData.map((data) => (

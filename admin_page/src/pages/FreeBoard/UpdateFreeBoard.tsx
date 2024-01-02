@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosAPI, { API_URL } from '../../axiosAPI';
 import { BoardFormDataTs } from 'src/model/Board';
 import BoardUpdateForm from 'src/components/BoardComponents/BoardUpdateForm';

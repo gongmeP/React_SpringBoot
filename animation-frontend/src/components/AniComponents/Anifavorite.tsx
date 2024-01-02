@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosAPI from 'src/axiosAPI';
 import { AnidataTs } from 'src/model/Animation';
-import {
-  PlayDiv_Styled,
-  PlayImg_Styled,
-} from 'src/styledcomponents/AniDetail.styled';
+import FavoriteButton from './FavoriteButton';
 
 interface AnifavoriteOwnprops {
   detailAni: AnidataTs;
@@ -94,28 +91,26 @@ const Anifavorite = ({
     <>
       {!Loading && favoriteOK && (
         <>
-          <PlayImg_Styled
-            src="../projectimg/button/play.png"
+          <FavoriteButton
+            imgname={'../projectimg/button/play.png'}
             onClick={Playvideo}
+            text={'재생하기'}
           />
-          <PlayDiv_Styled onClick={Playvideo}>재생하기</PlayDiv_Styled>
           {favoriteOK === '보관함 있음' ? (
             <>
-              <PlayImg_Styled
-                src="../projectimg/button/minus.png"
+              <FavoriteButton
+                imgname={'../projectimg/button/minus.png'}
                 onClick={favoriteDelete}
+                text={'보관함 제거'}
               />
-              <PlayDiv_Styled onClick={favoriteDelete}>
-                보관함 제거
-              </PlayDiv_Styled>
             </>
           ) : (
             <>
-              <PlayImg_Styled
-                src="../projectimg/button/plus.png"
+              <FavoriteButton
+                imgname={'../projectimg/button/plus.png'}
                 onClick={favorite}
+                text={'보관함 추가'}
               />
-              <PlayDiv_Styled onClick={favorite}>보관함 추가</PlayDiv_Styled>
             </>
           )}
         </>

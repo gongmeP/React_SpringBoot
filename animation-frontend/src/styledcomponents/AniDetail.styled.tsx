@@ -63,6 +63,7 @@ export const PlayImg_Styled = styled.img`
   height: 3.75rem;
   width: 3.75rem;
   cursor: pointer;
+  margin-right: 5px;
 `;
 
 export const PlayDiv_Styled = styled.div`

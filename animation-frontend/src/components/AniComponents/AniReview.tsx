@@ -1,23 +1,16 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import {
-  AniReviewH3styled,
-  AniStarDiv,
-  AniStarImg,
-  AniStarReview,
-  Pstyled,
-  ReviewText,
-  ReviewTextBoxDiv,
-  ReviewTextButton,
-} from '../../styledcomponents/AniReview.styled';
 import axiosAPI from '../../axiosAPI';
 import {
   setReuseEffect,
+  setReviewUpdateMode,
   setReviewUpdateModeIdAndText,
 } from '../../Redux/AniAction';
 import store, { RootState } from '../../Redux/store';
 import { useSelector } from 'react-redux';
+import ReviewStar from './ReviewStar';
+import ReviewAddButton from './ReviewAddButton';
 
 interface OwnProps {
   Ani_Id: number;
@@ -142,6 +135,7 @@ const AniReview = ({ Ani_Id }: OwnProps) => {
       if (res2.data === '리뷰업데이트 완료') {
         alert('리뷰가 수정되었습니다.');
         store.dispatch(setReuseEffect(ReuseEffect + 1));
+        store.dispatch(setReviewUpdateMode(false));
       } else {
         alert('리뷰 수정실패');
       }
@@ -153,49 +147,33 @@ const AniReview = ({ Ani_Id }: OwnProps) => {
       {!Loading ? (
         <Row style={{ marginTop: '20px', borderTop: '1px solid lightgray' }}>
           <Col md={5} style={{ marginTop: '10px' }}>
-            <Pstyled>별점</Pstyled>
-            <AniReviewH3styled>{Rating} 점</AniReviewH3styled>
-            <AniStarReview>{starReviews[Rating]}</AniStarReview>
-            <AniStarDiv onMouseLeave={StarOut}>
-              {[...Array(5)].map((_, index) => (
-                <AniStarImg
-                  key={index}
-                  src={
-                    index < Rating
-                      ? '/projectimg/star/star2.png'
-                      : '/projectimg/star/star1.png'
-                  }
-                  onMouseOver={() => StarChange(index)}
-                  onClick={() => StarRatingIn()}
-                ></AniStarImg>
-              ))}
-            </AniStarDiv>
+            <ReviewStar
+              Rating={Rating}
+              starReviews={starReviews}
+              StarOut={StarOut}
+              StarChange={StarChange}
+              StarRatingIn={StarRatingIn}
+            ></ReviewStar>
           </Col>
           {ReviewUpdateMode ? (
             <Col md={7} style={{ marginTop: '10px' }}>
-              <Pstyled>리뷰 수정</Pstyled>
-              <ReviewTextBoxDiv>
-                <ReviewText
-                  onChange={ReviewUpdateTextIn}
-                  value={ReviewUpdateModeText}
-                ></ReviewText>
-                <ReviewTextButton onClick={ReviewUpdateClick}>
-                  수정
-                </ReviewTextButton>
-              </ReviewTextBoxDiv>
+              <ReviewAddButton
+                TextInChange={ReviewUpdateTextIn}
+                text={ReviewUpdateModeText}
+                ReviewTextAdd={ReviewUpdateClick}
+                buttontext={'수정'}
+                headtext={'리뷰 수정'}
+              ></ReviewAddButton>
             </Col>
           ) : (
             <Col md={7} style={{ marginTop: '10px' }}>
-              <Pstyled>리뷰 작성</Pstyled>
-              <ReviewTextBoxDiv>
-                <ReviewText
-                  onChange={ReviewTextIn}
-                  value={reviewText}
-                ></ReviewText>
-                <ReviewTextButton onClick={ReviewTextAdd}>
-                  등록
-                </ReviewTextButton>
-              </ReviewTextBoxDiv>
+              <ReviewAddButton
+                TextInChange={ReviewTextIn}
+                text={reviewText}
+                ReviewTextAdd={ReviewTextAdd}
+                buttontext={'등록'}
+                headtext={'리뷰 작성'}
+              ></ReviewAddButton>
             </Col>
           )}
         </Row>
