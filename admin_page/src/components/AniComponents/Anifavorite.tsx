@@ -15,7 +15,6 @@ interface AnifavoriteOwnprops {
 const Anifavorite = ({
   detailAni,
   id,
-  setFavoriteOK,
   favoriteOK,
   Loading,
 }: AnifavoriteOwnprops) => {

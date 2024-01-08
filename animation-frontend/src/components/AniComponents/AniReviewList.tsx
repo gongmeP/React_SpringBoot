@@ -1,22 +1,8 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import {
-  AniOderBy,
-  AniReviewEm,
-  AniReviewEm2,
-  AniReviewListDiv,
-  AniReviewListDivBox,
-  AniReviewListFooter,
-  AniReviewListLi,
-  AniReviewListLi2,
-  AniReviewListUl,
-  AniReviewListUsername,
   AniRreiewListCol,
-  AniStarImgList,
-  FooterUD,
-  LlikeImg,
   Pstyled2,
-  Pstyled3,
 } from '../../styledcomponents/AniReview.styled';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -29,7 +15,8 @@ import {
 } from '../../Redux/AniAction';
 import store, { RootState } from '../../Redux/store';
 import { AniReviewLikeTs, AniReviewTs } from 'src/model/Animation';
-import DateTime from '../DateTimeComponents/DateTime';
+import ReviewOrderBy from './ReviewOrderBy';
+import ReviewListBox from './ReviewListBox';
 
 interface OwnProps {
   Ani_Id: number;
@@ -126,10 +113,13 @@ const AniReviewList = ({ Ani_Id }: OwnProps) => {
               <Pstyled2>리뷰({ReViewData.length})</Pstyled2>
             </Col>
             <Col>
-              <Pstyled3 onClick={OderByLikeClick}>
-                {OderByLike ? '좋아요순' : '최신순'}
-                <AniOderBy src="/projectimg/oderby/oderby.png"></AniOderBy>
-              </Pstyled3>
+              <ReviewOrderBy
+                Before={'좋아요순'}
+                After={'최신순'}
+                OderByClick={OderByLikeClick}
+                OderByLike={OderByLike}
+              ></ReviewOrderBy>
+              {/*orderby 컴포넌트*/}
             </Col>
           </Row>
           {ReViewData.map((data) => (
@@ -138,60 +128,15 @@ const AniReviewList = ({ Ani_Id }: OwnProps) => {
               style={{ borderBottom: '1px solid lightgray' }}
             >
               <AniRreiewListCol>
-                <AniReviewListDivBox>
-                  <AniReviewListUl>
-                    <AniReviewListLi>
-                      {[...Array(5)].map((_, index) => (
-                        <AniStarImgList
-                          key={index}
-                          src={
-                            index < data.rating
-                              ? '/projectimg/star/star2.png'
-                              : '/projectimg/star/star1.png'
-                          }
-                        ></AniStarImgList>
-                      ))}
-                      <AniReviewEm>{data.rating}점</AniReviewEm>
-                    </AniReviewListLi>
-                    <AniReviewListLi2>
-                      <DateTime DateData={data.reviewDate}></DateTime>
-                    </AniReviewListLi2>
-                  </AniReviewListUl>
-                  <AniReviewListUsername>
-                    {data.memberMid}
-                  </AniReviewListUsername>
-                </AniReviewListDivBox>
-                <AniReviewListDiv>{data.reviewText}</AniReviewListDiv>
-                <AniReviewListFooter>
-                  <div
-                    onClick={() => {
-                      LikeUp(data.reviewId, data.memberMid);
-                    }}
-                    style={{ cursor: 'pointer', width: '40px' }}
-                  >
-                    {LikeList.includes(data.reviewId) ? (
-                      <LlikeImg src="/projectimg/likes/free-icon1.png"></LlikeImg>
-                    ) : (
-                      <LlikeImg src="/projectimg/likes/free-icon2.png"></LlikeImg>
-                    )}
-
-                    <AniReviewEm2>{data.likes}</AniReviewEm2>
-                  </div>
-                  {loginID === data.memberMid && (
-                    <AniReviewListFooter>
-                      <FooterUD
-                        onClick={() =>
-                          ReviewUpdate(data.reviewId, data.reviewText)
-                        }
-                      >
-                        수정
-                      </FooterUD>
-                      <FooterUD onClick={() => ReviewDelete(data.reviewId)}>
-                        삭제
-                      </FooterUD>
-                    </AniReviewListFooter>
-                  )}
-                </AniReviewListFooter>
+                <ReviewListBox
+                  LikeUp={LikeUp}
+                  data={data}
+                  LikeList={LikeList}
+                  loginID={loginID}
+                  ReviewUpdate={ReviewUpdate}
+                  ReviewDelete={ReviewDelete}
+                ></ReviewListBox>
+                {/*리뷰 Box 컴포넌트*/}
               </AniRreiewListCol>
             </Row>
           ))}

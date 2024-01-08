@@ -153,3 +153,8 @@ export const FooterUD = styled.div`
   line-height: 24px;
   cursor: pointer;
 `;
+
+export const LikeUpBox = styled.div`
+  cursor: pointer;
+  width: 40px;
+`;
