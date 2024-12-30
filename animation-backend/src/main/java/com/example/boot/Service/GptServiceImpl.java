@@ -10,6 +10,16 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
+import com.example.boot.Config.GptConfig;
+import com.example.boot.Entity.GptRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+
 @Service
 public class GptServiceImpl implements GptService {
 
@@ -58,3 +68,4 @@ public class GptServiceImpl implements GptService {
         return objectMapper.convertValue(gptRequest, Map.class);
     }
 }
+

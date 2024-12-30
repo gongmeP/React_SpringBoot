@@ -39,7 +39,11 @@ const AniItem = ({ Anidata }: AniItemProps) => {
     <Card className="anicard" key={Anidata.id}>
       <Card.Img
         variant="top"
-        src={`${API_URL}/file/AniImgFile/${Anidata.photo}`}
+        src={
+          Anidata.photo
+            ? `${API_URL}/file/AniImgFile/${Anidata.photo}`
+            : '/projectimg/anidefault123.jpg'
+        }
         onClick={Detailgo}
         style={{ cursor: 'pointer' }}
         className="anicardimg"

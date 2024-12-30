@@ -43,18 +43,13 @@ const Genrefilter = ({ setAnidata, setPage }: Ownprop) => {
   //체크될때 장르데이터 배열화 시키는 부분
   const Filter = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked === true) {
-      store.dispatch(setFilterTF(true));
-      setPage(0);
-    }
-    if (e.target.checked === true && !checkfilter.includes(e.target.id)) {
-      setCheckFiler((prevFilter) => [...prevFilter, e.target.id]);
-      store.dispatch(setFilterTF(true));
-    } else if (e.target.checked === false) {
+      if (!checkfilter.includes(e.target.id)) {
+        setCheckFiler((prevFilter) => [...prevFilter, e.target.id]);
+      }
+    } else {
       setPage(0);
 
-      if (checkfilter.length === 1) {
-        store.dispatch(setFilterTF(false));
-      }
+      // 체크 해제 시 필터에서 해당 항목 제거
       setCheckFiler((prevFilter) =>
         prevFilter.filter((id) => id !== e.target.id),
       );
