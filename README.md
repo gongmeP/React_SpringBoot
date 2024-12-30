@@ -21,10 +21,9 @@
 - npm install react-items-carousel
 - npm install typescript
 
-### AWS Server
+### Oracle Server & DB
 
-- AWS EC2
-- AWS RDS
+- VM.Standard.E2.1.Micro
 
 ### setting
 
