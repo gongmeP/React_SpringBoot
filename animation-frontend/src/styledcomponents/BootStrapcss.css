@@ -291,3 +291,27 @@
   color: #816BFF !important;
 }
 
+
+
+/* 기본 배경 색상 */
+.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark-mode {
+  background-color: #222222; 
+  color: #ffffff;
+}
+
+.btn-outline-dark {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-outline-light {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+

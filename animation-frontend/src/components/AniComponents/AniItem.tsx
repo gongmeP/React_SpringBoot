@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Row } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../axiosAPI';
 import { AnidataTs } from 'src/model/Animation';
 
